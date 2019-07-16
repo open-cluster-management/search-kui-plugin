@@ -1,0 +1,27 @@
+
+language: node_js
+node_js:
+  - "10"
+
+branches:
+  only:
+    - master
+    - /^[0-9]+\..*$/
+    - /^v[0-9]+\..*$/
+    - /^release-[0-9]+\..*$/
+
+before_script:
+  - |
+    sudo add-apt-repository ppa:git-core/ppa -y
+    sudo apt-get update
+    sudo apt-get install git -y
+    git --version
+script:
+  - npm test
+
+deploy:
+  provider: script
+  script: "npx semantic-release"
+  skip_cleanup: true
+  on:
+    branch: master

@@ -1,0 +1,102 @@
+@import '../../../node_modules/carbon-components/scss/globals/scss/_colors';
+
+
+.repl-result {
+
+  white-space: unset;
+
+.search-kui-plugin {
+  font-family: "ibm-plex-sans", Helvetica Neue, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 5% 54px;
+  width: 100vw;
+
+  .search--resource {
+    display: flex;
+    flex-direction: column;
+  
+    .search--resource-table {
+      margin-top: 2rem;
+  
+      .search--resource-table-header {
+        font-weight: 600;
+        font-size: 1.125rem;
+        margin-bottom: 0.5rem;
+        color: $ibm-color__blue-90;
+        text-transform: capitalize;
+  
+        &-button {
+          display: flex;
+          align-items: center;
+          border: none;
+          background-color: transparent;
+          color: $ibm-color__cool-gray-100;
+          font-weight: 600;
+          font-size: 1.125rem;
+          padding: 0rem;
+          margin-bottom: 0.5rem;
+          text-transform: capitalize;
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+  
+          &-icon {
+            fill: $ibm-color__blue-90;
+            width: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+  
+  .search--results-view {
+    margin-top: 2rem;
+  }
+  
+  .spacer {
+    width: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .search-notification{
+      background: $ibm-color__white-0;
+    }
+  }
+}
+
+
+.bx--data-table {
+
+  font-size: 0.875rem;
+
+  .bx--data-table-v2-header {
+    text-transform: capitalize;
+    font-size: 1rem;
+  }
+
+  .bx--table-sort-v2 {
+    background: transparent;
+    border: none;
+    text-transform: uppercase;
+    font-size: small;
+  }
+
+  tbody {
+
+    tr {
+      &:hover{
+        border: 1px solid #f3f7fb;
+      }
+
+      &:nth-child(2n) {
+        background-color:#f4f7fb;
+      }
+      td {
+        background: transparent
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "@kui-shell/search-kui-plugin",
+  "version": "0.0.0-semantically-released",
+  "description": "KUI plugin for MCM/ICP Search.",
+  "author": "IBM Multicloud Manager/Cloud Private",
+  "license": "ISC",
+  "keywords": [
+    "kui",
+    "plugin",
+    "search",
+    "icp",
+    "mcm"
+  ],
+  "main": "plugin.js",
+  "private": true,
+  "scripts": {
+    "semantic-release": "semantic-release",
+    "commit": "git-cz",
+    "test": "echo \"Error: no test specified\"",
+    "scss": "sass --watch src/src-web/styles/index.scss src/src-web/styles/index.css"
+  },
+  "dependencies": {
+    "carbon-components": "^10.3.2",
+    "carbon-components-react": "^7.3.2",
+    "graphql": "^14.4.1",
+    "lodash": "^4.17.5",
+    "nconf": "^0.10.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "commitizen": "^3.1.1",
+    "ghooks": "^2.0.4",
+    "sass": "^1.22.1",
+    "semantic-release": "^15.13.18",
+    "@types/lodash": "^4.14.135",
+    "@types/react": "^16.8.21",
+    "@types/react-dom": "^16.8.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "npm test"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.ibm.com/IBMPrivateCloud/search-kui-plugin"
+  },
+  "release": {
+    "branch": "master"
+  }
+}
