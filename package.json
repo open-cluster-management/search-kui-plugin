@@ -60,7 +60,7 @@
         {
           "assets": [
             {
-              "path": "./search-kui-plugin.tgz",
+              "path": "./plugin-search.tgz",
               "label": "KUI plugin-search package"
             }
           ]
