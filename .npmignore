@@ -1,0 +1,8 @@
+.gitignore
+.travis.yml
+package-lock.json
+tsconfig.json
+src
+CHANGELOG.md
+node_modules
+.DS_Store

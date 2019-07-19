@@ -9,14 +9,28 @@ branches:
     - /^v[0-9]+\..*$/
     - /^release-[0-9]+\..*$/
 
+install:
+  - |
+    npm install -g typescript
+    npm install
+
 before_script:
   - |
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update
     sudo apt-get install git -y
     git --version
+
 script:
   - npm test
+  - |
+      if [[ "$TRAVIS_EVENT_TYPE" != "pull_request" ]]; then
+        tsc
+        cp -r ./src/* ./
+        ls -a
+        npm pack
+        mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
+      fi
 
 deploy:
   provider: script

@@ -1,1 +1,6 @@
-/node_modules
+dist
+build
+.DS_Store
+node_modules
+kui-shell-search-kui-plugin-0.0.0-semantically-released.tgz
+search-kui-plugin.tgz
