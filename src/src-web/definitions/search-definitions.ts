@@ -258,6 +258,16 @@ export default {
     ],
     actions: [],
   },
+  savedSearches: {
+    columns: [
+      { key: 'name' },
+      { key: 'description' },
+      { key: 'searchText' }
+    ],
+    actions: [
+      'table.actions.remove'
+    ]
+  },
   secret: {
     columns: [
       { key: 'name' },

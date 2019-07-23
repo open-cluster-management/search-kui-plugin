@@ -15,11 +15,13 @@
  */
 
 import search from './src-web/controller/search'
+import savedSearch from './src-web/controller/savedSearch';
 
 import { CommandRegistrar } from '@kui-shell/core/models/command'
 
 export default async (commandTree: CommandRegistrar) => {
   return Promise.all([
-    search(commandTree)
+    search(commandTree),
+    savedSearch(commandTree)
   ])
 }

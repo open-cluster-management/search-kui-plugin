@@ -16,9 +16,10 @@ var WHITELIST = [
 var config = {
   //To get an access token use 'cloudctl login -a https://<cluster IP>:8443' then 'cloudctl tokens'
   accessToken: '',
-  env: "",
+  env: '',
   // Ex: https://<cluster-ip>:30100/searchapi/graphql
   SEARCH_API: '',
+  MCM_API: '',
 }
 
 if (nconf) {
