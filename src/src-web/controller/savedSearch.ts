@@ -20,7 +20,6 @@ import { injectCSS } from '@kui-shell/core/webapp/util/inject'
 import { dirname, join } from 'path'
 import * as needle from 'needle'
 
-var apolloClient = require('../../lib/client/apolloClient')
 var config = require('../../lib/shared/config')
 
 
