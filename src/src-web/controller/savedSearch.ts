@@ -16,12 +16,20 @@
 
 import { CommandRegistrar } from '@kui-shell/core/models/command'
 import renderReact  from '../util/renderReact';
+import { convertStringToQuery } from '../util/search-helper'
 import { injectCSS } from '@kui-shell/core/webapp/util/inject'
 import { dirname, join } from 'path'
 import * as needle from 'needle'
 
 var config = require('../../lib/shared/config')
 
+const options = {
+  headers: {
+    authorization: `Bearer ${config.accessToken}`
+  },
+  json: true,
+  rejectUnauthorized : false
+}
 
 const injectOurCSS = () => {
   const ourRoot = dirname(require.resolve('@kui-shell/plugin-search/package.json'))
@@ -31,6 +39,24 @@ const injectOurCSS = () => {
         path: join(ourRoot, 'src/src-web/styles/index.css')
       }
     )
+}
+
+function getQueryCount(searches) {
+  const input = [...searches.map(query => convertStringToQuery(query.searchText))]
+  return needle (
+    'post',
+    config.SEARCH_API,
+    {
+      operationName:"searchResult",
+      variables:{
+        input
+      },
+      query: "query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    count\n    __typename\n  }\n}\n"
+    },
+    options
+  )
+  .then(res => res.body.data.searchResult.map((query, idx) => { return { ...query, kind: 'savedSearches', ...searches[idx] }}))
+  .catch(err => new Error(err))
 }
 
 const doSavedSearch = (args) => new Promise((resolve, reject) => {
@@ -46,23 +72,9 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
     query: "query userQueries {\n items: userQueries {\n name\n description\n searchText\n __typename\n}\n}\n"
   };
 
-  const options = {
-    headers: {
-      authorization: `Bearer ${config.accessToken}`
-    },
-    cookies: {
-      'cfc-access-token-cookie': config.accessToken,
-    },
-    json: true,
-    rejectUnauthorized : false
-  }
-
-  const buildTable = (items: Array<object>)=>{
-    const results = items.map(item => {
-      var rObj = {...item}
-      rObj['kind'] = 'savedSearches'
-      return rObj
-    })
+  const buildTable = async (items: Array<object>) => {
+    // Get the search result for each saved query
+    const results = await getQueryCount(items)
     const node = document.createElement('div', {is: 'react-entry-point'})
     node.classList.add('search-kui-plugin')
     renderReact(results, node)
@@ -71,9 +83,9 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
 
   needle('post', config.MCM_API, data, options)
    .then(res => {
-     resolve(
-      buildTable(res.body.data.items)
-    )
+      resolve (
+        buildTable(res.body.data.items)
+      )
    })
    .catch(err => reject(new Error(err)))
 });

@@ -6,7 +6,6 @@
  * Use, duplication or disclosure restricted by GSA ADP Schedule
  * Contract with IBM Corp.
  *******************************************************************************/
-// var requireServer = require('./require-server')
 var nconf = require('nconf')
 
 var WHITELIST = [

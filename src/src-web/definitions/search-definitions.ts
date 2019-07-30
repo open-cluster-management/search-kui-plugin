@@ -262,7 +262,8 @@ export default {
     columns: [
       { key: 'name' },
       { key: 'description' },
-      { key: 'searchText' }
+      { key: 'searchText' },
+      { key: 'count' }
     ],
     actions: [
       'table.actions.remove'
