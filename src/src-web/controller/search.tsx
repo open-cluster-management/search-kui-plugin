@@ -19,14 +19,12 @@ import renderReact from '../util/renderReact';
 import { injectCSS } from '@kui-shell/core/webapp/util/inject'
 import { dirname, join } from 'path'
 import { convertStringToQuery } from '../util/search-helper'
-import { REPLServer } from 'repl';
-import repl = require('@kui-shell/core/core/repl')
+import { toplevel as usage } from '../../usage'
 import * as needle from 'needle'
 
 var config = require('../../lib/shared/config')
 
 const doSearch = (args) => new Promise((resolve, reject) => {
-  console.log('Running search.', args);
   const userQuery = convertStringToQuery(args.command)
   injectOurCSS();
 
@@ -42,17 +40,6 @@ const doSearch = (args) => new Promise((resolve, reject) => {
     query: "query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    items\n    __typename\n  }\n}\n"
   };
 
-  const options = {
-    headers: {
-      authorization: `Bearer ${config.accessToken}`
-    },
-    cookies: {
-      'cfc-access-token-cookie': config.accessToken,
-    },
-    json: true,
-    rejectUnauthorized : false
-  }
-
   const buildTable = (items: Array<object>)=>{
     const node = document.createElement('div', {is: 'react-entry-point'})
     node.classList.add('search-kui-plugin')
@@ -60,9 +47,8 @@ const doSearch = (args) => new Promise((resolve, reject) => {
     return node
   }
 
-  needle('post', config.SEARCH_API, data, options)
+  needle('post', config.SEARCH_API, data, config.options)
    .then(res => {
-     console.log('res', res)
      resolve(
       buildTable(res.body.data.searchResult[0].items)
     )
@@ -71,7 +57,7 @@ const doSearch = (args) => new Promise((resolve, reject) => {
 
 });
 
-const injectOurCSS = () => {
+export const injectOurCSS = () => {
     const ourRoot = dirname(require.resolve('@kui-shell/plugin-search/package.json'))
     injectCSS(
         {
@@ -79,21 +65,6 @@ const injectOurCSS = () => {
           path: join(ourRoot, 'src/src-web/styles/index.css')
         }
       )
-}
-
-/**
- * Usage model for search
- *
- */
-const usage = {
-  command: 'search',
-  strict: 'search',
-  title: 'Search for kubernetes resources',
-  header: 'Search for kubernetes resources',
-  example: 'search',
-  optional: [
-    { name: 'searchInput', positional: true }
-  ]
 }
 
 /**

@@ -14,11 +14,18 @@ var WHITELIST = [
 
 var config = {
   //To get an access token use 'cloudctl login -a https://<cluster IP>:8443' then 'cloudctl tokens'
-  accessToken: '',
   env: '',
   // Ex: https://<cluster-ip>:30100/searchapi/graphql
   SEARCH_API: '',
   MCM_API: '',
+
+  options: {
+    headers: {
+      authorization: `Bearer ${'accessToken'}`
+    },
+    json: true,
+    rejectUnauthorized : false
+  }
 }
 
 if (nconf) {

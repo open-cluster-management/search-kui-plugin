@@ -15,11 +15,10 @@ import * as React from 'react'
 import * as lodash from 'lodash'
 import * as PropTypes from 'prop-types'
 import tableDefinitions from '../definitions/search-definitions'
-// import msgs from '../../nls/search.properties'
-import constants from '../../lib/shared/constants'
 
 import { Pagination, DataTable, OverflowMenu, OverflowMenuItem, Modal } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/ResourceTable'
+import repl = require('@kui-shell/core/core/repl')
 
 const { Table, TableHead, TableRow, TableBody, TableCell } = DataTable
 const PAGE_SIZES = { DEFAULT: 10, VALUES: [5, 10, 20, 50, 75, 100] }
@@ -61,9 +60,7 @@ toggleCollapseTable = () => {
 
   getHeaders() {
     const { kind } = this.props
-    // console.log('kind(s)', kind)
     const resource = tableDefinitions[kind] || tableDefinitions['genericresource']
-    console.log('RESOURCE FOR HEADERS', resource)
     const headers = resource.columns.map(col => ({
     key: col.key, header: col.key
   }))
@@ -82,21 +79,10 @@ toggleCollapseTable = () => {
     const startItem = (page - 1) * pageSize
     const visibleItems = items.slice(startItem, startItem + pageSize)
     return visibleItems.map((item, i) => {
-      // const { namespace, name, cluster, selfLink } = item
       const action ='table.actions.remove'
       const row = { id: i.toString(), action: null, ...item }
       const resource = tableDefinitions[kind] || tableDefinitions['genericresource']
-      // const link = '#'
-      // resource.columns.forEach(column => {
-      //   if (column.key === 'name') {
-      //     row[column.key] = link.pathname
-      //       ? <Link to={{ pathname: link.pathname, search: link.search }}>{name}</Link>
-      //       : <a href={link}>{name}</a>
 
-      //   } else {
-      //     row[column.key] = column.transform ? column.transform(item, this.context.locale) : (item[column.key] != undefined ? item[column.key] : '-')
-      //   }
-      // })
       row.action = (
         <OverflowMenu floatingMenu flipped iconDescription={'Menu'} ariaLabel='Overflow-menu'>
           <OverflowMenuItem
@@ -119,35 +105,6 @@ toggleCollapseTable = () => {
     }
   }
 
-//  getDetailsLink(item) {
-//   const { kind } = this.props
-//   switch (kind){
-//   case 'cluster':
-//     return {
-//       pathname: `${config.contextPath}/clusters`,
-//       search: `?filters={"textsearch":["${item.name}"]}`
-//     }
-//   case 'application':
-//     return {
-//       pathname: `${config.contextPath}/applications/${item.namespace}/${item.name}`,
-//       search: ''
-//     }
-//   case 'release':
-//     return item.cluster === 'local-cluster' // TODO - better method of determining hub-cluster
-//       ? `/catalog/instancedetails/${item.namespace}/${item.name}`
-//       : '/catalog/instances'
-//   case 'policy':
-//     return `/policy/policies/${item.namespace}/${item.name}/compliancePolicy/${item.namespace}/`
-//   case 'compliance':
-//     return `/policy/policies/${item.namespace}/${item.name}`
-//   default:
-//     return {
-//       pathname: `${config.contextPath}/details/${item.cluster}${item.selfLink}`,
-//       search: ''
-//     }
-//   }
-// }
-
   render() {
     const { page, pageSize, sortDirection, selectedKey, modalOpen, collapse } = this.state
     const totalItems = this.props.items.length
@@ -160,17 +117,10 @@ toggleCollapseTable = () => {
             <div>
               <button
                 onClick={this.toggleCollapseTable}
-                className={'search--resource-table-header-button'} >
+                className={'search--resource-table-header-button'}>
                 {`${this.props.kind} (${this.props.items.length})`}
-                {/* <Icon
-                  className='search--resource-table-header-button-icon'
-                  name={collapse ? 'caret--down' : 'caret--up'}
-                  description={msgs.get(collapse ? 'table.header.search.expand' : 'table.header.search.collapse', this.context.locale)} /> */}
               </button>
             </div>
-            //:
-            // `${msgs.get('table.header.search.related', [this.props.kind])} (${this.props.items.length})`
-            //`${this.props.kind}(${this.props.items.length})`
           }
       </div>
       {!collapse
@@ -188,13 +138,11 @@ toggleCollapseTable = () => {
                       <th scope={'col'} key={header.key}>
                         {header.key !== 'action'
                           ? <button
-                            // title={msgs.get(`svg.description.${!sortColumn || sortDirection === 'desc' ? 'asc' : 'desc'}`, this.context.locale)}
-                            onClick={this.handleSort(header.key)}
-                            className={`bx--table-sort-v2${sortDirection === 'asc' ? ' bx--table-sort-v2--ascending' : ''}${sortColumn === header.key ? ' bx--table-sort-v2--active' : ''}`}
-                            data-key={header.key} >
+                              onClick={this.handleSort(header.key)}
+                              className={`bx--table-sort-v2${sortDirection === 'asc' ? ' bx--table-sort-v2--ascending' : ''}${sortColumn === header.key ? ' bx--table-sort-v2--active' : ''}`}
+                              data-key={header.key} >
                               <span className='bx--table-header-label'>{header.header}</span>
-
-                              </button>
+                            </button>
                           : null
                         }
                       </th>
@@ -203,8 +151,16 @@ toggleCollapseTable = () => {
                 </TableHead>
                 <TableBody>
                   {rows.map(row => (
-                    <TableRow key={row.id}>
-                      {row.cells.map(cell => <TableCell key={cell.id}>{cell.value}</TableCell>)}
+                    <TableRow key={row.id} className='bx--data-table--compact'>
+                      {row.cells.map(cell => <TableCell key={cell.id} onClick={() => {
+                        var _ = row.cells.filter(data => data.info.header === 'namespace')
+                        if(cell.info['header'] === 'name' && _.length > 0 && _[0].value){
+                          return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
+                        }
+                        else{
+                          return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value}`)
+                        }
+                      }}>{cell.value}</TableCell>)}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -212,8 +168,8 @@ toggleCollapseTable = () => {
             )}
           }
         />
-
-        <Pagination
+         <Pagination
+          className='bx--pagination-search'
           key='resource-table-pagination'
           id='resource-table-pagination'
           onChange={(pagination) => this.setState(pagination)}
@@ -223,27 +179,12 @@ toggleCollapseTable = () => {
           page={page}
           disabled={pageSize >= totalItems}
           isLastPage={pageSize >= totalItems}
-          // itemsPerPageText={msgs.get('pagination.itemsPerPage', this.context.locale)}
-          // pageRangeText={(current, total) => msgs.get('pagination.pageRange', [current, total], this.context.locale)}
-          // itemRangeText={(min, max, total) => `${msgs.get('pagination.itemRange', [min, max], this.context.locale)} ${msgs.get('pagination.itemRangeDescription', [total], this.context.locale)}`}
           pageInputDisabled={pageSize >= totalItems}
         />
-
-        <Modal
-          open={modalOpen}
-          danger={true}
-          onRequestClose={() => this.setState({ modalOpen: false })}
-          onRequestSubmit={() => this.setState({ modalOpen: false })}
-          modalHeading={'KUI Modal Example'}
-          primaryButtonText={'Submit'}
-          secondaryButtonText={'Close'}>
-          <div>
-              *** ADD MESSAGING
-          </div>
-        </Modal>
         </React.Fragment>
         : null }
       </React.Fragment>
     )
   }
 }
+

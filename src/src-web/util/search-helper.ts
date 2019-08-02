@@ -9,9 +9,20 @@
 
 
 export const convertStringToQuery = (searchText) => {
-  // const searchTokens = searchText.split(' ')
-  const searchTokens = searchText.replace('search ', '').split(' ')
-  console.log('search Tokens: ', searchTokens)
+  if (searchText.indexOf('search summary ') !== -1){
+    var tokens = searchText.replace('search summary ', '').split(' ')
+    }
+  else if(searchText.indexOf('search yaml ') !== -1){
+    var tokens = searchText.replace('search yaml ', '').split(' ')
+  }
+  else if(searchText.indexOf('search related ') !== -1){
+    var tokens = searchText.replace('search related ', '').split(' ')
+  }
+  else{
+    var tokens = searchText.replace('search ', '').split(' ')
+  }
+
+  const searchTokens = tokens
   const keywords = searchTokens.filter(token => token !== '' && token.indexOf(':') < 0)
   const filters = searchTokens.filter(token => token.indexOf(':') >= 0)
     .map(f => {

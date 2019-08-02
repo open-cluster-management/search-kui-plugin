@@ -16,12 +16,18 @@
 
 import search from './src-web/controller/search'
 import savedSearch from './src-web/controller/savedSearch';
+import summary from './src-web/controller/sidecar'
+import related from './src-web/views/modes/related';
+import yaml from './src-web/views/modes/yaml'
 
 import { CommandRegistrar } from '@kui-shell/core/models/command'
 
 export default async (commandTree: CommandRegistrar) => {
   return Promise.all([
     search(commandTree),
-    savedSearch(commandTree)
+    savedSearch(commandTree),
+    summary(commandTree),
+    related(commandTree),
+    yaml(commandTree)
   ])
 }

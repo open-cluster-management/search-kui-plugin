@@ -23,14 +23,6 @@ import * as needle from 'needle'
 
 var config = require('../../lib/shared/config')
 
-const options = {
-  headers: {
-    authorization: `Bearer ${config.accessToken}`
-  },
-  json: true,
-  rejectUnauthorized : false
-}
-
 const injectOurCSS = () => {
   const ourRoot = dirname(require.resolve('@kui-shell/plugin-search/package.json'))
   injectCSS(
@@ -53,7 +45,7 @@ function getQueryCount(searches) {
       },
       query: "query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    count\n    __typename\n  }\n}\n"
     },
-    options
+    config.options
   )
   .then(res => res.body.data.searchResult.map((query, idx) => { return { ...query, kind: 'savedSearches', ...searches[idx] }}))
   .catch(err => new Error(err))
@@ -81,7 +73,7 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
     return node
   }
 
-  needle('post', config.MCM_API, data, options)
+  needle('post', config.MCM_API, data, config.options)
    .then(res => {
       resolve (
         buildTable(res.body.data.items)

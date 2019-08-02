@@ -13,7 +13,7 @@ import ResourceTable from '../components/ResourceTable'
 // import SearchResult from '../components/SearchResult'
 
 export default function renderReact(data: Array<any>, node: HTMLDivElement) {
-  console.log('data',data)
+  //console.log('data',data)
 
   const uniqueKinds = [...new Set(data.map(item => item.kind))]
   const searchResource = () => {
