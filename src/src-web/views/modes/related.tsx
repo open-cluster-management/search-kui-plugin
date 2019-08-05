@@ -10,7 +10,6 @@
 import * as Debug from 'debug'
 const debug = Debug('search/src/src-web/view/related')
 
-import { injectOurCSS } from '../../controller/search'
 import { CommandRegistrar, EvaluatorArgs } from '@kui-shell/core/models/command';
 import { convertStringToQuery } from '../../util/search-helper'
 import needle = require('needle');
@@ -51,7 +50,6 @@ export const renderRelated = (data: Array<any>, node: HTMLDivElement, command: a
  */
 export const renderAndViewRelated = (args: EvaluatorArgs) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
-  injectOurCSS();
 
   const data = {
     operationName:"searchResult",
