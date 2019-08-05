@@ -15,8 +15,9 @@ import * as React from 'react'
 import * as lodash from 'lodash'
 import * as PropTypes from 'prop-types'
 import tableDefinitions from '../definitions/search-definitions'
-
-import { Pagination, DataTable, OverflowMenu, OverflowMenuItem, Modal } from 'carbon-components-react'
+import Modal from '../components/Modal'
+// import msgs from '../../nls/search.properties'
+import { Pagination, DataTable, OverflowMenu, OverflowMenuItem } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/ResourceTable'
 import repl = require('@kui-shell/core/core/repl')
 
@@ -34,6 +35,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
   constructor(props){
     super(props)
     this.state = {
+      itemToDelete: {},
       page: 1,
       pageSize: PAGE_SIZES.DEFAULT,
       sortDirection: 'asc',
@@ -88,7 +90,7 @@ toggleCollapseTable = () => {
           <OverflowMenuItem
             data-table-action={action}
             isDelete={true}
-            onClick={() => this.setState({ modalOpen: true })}
+            onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
             key={action}
             itemText={'Delete'} />
         </OverflowMenu>
@@ -152,12 +154,12 @@ toggleCollapseTable = () => {
                 <TableBody>
                   {rows.map(row => (
                     <TableRow key={row.id} className='bx--data-table--compact'>
-                      {row.cells.map(cell => <TableCell key={cell.id} onClick={() => {
-                        var _ = row.cells.filter(data => data.info.header === 'namespace')
-                        if(cell.info['header'] === 'name' && _.length > 0 && _[0].value){
-                          return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
-                        }
-                        else{
+                      {row.cells.map(cell => <TableCell key={cell.id} style={{ cursor: cell.info.header === 'name' ? 'pointer' : 'default' }} onClick={() => {
+                        if (cell.info.header === 'name') {
+                          var ns = row.cells.filter(data => data.info.header === 'namespace')
+                          if(ns.length > 0 && ns[0].value){
+                            return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
+                          }
                           return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value}`)
                         }
                       }}>{cell.value}</TableCell>)}
@@ -183,6 +185,11 @@ toggleCollapseTable = () => {
         />
         </React.Fragment>
         : null }
+
+        <Modal
+          item={this.state.itemToDelete}
+          modalOpen={modalOpen}
+          onClose={() => this.setState({ modalOpen: false })} />
       </React.Fragment>
     )
   }

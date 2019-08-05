@@ -7,17 +7,12 @@
  * Contract with IBM Corp.
  *******************************************************************************/
 
-export interface TableProps {
-    items: Array<object>,
-    kind: string,
-  }
+export interface ModalProps {
+  item: object,
+  modalOpen: boolean,
+  onClose: Function
+}
 
-  export interface TableState {
-    itemToDelete: object,
-    page: number,
-    pageSize: number,
-    sortDirection: any,
-    selectedKey: string,
-    modalOpen: boolean,
-    collapse: boolean
-  }
+export interface ModalState {
+  errors: string
+}
