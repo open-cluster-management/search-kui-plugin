@@ -12,17 +12,19 @@ var WHITELIST = [
   'contextPath',
 ]
 
+console.log(process.env)
+
 var config = {
-  //To get an access token use 'cloudctl login -a https://<cluster IP>:8443' then 'cloudctl tokens'
   env: '',
   // Ex: https://<cluster-ip>:30100/searchapi/graphql
-  SEARCH_API: '',
-  MCM_API: '',
+  SEARCH_API: process.env.ICP_EXTERNAL_URL ? `https://${process.env.ICP_EXTERNAL_URL.substring(7).split(':')[0]}/4010/searchapi/graphql` : '',
+  MCM_API: process.env.ICP_EXTERNAL_URL ? `https://${process.env.ICP_EXTERNAL_URL.substring(7).split(':')[0]}/4000/hcmuiapi/graphql` : '',
 
   options: {
-    headers: {
-      authorization: `Bearer ${'accessToken'}`
-    },
+    // Testing to see if same-origin is being used so we dont need the accessToken
+    // headers: {
+    //   authorization: `Bearer token`
+    // },
     json: true,
     rejectUnauthorized : false
   }

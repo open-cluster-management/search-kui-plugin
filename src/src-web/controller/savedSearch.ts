@@ -107,8 +107,8 @@ const aliasUsage = {
  *
  */
 export default async (commandTree: CommandRegistrar) => {
-  const opts = { usage, noAuthOk: true }
-  const aliasOpts = { aliasUsage, noAuthOk: true }
+  const opts = { usage, noAuthOk: true, inBrowserOk: true }
+  const aliasOpts = { aliasUsage, noAuthOk: true, inBrowserOk: true }
   commandTree.listen(`/ss`, doSavedSearch, aliasOpts)
   commandTree.listen(`/savedsearches`, doSavedSearch, opts)
 }

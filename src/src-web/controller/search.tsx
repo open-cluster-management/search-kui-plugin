@@ -45,7 +45,7 @@ const doSearch = (args) => new Promise((resolve, reject) => {
  *
  */
 export default async (commandTree: CommandRegistrar) => {
-  const opts = { usage, noAuthOk: true }
+  const opts = { usage, noAuthOk: true, inBrowserOk: true }
   commandTree.listen(`/s`, doSearch, opts)
   commandTree.listen(`/search`, doSearch, opts)
 }

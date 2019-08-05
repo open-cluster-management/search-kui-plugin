@@ -97,8 +97,8 @@ const deleteResourceUsage = {
  * Here we register as a listener for commands
  */
 export default async (commandTree: CommandRegistrar) => {
-  const deleteSavedSearchOpts = { deleteSavedSearchUsage, noAuthOk: true }
-  const deleteResourceOpts = { deleteResourceUsage, noAuthOk: true }
+  const deleteSavedSearchOpts = { deleteSavedSearchUsage, noAuthOk: true, inBrowserOk: true }
+  const deleteResourceOpts = { deleteResourceUsage, noAuthOk: true, inBrowserOk: true }
   commandTree.listen(`/deleteSavedSearch`, deleteSavedSearch, deleteSavedSearchOpts)
   commandTree.listen(`/deleteResource`, deleteResource, deleteResourceOpts)
 }
