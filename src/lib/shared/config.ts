@@ -12,8 +12,6 @@ var WHITELIST = [
   'contextPath',
 ]
 
-console.log(process.env)
-
 var config = {
   env: '',
   // Ex: https://<cluster-ip>:30100/searchapi/graphql
