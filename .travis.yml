@@ -29,7 +29,7 @@ script:
         cp -r ./src/* ./
         ls -a
         npm pack
-        mv kui-shell-search-kui-plugin-0.0.0-semantically-released.tgz plugin-search.tgz
+        mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
       fi
 
 deploy:
