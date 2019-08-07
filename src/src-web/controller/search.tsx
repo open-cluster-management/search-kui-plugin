@@ -32,7 +32,6 @@ const doSearch = (args) => new Promise((resolve, reject) => {
 
   needle('post', config.SEARCH_API, SEARCH_QUERY(userQuery.keywords, userQuery.filters), config.options)
    .then(res => {
-     console.log('Search query response - ', res)
      resolve(
       buildTable(res.body.data.searchResult[0].items)
     )

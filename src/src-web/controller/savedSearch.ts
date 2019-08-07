@@ -28,10 +28,7 @@ function getQueryCount(searches) {
     },
     config.options
   )
-  .then(res => {
-    console.log('(Saved) Search query response - ', res)
-    res.body.data.searchResult.map((query, idx) => { return { ...query, kind: 'savedSearches', ...searches[idx] }})
-  })
+  .then(res => res.body.data.searchResult.map((query, idx) => { return { ...query, kind: 'savedSearches', ...searches[idx] }}))
   .catch(err => new Error(err))
 }
 
@@ -57,7 +54,6 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
 
   needle('post', config.MCM_API, data, config.options)
    .then(res => {
-    console.log('Saved searches - ', res)
       resolve (
         buildTable(res.body.data.items)
       )

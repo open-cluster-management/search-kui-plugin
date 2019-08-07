@@ -25,11 +25,11 @@ var config = {
 
   options: {
     headers: {
-      'XSRF-Token': getXsrfToken()
+      'XSRF-Token': getXsrfToken(),
+      compressed: true
     },
     json: true,
-    rejectUnauthorized : false,
-    compressed: true
+    rejectUnauthorized : false
   }
 }
 
