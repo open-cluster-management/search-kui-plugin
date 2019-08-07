@@ -7,24 +7,12 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+import * as needle from 'needle'
 import { CommandRegistrar } from '@kui-shell/core/models/command'
 import renderReact  from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
-import { injectCSS } from '@kui-shell/core/webapp/util/inject'
-import { dirname, join } from 'path'
-import * as needle from 'needle'
 
 var config = require('../../lib/shared/config')
-
-const injectOurCSS = () => {
-  const ourRoot = dirname(require.resolve('@kui-shell/plugin-search/package.json'))
-  injectCSS(
-      {
-        key: "carbon",
-        path: join(ourRoot, 'src/src-web/styles/index.css')
-      }
-    )
-}
 
 function getQueryCount(searches) {
   const input = [...searches.map(query => convertStringToQuery(query.searchText))]
@@ -40,13 +28,14 @@ function getQueryCount(searches) {
     },
     config.options
   )
-  .then(res => res.body.data.searchResult.map((query, idx) => { return { ...query, kind: 'savedSearches', ...searches[idx] }}))
+  .then(res => {
+    console.log('(Saved) Search query response - ', res)
+    res.body.data.searchResult.map((query, idx) => { return { ...query, kind: 'savedSearches', ...searches[idx] }})
+  })
   .catch(err => new Error(err))
 }
 
 const doSavedSearch = (args) => new Promise((resolve, reject) => {
-  injectOurCSS();
-
   if (args.argv.length > 1){
     resolve('ERROR: Saved search query should not include any parameters.\nUSAGE: savedsearch (alias: ss)')
   }
@@ -68,6 +57,7 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
 
   needle('post', config.MCM_API, data, config.options)
    .then(res => {
+    console.log('Saved searches - ', res)
       resolve (
         buildTable(res.body.data.items)
       )
