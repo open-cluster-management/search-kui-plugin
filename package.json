@@ -1,5 +1,5 @@
 {
-  "name": "@kui-shell/search-kui-plugin",
+  "name": "@kui-shell/plugin-search",
   "version": "0.0.0-semantically-released",
   "description": "KUI plugin for MCM/ICP Search.",
   "author": "IBM Multicloud Manager/Cloud Private",

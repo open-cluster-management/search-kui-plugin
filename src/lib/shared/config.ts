@@ -28,7 +28,8 @@ var config = {
       'XSRF-Token': getXsrfToken()
     },
     json: true,
-    rejectUnauthorized : false
+    rejectUnauthorized : false,
+    compressed: true
   }
 }
 
