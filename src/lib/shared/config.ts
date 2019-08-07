@@ -12,17 +12,21 @@ var WHITELIST = [
   'contextPath',
 ]
 
+const getXsrfToken = () => {
+  const token = document.getElementById('app-access') ? document.getElementById('app-access')['value'] : ''
+  return token.toString('ascii')
+}
+
 var config = {
   env: '',
   // Ex: https://<cluster-ip>:30100/searchapi/graphql
-  SEARCH_API: process.env.ICP_EXTERNAL_URL ? `https://${process.env.ICP_EXTERNAL_URL.substring(7).split(':')[0]}/4010/searchapi/graphql` : '',
-  MCM_API: process.env.ICP_EXTERNAL_URL ? `https://${process.env.ICP_EXTERNAL_URL.substring(7).split(':')[0]}/4000/hcmuiapi/graphql` : '',
+  SEARCH_API: '/multicloud/search/graphql',
+  MCM_API: '/multicloud/graphql',
 
   options: {
-    // Testing to see if same-origin is being used so we dont need the accessToken
-    // headers: {
-    //   authorization: `Bearer token`
-    // },
+    headers: {
+      'XSRF-Token': getXsrfToken()
+    },
     json: true,
     rejectUnauthorized : false
   }
