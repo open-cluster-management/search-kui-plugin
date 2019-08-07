@@ -20,8 +20,8 @@ const getXsrfToken = () => {
 var config = {
   env: '',
   // Ex: https://<cluster-ip>:30100/searchapi/graphql
-  SEARCH_API: '/multicloud/search/graphql',
-  MCM_API: '/multicloud/graphql',
+  SEARCH_API: `${window.location.origin}/multicloud/search/graphql`,
+  MCM_API: `${window.location.origin}/multicloud/graphql`,
 
   options: {
     headers: {
