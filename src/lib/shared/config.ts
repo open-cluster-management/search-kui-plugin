@@ -13,7 +13,7 @@ var WHITELIST = [
 ]
 
 const getXsrfToken = () => {
-  const token = document.getElementById('app-access') ? document.getElementById('app-access')['value'] : ''
+  const token = document.querySelector('#app-access')['value'] || ''
   return token.toString('ascii')
 }
 
