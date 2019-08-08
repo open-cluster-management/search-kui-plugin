@@ -12,12 +12,14 @@ import { inElectron } from '@kui-shell/core/core/capabilities'
 
 var config = require('../../lib/shared/config')
 
+// Need the agent in electron to get around ssl cert issues
 var agent = null
 if (inElectron) {
   const https = require('https')
   agent = new https.Agent({ rejectUnauthorized: false })
 }
 
+// Browser requires xsrf token for calls & and electron needs the access token
 function getHeaders() {
   if(inElectron()) {
     return {
@@ -31,6 +33,12 @@ function getHeaders() {
   }
 }
 
+/**
+ * Axios is a Promise based HTTP client for the browser and node.js
+ * @param method - post, get etc
+ * @param urlType - search || mcm to determine backend
+ * @param requestBody - post request body
+ */
 export default function HTTPClient(method, urlType, requestBody) {
   return (
     axios({

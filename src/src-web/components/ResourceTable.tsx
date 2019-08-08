@@ -157,6 +157,7 @@ toggleCollapseTable = () => {
                       {row.cells.map(cell => <TableCell key={cell.id} onClick={() => {
                         var _ = row.cells.filter(data => data.info.header === 'namespace')
                         if(this.props.kind === 'savedSearches' && cell.info['header'] === 'name'){
+                          // When user clicks on saved search name we want to run the query seen in search text column
                           return repl.pexec(`search ${row.cells[2].value}`)
                         }else if(cell.info['header'] === 'name' && _.length > 0 && _[0].value){
                           return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
