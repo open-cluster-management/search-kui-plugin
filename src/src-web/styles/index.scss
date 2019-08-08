@@ -7,32 +7,27 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-@import '../../../node_modules/carbon-components/scss/globals/scss/_colors';
-
+//@import '../../../node_modules/carbon-components/scss/globals/scss/_colors';
 
 .repl-result {
-
   white-space: unset;
 
 .search-kui-plugin {
   font-family: "ibm-plex-sans", Helvetica Neue, Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  padding: 30px 5% 54px;
-  width: 100vw;
 
   .search--resource {
     display: flex;
     flex-direction: column;
-  
+
     .search--resource-table {
-      margin-top: 2rem;
+      margin-top: 2%;
   
       .search--resource-table-header {
         font-weight: 600;
         font-size: 1.125rem;
         margin-bottom: 0.5rem;
-        color: $ibm-color__blue-90;
         text-transform: capitalize;
   
         &-button {
@@ -40,24 +35,41 @@
           align-items: center;
           border: none;
           background-color: transparent;
-          color: $ibm-color__cool-gray-100;
+          color: var(--color-name);
+          cursor: pointer;
+          font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
           font-weight: 600;
           font-size: 1.125rem;
           padding: 0rem;
           margin-bottom: 0.5rem;
-          text-transform: capitalize;
+          text-transform: uppercase;
           &:hover {
-            cursor: pointer;
             text-decoration: underline;
-          }
-  
-          &-icon {
-            fill: $ibm-color__blue-90;
-            width: 20px;
           }
         }
       }
     }
+
+    .related--resource-table-header-button{
+      margin-top: 1%;
+      font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      color: var(--color-name);
+      cursor: pointer;
+      display: flex;
+      float: left;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0rem;
+      outline: none;
+
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+  
   }
 }
   
@@ -65,17 +77,12 @@
     margin-top: 2rem;
   }
   
-  .spacer {
-    width: 1rem;
-  }
-  
   @media (max-width: 768px) {
     .search-notification{
-      background: $ibm-color__white-0;
+      background: #ffffff;
     }
   }
 }
-
 
 .bx--data-table {
 
@@ -86,26 +93,206 @@
     font-size: 1rem;
   }
 
-  .bx--table-sort-v2 {
-    background: transparent;
-    border: none;
-    text-transform: uppercase;
-    font-size: small;
-  }
-
   tbody {
 
     tr {
+      &.bx--data-table--compact{
+        font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+        height: 12px;
+      }
+
+      &.bx--data-table--compact{
+        td{
+          &:first-child{
+            color: var(--color-name);
+            font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+          }
+          &:first-child:hover{
+            background-color: transparent;
+            border-bottom: 1px solid var(--color-ui-04);
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+      
+      &.bx--data-table--compact{
+
+        &:nth-child(2n) {
+          color: var(--color-text-01);
+          background-color: transparent;
+        }
+
+        &:hover{
+          border-top: none;
+          border-right: none;
+          border-left: none;
+          
+          td{
+            
+            &:nth-child(n){
+              background-color: transparent;
+              border-bottom: 1px solid var(--color-ui-04);
+            }
+          }
+        }
+      }
+
       &:hover{
         border: 1px solid #f3f7fb;
       }
 
-      &:nth-child(2n) {
-        background-color:#f4f7fb;
-      }
       td {
-        background: transparent
+        background: transparent;
+        border-bottom: 1px solid var(--color-ui-04);
+      }
+
+      &.bx--data-table--related{
+
+        td{
+          background-color: var(--color-sidecar-header);
+          border-bottom: 1px solid var(--color-ui-04);
+          color: var(--color-text-02);
+          font-family: "ibm-plex-sans", Helvetica Neue, Arial, sans-serif;
+          font-size: 1.6rem;
+          padding: 3%;
+          text-transform: capitalize;
+        }
+      }
+
+      &.bx--data-table--related{
+        cursor: pointer;
+
+        td{
+          &:last-child{
+            text-align: right;
+          }
+        }
+
+        &:hover{
+          border-top: none;
+          border-right: none;
+          border-left: none;
+
+          td{
+            &:first-child{
+              color: var(--color-name);
+            }
+          }
+        }
       }
     }
+  }
+
+  &.bx--data-table--no-border{
+
+    thead{
+      
+      tr{
+
+        th{
+          background-color: var(--color-ui-02);
+          height: 12px
+        }
+
+        th:nth-last-child(1){
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  td{
+
+    &.bx--table-sort-v2 {
+      background: transparent;
+      border: none;
+      color: var(--color-text-01);
+      cursor: pointer;
+      font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+      font-size: 0.9rem;
+      outline: none;
+      text-transform: capitalize;
+      padding: 0%;
+    }
+  }
+
+  .bx--table-sort-v2{
+    &.bx--table-sort-v2--ascending{
+      padding: 0%
+    }
+
+  }
+}
+
+.bx--pagination{
+  color: var(--color-text-01);
+  border: none;
+  background-color: var(--color-ui-02);
+}
+
+#bx-pagination-select-resource-table-pagination{
+  &.bx--select-input{
+    color: var(--color-text-01);
+  }
+
+  &2{
+    &.bx--select-input{
+      color: var(--color-text-01);
+    }
+  }
+}
+
+.bx--form-item{
+  
+  .bx--select{
+
+    &.bx--select--inline{
+      
+      &.bx--select__{
+        
+        &item-count{
+
+          .bx--select-input--inline__wrapper{
+
+            .bx--select-input__wrapper{
+
+              .bx--select-input{
+
+                &:hover{
+                  background-color: transparent
+                }
+              }
+            }
+          }
+        }
+
+        &page-number{
+
+          .bx--select-input--inline__wrapper{
+
+            .bx--select-input__wrapper{
+
+              .bx--select-input{
+
+                &:hover{
+                  background-color: transparent
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.bx--select__arrow{
+  fill: var(--color-name);
+}
+
+span{
+  &.bx--pagination__text{
+    color: var(--color-text-01);
   }
 }

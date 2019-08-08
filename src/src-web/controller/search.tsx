@@ -13,6 +13,7 @@ import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from '../../usage'
 import { SEARCH_QUERY } from '../definitions/search-queries'
+import { getRelatedSidecar, getSidecar } from './sidecar';
 
 const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
@@ -24,7 +25,7 @@ const doSearch = (args) => new Promise((resolve, reject) => {
   const buildTable = (items: Array<object>)=>{
     const node = document.createElement('div', {is: 'react-entry-point'})
     node.classList.add('search-kui-plugin')
-    renderReact(items, node)
+    renderReact(items, node, args.command)
     return node
   }
 
@@ -44,4 +45,6 @@ export default async (commandTree: CommandRegistrar) => {
   const opts = { usage, noAuthOk: true, inBrowserOk: true }
   commandTree.listen(`/s`, doSearch, opts)
   commandTree.listen(`/search`, doSearch, opts)
+  await commandTree.listen('/search/summary', getSidecar, opts)
+  await commandTree.listen('/search/related:resources', getRelatedSidecar, opts)
 }

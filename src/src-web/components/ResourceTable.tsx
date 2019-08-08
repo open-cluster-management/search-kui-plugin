@@ -139,12 +139,12 @@ toggleCollapseTable = () => {
                     {headers.map(header => (
                       <th scope={'col'} key={header.key}>
                         {header.key !== 'action'
-                          ? <button
+                          ? <TableCell
                               onClick={this.handleSort(header.key)}
                               className={`bx--table-sort-v2${sortDirection === 'asc' ? ' bx--table-sort-v2--ascending' : ''}${sortColumn === header.key ? ' bx--table-sort-v2--active' : ''}`}
                               data-key={header.key} >
                               <span className='bx--table-header-label'>{header.header}</span>
-                            </button>
+                            </TableCell>
                           : null
                         }
                       </th>
@@ -154,13 +154,16 @@ toggleCollapseTable = () => {
                 <TableBody>
                   {rows.map(row => (
                     <TableRow key={row.id} className='bx--data-table--compact'>
-                      {row.cells.map(cell => <TableCell key={cell.id} style={{ cursor: cell.info.header === 'name' ? 'pointer' : 'default' }} onClick={() => {
-                        if (cell.info.header === 'name') {
-                          var ns = row.cells.filter(data => data.info.header === 'namespace')
-                          if(ns.length > 0 && ns[0].value){
-                            return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
-                          }
-                          return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value}`)
+                      {row.cells.map(cell => <TableCell key={cell.id} onClick={() => {
+                        var _ = row.cells.filter(data => data.info.header === 'namespace')
+                        if(this.props.kind === 'savedSearches' && cell.info['header'] === 'name'){
+                          return repl.pexec(`search ${row.cells[2].value}`)
+                        }else if(cell.info['header'] === 'name' && _.length > 0 && _[0].value){
+                          return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
+                        }else if(cell.info['header'] === 'name'){
+                          return repl.pexec(`search summary kind:${this.props.kind} name:${row.cells[0].value}`)
+                        }else{
+                          return null
                         }
                       }}>{cell.value}</TableCell>)}
                     </TableRow>
@@ -171,7 +174,6 @@ toggleCollapseTable = () => {
           }
         />
          <Pagination
-          className='bx--pagination-search'
           key='resource-table-pagination'
           id='resource-table-pagination'
           onChange={(pagination) => this.setState(pagination)}

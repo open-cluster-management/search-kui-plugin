@@ -24,6 +24,16 @@ export const GET_SEARCH_COMPLETE = (property, query) => {
   }
 }
 
+export const SEARCH_RELATED_QUERY = (keywords, filters) => {
+  return {
+    operationName:"searchResult",
+    variables:{
+     "input":[{"keywords":keywords, "filters":filters}]
+    },
+    query:"query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    count\n    items\n    related {\n      kind\n      count\n      items\n      __typename\n    }\n    __typename\n  }\n}\n"
+  }
+}
+
 export const SEARCH_QUERY = (keywords, filters) => {
   return {
     operationName:"searchResult",
@@ -41,6 +51,20 @@ export const SEARCH_QUERY_COUNT = (input) => {
       input
     },
     query: "query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    count\n    __typename\n  }\n}\n"
+  }
+}
+
+export const SEARCH_MCM_QUERY = (record) => {
+  return {
+    operationName:"getResource",
+    variables:{
+        kind:record[0]['kind'], 
+        name:record[0]['name'],
+        namespace:record[0]['namespace'],
+        cluster:record[0]['cluster'],
+        selfLink:record[0]['selfLink']
+      },
+    query: "query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $selfLink: String) {\n  getResource(kind: $kind, name: $name, namespace: $namespace, cluster: $cluster, selfLink: $selfLink)\n}\n"
   }
 }
 

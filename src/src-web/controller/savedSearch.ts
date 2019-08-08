@@ -31,7 +31,7 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
     const results = await getQueryCount(items)
     const node = document.createElement('div', {is: 'react-entry-point'})
     node.classList.add('search-kui-plugin')
-    renderReact(results, node)
+    renderReact(results, node, args.command)
     return node
   }
 

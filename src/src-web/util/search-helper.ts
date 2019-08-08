@@ -1,3 +1,5 @@
+import search from "../controller/search";
+
 /*******************************************************************************
  * Licensed Materials - Property of IBM
  * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -17,6 +19,9 @@ export const convertStringToQuery = (searchText) => {
   }
   else if(searchText.indexOf('search related ') !== -1){
     var tokens = searchText.replace('search related ', '').split(' ')
+  }
+  else if(searchText.indexOf('search related:resources ') !== -1){
+    var tokens = searchText.replace('search related:resources ', '').split(' ')
   }
   else{
     var tokens = searchText.replace('search ', '').split(' ')

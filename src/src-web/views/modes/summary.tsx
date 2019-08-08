@@ -6,66 +6,58 @@
 * Use, duplication or disclosure restricted by GSA ADP Schedule
 * Contract with IBM Corp.
 *******************************************************************************/
-import needle = require('needle');
+
 import { convertStringToQuery } from '../../util/search-helper';
-import * as jsYaml from 'js-yaml'
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { CommandRegistrar } from '@kui-shell/core/models/command';
 import HTTPClient from '../../controller/HTTPClient';
-import { SEARCH_MCM_QUERY, SEARCH_QUERY } from '../../definitions/search-queries';
-
-const config = require('../../../lib/shared/config')
+import { SEARCH_QUERY } from '../../definitions/search-queries';
 
 /**
- * Render resources yaml
+ * Render resource's summary
  * 
  */
-export const renderYAML = (data: Array<object>, node: HTMLDivElement) => {
-  const yamlResource = () => {
+export const renderSummary = (data: Array<object>, node: HTMLDivElement) => {
+  const summaryResource = () => {
     return (
-      <div className="scrollable scrollable-auto monospace">
-          <pre className="pre-wrap break-all">
+      <div>
+        <pre className="pre-wrap">
             <code className="language-yaml" data-content-type="language-yaml">
-                {jsYaml.safeDump(data)}
+                {`NAME: ${data[0]['name']}`}<br></br>
+                {`KIND: ${data[0]['kind']}`}<br></br>
+                {`CREATED: ${data[0]['created']}`}<br></br>
+                {`SELFLINK: ${data[0]['selfLink']}`}<br></br>
             </code>
-          </pre>
+        </pre>
       </div>
     )
   }
-  ReactDOM.render(React.createElement(yamlResource), node)
+  ReactDOM.render(React.createElement(summaryResource), node)
   return node
 }
 
 /**
- * Render yaml and show it in the sidecar
+ * Render summary and show it in the sidecar
  * 
  */
-export const renderAndViewYAML = (args) => new Promise((resolve, reject) => {
+export const renderAndViewSummary = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
-  
-  const buildYAML = (items: Array<object>) => {
-    const node = document.createElement('div', {is: 'search-sidecar-yaml'})
+
+  const buildSummary = (items: Array<object>) => {
+    const node = document.createElement('div', {is: 'search-sidecar-summary'})
     node.classList.add('custom-content')
-    renderYAML(items, node)
+    renderSummary(items, node)
     return node
   }
 
   HTTPClient('post', 'search', SEARCH_QUERY(userQuery.keywords, userQuery.filters))
-  .then(res => {
-    const record = res.data.searchResult[0].items
-
-    HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(record))
-    .then(resp => {
-      const resources = resp.data.getResource
-      resolve(
-        buildYAML(resources)
-      )
+    .then(res => {
+      resolve(buildSummary(res.data.searchResult[0].items))
     })
-  })
 })
 
 export default async (commandTree: CommandRegistrar) => {
   const opts = { noAuthOk: true, inBrowserOk: true }
-  await commandTree.listen(`/search/yaml`, renderAndViewYAML, opts)
+  await commandTree.listen(`/search/summary`, renderAndViewSummary, opts)
 }

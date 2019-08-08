@@ -7,17 +7,13 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import * as Debug from 'debug'
-const debug = Debug('search/src/src-web/view/related')
-
 import { CommandRegistrar, EvaluatorArgs } from '@kui-shell/core/models/command';
 import { convertStringToQuery } from '../../util/search-helper'
-import needle = require('needle');
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import RelatedTable from '../../components/RelatedTable';
-
-const config = require('../../../lib/shared/config')
+import HTTPClient from '../../controller/HTTPClient';
+import { SEARCH_RELATED_QUERY } from '../../definitions/search-queries';
 
 /**
  * Render the tabular Related view
@@ -51,13 +47,6 @@ export const renderRelated = (data: Array<any>, node: HTMLDivElement, command: a
 export const renderAndViewRelated = (args: EvaluatorArgs) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
 
-  const data = {
-    operationName:"searchResult",
-    variables:{
-       "input":[{keywords:userQuery.keywords, filters:userQuery.filters}]
-    },
-    query:"query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    count\n    items\n    related {\n      kind\n      count\n      items\n      __typename\n    }\n    __typename\n  }\n}\n"}
-
   const buildRelated = (items: Array<object>, command?: any) => {
     const node = document.createElement('div', {is: 'search-sidecar-related'})
     node.classList.add('search-kui-plugin')
@@ -65,12 +54,10 @@ export const renderAndViewRelated = (args: EvaluatorArgs) => new Promise((resolv
     return node
   }
 
-  needle('post', config.SEARCH_API, data, config.options)
-  .then(res => {
-    resolve(
-      buildRelated(res.body.data.searchResult[0].related, userQuery)
-    )
-  })
+  HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
+    .then(res => {
+      resolve(buildRelated(res.data.searchResult[0].related, userQuery))
+    })
 })
 
 export default async (commandTree: CommandRegistrar) => {
