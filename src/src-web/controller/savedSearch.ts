@@ -7,41 +7,24 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import * as needle from 'needle'
 import { CommandRegistrar } from '@kui-shell/core/models/command'
+import HTTPClient from './HTTPClient'
 import renderReact  from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
-
-var config = require('../../lib/shared/config')
+import { SEARCH_QUERY_COUNT, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 
 function getQueryCount(searches) {
   const input = [...searches.map(query => convertStringToQuery(query.searchText))]
-  return needle (
-    'post',
-    config.SEARCH_API,
-    {
-      operationName:"searchResult",
-      variables:{
-        input
-      },
-      query: "query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    count\n    __typename\n  }\n}\n"
-    },
-    config.options
-  )
-  .then(res => res.body.data.searchResult.map((query, idx) => { return { ...query, kind: 'savedSearches', ...searches[idx] }}))
-  .catch(err => new Error(err))
+  return HTTPClient('post', 'search', SEARCH_QUERY_COUNT(input))
+    .then(res => {
+      return res.data.searchResult.map((query, idx) => { return { ...query, kind: 'savedSearches', ...searches[idx] }})
+    })
 }
 
 const doSavedSearch = (args) => new Promise((resolve, reject) => {
   if (args.argv.length > 1){
     resolve('ERROR: Saved search query should not include any parameters.\nUSAGE: savedsearch (alias: ss)')
   }
-
-  const data = {
-    operationName:"userQueries",
-    variables:{},
-    query: "query userQueries {\n items: userQueries {\n name\n description\n searchText\n __typename\n}\n}\n"
-  };
 
   const buildTable = async (items: Array<object>) => {
     // Get the search result for each saved query
@@ -52,13 +35,12 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
     return node
   }
 
-  needle('post', config.MCM_API, data, config.options)
-   .then(res => {
-      resolve (
-        buildTable(res.body.data.items)
+  HTTPClient('post', 'mcm', SAVED_SEARCH_QUERY)
+    .then(res => {
+      resolve(
+        buildTable(res.data.items)
       )
-   })
-   .catch(err => reject(new Error(err)))
+    })
 });
 
 

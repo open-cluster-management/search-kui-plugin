@@ -6,6 +6,8 @@
  * Use, duplication or disclosure restricted by GSA ADP Schedule
  * Contract with IBM Corp.
  *******************************************************************************/
+import { inBrowser } from '@kui-shell/core/core/capabilities'
+
 var nconf = require('nconf')
 
 var WHITELIST = [
@@ -19,18 +21,20 @@ const getXsrfToken = () => {
 
 var config = {
   env: '',
-  // Ex: https://<cluster-ip>:30100/searchapi/graphql
-  SEARCH_API: `${window && window.location && window.location.origin}/multicloud/search/graphql`,
-  MCM_API: `${window && window.location && window.location.origin}/multicloud/graphql`,
+  // TODO - Electron needs to grab backend urls somehow  Ex: https://<cluster-ip>:<backend-port>/(searchapi || hcmuiapi)/graphql
+  // Browser can grab backend urls from the window.location.origin
+  SEARCH_API: inBrowser()
+    ? `${window && window.location && window.location.origin}/multicloud/search/graphql`
+    : '',
+  MCM_API: inBrowser()
+    ? `${window && window.location && window.location.origin}/multicloud/graphql`
+    : '',
 
-  options: {
-    headers: {
-      'XSRF-Token': getXsrfToken()
-    },
-    json: true,
-    rejectUnauthorized : false,
-    compressed: true
-  }
+  // Browser needs xsrf token for requests
+  xsrfToken: inBrowser() ? getXsrfToken() : null,
+
+  // Electron needs the user access token
+  authorization: `Bearer token`
 }
 
 if (nconf) {

@@ -7,10 +7,9 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import * as needle from 'needle'
 import { CommandRegistrar } from '@kui-shell/core/models/command'
-
-var config = require('../../lib/shared/config')
+import HTTPClient from './HTTPClient'
+import { DELETE_RESOURCE, DELETE_QUERY } from '../definitions/search-queries'
 
 function deleteSavedSearch(args) {
   if (args.argv.length == 1){
@@ -18,25 +17,14 @@ function deleteSavedSearch(args) {
   }
   const name = args.argv[1]
   return new Promise((resolve, reject) => {
-    const data = {
-      operationName: "deleteQuery",   
-      query: "mutation deleteQuery($resource: JSON!) {\n deleteQuery(resource: $resource)\n}\n",
-      variables: {
-        resource: {
-          name
-        }
-      }
-    }
-
-    needle('post', config.MCM_API, data, config.options)
+    HTTPClient('post', 'mcm', DELETE_QUERY(name))
     .then(res => {
       resolve(
-        res.body.errors
-          ? res.body.errors[0].message
+        res.errors
+          ? res.errors[0].message
           : `Successfully deleted ${name}`
       )
     })
-    .catch(err => reject(new Error(err)))
   })
 }
 
@@ -45,29 +33,15 @@ function deleteResource(args) {
     return 'ERROR: Received wrong number of parameters.\nUSAGE: deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>'
   }
   return new Promise((resolve, reject) => {
-    const data = {
-      operationName: "deleteResource",
-      query: "mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {\ndeleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)\n}\n",
-      variables: {
-        // TODO - Not sure if child resources are handled at all..
-        // childResources: [],
-        name: args.argv[1],
-        namespace: args.argv[2],
-        kind: args.argv[3],
-        cluster: args.argv[4],
-        selfLink: args.argv[5]
-      }
-    }
-
-    needle('post', config.MCM_API, data, config.options)
+    // delete resource args = (name, namespace, kind, cluster, selfLink)
+    HTTPClient('post', 'mcm', DELETE_RESOURCE(args.argv[1], args.argv[2], args.argv[3], args.argv[4], args.argv[5]))
     .then(res => {
       resolve(
-          res.body.errors
-            ? res.body.errors[0].message
-            : `Successfully deleted ${name}`
+        res.errors
+          ? res.errors[0].message
+          : `Successfully deleted ${args.argv[1]}`
       )
     })
-    .catch(err => reject(new Error(err)))
   })
 }
 

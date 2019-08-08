@@ -59,7 +59,6 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     }
 
   renderSearchComponents(){
-    console.log('ENTERING SEARCH COMPONENT');
       return (
         <input
         type="text"

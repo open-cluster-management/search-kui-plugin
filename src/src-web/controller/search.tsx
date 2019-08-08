@@ -8,13 +8,11 @@
 *******************************************************************************/
 
 import { CommandRegistrar } from '@kui-shell/core/models/command'
+import HTTPClient from './HTTPClient'
 import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from '../../usage'
-import * as needle from 'needle'
 import { SEARCH_QUERY } from '../definitions/search-queries'
-
-var config = require('../../lib/shared/config')
 
 const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
@@ -30,14 +28,12 @@ const doSearch = (args) => new Promise((resolve, reject) => {
     return node
   }
 
-  needle('post', config.SEARCH_API, SEARCH_QUERY(userQuery.keywords, userQuery.filters), config.options)
-   .then(res => {
-     resolve(
-      buildTable(res.body.data.searchResult[0].items)
-    )
-   })
-   .catch(err => reject(new Error(err)))
-
+  HTTPClient('post', 'search', SEARCH_QUERY(userQuery.keywords, userQuery.filters))
+    .then(res => {
+      resolve(
+        buildTable(res.data.searchResult[0].items)
+      )
+    })
 });
 
 /**

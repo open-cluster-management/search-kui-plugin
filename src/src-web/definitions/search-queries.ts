@@ -1,50 +1,79 @@
-/*
- * Copyright 2019 IBM Corporation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-// SEARCH_SCHEMA
+/*******************************************************************************
+* Licensed Materials - Property of IBM
+* (c) Copyright IBM Corporation 2019. All Rights Reserved.
+*
+* Note to U.S. Government Users Restricted Rights:
+* Use, duplication or disclosure restricted by GSA ADP Schedule
+* Contract with IBM Corp.
+*******************************************************************************/
 
 export const GET_SEARCH_SCHEMA = {
-    operationName:"searchSchema",
-    variables:{},
-    query: "query searchSchema {\n  searchSchema\n  }"
+  operationName:"searchSchema",
+  variables:{},
+  query: "query searchSchema {\n  searchSchema\n  }"
+}
+
+export const GET_SEARCH_COMPLETE = (property, query) => {
+  return {
+    operationName:"searchComplete",
+    variables:{
+      property: property,
+      query: query
+    },
+    query: "query searchComplete($property: String!, $query: SearchInput) {\n  searchComplete(property: $property, query: $query)\n }"
   }
-  
-  
-  // GET_SEARCH_COMPLETE
-  
-  export const GET_SEARCH_COMPLETE = (property, query) => {
-    return {
-      operationName:"searchComplete",
-      variables:{
-        property: property,
-        query: query
-      },
-      query: "query searchComplete($property: String!, $query: SearchInput) {\n  searchComplete(property: $property, query: $query)\n }"
+}
+
+export const SEARCH_QUERY = (keywords, filters) => {
+  return {
+    operationName:"searchResult",
+    variables:{
+      input:[{"keywords":keywords,"filters":filters}]
+    },
+    query: "query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    items\n    __typename\n  }\n}\n"
+  }
+};
+
+export const SEARCH_QUERY_COUNT = (input) => {
+  return {
+    operationName:"searchResult",
+    variables:{
+      input
+    },
+    query: "query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    count\n    __typename\n  }\n}\n"
+  }
+}
+
+export const SAVED_SEARCH_QUERY = {
+  operationName:"userQueries",
+  variables:{},
+  query: "query userQueries {\n items: userQueries {\n name\n description\n searchText\n __typename\n}\n}\n"
+}
+
+export const DELETE_QUERY = (name) => {
+  return {
+    operationName: "deleteQuery",   
+    query: "mutation deleteQuery($resource: JSON!) {\n deleteQuery(resource: $resource)\n}\n",
+    variables: {
+      resource: {
+        name
+      }
     }
   }
-  
-  
-  //SEARCH_QUERY
-  
-  export const SEARCH_QUERY = (keywords, filters) => {
-    return {
-        operationName:"searchResult",
-        variables:{
-          input:[{"keywords":keywords,"filters":filters}]
-        },
-        query: "query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    items\n    __typename\n  }\n}\n"
+}
+
+export const DELETE_RESOURCE = (name, namespace, kind, cluster, selfLink) => {
+  return {
+    perationName: "deleteResource",
+      query: "mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {\ndeleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)\n}\n",
+      variables: {
+        // TODO - Not sure if child resources are handled at all..
+        // childResources,
+        name,
+        namespace,
+        kind,
+        cluster,
+        selfLink
       }
-   };
+  }
+}
