@@ -13,6 +13,7 @@ install:
   - |
     npm install -g typescript
     npm install
+    npm run buildCSS
 
 before_script:
   - |

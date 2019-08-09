@@ -17,7 +17,8 @@
     "semantic-release": "semantic-release",
     "commit": "git-cz",
     "test": "echo \"Error: no test specified\"",
-    "scss": "sass --watch src/src-web/styles/index.scss src/src-web/styles/index.css"
+    "scss": "sass --watch src/src-web/styles/index.scss src/src-web/styles/index.css",
+    "buildCSS": "sass src/src-web/styles/index.scss src/src-web/styles/index.css"
   },
   "dependencies": {
     "axios": "^0.19.0",
