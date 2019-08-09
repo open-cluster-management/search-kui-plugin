@@ -23,7 +23,7 @@ export const renderRelated = (data: Array<any>, node: HTMLDivElement, command: a
   const uniqueKinds = [...new Set(data.map(item => item.kind))] // returns unique kinds from the data <-> creates an array of strings
   const count = data.map(item => item.count)
   
-  const relatedResource = () => {
+  const relatedResource = data.length !== 0 ? () => {
     return (
       <div className={'related--resource'}>
         <RelatedTable
@@ -34,6 +34,24 @@ export const renderRelated = (data: Array<any>, node: HTMLDivElement, command: a
         />
       </div>
      )
+  }
+  :() => {
+    return (
+      <div className={'related--resource'}>
+        <table className={'bx--data-table bx--data-table--no-border'}>
+          <tbody>
+            <tr className={'bx--data-table--related'}>
+              <td>
+                {"Results for Related Resources"}
+              </td>
+              <td>
+                {"N/A"}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    )
   }
 
   ReactDOM.render(React.createElement(relatedResource), node)

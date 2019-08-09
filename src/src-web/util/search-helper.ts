@@ -1,5 +1,3 @@
-import search from "../controller/search";
-
 /*******************************************************************************
  * Licensed Materials - Property of IBM
  * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -8,7 +6,6 @@ import search from "../controller/search";
  * Use, duplication or disclosure restricted by GSA ADP Schedule
  * Contract with IBM Corp.
  *******************************************************************************/
-
 
 export const convertStringToQuery = (searchText) => {
   if (searchText.indexOf('search summary ') !== -1){
@@ -31,9 +28,17 @@ export const convertStringToQuery = (searchText) => {
   const keywords = searchTokens.filter(token => token !== '' && token.indexOf(':') < 0)
   const filters = searchTokens.filter(token => token.indexOf(':') >= 0)
     .map(f => {
-      const [ property, values ] = f.split(':')
+      // This will allow the search to return the clusterrolebinding resources
+      if(f.includes("name:system:") || f.includes("name:icp:")){
+        var [ property, values ] = f.split("name:")
+        property = "name"
+      }
+      else
+        var [ property, values ] = f.split(':')
+      
       return { property, values: values.split(',') }
     })
     .filter(f => ['', '=', '<', '>', '<=', '>=', '!=', '!'].findIndex(op => op === f.values[0]) === -1)
+
   return {keywords, filters}
 }

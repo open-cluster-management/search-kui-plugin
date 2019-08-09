@@ -15,7 +15,6 @@ import { Badge } from '@kui-shell/core/webapp/views/sidecar'
 import * as lodash from 'lodash'
 import { renderAndViewRelated } from '../views/modes/related';
 import { renderAndViewYAML } from '../views/modes/yaml';
-import { deleteResourceButton } from '../../../../plugin-k8s/src/lib/view/modes/crud'
 
 export const getSidecar = async (args: EvaluatorArgs) => {
   const userQuery = convertStringToQuery(args.command)
@@ -60,8 +59,6 @@ export const getSidecar = async (args: EvaluatorArgs) => {
     },
   ]
 
-  modes.push(deleteResourceButton())
-
   const record = {
     type: 'custom',
     isEntity: true,
@@ -88,7 +85,7 @@ export const getRelatedSidecar = async (args: EvaluatorArgs) => {
       defaultMode: true,
       mode: 'related',
       direct: args.command,
-      label: ` `,
+      label: `Related Resources`,
       leaveBottomStripeAlone: true
     },
   ]
@@ -96,7 +93,7 @@ export const getRelatedSidecar = async (args: EvaluatorArgs) => {
     type: 'custom',
     isEntity: true,
     name: `Related resources for search results: ${kind}`,
-    viewName: ' ',
+    viewName: `${kind}`,
     contentType: 'json',
     modes,
     content: renderAndViewRelated(args),

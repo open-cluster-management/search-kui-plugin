@@ -24,7 +24,9 @@ function getHeaders() {
   if(inElectron()) {
     return {
       "content-type": "application/json",
-      authorization: config.authorization
+      authorization: config.authorization,
+      // Allows cookies to be passed in electron.
+      Cookie: config.cookie,
     }
   }
   return {

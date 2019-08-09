@@ -34,7 +34,8 @@ var config = {
   xsrfToken: inBrowser() ? getXsrfToken() : null,
 
   // Electron needs the user access token
-  authorization: `Bearer token`
+  authorization: `Bearer token`,
+  cookie: `cfc-access-token-cookie=`
 }
 
 if (nconf) {
