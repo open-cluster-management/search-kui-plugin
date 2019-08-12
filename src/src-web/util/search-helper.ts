@@ -7,24 +7,24 @@
  * Contract with IBM Corp.
  *******************************************************************************/
 
+
 export const convertStringToQuery = (searchText) => {
   if (searchText.indexOf('search summary ') !== -1){
-    var tokens = searchText.replace('search summary ', '').split(' ')
+    var searchTokens = searchText.replace('search summary ', '').split(' ')
     }
   else if(searchText.indexOf('search yaml ') !== -1){
-    var tokens = searchText.replace('search yaml ', '').split(' ')
+    var searchTokens = searchText.replace('search yaml ', '').split(' ')
   }
   else if(searchText.indexOf('search related ') !== -1){
-    var tokens = searchText.replace('search related ', '').split(' ')
+    var searchTokens = searchText.replace('search related ', '').split(' ')
   }
   else if(searchText.indexOf('search related:resources ') !== -1){
-    var tokens = searchText.replace('search related:resources ', '').split(' ')
+    var searchTokens = searchText.replace('search related:resources ', '').split(' ')
   }
   else{
-    var tokens = searchText.replace('search ', '').split(' ')
+    var searchTokens = searchText.replace('search ', '').split(' ')
   }
 
-  const searchTokens = tokens
   const keywords = searchTokens.filter(token => token !== '' && token.indexOf(':') < 0)
   const filters = searchTokens.filter(token => token.indexOf(':') >= 0)
     .map(f => {

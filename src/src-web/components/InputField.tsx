@@ -8,6 +8,7 @@
 *******************************************************************************/
 
 import * as React from 'react'
+import SearchInput from './SearchInput'
 import { InputFieldState, InputFieldProps } from '../model/InputField'
 import { injectOurCSS } from '../util/injectOurCSS'
 
@@ -31,22 +32,36 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   }
 
   onKeyPress = async (e) => {
+    const { inputText } = this.state
     e.persist()
     if (e.which === 13) {
-      const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe input')
-      this.setState({searchCheck:false})
-      return await repl.doEval(({prompt}))
+        this.setState({searchCheck:false, inputText:''})
+        return await repl.pexec(inputText)
+      } 
+  }
+
+  toggleSearchCheckState(inputText) {
+    if (inputText.startsWith('search ') && !this.state.searchCheck) {
+      this.setState({ searchCheck: true, inputText })
+    } else if (!inputText.startsWith('search') && this.state.searchCheck) {
+      this.setState({ searchCheck: false, inputText })
+    } else {
+      this.setState({ inputText })
     }
   }
 
   handleInputTextChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({inputText: e.currentTarget.value})
-    this.state.inputText.includes('search') ? this.setState({searchCheck: true}) : this.setState({searchCheck: false})
+    this.toggleSearchCheckState(e.currentTarget.value)
+  }
+
+  handleSearchTextChange = (currentQuery) => {
+    let query = currentQuery.replace(/:\s*/,":")
+    this.toggleSearchCheckState(query)
   }
 
   renderCommandInput(){
-      return (
-        <input
+    return (
+      <input
         type="text"
         onChange={e => this.handleInputTextChange(e)}
         onKeyPress={(e) => this.onKeyPress(e)}
@@ -55,28 +70,23 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
         autoFocus={true}
         autoComplete="off" autoCorrect="off" autoCapitalize="on"
         placeholder="ENTER COMMANDS" />
-      )
-    }
-
-  renderSearchComponents(){
-      return (
-        <input
-        type="text"
-        onChange={e => this.handleInputTextChange(e)}
-        onKeyPress={(e) => this.onKeyPress(e)}
-        value={this.state.inputText}
-        className="repl-input-element"
-        autoFocus={true}
-        autoComplete="off" autoCorrect="off" autoCapitalize="on"
-        placeholder="ENTER COMMANDS" />
-      )
+    )
   }
 
+  renderSearchComponents(){
+    return (
+      <SearchInput
+        onChange={this.handleSearchTextChange}
+        value={this.state.inputText}
+        onKeyPress={this.onKeyPress}
+      />
+    )
+  }
 
   render() {
-
     return (
-      <div className='input-field'>
+      <div className='input-field' style={{ width: '100%'}}>
+        {/* {this.renderCommandInput()} */}
         {!this.state.searchCheck
           ? this.renderCommandInput()
           : this.renderSearchComponents()}
