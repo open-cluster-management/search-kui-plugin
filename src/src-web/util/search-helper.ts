@@ -9,20 +9,21 @@
 
 
 export const convertStringToQuery = (searchText) => {
+  var searchTokens
   if (searchText.indexOf('search summary ') !== -1){
-    var searchTokens = searchText.replace('search summary ', '').split(' ')
-    }
+    searchTokens = searchText.replace('search summary ', '').split(' ')
+  }
   else if(searchText.indexOf('search yaml ') !== -1){
-    var searchTokens = searchText.replace('search yaml ', '').split(' ')
+    searchTokens = searchText.replace('search yaml ', '').split(' ')
   }
   else if(searchText.indexOf('search related ') !== -1){
-    var searchTokens = searchText.replace('search related ', '').split(' ')
+    searchTokens = searchText.replace('search related ', '').split(' ')
   }
   else if(searchText.indexOf('search related:resources ') !== -1){
-    var searchTokens = searchText.replace('search related:resources ', '').split(' ')
+    searchTokens = searchText.replace('search related:resources ', '').split(' ')
   }
   else{
-    var searchTokens = searchText.replace('search ', '').split(' ')
+    searchTokens = searchText.replace('search ', '').split(' ')
   }
 
   const keywords = searchTokens.filter(token => token !== '' && token.indexOf(':') < 0)

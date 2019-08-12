@@ -11,11 +11,11 @@ import { injectCSS } from '@kui-shell/core/webapp/util/inject'
 import { dirname, join } from 'path'
 
 export const injectOurCSS = () => {
-    const ourRoot = dirname(require.resolve('@kui-shell/plugin-search/package.json'))
-    injectCSS(
-        {
-          key: "carbon",
-          path: join(ourRoot, 'src/src-web/styles/index.css')
-        }
-      )
+  const ourRoot = dirname(require.resolve('@kui-shell/plugin-search/package.json'))
+  injectCSS(
+    {
+      key: "carbon",
+      path: join(ourRoot, 'src/src-web/styles/index.css')
+    }
+  )
 }

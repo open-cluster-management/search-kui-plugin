@@ -26,3 +26,5 @@ export const registerCapability: CapabilityRegistration = async () => {
   const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
   await InputWrapper(stripe)
 }
+
+export default registerCapability
