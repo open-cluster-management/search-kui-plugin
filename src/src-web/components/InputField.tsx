@@ -19,15 +19,15 @@ const importRepl = async () => {
 importRepl()
 
 export class InputField extends React.PureComponent<InputFieldProps, InputFieldState> {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       searchCheck: false,
-      inputText:'',
+      inputText: '',
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     injectOurCSS()
   }
 
@@ -35,9 +35,9 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     const { inputText } = this.state
     e.persist()
     if (e.which === 13) {
-        this.setState({searchCheck:false, inputText:''})
-        return await repl.pexec(inputText)
-      } 
+      this.setState({searchCheck: false, inputText: ''})
+      return await repl.pexec(inputText)
+    }
   }
 
   toggleSearchCheckState(inputText) {
@@ -55,25 +55,25 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   }
 
   handleSearchTextChange = (currentQuery) => {
-    let query = currentQuery.replace(/:\s*/,":")
+    const query = currentQuery.replace(/:\s*/, ':')
     this.toggleSearchCheckState(query)
   }
 
-  renderCommandInput(){
+  renderCommandInput() {
     return (
       <input
-        type="text"
-        onChange={e => this.handleInputTextChange(e)}
+        type='text'
+        onChange={(e) => this.handleInputTextChange(e)}
         onKeyPress={(e) => this.onKeyPress(e)}
         value={this.state.inputText}
-        className="repl-input-element"
+        className='repl-input-element'
         autoFocus={true}
-        autoComplete="off" autoCorrect="off" autoCapitalize="on"
-        placeholder="ENTER COMMANDS" />
+        autoComplete='off' autoCorrect='off' autoCapitalize='on'
+        placeholder='ENTER COMMANDS' />
     )
   }
 
-  renderSearchComponents(){
+  renderSearchComponents() {
     return (
       <SearchInput
         onChange={this.handleSearchTextChange}
@@ -84,12 +84,12 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   }
 
   render() {
+    console.log('input field searchCheck - ', this.state.searchCheck)
     return (
       <div className='input-field' style={{ width: '100%'}}>
-        {/* {this.renderCommandInput()} */}
-        {!this.state.searchCheck
-          ? this.renderCommandInput()
-          : this.renderSearchComponents()}
+        {this.state.searchCheck
+          ? this.renderSearchComponents()
+          : this.renderCommandInput()}
       </div>
     )
   }

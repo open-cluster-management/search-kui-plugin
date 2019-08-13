@@ -8,18 +8,19 @@
 *******************************************************************************/
 import { inBrowser } from '@kui-shell/core/core/capabilities'
 
-var nconf = require('nconf')
+const nconf = require('nconf')
 
-var WHITELIST = [
+const WHITELIST = [
   'contextPath',
 ]
 
 const getXsrfToken = () => {
-  const token = document.querySelector('#app-access')['value'] || ''
+  console.log('getting xsrf token - ', document.querySelector('#app-access'))
+  const token = document.querySelector('#app-access') ? document.querySelector('#app-access')['value'] : ''
   return token.toString('ascii')
 }
 
-var config = {
+let config = {
   env: '',
   // TODO - Electron needs to grab backend urls somehow  Ex: https://<cluster-ip>:<backend-port>/(searchapi || hcmuiapi)/graphql
   // Browser can grab backend urls from the window.location.origin
@@ -35,11 +36,11 @@ var config = {
 
   // Electron needs the user access token
   authorization: `Bearer token`,
-  cookie: `cfc-access-token-cookie=`
+  cookie: `cfc-access-token-cookie=`,
 }
 
 if (nconf) {
-  WHITELIST.forEach(i => config[i] = nconf.get(i))
+  WHITELIST.forEach((i) => config[i] = nconf.get(i))
   config.env = process.env.NODE_ENV
 } else {
   const configElement = document.getElementById('config')
