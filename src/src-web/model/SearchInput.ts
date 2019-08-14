@@ -8,11 +8,11 @@
 *******************************************************************************/
 
 export interface SearchInputProps {
-    value: string
-    onChange: any
-    onKeyPress:any
-  }
+  value: string
+  onChange: any
+  onKeyPress: any
+}
 
 export interface SearchInputState {
-  searchSchema: Array<object>
+  searchSchema: object[]
 }

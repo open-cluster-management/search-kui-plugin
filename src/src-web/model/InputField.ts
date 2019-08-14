@@ -7,12 +7,9 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-export interface InputFieldProps {
-
-}
+export interface InputFieldProps { }
 
 export interface InputFieldState {
-    inputText: string
-    searchCheck: boolean
-  }
-  
+  inputText: string
+  searchCheck: boolean
+}

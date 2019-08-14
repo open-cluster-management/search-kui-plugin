@@ -7,11 +7,10 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-
 /**
-  NOTE: See documentation in SearchResourceTable.js
+ * NOTE: See documentation in SearchResourceTable.js
  */
-import * as React from 'react'
+// import * as React from 'react'
 // import msgs from '../../nls/search.properties'
 // import { getAge } from '../util/resource-helper'
 // import { createDashboardLink } from './hcm-applications'
@@ -29,7 +28,7 @@ export default {
     //   { key: 'dashboard', transform: createDashboardLink },
     ],
     actions: [
-      'table.actions.applications.remove'
+      'table.actions.applications.remove',
     ],
   },
   applicationrelationship: {
@@ -86,7 +85,7 @@ export default {
       { key: 'namespace' },
       { key: 'cluster' },
       { key: 'desired' },
-      { key: 'current',  },
+      { key: 'current' },
       { key: 'ready' },
       { key: 'updated' },
       { key: 'available' },
@@ -114,7 +113,7 @@ export default {
       { key: 'current' },
       { key: 'ready' },
       { key: 'available' },
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -123,7 +122,7 @@ export default {
       { key: 'name' },
       { key: 'namespace' },
       { key: 'cluster' },
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
   },
   job: {
@@ -142,7 +141,7 @@ export default {
       { key: 'name' },
       { key: 'cluster' },
       { key: 'status' },
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -154,7 +153,7 @@ export default {
       { key: 'architecture' },
       { key: 'osImage' },
       { key: 'cpu' },
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -169,7 +168,7 @@ export default {
       { key: 'claimRef', msgKey: 'claim' },
       { key: 'reclaimPolicy'},
       { key: 'path'},
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -182,7 +181,7 @@ export default {
       { key: 'persistentVolume', msgKey: 'persistent.volume'},
       { key: 'requests'},
       { key: 'accessModes', msgKey: 'accessMode'},
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -192,7 +191,7 @@ export default {
       { key: 'namespace' },
       { key: 'subjects' },
       { key: 'placementpolicy' },
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -202,7 +201,7 @@ export default {
       { key: 'namespace' },
       { key: 'replicas' },
       { key: 'decisions' },
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -217,11 +216,11 @@ export default {
       { key: 'restarts'},
       { key: 'hostIP'},
       { key: 'podIP'},
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [
       'table.actions.pod.logs',
-      'table.actions.remove'
+      'table.actions.remove',
     ],
   },
   policy: {
@@ -242,10 +241,10 @@ export default {
       { key: 'status'},
       { key: 'chartName'},
       { key: 'chartVersion'},
-      { key: 'updated', transform: (item) => getAge({ created: item.updated }) }
+      { key: 'updated', transform: (item) => getAge({ created: item.updated }) },
     ],
     actions: [
-      'table.actions.remove'
+      'table.actions.remove',
     ],
   },
   replicaset: {
@@ -255,7 +254,7 @@ export default {
       { key: 'cluster'},
       { key: 'desired'},
       { key: 'current'},
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -264,11 +263,11 @@ export default {
       { key: 'name' },
       { key: 'description' },
       { key: 'searchText' },
-      { key: 'count' }
+      { key: 'count' },
     ],
     actions: [
-      'table.actions.remove'
-    ]
+      'table.actions.remove',
+    ],
   },
   secret: {
     columns: [
@@ -284,7 +283,7 @@ export default {
       { key: 'name' },
       { key: 'namespace' },
       { key: 'cluster'},
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -295,19 +294,8 @@ export default {
       { key: 'cluster'},
       { key: 'desired'},
       { key: 'current'},
-      { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
-  }
+  },
 }
-
-// export function getPolicyStatusIcon(item, locale) {
-//   if (item.compliant){
-//     if (item.compliant.toLowerCase() === 'compliant') {
-//       return <StatusField status='ok' text={msgs.get('policy.status.compliant', locale)} />
-//     } else {
-//       return <StatusField status='critical' text={msgs.get('policy.status.noncompliant', locale)} />
-//     }
-//   }
-//   return '-'
-// }

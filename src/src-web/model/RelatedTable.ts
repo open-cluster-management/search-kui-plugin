@@ -8,9 +8,9 @@
  *******************************************************************************/
 
 export interface TableProps {
-    items: Array<any>
-    kind: Array<any>,
-    count: Array<number>,
+    items: any[]
+    kind: any[],
+    count: number[],
     filter: any
 }
 

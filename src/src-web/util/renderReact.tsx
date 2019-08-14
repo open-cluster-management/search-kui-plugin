@@ -13,17 +13,17 @@ import ResourceTable from '../components/ResourceTable'
 
 import repl = require('@kui-shell/core/core/repl')
 
-export default function renderReact(data: Array<any>, node: HTMLDivElement, command:string) {
-  const uniqueKinds = [...new Set(data.map(item => item.kind))]
-  var searchResource = command.includes(":") ? () => {
+export default function renderReact(data: any[], node: HTMLDivElement, command: string) {
+  const uniqueKinds = [...new Set(data.map((item) => item.kind))]
+  const searchResource = command.includes(':') ? () => {
     return (
       <div className={'search--resource'}>
         <div className={'related--resource-table-header'}>
           <div>
             <button
               onClick={() => {
-                if(command.includes(":")){
-                  repl.pexec(command.replace("search ", "search related:resources "))
+                if (command.includes(':')) {
+                  repl.pexec(command.replace('search ', 'search related:resources '))
                 }
               }}
               className={'related--resource-table-header-button'}>
@@ -31,23 +31,23 @@ export default function renderReact(data: Array<any>, node: HTMLDivElement, comm
             </button>
           </div>
         </div>
-        { uniqueKinds.map((kind)=> (
+        { uniqueKinds.map((kind) => (
           <div className={'search--resource-table'} key={kind}>
           <ResourceTable
-            items={data.filter(item => item.kind === kind || item.__type === kind )}
+            items={data.filter((item) => item.kind === kind || item.__type === kind )}
             kind={ kind }/>
         </div>
         ))}
       </div>
     )
   }
-  : () => { 
+  : () => {
     return (
       <div className={'search--resource'}>
-        { uniqueKinds.map((kind)=> (
+        { uniqueKinds.map((kind) => (
           <div className={'search--resource-table'} key={kind}>
           <ResourceTable
-            items={data.filter(item => item.kind === kind || item.__type === kind )}
+            items={data.filter((item) => item.kind === kind || item.__type === kind )}
             kind={ kind }/>
         </div>
         ))}
@@ -57,4 +57,3 @@ export default function renderReact(data: Array<any>, node: HTMLDivElement, comm
   ReactDOM.render(React.createElement(searchResource), node)
   return node
 }
-

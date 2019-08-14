@@ -9,7 +9,7 @@
 
 // Hack to workaround build issues with Carbon dependencies
 Object.defineProperty(window, 'navigator', { value: { userAgent: 'node' }, writable: true })
-Object.defineProperty(document, 'getElementById', { value: (val: String) => document.querySelector('#' + val), writable: true })
+Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
@@ -21,19 +21,19 @@ import { ModalProps, ModalState } from '../model/Modal'
 export default class ResourceTable extends React.PureComponent<ModalProps, ModalState> {
   static propTypes = {
     item: PropTypes.object,
-    modalOpen: PropTypes.bool
+    modalOpen: PropTypes.bool,
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
-      errors: null
+      errors: null,
     }
   }
 
   handleDelete() {
     const { item } = this.props
-    switch(item['kind']){
+    switch (item['kind']) {
       case 'savedSearches':
         // Backend doesn't handle error case when deleting a saved query
         repl.pexec(`deleteSavedSearch ${item['name']}`)

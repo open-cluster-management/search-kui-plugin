@@ -7,7 +7,6 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
- 
 import * as React from 'react'
 import HTTPClient from '../controller/HTTPClient'
 import SearchBar from './SearchBar'
@@ -16,22 +15,22 @@ import { SearchInputProps, SearchInputState } from '../model/SearchInput'
 
 export default class SearchInput extends React.PureComponent<SearchInputProps, SearchInputState> {
   static propTypes = { }
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
-      searchSchema:[],
+      searchSchema: [],
     }
   }
 
   // look into making this like apollo w/ loading?
   componentDidMount() {
     HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
-      .then(res => {
+      .then((res) => {
         this.setState({ searchSchema: res.data.searchSchema })
       })
   }
 
-  render(){
+  render() {
     return (
       <SearchBar
         onKeyPress={this.props.onKeyPress}
@@ -42,4 +41,3 @@ export default class SearchInput extends React.PureComponent<SearchInputProps, S
     )
   }
 }
-  

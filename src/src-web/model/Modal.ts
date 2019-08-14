@@ -10,7 +10,7 @@
 export interface ModalProps {
   item: object,
   modalOpen: boolean,
-  onClose: Function
+  onClose: () => {},
 }
 
 export interface ModalState {

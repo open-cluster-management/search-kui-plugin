@@ -18,11 +18,11 @@ import { getRelatedSidecar, getSidecar } from './sidecar';
 const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
 
-  if (args.argv.length == 1){
+  if (args.argv.length === 1) {
     resolve('ERROR: Received wrong number of parameters.\nUSAGE: search <keyword>\nEXAMPLE: search aggregator')
   }
 
-  const buildTable = (items: Array<object>)=>{
+  const buildTable = (items: object[]) => {
     const node = document.createElement('div', {is: 'react-entry-point'})
     node.classList.add('search-kui-plugin')
     renderReact(items, node, args.command)
@@ -30,9 +30,9 @@ const doSearch = (args) => new Promise((resolve, reject) => {
   }
 
   HTTPClient('post', 'search', SEARCH_QUERY(userQuery.keywords, userQuery.filters))
-    .then(res => {
+    .then((res) => {
       resolve(
-        buildTable(res.data.searchResult[0].items)
+        buildTable(res.data.searchResult[0].items),
       )
     })
 });

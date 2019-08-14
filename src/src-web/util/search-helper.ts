@@ -7,39 +7,35 @@
  * Contract with IBM Corp.
  *******************************************************************************/
 
-
 export const convertStringToQuery = (searchText) => {
-  var searchTokens
-  if (searchText.indexOf('search summary ') !== -1){
+  let searchTokens
+  if (searchText.indexOf('search summary ') !== -1) {
     searchTokens = searchText.replace('search summary ', '').split(' ')
-  }
-  else if(searchText.indexOf('search yaml ') !== -1){
+  } else if (searchText.indexOf('search yaml ') !== -1) {
     searchTokens = searchText.replace('search yaml ', '').split(' ')
-  }
-  else if(searchText.indexOf('search related ') !== -1){
+  } else if (searchText.indexOf('search related ') !== -1) {
     searchTokens = searchText.replace('search related ', '').split(' ')
-  }
-  else if(searchText.indexOf('search related:resources ') !== -1){
+  } else if (searchText.indexOf('search related:resources ') !== -1) {
     searchTokens = searchText.replace('search related:resources ', '').split(' ')
-  }
-  else{
+  } else {
     searchTokens = searchText.replace('search ', '').split(' ')
   }
 
-  const keywords = searchTokens.filter(token => token !== '' && token.indexOf(':') < 0)
-  const filters = searchTokens.filter(token => token.indexOf(':') >= 0)
-    .map(f => {
+  const keywords = searchTokens.filter((token) => token !== '' && token.indexOf(':') < 0)
+  const filters = searchTokens.filter((token) => token.indexOf(':') >= 0)
+    .map((f) => {
+      let property
+      let values
       // This will allow the search to return the clusterrolebinding resources
-      if(f.includes("name:system:") || f.includes("name:icp:")){
-        var [ property, values ] = f.split("name:")
-        property = "name"
+      if (f.includes('name:system:') || f.includes('name:icp:')) {
+        [ property, values ] = f.split('name:;')
+        property = 'name'
+      } else {
+        [ property, values ] = f.split(':')
       }
-      else
-        var [ property, values ] = f.split(':')
-      
       return { property, values: values.split(',') }
     })
-    .filter(f => ['', '=', '<', '>', '<=', '>=', '!=', '!'].findIndex(op => op === f.values[0]) === -1)
+    .filter((f) => ['', '=', '<', '>', '<=', '>=', '!=', '!'].findIndex((op) => op === f.values[0]) === -1)
 
   return {keywords, filters}
 }

@@ -8,16 +8,16 @@
  *******************************************************************************/
 
 export interface TableProps {
-    items: Array<object>,
+    items: object[],
     kind: string,
   }
 
-  export interface TableState {
-    itemToDelete: object,
-    page: number,
-    pageSize: number,
-    sortDirection: any,
-    selectedKey: string,
-    modalOpen: boolean,
-    collapse: boolean
-  }
+export interface TableState {
+  itemToDelete: object,
+  page: number,
+  pageSize: number,
+  sortDirection: any,
+  selectedKey: string,
+  modalOpen: boolean,
+  collapse: boolean
+}

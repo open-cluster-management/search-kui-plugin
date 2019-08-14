@@ -9,7 +9,7 @@
 
 // Hack to workaround build issues with Carbon dependencies
 Object.defineProperty(window, 'navigator', { value: { userAgent: 'node' }, writable: true })
-Object.defineProperty(document, 'getElementById', { value: (val: String) => document.querySelector('#' + val), writable: true })
+Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
@@ -24,10 +24,10 @@ export default class RelatedTable extends React.PureComponent<TableProps, TableS
   static propTypes = {
     items: PropTypes.array,
     kind: PropTypes.array,
-    command: PropTypes.any
+    command: PropTypes.any,
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.getHeaders = this.getHeaders.bind(this)
     this.getRows = this.getRows.bind(this)
@@ -35,17 +35,17 @@ export default class RelatedTable extends React.PureComponent<TableProps, TableS
 
   getHeaders() {
     const resource = [{
-      key: "kind",
-      header: "kind",
-    },{
-      key: "count",
-      header: "count",
+      key: 'kind',
+      header: 'kind',
+    }, {
+      key: 'count',
+      header: 'count',
     }]
     const headers = resource
-  return headers
+    return headers
   }
 
-  getRows(){
+  getRows() {
     const { items, filter } = this.props
 
     return items.map((record, i) => {
@@ -64,17 +64,17 @@ export default class RelatedTable extends React.PureComponent<TableProps, TableS
             return (
               <Table>
                 <TableBody>
-                {rows.map(row => (
+                {rows.map((row) => (
                   <TableRow key={row.id} className='bx--data-table--related'>
-                    {row.cells.map(cell => <TableCell key={cell.id} onClick={() => {
-                      const result = this.props.items.filter(row => row.kind.includes(cell.value))
-                      var command = `search kind:${cell.value} name:`
-                      
-                      result[0].items.forEach(element => {
+                    {row.cells.map((cell) => <TableCell key={cell.id} onClick={() => {
+                      const result = this.props.items.filter((r) => r.kind.includes(cell.value))
+                      let command = `search kind:${cell.value} name:`
+
+                      result[0].items.forEach((element) => {
                         command += `${element.name},`
                       });
 
-                      repl.pexec(command.substring(0, command.length-1))
+                      repl.pexec(command.substring(0, command.length - 1))
                     }}>
                       {cell.value}</TableCell>)}
                   </TableRow>))}

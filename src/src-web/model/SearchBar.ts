@@ -9,21 +9,21 @@
 
 export interface SearchBarProps {
     value: string
-    availableFilters: Array<object>
+    availableFilters: object[]
     onChange: any
     onKeyPress: any
   }
 
 export interface SearchBarState {
-  suggestions: Array<string>
+  suggestions: string[]
   currentQuery: string,
   currentTag: {
       field: string,
-      matchText: Array<string>
+      matchText: string[]
   },
   searchComplete: string,
-  tags: Array<object>,
-  fieldOptions: Array<object>,
+  tags: object[],
+  fieldOptions: object[],
   chosenOperator: any,
-  operators: Array<string>
+  operators: string[]
 }

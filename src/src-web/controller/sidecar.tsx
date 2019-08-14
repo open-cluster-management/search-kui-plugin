@@ -19,8 +19,9 @@ import { renderAndViewYAML } from '../views/modes/yaml';
 export const getSidecar = async (args: EvaluatorArgs) => {
   const userQuery = convertStringToQuery(args.command)
 
-  if (args.argv.length == 1)
+  if (args.argv.length === 1) {
     return 'ERROR: Received wrong number of parameters.\nUSAGE: search summary <kind> <resource>\nEXAMPLE: search summary ingress web-terminal'
+  }
 
   const kind = lodash.get(userQuery.filters, '[0].values', '')
   const name = lodash.get(userQuery.filters, '[1].values', '')
@@ -36,18 +37,18 @@ export const getSidecar = async (args: EvaluatorArgs) => {
     {
       defaultMode: true,
       mode: 'summary',
-      direct: `search summary kind:${kind} name:${name} ${ (ns && ns!=='') ? `namespace:${ns}` : ''}`,
+      direct: `search summary kind:${kind} name:${name} ${ (ns && ns !== '') ? `namespace:${ns}` : ''}`,
       label: 'Summary',
       order: 1,
-      leaveBottomStripeAlone: true
+      leaveBottomStripeAlone: true,
     },
     {
       defaultMode: true,
       mode: 'YAML',
-      direct: `search yaml kind:${kind} name:${name} ${ (ns && ns!=='') ? `namespace:${ns}` : ''}`,
+      direct: `search yaml kind:${kind} name:${name} ${ (ns && ns !== '') ? `namespace:${ns}` : ''}`,
       label: 'YAML',
       order: 2,
-      leaveBottomStripeAlone: true
+      leaveBottomStripeAlone: true,
     },
     {
       defaultMode: true,
@@ -55,7 +56,7 @@ export const getSidecar = async (args: EvaluatorArgs) => {
       direct: `search related kind:${kind} name:${name} namespace:${ns}`,
       label: 'Related Resources',
       order: 3,
-      leaveBottomStripeAlone: true
+      leaveBottomStripeAlone: true,
     },
   ]
 
@@ -66,8 +67,8 @@ export const getSidecar = async (args: EvaluatorArgs) => {
     packageName: `${ns}`,
     viewName: `${kind}`,
     modes,
-    badges: badges,
-    resource: renderAndViewYAML(args), 
+    badges,
+    resource: renderAndViewYAML(args),
     content: renderAndViewSummary(args),
   }
   return record
@@ -76,8 +77,9 @@ export const getSidecar = async (args: EvaluatorArgs) => {
 export const getRelatedSidecar = async (args: EvaluatorArgs) => {
   const userQuery = convertStringToQuery(args.command)
 
-  if (args.argv.length == 1)
+  if (args.argv.length === 1) {
     return 'ERROR: Received wrong number of parameters.\nUSAGE: search summary <kind> <resource>\nEXAMPLE: search summary ingress web-terminal'
+  }
 
   const kind = lodash.get(userQuery.filters, '[0].values', '')
   const modes: SidecarMode[] = [
@@ -86,7 +88,7 @@ export const getRelatedSidecar = async (args: EvaluatorArgs) => {
       mode: 'related',
       direct: args.command,
       label: `Related Resources`,
-      leaveBottomStripeAlone: true
+      leaveBottomStripeAlone: true,
     },
   ]
   const record = {

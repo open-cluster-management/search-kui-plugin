@@ -17,12 +17,11 @@ import { SEARCH_RELATED_QUERY } from '../../definitions/search-queries';
 
 /**
  * Render the tabular Related view
- * 
  */
-export const renderRelated = (data: Array<any>, node: HTMLDivElement, command: any) => {
-  const uniqueKinds = [...new Set(data.map(item => item.kind))] // returns unique kinds from the data <-> creates an array of strings
-  const count = data.map(item => item.count)
-  
+export const renderRelated = (data: any[], node: HTMLDivElement, command: any) => {
+  const uniqueKinds = [...new Set(data.map((item) => item.kind))] // returns unique kinds from the data <-> creates an array of strings
+  const count = data.map((item) => item.count)
+
   const relatedResource = data.length !== 0 ? () => {
     return (
       <div className={'related--resource'}>
@@ -35,17 +34,17 @@ export const renderRelated = (data: Array<any>, node: HTMLDivElement, command: a
       </div>
      )
   }
-  :() => {
+  : () => {
     return (
       <div className={'related--resource'}>
         <table className={'bx--data-table bx--data-table--no-border'}>
           <tbody>
             <tr className={'bx--data-table--related'}>
               <td>
-                {"Results for Related Resources"}
+                {'Results for Related Resources'}
               </td>
               <td>
-                {"N/A"}
+                {'N/A'}
               </td>
             </tr>
           </tbody>
@@ -60,12 +59,11 @@ export const renderRelated = (data: Array<any>, node: HTMLDivElement, command: a
 
 /**
  * Render a related table and show it in the sidecar
- * 
  */
 export const renderAndViewRelated = (args: EvaluatorArgs) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
 
-  const buildRelated = (items: Array<object>, command?: any) => {
+  const buildRelated = (items: object[], command?: any) => {
     const node = document.createElement('div', {is: 'search-sidecar-related'})
     node.classList.add('search-kui-plugin')
     renderRelated(items, node, command)
@@ -73,7 +71,7 @@ export const renderAndViewRelated = (args: EvaluatorArgs) => new Promise((resolv
   }
 
   HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-    .then(res => {
+    .then((res) => {
       resolve(buildRelated(res.data.searchResult[0].related, userQuery))
     })
 })

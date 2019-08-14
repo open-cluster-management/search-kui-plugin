@@ -19,14 +19,13 @@ const config = require('../../../lib/shared/config')
 
 /**
  * Render resources yaml
- * 
  */
-export const renderYAML = (data: Array<object>, node: HTMLDivElement) => {
+export const renderYAML = (data: object[], node: HTMLDivElement) => {
   const yamlResource = () => {
     return (
-      <div className="scrollable scrollable-auto monospace">
-          <pre className="pre-wrap break-all">
-            <code className="language-yaml" data-content-type="language-yaml">
+      <div className='scrollable scrollable-auto monospace'>
+          <pre className='pre-wrap break-all'>
+            <code className='language-yaml' data-content-type='language-yaml'>
                 {jsYaml.safeDump(data)}
             </code>
           </pre>
@@ -39,12 +38,11 @@ export const renderYAML = (data: Array<object>, node: HTMLDivElement) => {
 
 /**
  * Render yaml and show it in the sidecar
- * 
  */
 export const renderAndViewYAML = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
-  
-  const buildYAML = (items: Array<object>) => {
+
+  const buildYAML = (items: object[]) => {
     const node = document.createElement('div', {is: 'search-sidecar-yaml'})
     node.classList.add('custom-content')
     renderYAML(items, node)
@@ -52,14 +50,14 @@ export const renderAndViewYAML = (args) => new Promise((resolve, reject) => {
   }
 
   HTTPClient('post', 'search', SEARCH_QUERY(userQuery.keywords, userQuery.filters))
-  .then(res => {
+  .then((res) => {
     const record = res.data.searchResult[0].items
 
     HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(record))
-    .then(resp => {
+    .then((resp) => {
       const resources = resp.data.getResource
       resolve(
-        buildYAML(resources)
+        buildYAML(resources),
       )
     })
   })

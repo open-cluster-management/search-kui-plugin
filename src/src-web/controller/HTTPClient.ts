@@ -10,10 +10,10 @@
 import axios from 'axios'
 import { inElectron } from '@kui-shell/core/core/capabilities'
 
-var config = require('../../lib/shared/config')
+const config = require('../../lib/shared/config')
 
 // Need the agent in electron to get around ssl cert issues
-var agent = null
+let agent = null
 if (inElectron) {
   const https = require('https')
   agent = new https.Agent({ rejectUnauthorized: false })
@@ -21,17 +21,17 @@ if (inElectron) {
 
 // Browser requires xsrf token for calls & and electron needs the access token
 function getHeaders() {
-  if(inElectron()) {
+  if (inElectron()) {
     return {
-      "content-type": "application/json",
-      authorization: config.authorization,
+      'content-type': 'application/json',
+      'authorization': config.authorization,
       // Allows cookies to be passed in electron.
-      Cookie: config.cookie,
+      'Cookie': config.cookie,
     }
   }
   return {
-    "content-type": "application/json",
-    "XSRF-Token": config.xsrfToken
+    'content-type': 'application/json',
+    'XSRF-Token': config.xsrfToken,
   }
 }
 
@@ -49,10 +49,10 @@ export default function HTTPClient(method, urlType, requestBody) {
       headers: getHeaders(),
       data: requestBody,
       withCredentials: true,
-      httpsAgent: agent
-    }).then(res => {
+      httpsAgent: agent,
+    }).then((res) => {
       return res.data
-    }).catch(err => {
+    }).catch((err) => {
       throw new Error(err)
     })
   )

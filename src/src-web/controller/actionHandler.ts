@@ -12,17 +12,17 @@ import HTTPClient from './HTTPClient'
 import { DELETE_RESOURCE, DELETE_QUERY } from '../definitions/search-queries'
 
 function deleteSavedSearch(args) {
-  if (args.argv.length == 1){
+  if (args.argv.length === 1) {
     return 'ERROR: Received wrong number of parameters.\nUSAGE: deleteSavedSearch <saved-search-name>'
   }
   const name = args.argv[1]
   return new Promise((resolve, reject) => {
     HTTPClient('post', 'mcm', DELETE_QUERY(name))
-    .then(res => {
+    .then((res) => {
       resolve(
         res.errors
           ? res.errors[0].message
-          : `Successfully deleted ${name}`
+          : `Successfully deleted ${name}`,
       )
     })
   })
@@ -35,11 +35,11 @@ function deleteResource(args) {
   return new Promise((resolve, reject) => {
     // delete resource args = (name, namespace, kind, cluster, selfLink)
     HTTPClient('post', 'mcm', DELETE_RESOURCE(args.argv[1], args.argv[2], args.argv[3], args.argv[4], args.argv[5]))
-    .then(res => {
+    .then((res) => {
       resolve(
         res.errors
           ? res.errors[0].message
-          : `Successfully deleted ${args.argv[1]}`
+          : `Successfully deleted ${args.argv[1]}`,
       )
     })
   })
@@ -52,8 +52,8 @@ const deleteSavedSearchUsage = {
   header: 'Deletes a previously saved search',
   example: 'deleteSavedSearch <saved-search-name>',
   optional: [
-    { name: 'name', positional: true }
-  ]
+    { name: 'name', positional: true },
+  ],
 }
 
 const deleteResourceUsage = {

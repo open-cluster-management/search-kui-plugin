@@ -9,7 +9,7 @@
 
 // Hack to workaround build issues with Carbon dependencies
 Object.defineProperty(window, 'navigator', { value: { userAgent: 'node' }, writable: true })
-Object.defineProperty(document, 'getElementById', { value: (val: String) => document.querySelector('#' + val), writable: true })
+Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 
 import * as React from 'react'
 import * as lodash from 'lodash'
@@ -32,7 +32,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
     kind: PropTypes.string,
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       itemToDelete: {},
@@ -50,7 +50,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
 
   componentWillReceiveProps(nextProps) {
   this.setState({
-    collapse: nextProps.collapseTable
+    collapse: nextProps.collapseTable,
   })
 }
 
@@ -63,14 +63,14 @@ toggleCollapseTable = () => {
   getHeaders() {
     const { kind } = this.props
     const resource = tableDefinitions[kind] || tableDefinitions['genericresource']
-    const headers = resource.columns.map(col => ({
-    key: col.key, header: col.key
+    const headers = resource.columns.map((col) => ({
+    key: col.key, header: col.key,
   }))
-  headers.push({ key: 'action', header: ''})
-  return headers
+    headers.push({ key: 'action', header: ''})
+    return headers
   }
 
-  getRows(){
+  getRows() {
     const { page, pageSize, selectedKey, sortDirection } = this.state
     let { items } = this.props
     const { kind } = this.props
@@ -81,7 +81,7 @@ toggleCollapseTable = () => {
     const startItem = (page - 1) * pageSize
     const visibleItems = items.slice(startItem, startItem + pageSize)
     return visibleItems.map((item, i) => {
-      const action ='table.actions.remove'
+      const action = 'table.actions.remove'
       const row = { id: i.toString(), action: null, ...item }
       const resource = tableDefinitions[kind] || tableDefinitions['genericresource']
 
@@ -101,8 +101,8 @@ toggleCollapseTable = () => {
 
   handleSort = (selectedKey) => () => {
     if (selectedKey) {
-      this.setState(preState => {
-        return {selectedKey: selectedKey, sortDirection: preState.sortDirection === 'asc' ? 'desc' : 'asc' }
+      this.setState((preState) => {
+        return {selectedKey, sortDirection: preState.sortDirection === 'asc' ? 'desc' : 'asc' }
       })
     }
   }
@@ -136,7 +136,8 @@ toggleCollapseTable = () => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    {headers.map(header => (
+                    {headers.map((header) => (
+                      // move to TableHeader instead of using th and TableCell
                       <th scope={'col'} key={header.key}>
                         {header.key !== 'action'
                           ? <TableCell
@@ -152,18 +153,18 @@ toggleCollapseTable = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map(row => (
+                  {rows.map((row) => (
                     <TableRow key={row.id} className='bx--data-table--compact'>
-                      {row.cells.map(cell => <TableCell key={cell.id} onClick={() => {
-                        var _ = row.cells.filter(data => data.info.header === 'namespace')
-                        if(this.props.kind === 'savedSearches' && cell.info['header'] === 'name'){
+                      {row.cells.map((cell) => <TableCell key={cell.id} onClick={() => {
+                        const _ = row.cells.filter((data) => data.info.header === 'namespace')
+                        if (this.props.kind === 'savedSearches' && cell.info['header'] === 'name') {
                           // When user clicks on saved search name we want to run the query seen in search text column
                           return repl.pexec(`search ${row.cells[2].value}`)
-                        }else if(cell.info['header'] === 'name' && _.length > 0 && _[0].value){
+                        } else if (cell.info['header'] === 'name' && _.length > 0 && _[0].value) {
                           return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
-                        }else if(cell.info['header'] === 'name'){
+                        } else if (cell.info['header'] === 'name') {
                           return repl.pexec(`search summary kind:${this.props.kind} name:${row.cells[0].value}`)
-                        }else{
+                        } else {
                           return null
                         }
                       }}>{cell.value}</TableCell>)}
@@ -197,4 +198,3 @@ toggleCollapseTable = () => {
     )
   }
 }
-

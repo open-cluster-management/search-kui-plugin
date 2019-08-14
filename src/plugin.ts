@@ -20,6 +20,6 @@ export default async (commandTree: CommandRegistrar) => {
     search(commandTree),
     savedSearch(commandTree),
     related(commandTree),
-    yaml(commandTree)
+    yaml(commandTree),
   ])
 }

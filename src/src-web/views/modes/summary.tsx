@@ -16,14 +16,13 @@ import { SEARCH_QUERY } from '../../definitions/search-queries';
 
 /**
  * Render resource's summary
- * 
  */
-export const renderSummary = (data: Array<object>, node: HTMLDivElement) => {
+export const renderSummary = (data: object[], node: HTMLDivElement) => {
   const summaryResource = () => {
     return (
       <div>
-        <pre className="pre-wrap">
-            <code className="language-yaml" data-content-type="language-yaml">
+        <pre className='pre-wrap'>
+            <code className='language-yaml' data-content-type='language-yaml'>
                 {`NAME: ${data[0]['name']}`}<br></br>
                 {`KIND: ${data[0]['kind']}`}<br></br>
                 {`CREATED: ${data[0]['created']}`}<br></br>
@@ -39,12 +38,11 @@ export const renderSummary = (data: Array<object>, node: HTMLDivElement) => {
 
 /**
  * Render summary and show it in the sidecar
- * 
  */
 export const renderAndViewSummary = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
 
-  const buildSummary = (items: Array<object>) => {
+  const buildSummary = (items: object[]) => {
     const node = document.createElement('div', {is: 'search-sidecar-summary'})
     node.classList.add('custom-content')
     renderSummary(items, node)
@@ -52,7 +50,7 @@ export const renderAndViewSummary = (args) => new Promise((resolve, reject) => {
   }
 
   HTTPClient('post', 'search', SEARCH_QUERY(userQuery.keywords, userQuery.filters))
-    .then(res => {
+    .then((res) => {
       resolve(buildSummary(res.data.searchResult[0].items))
     })
 })
