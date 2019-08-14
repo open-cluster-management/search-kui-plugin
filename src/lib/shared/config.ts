@@ -15,7 +15,6 @@ const WHITELIST = [
 ]
 
 const getXsrfToken = () => {
-  console.log('getting xsrf token - ', document.querySelector('#app-access'))
   const token = document.querySelector('#app-access') ? document.querySelector('#app-access')['value'] : ''
   return token.toString('ascii')
 }

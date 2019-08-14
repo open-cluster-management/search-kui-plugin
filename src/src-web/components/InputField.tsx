@@ -84,7 +84,6 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   }
 
   render() {
-    console.log('input field searchCheck - ', this.state.searchCheck)
     return (
       <div className='input-field' style={{ width: '100%'}}>
         {this.state.searchCheck
