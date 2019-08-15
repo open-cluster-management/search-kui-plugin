@@ -10,6 +10,7 @@
 import * as React from 'react'
 import HTTPClient from '../controller/HTTPClient'
 import SearchBar from './SearchBar'
+import strings from '../../src-web/util/i18n'
 import { GET_SEARCH_SCHEMA } from '../definitions/search-queries'
 import { SearchInputProps, SearchInputState } from '../model/SearchInput'
 
@@ -18,11 +19,10 @@ export default class SearchInput extends React.PureComponent<SearchInputProps, S
   constructor(props) {
     super(props)
     this.state = {
-      searchSchema: [],
+      searchSchema: [{id: 'loading', name: strings('search.loading'), disabled: true}],
     }
   }
 
-  // look into making this like apollo w/ loading?
   componentDidMount() {
     HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
       .then((res) => {
@@ -36,8 +36,7 @@ export default class SearchInput extends React.PureComponent<SearchInputProps, S
         onKeyPress={this.props.onKeyPress}
         value={this.props.value}
         onChange={this.props.onChange}
-        availableFilters={this.state.searchSchema || []}
-      />
+        availableFilters={this.state.searchSchema} />
     )
   }
 }

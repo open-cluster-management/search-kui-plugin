@@ -29,17 +29,22 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
   constructor(props) {
     super(props)
-    let tags: any = []
     this.state = {
       suggestions: [],
-      currentQuery: '',
+      currentQuery: 'search',
       currentTag: {
         field: '',
         matchText: [],
       },
       searchComplete: '',
-      tags,
-      fieldOptions: [],
+      tags: [{
+        id: 'id-search-label',
+        key: 'key-search-label',
+        name: 'search',
+        value: 'search',
+        disabled: true,
+      }],
+      fieldOptions: [{id: 'loading', name: strings('search.loading'), disabled: true}],
       chosenOperator: null,
       operators: ['=', '<', '>', '<=', '>=', '!=', '!'],
     }
@@ -54,11 +59,10 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
       const fields = this.formatFields(nextProps.availableFilters.allProperties)
       const labelTag = {
         id: 'id-filter-label',
-        key:'key-filter-label',
+        key: 'key-filter-label',
         name: strings('searchbar.filters.label'),
         value: strings('searchbar.filters.label'),
-
-        disabled: true
+        disabled: true,
       }
       this.setState({
         fieldOptions: this.convertObjectToArray(fields, labelTag),
@@ -162,13 +166,13 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
   }
 
   formatSuggestionOptions(data) {
-    const { chosenOperator, fieldOptions, searchComplete, tags } = this.state
+    const { chosenOperator, searchComplete, tags } = this.state
     const labelTag = {
       id: 'id-filter-label',
-      key:'key-filter-label',
+      key: 'key-filter-label',
       name: strings('searchbar.values.label', [searchComplete]),
       value: strings('searchbar.values.label', [searchComplete]),
-      disabled: true
+      disabled: true,
     }
 
     interface Tag {
@@ -189,14 +193,14 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
         return [{
           id: 'id-no-results',
           name: strings('searchbar.no.suggestions'),
-          disabled: true
+          disabled: true,
         }]
       } else {
         if (data.searchComplete[0] === 'isNumber') {
           if (chosenOperator !== null) {
             const rangeText = data.searchComplete.length > 2
-              ? strings('searchbar.operator.range',[data.searchComplete[1],data.searchComplete[2]])
-              : strings('searchbar.operator.range',[data.searchComplete[1],data.searchComplete[1]])
+              ? strings('searchbar.operator.range', [data.searchComplete[1], data.searchComplete[2]])
+              : strings('searchbar.operator.range', [data.searchComplete[1], data.searchComplete[1]])
             return [
               labelTag,
               {
@@ -229,11 +233,11 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
             }),
             {
               id: 'id-filter-label',
-              key:'key-filter-label',
+              key: 'key-filter-label',
               name: strings('searchbar.operator.dateSort'),
               value: strings('searchbar.operator.dateSort'),
-              disabled: true
-            }
+              disabled: true,
+            },
           )
         }
         return this.convertObjectToArray(
@@ -249,7 +253,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
         )
       }
     } else {
-      return [{id: 'loading', name: 'Loading suggestions', disabled: true}]
+      return [{id: 'loading', name: strings('search.loading'), disabled: true}]
     }
   }
 
@@ -270,7 +274,9 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
   handleDelete(i) {
     const { tags, searchComplete } = this.state
     if (tags.length > 0) {
-      if (tags[i]['matchText'] === undefined || (tags[i]['matchText'] && tags[i]['matchText'].length <= 1) || tags[i]['classType'] === 'keyword') {
+      if (tags[i]['matchText'] === undefined // If tag only contains a filter value
+      || (tags[i]['matchText'] && tags[i]['matchText'].length <= 1) // If tag contains a filter and only 1 filter type ex: (kind:pod)
+      || (tags[i]['classType'] === 'keyword' && ((tags.length > 1 && tags[i]['value'] !== 'search') || tags.length === 1 && tags[i]['value'] === 'search'))) { // dont allow deletion of search tag if there are other tags being used
         const newTags = tags.filter((tag, index) => index !== i)
         const newQuery = newTags.map((tag) => tag['value']).join(' ')
         this.updateSelectedTags(newTags, {})
@@ -407,9 +413,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
     return (
       <div className='tagInput-filter'>
-        <div className={'tagInput-comboBox'}
-        onKeyPress={this.props.onKeyPress}
-        >
+        <div className={'tagInput-comboBox'} onKeyPress={this.props.onKeyPress} >
           <ReactTags
             placeholder=''
             tags={tags}
