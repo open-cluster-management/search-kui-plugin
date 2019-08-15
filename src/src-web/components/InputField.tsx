@@ -69,7 +69,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
         className='repl-input-element'
         autoFocus={true}
         autoComplete='off' autoCorrect='off' autoCapitalize='on'
-        placeholder='ENTER COMMANDS' />
+        placeholder='enter your command' />
     )
   }
 

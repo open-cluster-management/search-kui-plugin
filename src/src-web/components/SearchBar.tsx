@@ -14,8 +14,9 @@ import HTTPClient from '../controller/HTTPClient'
 import { convertStringToQuery } from '../util/search-helper'
 import { GET_SEARCH_COMPLETE } from '../definitions/search-queries'
 import {SearchBarProps, SearchBarState} from '../model/SearchBar'
+import strings from '../../src-web/util/i18n'
 
-const ReactTags =  require('react-tag-autocomplete')
+const ReactTags = require('react-tag-autocomplete')
 
 export default class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   static propTypes = {
@@ -53,12 +54,11 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
       const fields = this.formatFields(nextProps.availableFilters.allProperties)
       const labelTag = {
         id: 'id-filter-label',
-        key: 'key-filter-label',
-        // name: msgs.get('searchbar.filters.label', this.context.locale),
-        // value: msgs.get('searchbar.filters.label', this.context.locale),
-        name: 'Filters',
-        value: 'Filters',
-        disabled: true,
+        key:'key-filter-label',
+        name: strings('searchbar.filters.label'),
+        value: strings('searchbar.filters.label'),
+
+        disabled: true
       }
       this.setState({
         fieldOptions: this.convertObjectToArray(fields, labelTag),
@@ -165,12 +165,10 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
     const { chosenOperator, fieldOptions, searchComplete, tags } = this.state
     const labelTag = {
       id: 'id-filter-label',
-      key: 'key-filter-label',
-      // name: msgs.get('searchbar.values.label', [searchComplete], this.context.locale),
-      // value: msgs.get('searchbar.values.label', [searchComplete], this.context.locale),
-      name: 'name',
-      value: 'value',
-      disabled: true,
+      key:'key-filter-label',
+      name: strings('searchbar.values.label', [searchComplete]),
+      value: strings('searchbar.values.label', [searchComplete]),
+      disabled: true
     }
 
     interface Tag {
@@ -190,18 +188,15 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
       if (data.searchComplete.length === 0) {
         return [{
           id: 'id-no-results',
-          // name: msgs.get('searchbar.no.suggestions', this.context.locale),
-          name: 'searchbar.no.suggestions',
-          disabled: true,
+          name: strings('searchbar.no.suggestions'),
+          disabled: true
         }]
       } else {
         if (data.searchComplete[0] === 'isNumber') {
           if (chosenOperator !== null) {
             const rangeText = data.searchComplete.length > 2
-              ? 'top of range'
-              // msgs.get('searchbar.operator.range', [parseInt(data.searchComplete[1], 10), parseInt(data.searchComplete[2], 10)], this.context.locale)
-              : 'bottom of range'
-              // msgs.get('searchbar.operator.range', [parseInt(data.searchComplete[1], 10), parseInt(data.searchComplete[1], 10)], this.context.locale)
+              ? strings('searchbar.operator.range',[data.searchComplete[1],data.searchComplete[2]])
+              : strings('searchbar.operator.range',[data.searchComplete[1],data.searchComplete[1]])
             return [
               labelTag,
               {
@@ -234,13 +229,11 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
             }),
             {
               id: 'id-filter-label',
-              key: 'key-filter-label',
-              // name: msgs.get('searchbar.operator.dateSort', [searchComplete], this.context.locale),
-              // value: msgs.get('searchbar.operator.dateSort', [searchComplete], this.context.locale),
-              name: 'searchbar.operator.dateSort',
-              value: 'searchbar.operator.dateSort',
-              disabled: true,
-            },
+              key:'key-filter-label',
+              name: strings('searchbar.operator.dateSort'),
+              value: strings('searchbar.operator.dateSort'),
+              disabled: true
+            }
           )
         }
         return this.convertObjectToArray(
@@ -371,7 +364,6 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
             field: searchComplete,
             matchText: _.concat(input.name),
           },
-          searchComplete: '',
           suggestions: [],
         })
       } else if (searchComplete) {
@@ -415,7 +407,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
     return (
       <div className='tagInput-filter'>
-        <div style={{display: 'flex'}} className={'tagInput-comboBox'}
+        <div className={'tagInput-comboBox'}
         onKeyPress={this.props.onKeyPress}
         >
           <ReactTags
