@@ -16,10 +16,10 @@ import * as lodash from 'lodash'
 import * as PropTypes from 'prop-types'
 import tableDefinitions from '../definitions/search-definitions'
 import Modal from '../components/Modal'
-// import msgs from '../../nls/search.properties'
 import { Pagination, DataTable, OverflowMenu, OverflowMenuItem } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/ResourceTable'
 import repl = require('@kui-shell/core/core/repl')
+import strings from '../util/i18n'
 
 const { Table, TableHead, TableRow, TableBody, TableCell } = DataTable
 const PAGE_SIZES = { DEFAULT: 10, VALUES: [5, 10, 20, 50, 75, 100] }
@@ -64,7 +64,7 @@ toggleCollapseTable = () => {
     const { kind } = this.props
     const resource = tableDefinitions[kind] || tableDefinitions['genericresource']
     const headers = resource.columns.map((col) => ({
-    key: col.key, header: col.key,
+    key: col.key, header: strings(`table.header.${col.msgKey || col.key}`),
   }))
     headers.push({ key: 'action', header: ''})
     return headers
@@ -81,20 +81,21 @@ toggleCollapseTable = () => {
     const startItem = (page - 1) * pageSize
     const visibleItems = items.slice(startItem, startItem + pageSize)
     return visibleItems.map((item, i) => {
-      const action = 'table.actions.remove'
       const row = { id: i.toString(), action: null, ...item }
-      const resource = tableDefinitions[kind] || tableDefinitions['genericresource']
 
+    if (this.props.kind !== 'cluster' && this.props.kind !== 'release'){
+      const action = 'table.actions.remove'
       row.action = (
-        <OverflowMenu floatingMenu flipped iconDescription={'Menu'} ariaLabel='Overflow-menu'>
+        <OverflowMenu floatingMenu flipped iconDescription={strings('svg.description.overflowMenu')} ariaLabel='Overflow-menu'>
           <OverflowMenuItem
             data-table-action={action}
             isDelete={true}
             onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
             key={action}
-            itemText={'Delete'} />
+            itemText={strings('table.actions.remove.resource', [kind])} />
         </OverflowMenu>
       )
+    }
       return row
     })
   }
@@ -185,6 +186,9 @@ toggleCollapseTable = () => {
           page={page}
           disabled={pageSize >= totalItems}
           isLastPage={pageSize >= totalItems}
+          itemsPerPageText={strings('pagination.itemsPerPage')}
+          pageRangeText={(current, total) => strings('pagination.pageRange',[current, total])}
+          itemRangeText={(min,max,total) => `${strings('pagination.itemRange', [min,max])} ${strings('pagination.itemRangeDescription', [total])}`}
           pageInputDisabled={pageSize >= totalItems}
         />
         </React.Fragment>

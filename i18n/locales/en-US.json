@@ -16,6 +16,7 @@
 "modal.remove-hcmrepository.label" : "Helm Repositories",
 "modal.remove-hcmrepository.heading" : "Remove Helm Repository",
 "modal.remove-hcmpod.heading" : "Remove Pod",
+"modal.remove.heading" : "Remove {0}",
 "modal.remove-hcmpod.label" : "Pod",
 "modal.remove-hcmpolicy.heading" : "Remove Policy",
 "modal.remove-hcmpolicy.label" : "Policy",
@@ -91,6 +92,8 @@
 "searchbar.no.suggestions" : "No results",
 "searchbar.operator.range" : "Min: {0} - Max: {1}",
 "searchbar.operator.dateSort" : "{0} within the last:",
+
+"svg.description.overflowMenu" : "Open and close list of options",
 
 "table.actions.remove.resource" : "Delete {0}",
 "table.actions.remove.unauthorized" : "You are not authorized to delete this resource",

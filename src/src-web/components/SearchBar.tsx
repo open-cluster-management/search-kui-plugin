@@ -233,11 +233,11 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
             }),
             {
               id: 'id-filter-label',
-              key: 'key-filter-label',
-              name: strings('searchbar.operator.dateSort'),
-              value: strings('searchbar.operator.dateSort'),
-              disabled: true,
-            },
+              key:'key-filter-label',
+              name: strings('searchbar.operator.dateSort', [searchComplete]),
+              value: strings('searchbar.operator.dateSort', [searchComplete]),
+              disabled: true
+            }
           )
         }
         return this.convertObjectToArray(

@@ -18,6 +18,8 @@ import repl = require('@kui-shell/core/core/repl')
 import { Modal } from 'carbon-components-react'
 import { ModalProps, ModalState } from '../model/Modal'
 
+import strings from '../util/i18n'
+
 export default class ResourceTable extends React.PureComponent<ModalProps, ModalState> {
   static propTypes = {
     item: PropTypes.object,
@@ -47,16 +49,23 @@ export default class ResourceTable extends React.PureComponent<ModalProps, Modal
 
   render() {
     const { item, modalOpen } = this.props
+    const bodyLabel = item['kind']
+    const heading = strings('modal.remove.heading', [item['kind']])
     return (
       <Modal
+        danger
+        id='remove-resource-modal'
         open={modalOpen}
-        danger={true}
+        primaryButtonText={strings('modal.remove-kuberesource.heading')}
+        secondaryButtonText={strings('modal.button.cancel')}
+        modalLabel={bodyLabel}
+        modalHeading={heading}
         onRequestClose={() => this.props.onClose()}
         onRequestSubmit={() => this.handleDelete()}
-        modalHeading={'KUI Modal Example'}
-        primaryButtonText={'Submit'}
-        secondaryButtonText={'Close'}>
-          <p>Removing {item['name']} is irreversible. Are you sure you want to delete this {item['kind']}.</p>
+        role='region'
+        aria-label={heading}
+      >
+          <p>{strings('modal.remove.confirm', [item['name']])}</p>
       </Modal>
     )
   }
