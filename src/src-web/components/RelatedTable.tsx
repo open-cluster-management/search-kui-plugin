@@ -46,10 +46,10 @@ export default class RelatedTable extends React.PureComponent<TableProps, TableS
   }
 
   getRows() {
-    const { items, filter } = this.props
+    const { items } = this.props
 
     return items.map((record, i) => {
-      const row = { id: i.toString(), filter, ...record }
+      const row = { id: i.toString(), ...record }
       return row
     })
   }

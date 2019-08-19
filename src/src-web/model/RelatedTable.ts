@@ -11,7 +11,6 @@ export interface TableProps {
     items: any[]
     kind: any[],
     count: number[],
-    filter: any
 }
 
 export interface TableState {

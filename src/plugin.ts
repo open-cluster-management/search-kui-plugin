@@ -11,15 +11,11 @@ import { CommandRegistrar } from '@kui-shell/core/models/command'
 import actions from './src-web/controller/actionHandler'
 import savedSearch from './src-web/controller/savedSearch'
 import search from './src-web/controller/search'
-import related from './src-web/views/modes/related'
-import yaml from './src-web/views/modes/yaml'
 
 export default async (commandTree: CommandRegistrar) => {
   return Promise.all([
     actions(commandTree),
     search(commandTree),
     savedSearch(commandTree),
-    related(commandTree),
-    yaml(commandTree),
   ])
 }

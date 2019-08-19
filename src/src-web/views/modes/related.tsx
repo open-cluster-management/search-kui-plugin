@@ -7,76 +7,46 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { CommandRegistrar, EvaluatorArgs } from '@kui-shell/core/models/command';
-import { convertStringToQuery } from '../../util/search-helper'
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import RelatedTable from '../../components/RelatedTable';
-import HTTPClient from '../../controller/HTTPClient';
-import { SEARCH_RELATED_QUERY } from '../../definitions/search-queries';
 
-/**
- * Render the tabular Related view
- */
-export const renderRelated = (data: any[], node: HTMLDivElement, command: any) => {
-  const uniqueKinds = [...new Set(data.map((item) => item.kind))] // returns unique kinds from the data <-> creates an array of strings
-  const count = data.map((item) => item.count)
+export const relatedTab = (related: any) => new Promise((resolve, reject) => {
+  const node = document.createElement('div', {is: 'search-sidecar-related'})
 
-  const relatedResource = data.length !== 0 ? () => {
-    return (
-      <div className={'related--resource'}>
-        <RelatedTable
-          items={data}
-          kind={uniqueKinds}
-          count={count}
-          filter={command}
-        />
-      </div>
-     )
-  }
-  : () => {
-    return (
-      <div className={'related--resource'}>
-        <table className={'bx--data-table bx--data-table--no-border'}>
-          <tbody>
-            <tr className={'bx--data-table--related'}>
-              <td>
-                {'Results for Related Resources'}
-              </td>
-              <td>
-                {'N/A'}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    )
-  }
+  const uniqueKinds = [...new Set(related.map(item => item.kind))] // returns unique kinds from the data <-> creates an array of strings
+  const count = related.map(item => item.count)
 
-  ReactDOM.render(React.createElement(relatedResource), node)
-  return node
-}
-
-/**
- * Render a related table and show it in the sidecar
- */
-export const renderAndViewRelated = (args: EvaluatorArgs) => new Promise((resolve, reject) => {
-  const userQuery = convertStringToQuery(args.command)
-
-  const buildRelated = (items: object[], command?: any) => {
-    const node = document.createElement('div', {is: 'search-sidecar-related'})
-    node.classList.add('search-kui-plugin')
-    renderRelated(items, node, command)
-    return node
-  }
-
-  HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-    .then((res) => {
-      resolve(buildRelated(res.data.searchResult[0].related, userQuery))
-    })
+    const relatedResource = related.length !== 0 ? () => {
+      return(
+        <div className={'related--resource'}>
+          <RelatedTable
+            items={related}
+            kind={uniqueKinds}
+            count={count}
+          />
+        </div>
+      )}
+      :() => {
+        return (
+          <div className={'related--resource'}>
+            <table className={'bx--data-table bx--data-table--no-border'}>
+              <tbody>
+                <tr className={'bx--data-table--related'}>
+                  <td>
+                    {'Results for Related Resources'}
+                  </td>
+                  <td>
+                    {'N/A'}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )
+      }
+      
+    node.classList.add('custom-content')
+    ReactDOM.render(React.createElement(relatedResource), node)
+    resolve(node)
 })
-
-export default async (commandTree: CommandRegistrar) => {
-  const opts = { noAuthOk: true, inBrowserOk: true }
-  await commandTree.listen('/search/related', renderAndViewRelated, opts)
-}

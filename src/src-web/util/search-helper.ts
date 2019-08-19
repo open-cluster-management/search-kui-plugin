@@ -11,10 +11,6 @@ export const convertStringToQuery = (searchText) => {
   let searchTokens
   if (searchText.indexOf('search summary ') !== -1) {
     searchTokens = searchText.replace('search summary ', '').split(' ')
-  } else if (searchText.indexOf('search yaml ') !== -1) {
-    searchTokens = searchText.replace('search yaml ', '').split(' ')
-  } else if (searchText.indexOf('search related ') !== -1) {
-    searchTokens = searchText.replace('search related ', '').split(' ')
   } else if (searchText.indexOf('search related:resources ') !== -1) {
     searchTokens = searchText.replace('search related:resources ', '').split(' ')
   } else {
@@ -28,7 +24,7 @@ export const convertStringToQuery = (searchText) => {
       let values
       // This will allow the search to return the clusterrolebinding resources
       if (f.includes('name:system:') || f.includes('name:icp:')) {
-        [ property, values ] = f.split('name:;')
+        [ property, values ] = f.split('name:')
         property = 'name'
       } else {
         [ property, values ] = f.split(':')

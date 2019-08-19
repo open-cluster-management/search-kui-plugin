@@ -7,55 +7,38 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { convertStringToQuery } from '../../util/search-helper';
-import * as ReactDOM from 'react-dom';
-import * as React from 'react';
-import { CommandRegistrar } from '@kui-shell/core/models/command';
-import HTTPClient from '../../controller/HTTPClient';
-import { SEARCH_QUERY } from '../../definitions/search-queries';
+import * as jsYaml from 'js-yaml'
+import { Badge } from '@kui-shell/core/webapp/views/sidecar';
+import * as lodash from 'lodash'
 
 /**
- * Render resource's summary
+ * Render resource's summary tab
+ * 
  */
-export const renderSummary = (data: object[], node: HTMLDivElement) => {
-  const summaryResource = () => {
-    return (
-      <div>
-        <pre className='pre-wrap'>
-            <code className='language-yaml' data-content-type='language-yaml'>
-                {`NAME: ${data[0]['name']}`}<br></br>
-                {`KIND: ${data[0]['kind']}`}<br></br>
-                {`CREATED: ${data[0]['created']}`}<br></br>
-                {`SELFLINK: ${data[0]['selfLink']}`}<br></br>
-            </code>
-        </pre>
-      </div>
-    )
+export const summaryTab = (resource: any) => {
+  const badges: Badge[] = []
+  
+  // This will allow the sidecar balloon element to display the resources name.
+  const balloon = resource.kind !== 'release' ? lodash.get(resource.metadata.labels, 'app', resource.metadata.name) : resource.name
+  badges.push(balloon)
+
+  return{
+    type: 'custom',
+    isEntity: true,
+    content: jsYaml.safeDump(resource.metadata),
+    contentType: 'json',
+    viewName: `${resource.kind}`,
+    name: `${resource.metadata.name}`,
+    packageName: `${lodash.get(resource.metadata, 'namespace', '')}`,
+    badges,
+    modes: [
+      {
+        defaultMode: true, 
+        mode: 'summary',
+        direct: () => summaryTab(resource),
+        leaveBottomStripeAlone: true,
+        label: 'Summary'
+      },
+    ]
   }
-  ReactDOM.render(React.createElement(summaryResource), node)
-  return node
-}
-
-/**
- * Render summary and show it in the sidecar
- */
-export const renderAndViewSummary = (args) => new Promise((resolve, reject) => {
-  const userQuery = convertStringToQuery(args.command)
-
-  const buildSummary = (items: object[]) => {
-    const node = document.createElement('div', {is: 'search-sidecar-summary'})
-    node.classList.add('custom-content')
-    renderSummary(items, node)
-    return node
-  }
-
-  HTTPClient('post', 'search', SEARCH_QUERY(userQuery.keywords, userQuery.filters))
-    .then((res) => {
-      resolve(buildSummary(res.data.searchResult[0].items))
-    })
-})
-
-export default async (commandTree: CommandRegistrar) => {
-  const opts = { noAuthOk: true, inBrowserOk: true }
-  await commandTree.listen(`/search/summary`, renderAndViewSummary, opts)
 }
