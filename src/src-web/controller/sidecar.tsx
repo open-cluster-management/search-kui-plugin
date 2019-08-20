@@ -10,36 +10,35 @@
 import { convertStringToQuery } from '../util/search-helper';
 import { Badge } from '@kui-shell/core/webapp/views/sidecar'
 import * as lodash from 'lodash'
-import * as jsYaml from 'js-yaml'
 import HTTPClient from './HTTPClient';
 import { SEARCH_QUERY, SEARCH_MCM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
-import { summaryTab } from '../views/modes/summary'
+import { summaryTab, buildSummary } from '../views/modes/summary'
 import { yamlTab } from '../views/modes/yaml'
 import { relatedTab } from '../views/modes/related';
 
-const buildSidecar = (resource: any, related?: any) => {
+const buildSidecar = (items: any, resource?: any, related?: any) => {
   const badges: Badge[] = []
 
   // This will allow the sidecar balloon element to display the resources name.
-  const balloon = resource.kind !== 'release' ? lodash.get(resource.metadata.labels, 'app', resource.metadata.name) : resource.name
-  badges.push(balloon)
+  const balloon = items.name.toString().split(/(-[0-9])/)
+  badges.push(balloon[0])
 
   // Sidecar was able to return summary, yaml, and related objects
-  if (resource.kind !== 'release'){
+  if (resource !== undefined){
     return {
       type: 'custom',
       isEntity: true,
-      content: jsYaml.safeDump(resource.metadata),
+      content: buildSummary(items),
       contentType: 'json',
       badges,
-      viewName: `${resource.kind}`,
-      name: `${resource.metadata.name}`,
-      packageName: `${lodash.get(resource.metadata, 'namespace', '')}`,
+      viewName: `${items.kind}`,
+      name: `${items.name}`,
+      packageName: `${lodash.get(items, 'namespace', '')}`,
       modes: [
         {
           defaultMode: true, 
           mode: 'summary',
-          direct: () => summaryTab(resource),
+          direct: () => summaryTab(items),
           leaveBottomStripeAlone: true,
           label: 'Summary'
         },
@@ -66,17 +65,17 @@ const buildSidecar = (resource: any, related?: any) => {
     return {
       type: 'custom',
       isEntity: true,
-      content: jsYaml.safeDump(resource),
+      content: buildSummary(items),
       contentType: 'json',
       badges,
-      viewName: `${resource.kind}`,
-      name: `${resource.name}`,
-      packageName: `${lodash.get(resource, 'namespace', '')}`,
+      viewName: `${items.kind}`,
+      name: `${items.name}`,
+      packageName: `${lodash.get(items, 'namespace', '')}`,
       modes: [
         {
           defaultMode: true, 
           mode: 'summary',
-          direct: () => summaryTab(resource),
+          direct: () => summaryTab(items),
           leaveBottomStripeAlone: true,
           label: 'Summary'
         },
@@ -105,7 +104,7 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
       HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
       .then(res => {
         const related = res.data.searchResult[0].related
-        resolve(buildSidecar(resource, related))
+        resolve(buildSidecar(items[0], resource, related))
       })
     })
   })
