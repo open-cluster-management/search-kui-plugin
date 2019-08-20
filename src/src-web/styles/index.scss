@@ -298,6 +298,17 @@ span{
   }
 }
 
+.input-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .repl-input-element {
+    width: 100%;
+  }
+}
+
 
 // REACT TAG STYLING
 
@@ -429,7 +440,7 @@ span{
   display: inline-block;
   box-sizing: border-box;
   background: rgba(61,112,178,0.15) no-repeat right 8px center;
-  color: $ibm-color__blue-90;
+  color: var(--color-text-01);
   padding: 0 .5rem;
   border-radius: 1.5rem;
   border-color: transparent;
@@ -443,7 +454,7 @@ span{
 
   :after {
     content: '\2715';
-    color: $ibm-color__blue-90;
+    color: var(--color-text-01);
     margin-left: 8px;
   }
   :hover,

@@ -49,23 +49,23 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
   }
 
   componentWillReceiveProps(nextProps) {
-  this.setState({
-    collapse: nextProps.collapseTable,
-  })
-}
+    this.setState({
+      collapse: nextProps.collapseTable,
+    })
+  }
 
-toggleCollapseTable = () => {
-  this.setState(({collapse}) => {
-    return { collapse: !collapse }
-  })
-}
+  toggleCollapseTable = () => {
+    this.setState(({collapse}) => {
+      return { collapse: !collapse }
+    })
+  }
 
   getHeaders() {
     const { kind } = this.props
     const resource = tableDefinitions[kind] || tableDefinitions['genericresource']
     const headers = resource.columns.map((col) => ({
-    key: col.key, header: strings(`table.header.${col.msgKey || col.key}`),
-  }))
+      key: col.key, header: strings(`table.header.${col.msgKey || col.key}`),
+    }))
     headers.push({ key: 'action', header: ''})
     return headers
   }
@@ -83,19 +83,19 @@ toggleCollapseTable = () => {
     return visibleItems.map((item, i) => {
       const row = { id: i.toString(), action: null, ...item }
 
-    if (this.props.kind !== 'cluster' && this.props.kind !== 'release'){
-      const action = 'table.actions.remove'
-      row.action = (
-        <OverflowMenu floatingMenu flipped iconDescription={strings('svg.description.overflowMenu')} ariaLabel='Overflow-menu'>
-          <OverflowMenuItem
-            data-table-action={action}
-            isDelete={true}
-            onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
-            key={action}
-            itemText={strings('table.actions.remove.resource', [kind])} />
-        </OverflowMenu>
-      )
-    }
+      if (this.props.kind !== 'cluster' && this.props.kind !== 'release') {
+        const action = 'table.actions.remove'
+        row.action = (
+          <OverflowMenu flipped iconDescription={strings('svg.description.overflowMenu')} ariaLabel='Overflow-menu'>
+            <OverflowMenuItem
+              data-table-action={action}
+              isDelete={true}
+              onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
+              key={action}
+              itemText={strings('table.actions.remove.resource', [kind])} />
+          </OverflowMenu>
+        )
+      }
       return row
     })
   }
@@ -138,17 +138,15 @@ toggleCollapseTable = () => {
                 <TableHead>
                   <TableRow>
                     {headers.map((header) => (
-                      // move to TableHeader instead of using th and TableCell
                       <th scope={'col'} key={header.key}>
                         {header.key !== 'action'
-                          ? <TableCell
+                          ? <div
                               onClick={this.handleSort(header.key)}
                               className={`bx--table-sort-v2${sortDirection === 'asc' ? ' bx--table-sort-v2--ascending' : ''}${sortColumn === header.key ? ' bx--table-sort-v2--active' : ''}`}
                               data-key={header.key} >
                               <span className='bx--table-header-label'>{header.header}</span>
-                            </TableCell>
-                          : null
-                        }
+                            </div>
+                          : null}
                       </th>
                     ))}
                   </TableRow>
@@ -187,8 +185,8 @@ toggleCollapseTable = () => {
           disabled={pageSize >= totalItems}
           isLastPage={pageSize >= totalItems}
           itemsPerPageText={strings('pagination.itemsPerPage')}
-          pageRangeText={(current, total) => strings('pagination.pageRange',[current, total])}
-          itemRangeText={(min,max,total) => `${strings('pagination.itemRange', [min,max])} ${strings('pagination.itemRangeDescription', [total])}`}
+          pageRangeText={(current, total) => strings('pagination.pageRange', [current, total])}
+          itemRangeText={(min, max, total) => `${strings('pagination.itemRange', [min, max])} ${strings('pagination.itemRangeDescription', [total])}`}
           pageInputDisabled={pageSize >= totalItems}
         />
         </React.Fragment>

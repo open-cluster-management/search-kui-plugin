@@ -32,11 +32,13 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   }
 
   onKeyPress = async (e) => {
-    const { inputText } = this.state
+    const { inputText, searchCheck } = this.state
     e.persist()
     if (e.which === 13) {
       this.setState({searchCheck: false, inputText: ''})
-      return await repl.pexec(inputText)
+      if (searchCheck) {
+        await repl.pexec(inputText)
+      }
     }
   }
 
@@ -85,7 +87,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
 
   render() {
     return (
-      <div className='input-field' style={{ width: '100%'}}>
+      <div className='input-field'>
         {this.state.searchCheck
           ? this.renderSearchComponents()
           : this.renderCommandInput()}

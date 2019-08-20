@@ -63,8 +63,7 @@ export default class ResourceTable extends React.PureComponent<ModalProps, Modal
         onRequestClose={() => this.props.onClose()}
         onRequestSubmit={() => this.handleDelete()}
         role='region'
-        aria-label={heading}
-      >
+        aria-label={heading} >
           <p>{strings('modal.remove.confirm', [item['name']])}</p>
       </Modal>
     )

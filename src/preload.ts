@@ -7,6 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+import { listen } from '@kui-shell/core/webapp/cli'
 import { inBrowser } from '@kui-shell/core/core/capabilities'
 import { CapabilityRegistration } from '@kui-shell/core/models/plugin'
 import { InputWrapper } from './src-web/components/InputWrapper'
@@ -23,6 +24,11 @@ const registerCapability: CapabilityRegistration = async () => {
   }
   const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
   await InputWrapper(stripe)
+
+  // Core by default listens to original input bar
+  // We need to override that listen to the hijacked input bar by default
+  const prompt: HTMLInputElement = document.querySelector('.repl-block .repl-input input')
+  listen(prompt)
 }
 
 export default registerCapability
