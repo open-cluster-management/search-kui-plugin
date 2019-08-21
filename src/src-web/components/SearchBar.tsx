@@ -295,6 +295,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
             },
             searchComplete: '',
             chosenOperator: null,
+            suggestions:[]
           })
         }
       } else if (tags[i]['matchText'] && tags[i]['matchText'].length > 1) {

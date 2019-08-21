@@ -48,6 +48,16 @@
           }
         }
       }
+
+      .bx--data-table{
+        .bx--data-table--compact{
+          .bx--overflow-menu__icon{
+            width: 100%;
+            height: 100%;
+            padding: 0 0.5rem;
+          }
+        }
+      }
     }
 
     .related--resource-table-header-button{
@@ -67,6 +77,41 @@
 
       &:hover{
         text-decoration: underline;
+      }
+    }
+
+    .bx--pagination {
+
+      &__left {
+        .bx--select .bx--select-input {
+          height: 1.5rem;
+          width: auto;
+          padding:0 1.2rem 0 0.4rem;
+          margin: 0;
+          font-weight: 600;
+          text-align-last: center;
+          box-shadow: none;
+        }
+
+        .bx--select__arrow {
+            fill: var(--color-name);
+            width: 1rem;
+            height: 1rem;
+        }
+      }
+
+      &__right {
+        .bx--pagination__button{
+          &--backward {
+            order:1
+          }
+          &--forward {
+            order:3
+          }
+        }
+        .bx--form-item {
+          order: 2;
+        }
       }
     }
   
@@ -99,9 +144,13 @@
       &.bx--data-table--compact{
         font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
         height: 12px;
-      }
 
-      &.bx--data-table--compact{
+        .bx--overflow-menu__icon{
+          width: 100%;
+          height: 100%;
+          padding: 0 0.5rem;
+        }
+
         td{
           &:first-child{
             color: var(--color-text-01);
@@ -115,9 +164,6 @@
             cursor: pointer;
           }
         }
-      }
-      
-      &.bx--data-table--compact{
 
         &:nth-child(2n) {
           color: var(--color-text-01);
@@ -149,6 +195,7 @@
       }
 
       &.bx--data-table--related{
+        cursor: pointer;
 
         td{
           background-color: var(--color-sidecar-header);
@@ -158,13 +205,7 @@
           font-size: 1.6rem;
           padding: 3%;
           text-transform: capitalize;
-        }
-      }
 
-      &.bx--data-table--related{
-        cursor: pointer;
-
-        td{
           &:last-child{
             text-align: right;
           }
@@ -204,7 +245,6 @@
   }
 
   td{
-
     &.bx--table-sort-v2 {
       background: transparent;
       border: none;
@@ -215,14 +255,10 @@
       outline: none;
       text-transform: capitalize;
       padding: 0%;
+      &.bx--table-sort-v2--ascending{
+        padding: 0%
+      }
     }
-  }
-
-  .bx--table-sort-v2{
-    &.bx--table-sort-v2--ascending{
-      padding: 0%
-    }
-
   }
 }
 
@@ -286,10 +322,6 @@
       }
     }
   }
-}
-
-.bx--select__arrow{
-  fill: var(--color-name);
 }
 
 span{

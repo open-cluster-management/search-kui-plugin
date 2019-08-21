@@ -7,15 +7,18 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { InputField } from './InputField'
+import { ChevronRight24 } from '@carbon/icons-react'
 
 export const InputWrapper = (node: HTMLElement) => {
   const Component = () => {
     return (
-      <div className='repl-block' data-base-class='repl-block'>
-        <div className='repl-input'>
+      <div className='repl-block' data-base-class="repl-block">
+        <div className="repl-input">
+          <ChevronRight24/>
           <InputField />
         </div>
       </div>
