@@ -10,21 +10,14 @@
 /**
  * NOTE: See documentation in SearchResourceTable.js
  */
-// import * as React from 'react'
-// import msgs from '../../nls/search.properties'
-// import { getAge } from '../util/resource-helper'
-// import { createDashboardLink } from './hcm-applications'
-// import { getStatusIcon as getClusterStatusIcon, getExternalLink } from './hcm-clusters'
-// import StatusField from '../components/common/StatusField'
-
-function getAge(age) { return age }
+import { getAge } from '../util/resource-helper'
 
 export default {
   application: {
     columns: [
       { key: 'name' },
       { key: 'namespace' },
-    //   { key: 'created', transform: getAge },
+      { key: 'created', transform: getAge },
     //   { key: 'dashboard', transform: createDashboardLink },
     ],
     actions: [
@@ -38,7 +31,7 @@ export default {
       { key: 'source' },
       { key: 'destination' },
       { key: 'type' },
-    //   { key: 'created', transform: getAge },
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -75,7 +68,7 @@ export default {
       { key: 'schedule' },
       { key: 'suspend' },
       { key: 'active' },
-      { key: 'lastSchedule', transform: (item) => getAge({ created: item.lastSchedule }) },
+      { key: 'lastSchedule', transform: (item) => getAge( item, null, 'lastSchedule') },
       { key: 'created', transform: getAge},
     ],
   },
@@ -89,8 +82,7 @@ export default {
       { key: 'ready' },
       { key: 'updated' },
       { key: 'available' },
-      // { key: 'nodeSelector' },
-    //   { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -100,7 +92,7 @@ export default {
       { key: 'namespace' },
       { key: 'chartUrl' },
       { key: 'dependencies' },
-    //   { key: 'created', transform: getAge }
+      { key: 'created', transform: getAge },
     ],
     actions: [],
   },
@@ -210,8 +202,6 @@ export default {
       { key: 'name' },
       { key: 'namespace' },
       { key: 'cluster'},
-      // { key: 'labels'},  // TODO: Data not available in the gremlin database yet.
-      // { key: 'images'},  // TODO: Data not available in the gremlin database yet.
       { key: 'status'},
       { key: 'restarts'},
       { key: 'hostIP'},
@@ -241,7 +231,7 @@ export default {
       { key: 'status'},
       { key: 'chartName'},
       { key: 'chartVersion'},
-      { key: 'updated', transform: (item) => getAge({ created: item.updated }) },
+      { key: 'updated', transform: (item) => getAge( item, null, 'updated' ) },
     ],
     actions: [
       'table.actions.remove',

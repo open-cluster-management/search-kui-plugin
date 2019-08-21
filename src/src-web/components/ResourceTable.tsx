@@ -71,17 +71,29 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
   }
 
   getRows() {
-    const { page, pageSize, selectedKey, sortDirection } = this.state
     let { items } = this.props
     const { kind } = this.props
+    let transforms = tableDefinitions[kind] || tableDefinitions['genericresource']
+    const { page, pageSize, selectedKey, sortDirection } = this.state
 
     if (selectedKey) {
-    items = lodash.orderBy(items, [selectedKey], [sortDirection])
+      items = lodash.orderBy(items, [selectedKey], [sortDirection])
     }
     const startItem = (page - 1) * pageSize
     const visibleItems = items.slice(startItem, startItem + pageSize)
+    // Get all the transforms for current kind defined in search-definitions
+    transforms = transforms.columns.filter((rowCol) => rowCol.transform)
+
     return visibleItems.map((item, i) => {
       const row = { id: i.toString(), action: null, ...item }
+
+      // Transform each key that has a transform and assign it back to the row item
+      if (transforms.length > 0) {
+        transforms.forEach((transform) => {
+          // NOTE - this will only work for getAge transfrom currently
+          row[transform.key] = transform.transform(item, null, transform.key)
+        })
+      }
 
       if (this.props.kind !== 'cluster' && this.props.kind !== 'release') {
         const action = 'table.actions.remove'
