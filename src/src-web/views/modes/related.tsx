@@ -29,7 +29,7 @@ export const relatedTab = (related: any) => new Promise((resolve, reject) => {
       )}
       :() => {
         return (
-          <div className={'related--resource'}>
+          <div className={'scrollable related--resource'}>
             <table className={'bx--data-table bx--data-table--no-border'}>
               <tbody>
                 <tr className={'bx--data-table--related'}>

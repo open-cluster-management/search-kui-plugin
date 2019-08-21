@@ -19,8 +19,8 @@ export const yamlTab = (resource: any) => {
   const badges: Badge[] = []
   
   // This will allow the sidecar balloon element to display the resources name.
-  const balloon = resource.kind !== 'release' ? lodash.get(resource.metadata.labels, 'app', resource.metadata.name) : resource.name
-  badges.push(balloon)
+  const balloon = resource.metadata.name.split(/(-[0-9])/)
+  badges.push(balloon[0])
 
   return{
     type: 'custom',

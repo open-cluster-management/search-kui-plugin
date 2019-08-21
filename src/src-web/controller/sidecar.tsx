@@ -20,10 +20,42 @@ const buildSidecar = (items: any, resource?: any, related?: any) => {
   const badges: Badge[] = []
 
   // This will allow the sidecar balloon element to display the resources name.
-  const balloon = items.name.toString().split(/(-[0-9])/)
+  const balloon = items.name.split(/(-[0-9])/)
   badges.push(balloon[0])
 
-  // Sidecar was able to return summary, yaml, and related objects
+  const modes = [
+    {
+      defaultMode: true, 
+      mode: 'summary',
+      direct: () => summaryTab(items),
+      leaveBottomStripeAlone: true,
+      label: 'Summary',
+      order: 1
+    },
+    {
+      defaultMode: true, 
+      mode: 'related',
+      direct: () => relatedTab(related),
+      leaveBottomStripeAlone: true,
+      label: 'Related Resources',
+      order: 3
+    },
+    {
+      defaultMode: true, 
+      mode: 'yaml',
+      direct: () => yamlTab(resource),
+      leaveBottomStripeAlone: true,
+      label: 'YAML',
+      order: 2
+    },
+  ]
+
+  // If the sidecar was not able to return a yaml object, remove the YAML tab.
+  if(resource.message){
+    modes.pop()
+  }
+
+  // Sidecar was able to return summary, yaml, and related objects.
   if (resource !== undefined){
     return {
       type: 'custom',
@@ -34,33 +66,11 @@ const buildSidecar = (items: any, resource?: any, related?: any) => {
       viewName: `${items.kind}`,
       name: `${items.name}`,
       packageName: `${lodash.get(items, 'namespace', '')}`,
-      modes: [
-        {
-          defaultMode: true, 
-          mode: 'summary',
-          direct: () => summaryTab(items),
-          leaveBottomStripeAlone: true,
-          label: 'Summary'
-        },
-        {
-          defaultMode: true, 
-          mode: 'yaml',
-          direct: () => yamlTab(resource),
-          leaveBottomStripeAlone: true,
-          label: 'YAML'
-        },
-        {
-          defaultMode: true, 
-          mode: 'related',
-          direct: () => relatedTab(related),
-          leaveBottomStripeAlone: true,
-          label: 'Related Resources'
-        },
-      ]
+      modes
     }
   }
 
-  // Sidecar was only able to return summary value.
+  // Sidecar was only able to return summary and related objects.
   else{
     return {
       type: 'custom',
@@ -97,9 +107,7 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
 
     HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(items))
     .then(resp => {      
-      const resource = resp.data.getResource
-      if(resource === null || resource === undefined)
-        resolve(buildSidecar(items[0]))
+      const resource = resp.data.getResource[0] ? resp.data.getResource[0] : resp.data.getResource
       
       HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
       .then(res => {
@@ -110,7 +118,7 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
   })
 })
 
-const buildRelatedSidecar = (related: any, command: any) => {
+export const buildRelatedSidecar = (related: any, command: any) => {
   const userQuery = convertStringToQuery(command)
   const kind = lodash.get(userQuery.filters, '[0].values', '')
 
