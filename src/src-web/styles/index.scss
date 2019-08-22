@@ -82,6 +82,12 @@
 
     .bx--pagination {
 
+      .bx--select__arrow {
+        fill: var(--color-name);
+        width: 1rem;
+        height: 1rem;
+    }
+
       &__left {
         .bx--select .bx--select-input {
           height: 1.5rem;
@@ -93,11 +99,6 @@
           box-shadow: none;
         }
 
-        .bx--select__arrow {
-            fill: var(--color-name);
-            width: 1rem;
-            height: 1rem;
-        }
       }
 
       &__right {
