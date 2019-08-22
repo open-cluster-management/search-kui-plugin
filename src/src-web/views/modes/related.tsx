@@ -19,7 +19,7 @@ export const relatedTab = (related: any) => new Promise((resolve, reject) => {
 
     const relatedResource = related.length !== 0 ? () => {
       return(
-        <div className={'related--resource'}>
+        <div className={'scrollable related--resource'}>
           <RelatedTable
             items={related}
             kind={uniqueKinds}
@@ -29,7 +29,7 @@ export const relatedTab = (related: any) => new Promise((resolve, reject) => {
       )}
       :() => {
         return (
-          <div className={'scrollable related--resource'}>
+          <div className={'related--resource'}>
             <table className={'bx--data-table bx--data-table--no-border'}>
               <tbody>
                 <tr className={'bx--data-table--related'}>
