@@ -70,7 +70,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
         value={this.state.inputText}
         className='repl-input-element'
         autoFocus={true}
-        autoComplete='off' autoCorrect='off' autoCapitalize='on' spellCheck='false'
+        autoComplete='off' autoCorrect='off' autoCapitalize='on' spellCheck={false}
         placeholder='enter your command' />
     )
   }
