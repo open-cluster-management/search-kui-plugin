@@ -31,10 +31,10 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     injectOurCSS()
   }
 
-  onKeyPress = async (e) => {
+  onKeyDown = async (e) => {
     const { inputText, searchCheck } = this.state
     e.persist()
-    if (e.which === 13) {
+    if (e.which === 13){
       this.setState({searchCheck: false, inputText: ''})
       if (searchCheck) {
         await repl.pexec(inputText)
@@ -65,8 +65,8 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     return (
       <input
         type='text'
-        onChange={(e) => this.handleInputTextChange(e)}
-        onKeyPress={(e) => this.onKeyPress(e)}
+        onChange={this.handleInputTextChange}
+        onKeyPress={this.onKeyDown}
         value={this.state.inputText}
         className='repl-input-element'
         autoFocus={true}
@@ -80,7 +80,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
       <SearchInput
         onChange={this.handleSearchTextChange}
         value={this.state.inputText}
-        onKeyPress={this.onKeyPress}
+        onKeyDown={this.onKeyDown}
       />
     )
   }

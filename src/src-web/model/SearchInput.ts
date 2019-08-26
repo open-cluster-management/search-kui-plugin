@@ -10,7 +10,7 @@
 export interface SearchInputProps {
   value: string
   onChange: any
-  onKeyPress: any
+  onKeyDown: any
 }
 
 export interface SearchInputState {

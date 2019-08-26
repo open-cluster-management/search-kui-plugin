@@ -8,8 +8,11 @@
 *******************************************************************************/
 
 // Hack to workaround build issues with Carbon dependencies
-Object.defineProperty(window, 'navigator', { value: { userAgent: 'node' }, writable: true })
-Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
+if (!window || !window.navigator || !window.navigator.userAgent){
+  Object.defineProperty(window, 'navigator', { value: { userAgent: 'node'}, writable: true })
+  Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
+}
+
 
 import * as React from 'react'
 import * as PropTypes from 'prop-types'

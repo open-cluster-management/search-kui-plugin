@@ -33,7 +33,7 @@ export default class SearchInput extends React.PureComponent<SearchInputProps, S
   render() {
     return (
       <SearchBar
-        onKeyPress={this.props.onKeyPress}
+        onKeyDown={this.props.onKeyDown}
         value={this.props.value}
         onChange={this.props.onChange}
         availableFilters={this.state.searchSchema} />

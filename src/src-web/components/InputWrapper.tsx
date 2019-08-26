@@ -19,7 +19,7 @@ export const InputWrapper = (node: HTMLElement) => {
       <div className='repl-block' data-base-class="repl-block">
         <div className="repl-input">
           <ChevronRight24/>
-          <InputField />
+          <InputField/>
         </div>
       </div>
     )
