@@ -8,88 +8,87 @@
 *******************************************************************************/
 
 import { convertStringToQuery } from '../util/search-helper';
-import { Badge } from '@kui-shell/core/webapp/views/sidecar'
-import * as lodash from 'lodash'
+import { Badge } from '@kui-shell/core/webapp/views/sidecar';
+import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
-import { SEARCH_QUERY, SEARCH_MCM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
-import { summaryTab, buildSummary } from '../views/modes/summary'
-import { yamlTab } from '../views/modes/yaml'
-import { relatedTab } from '../views/modes/related';
+import { SEARCH_MCM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
+import { summaryTab, buildSummary } from '../views/modes/summary';
+import { yamlTab } from '../views/modes/yaml';
+import { relatedTab, queryRelatedTab, buildQueryRelated } from '../views/modes/related';
+import strings from '../util/i18n'
 
-const buildSidecar = (items: any, resource?: any, related?: any) => {
+export const buildSidecar = (type: string, data: any, resource?: any) => {
   const badges: Badge[] = []
 
   // This will allow the sidecar balloon element to display the resources name.
-  const balloon = items.name.split(/(-[0-9])/)
+  const balloon = lodash.get(data, 'items[0].name', '').split(/(-[0-9])/)
   badges.push(balloon[0])
 
-  const modes = [
-    {
-      defaultMode: true, 
-      mode: 'summary',
-      direct: () => summaryTab(items),
-      leaveBottomStripeAlone: true,
-      label: 'Summary',
-      order: 1
-    },
-    {
-      defaultMode: true, 
-      mode: 'related',
-      direct: () => relatedTab(related),
-      leaveBottomStripeAlone: true,
-      label: 'Related Resources',
-      order: 3
-    },
-    {
-      defaultMode: true, 
-      mode: 'yaml',
-      direct: () => yamlTab(resource),
-      leaveBottomStripeAlone: true,
-      label: 'YAML',
-      order: 2
-    },
-  ]
-
-  // If the sidecar was not able to return a yaml object, remove the YAML tab.
-  if(resource.message){
-    modes.pop()
-  }
-
-  // Sidecar was able to return summary, yaml, and related objects.
-  if (resource !== undefined){
-    return {
+  // Returns the related resources sidecar and tab for the search query that was entered.
+  if(type === 'query'){
+    return{
       type: 'custom',
       isEntity: true,
-      content: buildSummary(items),
-      contentType: 'json',
-      badges,
-      viewName: `${items.kind}`,
-      name: `${items.name}`,
-      packageName: `${lodash.get(items, 'namespace', '')}`,
-      modes
+      name: strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
+      viewName: `${lodash.get(data, 'items[0].kind', '')}`,
+      modes: [
+        {
+          defaultMode: true,
+          mode: 'related',
+          direct: () => queryRelatedTab(data),
+          leaveBottomStripeAlone: true,
+          label: strings('search.label.related'),
+        }
+      ],
+      content: buildQueryRelated(data.related)
     }
   }
 
-  // Sidecar was only able to return summary and related objects.
+  // Returns the sidecar summary, yaml, and related resources tab for the selected table resource.
   else{
+    const modes = [
+      {
+        defaultMode: true,
+        mode: 'summary',
+        direct: () => summaryTab(data.items[0]),
+        leaveBottomStripeAlone: true,
+        label: strings('search.label.summary'),
+        order: 1
+      },
+      {
+        defaultMode: true,
+        mode: 'related',
+        direct: () => relatedTab(data),
+        leaveBottomStripeAlone: true,
+        label: strings('search.label.related'),
+        order: 3
+      },
+      {
+        defaultMode: true,
+        mode: 'yaml',
+        direct: () => yamlTab(resource),
+        leaveBottomStripeAlone: true,
+        label: 'YAML',
+        order: 2
+      },
+    ]
+  
+    // If the sidecar was not able to return a yaml object, remove the YAML tab.
+    if(resource.message || resource.errors){
+      modes.pop()
+    }
+  
+    // Return sidecar entity
     return {
       type: 'custom',
       isEntity: true,
-      content: buildSummary(items),
+      content: buildSummary(data.items[0]),
       contentType: 'json',
       badges,
-      viewName: `${items.kind}`,
-      name: `${items.name}`,
-      packageName: `${lodash.get(items, 'namespace', '')}`,
-      modes: [
-        {
-          defaultMode: true, 
-          mode: 'summary',
-          direct: () => summaryTab(items),
-          leaveBottomStripeAlone: true,
-          label: 'Summary'
-        },
-      ]
+      viewName: `${lodash.get(data, 'items[0].kind', '')}`,
+      name: `${lodash.get(data, 'items[0].name', '')}`,
+      packageName: `${lodash.get(data, 'items[0].namespace', '')}`,
+      modes
     }
   }
 }
@@ -98,59 +97,23 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
 
   if (args.argv.length === 2){
-    resolve('ERROR: Received wrong number of parameters.\nUSAGE: search summary kind:<keyword> name:<keyword> namespace:<keyword>\nEXAMPLE: search kind:pod name:audit-logging-fluentd-ds-7tpnw namespace:kube-system')
+    resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${args.command} kind:<keyword> name:<keyword> namespace:<keyword>\nEXAMPLE: ${args.command} kind:pod name:audit-logging-fluentd-ds-7tpnw namespace:kube-system`)
   }
-  
-  HTTPClient('post', 'search', SEARCH_QUERY(userQuery.keywords, userQuery.filters))
-  .then(res => {
-    const items = res.data.searchResult[0].items
-
-    HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(items))
-    .then(resp => {      
-      const resource = resp.data.getResource[0] ? resp.data.getResource[0] : resp.data.getResource
-      
-      HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-      .then(res => {
-        const related = res.data.searchResult[0].related
-        resolve(buildSidecar(items[0], resource, related))
-      })
-    })
-  })
-})
-
-export const buildRelatedSidecar = (related: any, command: any) => {
-  const userQuery = convertStringToQuery(command)
-  const kind = lodash.get(userQuery.filters, '[0].values', '')
-
-  return {
-    type: 'custom',
-    isEntity: true,
-    name: `Related resources for search results: ${kind}`,
-    viewName: `${kind}`,
-    contentType: 'json',
-    modes: [
-      {
-        defaultMode: true, 
-        mode: 'related',
-        direct: () => relatedTab(related),
-        leaveBottomStripeAlone: true,
-        label: 'Related Resources'
-      },
-    ],
-    content: relatedTab(related)
-  }
-}
-
-export const getRelatedSidecar = async (args) => new Promise((resolve, reject) => {
-  if (args.argv.length === 2){
-    resolve('ERROR: Received wrong number of parameters.\nUSAGE: search related:resources kind:<keyword>\nEXAMPLE: search related:resources kind:pod')
-  }
-
-  const userQuery = convertStringToQuery(args.command)
   
   HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
   .then(res => {
-    const related = res.data.searchResult[0].related
-    resolve(buildRelatedSidecar(related, args.command))
-  })  
+    const data = res.data.searchResult[0]
+
+    if(args.command.includes("related:resources")){
+      resolve(buildSidecar('query', data))
+    }
+
+    else{
+      HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
+      .then(resp => {
+        const resource = resp.data.getResource[0] ? resp.data.getResource[0] : resp.data.getResource
+        resolve(buildSidecar('resource', data, resource))
+      })
+    }
+  })
 })

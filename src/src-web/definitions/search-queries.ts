@@ -58,11 +58,11 @@ export const SEARCH_MCM_QUERY = (record) => {
   return {
     operationName: 'getResource',
     variables: {
-        kind: record[0].kind,
-        name: record[0].name,
-        namespace: record[0].namespace,
-        cluster: record[0].cluster,
-        selfLink: record[0].selfLink,
+        kind: record.kind,
+        name: record.name,
+        namespace: record.namespace,
+        cluster: record.cluster,
+        selfLink: record.selfLink,
       },
     query: 'query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $selfLink: String) {\n  getResource(kind: $kind, name: $name, namespace: $namespace, cluster: $cluster, selfLink: $selfLink)\n}\n',
   }

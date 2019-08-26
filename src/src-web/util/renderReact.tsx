@@ -10,8 +10,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import ResourceTable from '../components/ResourceTable'
-
 import repl = require('@kui-shell/core/core/repl')
+import strings from '../util/i18n'
 
 export default function renderReact(data: any[], node: HTMLDivElement, command: string) {
   const uniqueKinds = [...new Set(data.map((item) => item.kind))]
@@ -27,7 +27,8 @@ export default function renderReact(data: any[], node: HTMLDivElement, command: 
                 }
               }}
               className={'related--resource-table-header-button'}>
-              {`View related resources  >`}
+              {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}
+              {<span className={'arrow-right'}>&rarr;</span>}
             </button>
           </div>
         </div>

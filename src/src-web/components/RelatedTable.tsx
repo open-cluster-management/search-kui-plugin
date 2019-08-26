@@ -13,7 +13,6 @@ if (!window || !window.navigator || !window.navigator.userAgent){
   Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 }
 
-
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 

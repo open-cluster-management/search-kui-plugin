@@ -130,17 +130,26 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
     return (
       <React.Fragment>
         <div className={'search--resource-table-header'}>
-          { // !this.props.related ?
-            <div>
+          <div>
+            {!collapse 
+              ? 
+                <button
+                  onClick={this.toggleCollapseTable}
+                  className={'search--resource-table-header-button'}>
+                  {<span className={'linked-resources'}>{`${this.props.kind}(${this.props.items.length})`}</span>}
+                  {<span className={'arrow-down'}>&#9660;</span>}
+                </button>
+            : 
               <button
                 onClick={this.toggleCollapseTable}
                 className={'search--resource-table-header-button'}>
-                {`${this.props.kind} (${this.props.items.length})`}
+                {<span className={'linked-resources'}>{`${this.props.kind}(${this.props.items.length})`}</span>}
+                {<span className={'arrow-up'}>&#9650;</span>}
               </button>
-            </div>
-          }
-      </div>
-      {!collapse
+            }
+          </div>
+        </div>
+        {!collapse
       ? <React.Fragment>
         <DataTable
           key={`${this.props.kind}-resource-table`}

@@ -80,6 +80,10 @@
 
 "search.label" : "Search",
 "search.label.links" : "Search [+Search]",
+"search.label.related" : "Related Resources",
+"search.label.summary" : "Summary",
+"search.label.query" : "Related resources for search results: {0}",
+"search.label.view.related" : "View Related Resources",
 "search.loading" : "Loading results",
 "search.noresults" : "No search results found.",
 "search.notfound" : "No logs found",

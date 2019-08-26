@@ -9,7 +9,6 @@
 
 import * as jsYaml from 'js-yaml'
 import { Badge } from '@kui-shell/core/webapp/views/sidecar';
-import * as lodash from 'lodash'
 
 /**
  * Render resources yaml tab
@@ -27,9 +26,9 @@ export const yamlTab = (resource: any) => {
     isEntity: true,
     content: jsYaml.safeDump(resource),
     contentType: 'json',
-    viewName: `${resource.kind}`,
-    name: `${resource.metadata.name}`,
-    packageName: `${lodash.get(resource.metadata, 'namespace', '')}`,
+    viewName: resource.kind,
+    name: resource.metadata.name,
+    packageName: resource.metadata.namespace,
     badges,
     modes: [
       {
