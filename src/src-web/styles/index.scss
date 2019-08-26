@@ -82,7 +82,6 @@
     }
 
     .bx--pagination {
-
       .bx--select__arrow {
         fill: var(--color-name);
         width: 1rem;
@@ -132,7 +131,6 @@
 }
 
 .bx--data-table {
-
   font-size: 0.875rem;
 
   .bx--data-table-v2-header {
@@ -141,7 +139,6 @@
   }
 
   tbody {
-
     tr {
       &.bx--data-table--compact{
         font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
@@ -177,8 +174,7 @@
           border-right: none;
           border-left: none;
           
-          td{
-            
+          td{   
             &:nth-child(n){
               background-color: transparent;
               border-bottom: 1px solid var(--color-ui-04);
@@ -229,11 +225,8 @@
   }
 
   &.bx--data-table--no-border{
-
     thead{
-      
       tr{
-
         th{
           background-color: var(--color-ui-02);
           height: 12px
@@ -283,21 +276,13 @@
 }
 
 .bx--form-item{
-  
   .bx--select{
-
     &.bx--select--inline{
-      
       &.bx--select__{
-        
         &item-count{
-
           .bx--select-input--inline__wrapper{
-
             .bx--select-input__wrapper{
-
               .bx--select-input{
-
                 &:hover{
                   background-color: transparent
                 }
@@ -307,13 +292,9 @@
         }
 
         &page-number{
-
           .bx--select-input--inline__wrapper{
-
             .bx--select-input__wrapper{
-
               .bx--select-input{
-
                 &:hover{
                   background-color: transparent
                 }
@@ -345,7 +326,14 @@ span{
   .tagInput-filter {
     width: 100%;
   }
+}
 
+.bx--modal {
+  .bx--modal-container {
+    .bx--modal-footer {
+      padding: 0rem;
+    }
+  }
 }
 
 
