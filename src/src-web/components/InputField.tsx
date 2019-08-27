@@ -87,11 +87,9 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
 
   render() {
     return (
-      <div className='input-field'>
-        {this.state.searchCheck
-          ? this.renderSearchComponents()
-          : this.renderCommandInput()}
-      </div>
+      this.state.searchCheck
+        ? this.renderSearchComponents()
+        : this.renderCommandInput()
     )
   }
 }
