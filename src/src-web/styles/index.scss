@@ -338,19 +338,23 @@ span{
   }
 }
 
-.repl-block {
-  .repl-input {
-    display: flex;
-    align-items: center;
-    padding: 0em 0.375em;
-
-    .repl-input-element {
+.kui--input-stripe {
+  .repl-block {
+    .repl-input {
+      display: flex;
+      align-items: center;
+      width: 100%;
       height: 100%;
-      width: 100%;
-    }
+      padding: 0em 0.375em;
 
-    .tagInput-filter {
-      width: 100%;
+      .repl-input-element {
+        height: 100%;
+        width: 100%;
+      }
+
+      .tagInput-filter {
+        width: 100%;
+      }
     }
   }
 }
