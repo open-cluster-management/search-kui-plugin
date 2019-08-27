@@ -8,6 +8,7 @@
 *******************************************************************************/
 
 import * as React from 'react'
+import { listen } from '@kui-shell/core/webapp/cli'
 import SearchInput from './SearchInput'
 import { InputFieldState, InputFieldProps } from '../model/InputField'
 import { injectOurCSS } from '../util/injectOurCSS'
@@ -34,7 +35,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   onKeyDown = async (e) => {
     const { inputText, searchCheck } = this.state
     e.persist()
-    if (e.which === 13){
+    if (e.which === 13) {
       this.setState({searchCheck: false, inputText: ''})
       if (searchCheck) {
         await repl.pexec(inputText)
@@ -46,7 +47,11 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     if (inputText.startsWith('search ') && !this.state.searchCheck) {
       this.setState({ searchCheck: true, inputText })
     } else if (!inputText.startsWith('search') && this.state.searchCheck) {
-      this.setState({ searchCheck: false, inputText })
+      this.setState({ searchCheck: false, inputText }, () => {
+        // Need to re-listen to the default searchbar because we reomved from DOM when doing search
+        const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
+        listen(prompt)
+      })
     } else {
       this.setState({ inputText })
     }

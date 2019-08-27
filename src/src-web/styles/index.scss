@@ -330,6 +330,14 @@ span{
   }
 }
 
+.kui--bottom-input {
+  .repl-active {
+    .repl-input {
+      display: flex;
+    }
+  }
+}
+
 .repl-block {
   .repl-input {
     display: flex;
