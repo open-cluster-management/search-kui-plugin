@@ -38,7 +38,10 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     if (e.which === 13) {
       this.setState({searchCheck: false, inputText: ''})
       if (searchCheck) {
-        await repl.pexec(inputText)
+        // grab any "keyword/loose" text that has not been added to the official search string as a tag - we still need to run the command with this
+        const unfinishedText = document.querySelector('.kui--input-stripe .repl-block .repl-input input')['value']
+        const searchCommand = inputText.endsWith(' ') ? inputText + unfinishedText : inputText + ' ' + unfinishedText
+        await repl.pexec(searchCommand)
       }
     }
   }
@@ -48,7 +51,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
       this.setState({ searchCheck: true, inputText })
     } else if (!inputText.startsWith('search') && this.state.searchCheck) {
       this.setState({ searchCheck: false, inputText }, () => {
-        // Need to re-listen to the default searchbar because we reomved from DOM when doing search
+        // Need to re-listen to the default searchbar because we reomved it from the DOM when overriding with search
         const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
         listen(prompt)
       })
