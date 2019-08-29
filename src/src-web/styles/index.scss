@@ -16,6 +16,7 @@
   font-family: "ibm-plex-sans", Helvetica Neue, Arial, sans-serif;
   display: flex;
   flex-direction: column;
+  width: 90vw;
 
   .search--resource {
     display: flex;
@@ -44,6 +45,12 @@
           margin-bottom: 0.5rem;
           text-transform: uppercase;
           outline: none;
+
+          &:hover{
+            .linked-resources{
+              text-decoration: underline;
+            }
+          }
           
           .arrow-down{
             font-size: 0.46rem;
@@ -254,6 +261,20 @@
         }
       }
     }
+
+    .bx--table-header-label{
+      cursor: pointer;
+      &:hover{
+        .arrow-down-header-label{
+          opacity: 1;
+        }
+      }
+      .arrow-down-header-label{
+        opacity: 0;
+        font-size: 0.5rem;
+        margin-left: 5px;
+      }      
+    }
   }
 
   td{
@@ -348,8 +369,10 @@ span{
       padding: 0em 0.375em;
 
       .repl-input-element {
-        height: 100%;
+        margin-left: 7.5px;
+        // height: 35.7px;
         width: 100%;
+        font-size: 100%;
       }
 
       .tagInput-filter {
@@ -508,8 +531,9 @@ span{
   width: max-content;
 
   /* match the font styles */
-  font-size: 1rem;
+  font-size: 100%;
   line-height: inherit;
+  font-family: var(--font-monospace);
 
   :after {
     content: '\2715';
@@ -572,7 +596,7 @@ span{
   outline: none;
 
   /* match the font styles */
-  font-family: 'ibm-plex-sans';
+  font-family: var(--font-monospace);
   font-size: 0.875rem;
   font-weight: 400;
   line-height: inherit;

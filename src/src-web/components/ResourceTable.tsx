@@ -131,20 +131,12 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
       <React.Fragment>
         <div className={'search--resource-table-header'}>
           <div>
-            {!collapse 
-              ? 
-                <button
-                  onClick={this.toggleCollapseTable}
-                  className={'search--resource-table-header-button'}>
-                  {<span className={'linked-resources'}>{`${this.props.kind}(${this.props.items.length})`}</span>}
-                  {<span className={'arrow-down'}>&#9660;</span>}
-                </button>
-            : 
+            { 
               <button
                 onClick={this.toggleCollapseTable}
                 className={'search--resource-table-header-button'}>
                 {<span className={'linked-resources'}>{`${this.props.kind}(${this.props.items.length})`}</span>}
-                {<span className={'arrow-up'}>&#9650;</span>}
+                {!collapse ? <span className={'arrow-up'}>&#9650;</span> : <span className={'arrow-down'}>&#9660;</span>}
               </button>
             }
           </div>
@@ -167,7 +159,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
                               onClick={this.handleSort(header.key)}
                               className={`bx--table-sort-v2${sortDirection === 'asc' ? ' bx--table-sort-v2--ascending' : ''}${sortColumn === header.key ? ' bx--table-sort-v2--active' : ''}`}
                               data-key={header.key} >
-                              <span className='bx--table-header-label'>{header.header}</span>
+                              <span className='bx--table-header-label'>{header.header}<span className={'arrow-down-header-label'}>&#9660;</span></span>
                             </div>
                           : null}
                       </th>
