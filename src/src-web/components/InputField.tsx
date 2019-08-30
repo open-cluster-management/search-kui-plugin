@@ -37,11 +37,16 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     e.persist()
     if (e.which === 13) {
       this.setState({searchCheck: false, inputText: ''})
+      
       if (searchCheck) {
         // grab any "keyword/loose" text that has not been added to the official search string as a tag - we still need to run the command with this
         const unfinishedText = document.querySelector('.kui--input-stripe .repl-block .repl-input input')['value']
         const searchCommand = inputText.endsWith(' ') ? inputText + unfinishedText : inputText + ' ' + unfinishedText
-        await repl.pexec(searchCommand)
+        if (searchCommand.trim() === 'search'){
+          await repl.pexec('search -h')
+        } else {
+          await repl.pexec(searchCommand)
+        }
       }
     }
   }
