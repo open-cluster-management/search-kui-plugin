@@ -189,21 +189,27 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
             )}
           }
         />
-         <Pagination
-          key='resource-table-pagination'
-          id='resource-table-pagination'
-          onChange={(pagination) => this.setState(pagination)}
-          pageSize={pageSize}
-          pageSizes={PAGE_SIZES.VALUES}
-          totalItems={totalItems}
-          page={page}
-          disabled={pageSize >= totalItems}
-          isLastPage={pageSize >= totalItems}
-          itemsPerPageText={strings('pagination.itemsPerPage')}
-          pageRangeText={(current, total) => strings('pagination.pageRange', [current, total])}
-          itemRangeText={(min, max, total) => `${strings('pagination.itemRange', [min, max])} ${strings('pagination.itemRangeDescription', [total])}`}
-          pageInputDisabled={pageSize >= totalItems}
-        />
+
+        {
+          this.props.items.length > PAGE_SIZES.DEFAULT
+          ? <Pagination
+              key='resource-table-pagination'
+              id='resource-table-pagination'
+              onChange={(pagination) => this.setState(pagination)}
+              pageSize={pageSize}
+              pageSizes={PAGE_SIZES.VALUES}
+              totalItems={totalItems}
+              page={page}
+              disabled={pageSize >= totalItems}
+              isLastPage={pageSize >= totalItems}
+              itemsPerPageText={strings('pagination.itemsPerPage')}
+              pageRangeText={(current, total) => strings('pagination.pageRange', [current, total])}
+              itemRangeText={(min, max, total) => `${strings('pagination.itemRange', [min, max])} ${strings('pagination.itemRangeDescription', [total])}`}
+              pageInputDisabled={pageSize >= totalItems}
+            />
+          : null
+        }
+
         </React.Fragment>
         : null }
 
