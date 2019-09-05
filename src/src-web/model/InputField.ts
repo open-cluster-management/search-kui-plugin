@@ -11,5 +11,6 @@ export interface InputFieldProps { }
 
 export interface InputFieldState {
   inputText: string
+  reverseSearch: string
   searchCheck: boolean
 }

@@ -8,7 +8,7 @@
 *******************************************************************************/
 
 import * as React from 'react'
-import { listen } from '@kui-shell/core/webapp/cli'
+import { listen, unlisten } from '@kui-shell/core/webapp/cli'
 import SearchInput from './SearchInput'
 import { InputFieldState, InputFieldProps } from '../model/InputField'
 import { injectOurCSS } from '../util/injectOurCSS'
@@ -23,8 +23,17 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   constructor(props) {
     super(props)
     this.state = {
-      searchCheck: false,
       inputText: '',
+      reverseSearch: '',
+      searchCheck: false,
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.reverseSearch === '' && this.state.reverseSearch.length > 0 ) {
+      // User has canceled/exited reverse-i-search we neeed to re-listen to the prompt
+      const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
+      listen(prompt)
     }
   }
 
@@ -33,16 +42,19 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   }
 
   onKeyDown = async (e) => {
-    const { inputText, searchCheck } = this.state
+    const { inputText, searchCheck, reverseSearch } = this.state
     e.persist()
     if (e.which === 13) {
-      this.setState({searchCheck: false, inputText: ''})
-      
-      if (searchCheck) {
+      this.setState({ searchCheck: false, inputText: '', reverseSearch: '' })
+      // check if we are in reverse-i-search mode - we will need to run a sepearate repl for this
+      if (reverseSearch !== '') {
+        // programatically run reverse-i-search command - we have stopped listening to the input
+        repl.pexec(reverseSearch)
+      } else if (searchCheck) {
         // grab any "keyword/loose" text that has not been added to the official search string as a tag - we still need to run the command with this
         const unfinishedText = document.querySelector('.kui--input-stripe .repl-block .repl-input input')['value']
         const searchCommand = inputText.endsWith(' ') ? inputText + unfinishedText : inputText + ' ' + unfinishedText
-        if (searchCommand.trim() === 'search'){
+        if (searchCommand.trim() === 'search') {
           await repl.pexec('search -h')
         } else {
           await repl.pexec(searchCommand)
@@ -52,16 +64,21 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   }
 
   toggleSearchCheckState(inputText) {
-    if (inputText.startsWith('search ') && !this.state.searchCheck) {
-      this.setState({ searchCheck: true, inputText })
+    // If in i-search mode - set reverseSearch to the full string
+    if (document.querySelector('.kui--input-stripe .repl-prompt-righty .repl-temporary')) {
+      const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
+      unlisten(prompt)
+      this.setState({ inputText, reverseSearch: document.querySelector('.kui--input-stripe .repl-prompt-righty .repl-temporary .repl-input-like').getAttribute('data-full-match') })
+    } else if (inputText.startsWith('search ') && !this.state.searchCheck) {
+      this.setState({ searchCheck: true, inputText, reverseSearch: '' })
     } else if (!inputText.startsWith('search') && this.state.searchCheck) {
-      this.setState({ searchCheck: false, inputText }, () => {
-        // Need to re-listen to the default searchbar because we reomved it from the DOM when overriding with search
+      this.setState({ searchCheck: false, inputText, reverseSearch: '' }, () => {
+        // Need to re-listen to the default searchbar because we removed it from the DOM when overriding with search
         const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
         listen(prompt)
       })
     } else {
-      this.setState({ inputText })
+      this.setState({ inputText, reverseSearch: '' })
     }
   }
 
@@ -99,8 +116,11 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   }
 
   render() {
+    const reverseSearch = document.querySelector('.kui--input-stripe .repl-prompt-righty .repl-temporary span')
+      ? document.querySelector('.kui--input-stripe .repl-prompt-righty .repl-temporary span')['innerText'].includes('reverse-i-search')
+      : false
     return (
-      this.state.searchCheck
+      (this.state.searchCheck && !reverseSearch)
         ? this.renderSearchComponents()
         : this.renderCommandInput()
     )
