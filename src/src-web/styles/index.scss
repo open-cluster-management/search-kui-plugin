@@ -146,6 +146,21 @@
   .search--results-view {
     margin-top: 2rem;
   }
+
+  .bx--toast-notification-content{
+    width: 100vw;
+    
+    .notification{
+      float: right;
+
+      .bx--toast-notification{
+        &.bx--toast-notification--error{
+          min-width: 30rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
   
   @media (max-width: 768px) {
     .search-notification{
@@ -730,6 +745,7 @@ span{
           float: left;
           width: 30%;
           height: 100px;
+          border: none;
 
           .bx--tile-container{
             width: 100%;
@@ -761,7 +777,7 @@ span{
         
           .bx--structured-list-td-body{
             font-size: 0.9rem;
-            color: var(--color-text-01);
+            color: var(--color-base07);
             text-decoration: none;
             opacity: 0.8;
           }

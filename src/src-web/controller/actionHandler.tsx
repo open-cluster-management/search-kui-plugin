@@ -7,9 +7,33 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { ToastNotification } from 'carbon-components-react'
 import { CommandRegistrar } from '@kui-shell/core/models/command'
 import HTTPClient from './HTTPClient'
 import { DELETE_RESOURCE, DELETE_QUERY } from '../definitions/search-queries'
+
+export const notify = (content) => {
+  const node = document.createElement('div')
+  node.classList.add('bx--toast-notification-content')
+
+  const toast = () => {
+    return(
+      <div className={'notification'}>
+        <ToastNotification
+          kind={!content.message ? 'success' : 'error'}
+          title={!content.message ? content : content.message}
+          caption={new Date().toLocaleTimeString()}
+          timeout={4000}
+          />
+      </div>
+    )
+  }
+  ReactDOM.render(React.createElement(toast), node)
+
+  return node
+}
 
 function deleteSavedSearch(args) {
   if (args.argv.length === 1) {
@@ -21,8 +45,8 @@ function deleteSavedSearch(args) {
     .then((res) => {
       resolve(
         res.errors
-          ? res.errors[0].message
-          : `Successfully deleted ${name}`,
+          ? notify(res.errors[0])
+          : notify(`Successfully deleted ${name}`),
       )
     })
   })
@@ -38,8 +62,8 @@ function deleteResource(args) {
     .then((res) => {
       resolve(
         res.errors
-          ? res.errors[0].message
-          : `Successfully deleted ${args.argv[1]}`,
+          ? notify(res.errors[0])
+          : notify(`Successfully deleted ${args.argv[1]}`),
       )
     })
   })
