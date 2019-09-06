@@ -7,6 +7,12 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+// Hack to workaround build issues with Carbon dependencies
+if (!window || !window.navigator || !window.navigator.userAgent){
+  Object.defineProperty(window, 'navigator', { value: { userAgent: 'node'}, writable: true })
+  Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
+}
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { ToastNotification } from 'carbon-components-react'
