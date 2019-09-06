@@ -12,136 +12,135 @@
 .repl-result {
   white-space: unset;
 
-.search-kui-plugin {
-  font-family: "ibm-plex-sans", Helvetica Neue, Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  width: 90vw;
-
-  .search--resource {
+  .search-kui-plugin {
+    font-family: "ibm-plex-sans", Helvetica Neue, Arial, sans-serif;
     display: flex;
     flex-direction: column;
+    width: 90vw;
 
-    .search--resource-table {
-      margin-top: 2%;
-  
-      .search--resource-table-header {
-        font-weight: 600;
-        font-size: 1.125rem;
-        margin-bottom: 0.5rem;
-        text-transform: capitalize;
-  
-        &-button {
-          display: flex;
-          align-items: center;
-          border: none;
-          background-color: transparent;
-          color: var(--color-text-01);
-          cursor: pointer;
-          font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+    .search--resource {
+      display: flex;
+      flex-direction: column;
+
+      .search--resource-table {
+        margin-top: 2%;
+    
+        .search--resource-table-header {
           font-weight: 600;
           font-size: 1.125rem;
-          padding: 0rem;
           margin-bottom: 0.5rem;
-          text-transform: uppercase;
-          outline: none;
+          text-transform: capitalize;
+    
+          &-button {
+            display: flex;
+            align-items: center;
+            border: none;
+            background-color: transparent;
+            color: var(--color-text-01);
+            cursor: pointer;
+            font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+            font-weight: 600;
+            font-size: 1.125rem;
+            padding: 0rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            outline: none;
 
-          &:hover{
-            .linked-resources{
-              text-decoration: underline;
+            &:hover{
+              .linked-resources{
+                text-decoration: underline;
+              }
+            }
+            
+            .arrow-down{
+              font-size: 0.46rem;
+              margin-left: 3%;
+              margin-top: 5px;
+            }
+            .arrow-up{
+              font-size: 0.66rem;
+              margin-left: 3%;
+              margin-top: 5px;
             }
           }
-          
-          .arrow-down{
-            font-size: 0.46rem;
-            margin-left: 3%;
-            margin-top: 5px;
-          }
-          .arrow-up{
-            font-size: 0.66rem;
-            margin-left: 3%;
-            margin-top: 5px;
+        }
+
+        .bx--data-table{
+          width: 100%;
+          .bx--data-table--compact{
+            .bx--overflow-menu__icon{
+              width: 100%;
+              height: 100%;
+              padding: 0 0.5rem;
+            }
           }
         }
       }
 
-      .bx--data-table{
-        width: 100%;
-        .bx--data-table--compact{
-          .bx--overflow-menu__icon{
-            width: 100%;
-            height: 100%;
-            padding: 0 0.5rem;
+      .related--resource-table-header-button{
+        margin-top: 1%;
+        font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        color: var(--active-tab-color);
+        cursor: pointer;
+        display: flex;
+        float: left;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0rem;
+        outline: none;
+
+        &:hover{
+          .linked-resources{
+            text-decoration: underline;
+          }
+        }
+
+        .arrow-right{
+          font-size: 1.3rem;
+          padding-left: 3%;
+          margin-top: -4px;
+        }
+      }
+
+      .bx--pagination {
+        .bx--select__arrow {
+          fill: var(--color-name);
+          width: 1rem;
+          height: 1rem;
+      }
+
+        &__left {
+          .bx--select .bx--select-input {
+            height: 1.5rem;
+            width: auto;
+            padding:0 1.2rem 0 0.4rem;
+            margin: 0;
+            font-weight: 600;
+            text-align-last: center;
+            box-shadow: none;
+          }
+
+        }
+
+        &__right {
+          .bx--pagination__button{
+            &--backward {
+              order:1
+            }
+            &--forward {
+              order:3
+            }
+          }
+          .bx--form-item {
+            order: 2;
           }
         }
       }
     }
-
-    .related--resource-table-header-button{
-      margin-top: 1%;
-      font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
-      align-items: center;
-      background-color: transparent;
-      border: none;
-      color: var(--active-tab-color);
-      cursor: pointer;
-      display: flex;
-      float: left;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0rem;
-      outline: none;
-
-      &:hover{
-        .linked-resources{
-          text-decoration: underline;
-        }
-      }
-
-      .arrow-right{
-        font-size: 1.3rem;
-        padding-left: 3%;
-        margin-top: -4px;
-      }
-    }
-
-    .bx--pagination {
-      .bx--select__arrow {
-        fill: var(--color-name);
-        width: 1rem;
-        height: 1rem;
-    }
-
-      &__left {
-        .bx--select .bx--select-input {
-          height: 1.5rem;
-          width: auto;
-          padding:0 1.2rem 0 0.4rem;
-          margin: 0;
-          font-weight: 600;
-          text-align-last: center;
-          box-shadow: none;
-        }
-
-      }
-
-      &__right {
-        .bx--pagination__button{
-          &--backward {
-            order:1
-          }
-          &--forward {
-            order:3
-          }
-        }
-        .bx--form-item {
-          order: 2;
-        }
-      }
-    }
-  
   }
-}
   
   .search--results-view {
     margin-top: 2rem;
@@ -783,6 +782,44 @@ span{
           }
         }
       }
+    }
+  }
+}
+
+/**
+  * Dark theme styling
+  */
+
+body {
+  &[kui-theme="IBM Dark"] .react-tags__suggestions ul {
+    background-color: var(--color-ui-03);
+    border-color: var(--color-ui-03);
+  }
+
+  &[kui-theme="IBM Dark"] .react-tags__suggestions li mark {
+    color: var(--color-base06);
+  }
+
+  &[kui-theme="IBM Dark"] .react-tags__suggestions li.is-disabled {
+    border-bottom: 1px solid var(--color-ui-02);
+  
+    &:first-of-type {
+      color: var(--color-base06);
+      background: var(--color-ui-03);
+    }
+  }
+
+  &[kui-theme="IBM Dark"] .bx--data-table {
+    &.bx--data-table--no-border thead tr th {
+      background-color: var(--color-base02);
+    }
+    &td{
+      &.bx--table-sort-v2 {
+        color: var(--color-base06);
+      }
+    }
+    &.bx--overflow-menu__icon {
+      color: var(--color-base06);
     }
   }
 }
