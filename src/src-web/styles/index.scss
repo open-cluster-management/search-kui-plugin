@@ -812,23 +812,21 @@ body {
   &[kui-theme="IBM Dark"] .bx--data-table {
     &.bx--data-table--no-border thead tr th {
       background-color: var(--color-base02);
-
-      &.bx--table-sort-v2 {
-        color: var(--color-base06);
-      }
+    }
+    &.bx--data-table--no-border thead tr th .bx--table-sort-v2 {
+      color: var(--color-base06);
     }
 
     &.bx--data-table--no-border tbody tr td .bx--overflow-menu__icon {
-      color: var(--color-base06);
+      fill: var(--color-base06);
     }
   }
 
   &[kui-theme="IBM Dark"] .bx--pagination {
     background-color: var(--color-base02);
-
-    &.bx--pagination-text {
-      color: var(--color-base06);
-    }
+  }
+  &[kui-theme="IBM Dark"] .bx--pagination .bx--pagination__text {
+    color: var(--color-base06);
   }
 
   &[kui-theme="IBM Dark"] .bx--modal-container {
