@@ -11,6 +11,7 @@ import { CommandRegistrar } from '@kui-shell/core/models/command'
 import HTTPClient from './HTTPClient'
 import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
+import { toplevel as usage } from './helpfiles/savedsearchhelp'
 import { SEARCH_QUERY_COUNT, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 
 function getQueryCount(searches) {
@@ -46,38 +47,11 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
 });
 
 /**
- * Usage model for saved search query
- *
- */
-const usage = {
-  command: 'savedsearches',
-  strict: 'savedsearches',
-  title: 'List users saved searches',
-  header: 'List users saved searches',
-  example: 'savedsearches',
-  optional: [
-    { name: 'userQueries', positional: true },
-  ],
-}
-
-const aliasUsage = {
-  command: 'ss',
-  strict: 'ss',
-  title: 'List users saved searches',
-  header: 'List users saved searches',
-  example: 'ss',
-  optional: [
-    { name: 'userQueries', positional: true },
-  ],
-}
-
-/**
  * Here we register as a listener for commands
  *
  */
 export default async (commandTree: CommandRegistrar) => {
   const opts = { usage, noAuthOk: true, inBrowserOk: true }
-  const aliasOpts = { aliasUsage, noAuthOk: true, inBrowserOk: true }
-  commandTree.listen(`/ss`, doSavedSearch, aliasOpts)
+  commandTree.listen(`/ss`, doSavedSearch, opts)
   commandTree.listen(`/savedsearches`, doSavedSearch, opts)
 }

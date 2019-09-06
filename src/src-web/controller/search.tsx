@@ -11,15 +11,17 @@ import { CommandRegistrar } from '@kui-shell/core/models/command'
 import HTTPClient from './HTTPClient'
 import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
-import { toplevel as usage } from '../../usage'
+import { toplevel as usage } from './helpfiles/searchhelp'
 import { SEARCH_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
+
+
 
 const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
 
   if (args.argv.length === 1) {
-    resolve('ERROR: Received wrong number of parameters.\nUSAGE: search <keyword>\nEXAMPLE: search aggregator')
+    resolve('ERROR:\tReceived wrong number of parameters.\n\nUSAGE:\tsearch <value>\n\tsearch <field>:<value>\n\tsearch summary <kind> <resource>')
   }
 
   const buildTable = (items: object[]) => {
