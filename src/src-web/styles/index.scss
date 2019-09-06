@@ -266,7 +266,7 @@
     thead{
       tr{
         th{
-          background-color: var(--color-ui-02);
+          background-color: var(--color-base03);
           height: 12px
         }
 
@@ -312,7 +312,7 @@
 .bx--pagination{
   color: var(--color-text-01);
   border: none;
-  background-color: var(--color-ui-02);
+  background-color: var(--color-base03);
 }
 
 #bx-pagination-select-resource-table-pagination{
@@ -812,14 +812,26 @@ body {
   &[kui-theme="IBM Dark"] .bx--data-table {
     &.bx--data-table--no-border thead tr th {
       background-color: var(--color-base02);
-    }
-    &td{
+
       &.bx--table-sort-v2 {
         color: var(--color-base06);
       }
     }
-    &.bx--overflow-menu__icon {
+
+    &.bx--data-table--no-border tbody tr td .bx--overflow-menu__icon {
       color: var(--color-base06);
     }
+  }
+
+  &[kui-theme="IBM Dark"] .bx--pagination {
+    background-color: var(--color-base02);
+
+    &.bx--pagination-text {
+      color: var(--color-base06);
+    }
+  }
+
+  &[kui-theme="IBM Dark"] .bx--modal-container {
+    background-color: var(--color-base02);
   }
 }
