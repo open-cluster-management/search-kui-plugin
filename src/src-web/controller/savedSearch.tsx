@@ -13,6 +13,7 @@ import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from './helpfiles/savedsearchhelp'
 import { SEARCH_QUERY_COUNT, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
+import strings from '../../src-web/util/i18n'
 
 function getQueryCount(searches) {
   const input = [...searches.map((query) => convertStringToQuery(query.searchText))]
@@ -25,8 +26,11 @@ function getQueryCount(searches) {
 }
 
 const doSavedSearch = (args) => new Promise((resolve, reject) => {
+
+  const str = `${strings('validation.error')}:\t${strings('validation.savedsearches.parameters')}.\n\n${strings('validation.usage')}:\t${strings('validation.definition.savedsearches')}`
+
   if (args.argv.length > 1) {
-    resolve('ERROR: Saved search query should not include any parameters.\nUSAGE: savedsearch (alias: ss)')
+    resolve(str)
   }
 
   const buildTable = async (items: object[]) => {

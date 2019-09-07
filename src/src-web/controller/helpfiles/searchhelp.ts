@@ -7,6 +7,8 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+import strings from '../../util/i18n'
+
 /** how many options to show at a time, i.e. before scrolling */
 const nRowsInViewport = 1
 
@@ -20,8 +22,8 @@ const allExcept = (cmd) => all.filter((_) => _ !== cmd)
 const parents = ['search']
 
 const header = {
-  search: 'Search across managed clouds for kubernetes resources',
-  savedsearches: 'Show saved searches of Kubernetes resources across managed clouds',
+  search: strings('searchhelp.title'),
+  savedsearches: strings('savedsearchhelp.title')
 }
 
 /**
@@ -31,9 +33,9 @@ const header = {
 export const toplevel = {
     breadcrumb: 'search',
     command: 'search',
-    title: 'Search across managed clouds for kubernetes resources',
-    header: 'Use the search command to search all of your managed clouds and retrieve a list of resources that meet a specified criteria. You select from common search criteria or enter your own string to search for.',
-    example: 'search <value>\nsearch <field>:<value>\nsearch summary <kind> <resource>\n',
+    title: strings('searchhelp.title'),
+    header: `${strings('searchhelp.header')}.`,
+    example: `search <${strings('validation.definition.value')}>\nsearch <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>\nsearch ${strings('validation.definition.summary')} <${strings('validation.definition.kind')}> <${strings('validation.definition.resource')}>`,
     nRowsInViewport: 4,
     available: [
       {
