@@ -14,6 +14,7 @@ import HTTPClient from '../controller/HTTPClient'
 import { convertStringToQuery } from '../util/search-helper'
 import { GET_SEARCH_COMPLETE } from '../definitions/search-queries'
 import {SearchBarProps, SearchBarState} from '../model/SearchBar'
+import InputTag from '../components/Tag'
 import strings from '../../src-web/util/i18n'
 
 const ReactTags = require('react-tag-autocomplete')
@@ -91,7 +92,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
           classType: semicolonIdx < 1 ? 'keyword' : '',
           name: tag,
           value: tag,
-          f,
+          field: f,
           matchText,
         }
       })
@@ -233,11 +234,11 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
             }),
             {
               id: 'id-filter-label',
-              key:'key-filter-label',
+              key: 'key-filter-label',
               name: strings('searchbar.operator.dateSort', [searchComplete]),
               value: strings('searchbar.operator.dateSort', [searchComplete]),
-              disabled: true
-            }
+              disabled: true,
+            },
           )
         }
         return this.convertObjectToArray(
@@ -295,7 +296,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
             },
             searchComplete: '',
             chosenOperator: null,
-            suggestions:[]
+            suggestions: [],
           })
         }
       } else if (tags[i]['matchText'] && tags[i]['matchText'].length > 1) {
@@ -423,6 +424,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
               : fieldOptions}
             handleDelete={this.handleDelete}
             handleAddition={this.handleAddition}
+            tagComponent={InputTag}
             autoresize={false}
             minQueryLength={0}
             allowNew={true}

@@ -502,7 +502,6 @@ span{
   display: flex;
   position: relative;
   border-radius: 1px;
-  // background: $ibm-color__white-0;
   /* shared font styles */
   font-size: 1em;
   line-height: 1.2;
@@ -571,18 +570,19 @@ span{
 .react-tags__keyword-tag {
   display: inline-block;
   box-sizing: border-box;
-  background: $ibm-color__white-0;
-  padding: 0.1rem .5rem;
+  background: transparent;
+  color: var(--color-text-01);
+  padding: 0 0.5rem;
   border-radius: 1.5rem;
   border-color: transparent;
-  transition: all .6s ease-out;
-  margin: 0.5rem -2rem 0.5rem 2.5rem;
+  transition: all 0.6s ease-out;
+  margin: 0.5rem 0.5rem 0.5rem 0rem;
   height: 1.25rem;
-
+  width: max-content;
   /* match the font styles */
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 100%;
   line-height: inherit;
+  font-family: var(--font-monospace);
 }
 
 .react-tags__search {

@@ -18,17 +18,25 @@ import strings from '../../src-web/util/i18n'
 
 const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
-
   const str = `${strings('validation.error')}:\t${strings('validation.missing.parameters')}.\n\n${strings('validation.usage')}:\tsearch <${strings('validation.definition.value')}>\n\tsearch <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>\n\tsearch summary <${strings('validation.definition.kind')}> <${strings('validation.definition.resource')}>`
-  
+
   if (args.argv.length === 1) {
     resolve(str)
+  }
+
+  const renderNoResults = () => {
+    const node = document.createElement('pre')
+    node.setAttribute('class', 'oops')
+    node.innerText = 'No resources found.'
+    return node
   }
 
   const buildTable = (items: object[]) => {
     const node = document.createElement('div', {is: 'react-entry-point'})
     node.classList.add('search-kui-plugin')
-    renderReact(items, node, args.command)
+    items.length > 1
+      ? renderReact(items, node, args.command)
+      : node.appendChild(renderNoResults())
     return node
   }
 

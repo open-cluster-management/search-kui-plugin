@@ -41,6 +41,15 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     injectOurCSS()
   }
 
+  onKeyPress = (e) => {
+    if (e.which === 38 || e.which === 40) {
+      this.setState({ inputText: e.currentTarget.value })
+    } else if (e.which !== 13 && e.currentTarget.value.startsWith('search ') && !this.state.searchCheck) {
+      // If the user hit up/down and wants to edit command we need to trigger search first without altering the previous command
+      this.toggleSearchCheckState(e.currentTarget.value)
+    }
+  }
+
   onKeyDown = async (e) => {
     const { inputText, searchCheck, reverseSearch } = this.state
     e.persist()
@@ -97,6 +106,8 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
         type='text'
         onChange={this.handleInputTextChange}
         onKeyPress={this.onKeyDown}
+        onKeyDown={this.onKeyPress}
+        onPaste={this.handleInputTextChange}
         value={this.state.inputText}
         className='repl-input-element'
         autoFocus={true}
