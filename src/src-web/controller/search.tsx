@@ -12,7 +12,7 @@ import HTTPClient from './HTTPClient'
 import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from './helpfiles/searchhelp'
-import { SEARCH_QUERY } from '../definitions/search-queries'
+import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
 import strings from '../../src-web/util/i18n'
 
@@ -31,19 +31,19 @@ const doSearch = (args) => new Promise((resolve, reject) => {
     return node
   }
 
-  const buildTable = (items: object[]) => {
+  const buildTable = (data: any) => {
     const node = document.createElement('div', {is: 'react-entry-point'})
     node.classList.add('search-kui-plugin')
-    items.length > 1
-      ? renderReact(items, node, args.command)
+    data.items.length > 0
+      ? renderReact(data, node, args.command)
       : node.appendChild(renderNoResults())
     return node
   }
 
-  HTTPClient('post', 'search', SEARCH_QUERY(userQuery.keywords, userQuery.filters))
+  HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
     .then((res) => {
       resolve(
-        buildTable(res.data.searchResult[0].items),
+        buildTable(res.data.searchResult[0]),
       )
     })
 });

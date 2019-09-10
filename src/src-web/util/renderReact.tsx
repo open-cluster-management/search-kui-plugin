@@ -13,48 +13,37 @@ import ResourceTable from '../components/ResourceTable'
 import repl = require('@kui-shell/core/core/repl')
 import strings from '../util/i18n'
 
-export default function renderReact(data: any[], node: HTMLDivElement, command: string) {
-  const uniqueKinds = [...new Set(data.map((item) => item.kind))]
-  const searchResource = command.includes(':') ? () => {
+export default function renderReact(data: any, node: HTMLDivElement, command: string) {
+  const uniqueKinds = [...new Set(data.items ? data.items.map((item) => item.kind) : data.map((item) => item.kind))]
+  const searchResource = () => {
     return (
       <div className={'search--resource'}>
-        <div className={'related--resource-table-header'}>
-          <div>
-            <button
-              onClick={() => {
-                if (command.includes(':')) {
+        {data.related && data.related.length > 0 && command.includes(":")
+          ? <div className={'related--resource-table-header'}>
+              <button
+                onClick={() => {
                   repl.pexec(command.replace('search ', 'search related:resources '))
-                }
-              }}
-              className={'related--resource-table-header-button'}>
-              {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}
-              {<span className={'arrow-right'}>&rarr;</span>}
-            </button>
+                }}
+                className={'related--resource-table-header-button'}>
+                {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}
+                {<span className={'arrow-right'}>&rarr;</span>}
+              </button>
+            </div>
+          : null
+        }
+        {uniqueKinds.map((kind) => (
+          <div className={'search--resource-table'} key={kind.toString()}>
+            <ResourceTable
+              items={data.items
+                ? data.items.filter((item) => item.kind === kind || item.__type === kind )
+                : data.filter((item) => item.kind === kind || item.__type === kind )}
+              kind={ kind.toString() }
+            />
           </div>
-        </div>
-        { uniqueKinds.map((kind) => (
-          <div className={'search--resource-table'} key={kind}>
-          <ResourceTable
-            items={data.filter((item) => item.kind === kind || item.__type === kind )}
-            kind={ kind }/>
-        </div>
         ))}
       </div>
-    )
-  }
-  : () => {
-    return (
-      <div className={'search--resource'}>
-        { uniqueKinds.map((kind) => (
-          <div className={'search--resource-table'} key={kind}>
-          <ResourceTable
-            items={data.filter((item) => item.kind === kind || item.__type === kind )}
-            kind={ kind }/>
-        </div>
-        ))}
-      </div>
-    )
-  }
+    )}
+
   ReactDOM.render(React.createElement(searchResource), node)
   return node
 }

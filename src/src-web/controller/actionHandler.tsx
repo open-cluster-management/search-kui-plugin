@@ -18,7 +18,8 @@ import * as ReactDOM from 'react-dom'
 import { ToastNotification } from 'carbon-components-react'
 import { CommandRegistrar } from '@kui-shell/core/models/command'
 import HTTPClient from './HTTPClient'
-import { DELETE_RESOURCE, DELETE_QUERY } from '../definitions/search-queries'
+import strings from '../util/i18n'
+import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 
 export const notify = (content) => {
   const node = document.createElement('div')
@@ -28,11 +29,11 @@ export const notify = (content) => {
     return(
       <div className={'notification'}>
         <ToastNotification
-          kind={!content.message ? 'success' : 'error'}
-          title={!content.message ? content : content.message}
+          kind={!content.warning ? !content.message ? 'success' : 'error' : 'warning'}
+          title={!content.warning ? !content.message ? content : content.message : content.warning}
           caption={new Date().toLocaleTimeString()}
-          timeout={4000}
-          />
+          timeout={5000}
+        />
       </div>
     )
   }
@@ -45,15 +46,32 @@ function deleteSavedSearch(args) {
   if (args.argv.length === 1) {
     return 'ERROR: Received wrong number of parameters.\nUSAGE: deleteSavedSearch <saved-search-name>'
   }
-  const name = args.argv[1]
+
+  const name = args.command.replace('deleteSavedSearch ', '')
   return new Promise((resolve, reject) => {
-    HTTPClient('post', 'mcm', DELETE_QUERY(name))
+    let warningToDelete = true
+
+    // Check if the record exist before trying to delete.
+    HTTPClient('post', 'mcm', SAVED_SEARCH_QUERY)
     .then((res) => {
-      resolve(
-        res.errors
-          ? notify(res.errors[0])
-          : notify(`Successfully deleted ${name}`),
-      )
+      res['warning'] = strings('modal.save.warning', [name])
+      res.data.items.forEach(record => {
+        if(record.name === name)
+          warningToDelete = false // Record is available
+      })
+
+      warningToDelete
+      ? resolve(notify(res))
+      : null
+
+      HTTPClient('post', 'mcm', DELETE_QUERY(name))
+      .then((res) => {
+        resolve(
+          res.data.deleteQuery.userQueries
+          ? notify(strings('modal.deleted.save.success', [name]))
+          : notify(res.errors[0])
+        )
+      })
     })
   })
 }
@@ -69,7 +87,7 @@ function deleteResource(args) {
       resolve(
         res.errors
           ? notify(res.errors[0])
-          : notify(`Successfully deleted ${args.argv[1]}`),
+          : notify(strings('modal.deleted.resource', [args.argv[1]]))
       )
     })
   })
@@ -92,9 +110,6 @@ const deleteResourceUsage = {
   title: 'Deletes a cluster resource',
   header: 'Deletes a cluster resource',
   example: 'deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>',
-  // optional: [
-  //   { name: 'name', positional: true }
-  // ]
 }
 
 /**

@@ -26,16 +26,15 @@ function getQueryCount(searches) {
 }
 
 const doSavedSearch = (args) => new Promise((resolve, reject) => {
-
   const str = `${strings('validation.error')}:\t${strings('validation.savedsearches.parameters')}.\n\n${strings('validation.usage')}:\t${strings('validation.definition.savedsearches')}`
 
   if (args.argv.length > 1) {
     resolve(str)
   }
 
-  const buildTable = async (items: object[]) => {
+  const buildTable = async (data: any) => {
     // Get the search result for each saved query
-    const results = await getQueryCount(items)
+    const results = await getQueryCount(data.items)
     const node = document.createElement('div', {is: 'react-entry-point'})
     node.classList.add('search-kui-plugin')
     renderReact(results, node, args.command)
@@ -45,7 +44,7 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
   HTTPClient('post', 'mcm', SAVED_SEARCH_QUERY)
     .then((res) => {
       resolve(
-        buildTable(res.data.items),
+        buildTable(res.data),
       )
     })
 });
