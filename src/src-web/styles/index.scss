@@ -382,6 +382,10 @@ span{
       height: 100%;
       padding: 0em 0.375em;
 
+      .repl-input-label {
+        display: none;
+      }
+
       .repl-input-element {
         margin-left: 7.5px;
         // height: 35.7px;

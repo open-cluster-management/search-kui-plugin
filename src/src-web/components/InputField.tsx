@@ -102,17 +102,22 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
 
   renderCommandInput() {
     return (
-      <input
-        type='text'
-        onChange={this.handleInputTextChange}
-        onKeyPress={this.onKeyDown}
-        onKeyDown={this.onKeyPress}
-        onPaste={this.handleInputTextChange}
-        value={this.state.inputText}
-        className='repl-input-element'
-        autoFocus={true}
-        autoComplete='off' autoCorrect='off' autoCapitalize='on' spellCheck={false}
-        placeholder='enter your command' />
+      <React.Fragment>
+        <label className="repl-input-label" htmlFor="input-field">input</label>
+        <input
+          id="input-field"
+          type='text'
+          onChange={this.handleInputTextChange}
+          onKeyPress={this.onKeyDown}
+          onKeyDown={this.onKeyPress}
+          onPaste={this.handleInputTextChange}
+          value={this.state.inputText}
+          className='repl-input-element'
+          autoFocus={true}
+          autoComplete='off' autoCorrect='off' autoCapitalize='on' spellCheck={false}
+          placeholder='enter your command' />
+      </React.Fragment>
+
     )
   }
 
