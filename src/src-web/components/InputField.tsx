@@ -55,12 +55,11 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     e.persist()
     if (e.which === 13) {
       this.setState({ searchCheck: false, inputText: '', reverseSearch: '' })
-      // check if we are in reverse-i-search mode - we will need to run a sepearate repl for this
+      // If user tries to run a i-search we need to set inputText to the reverse search
       if (reverseSearch !== '') {
-        // programatically run reverse-i-search command - we have stopped listening to the input
-        repl.pexec(reverseSearch)
+        this.setState({ inputText: reverseSearch})
       } else if (searchCheck) {
-        // grab any "keyword/loose" text that has not been added to the official search string as a tag - we still need to run the command with this
+        // grab any 'keyword/loose' text that has not been added to the official search string as a tag - we still need to run the command with this
         const unfinishedText = document.querySelector('.kui--input-stripe .repl-block .repl-input input')['value']
         const searchCommand = (inputText.endsWith(':') || inputText.endsWith(' ')) ? inputText + unfinishedText : inputText + ' ' + unfinishedText
         if (searchCommand.trim() === 'search') {
@@ -75,8 +74,6 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   toggleSearchCheckState(inputText) {
     // If in i-search mode - set reverseSearch to the full string
     if (document.querySelector('.kui--input-stripe .repl-prompt-righty .repl-temporary')) {
-      const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
-      unlisten(prompt)
       this.setState({ inputText, reverseSearch: document.querySelector('.kui--input-stripe .repl-prompt-righty .repl-temporary .repl-input-like').getAttribute('data-full-match') })
     } else if (inputText.startsWith('search ') && !this.state.searchCheck) {
       this.setState({ searchCheck: true, inputText, reverseSearch: '' })
@@ -103,9 +100,9 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   renderCommandInput() {
     return (
       <React.Fragment>
-        <label className="repl-input-label" htmlFor="input-field">input</label>
+        <label className='repl-input-label' htmlFor='input-field'>input</label>
         <input
-          id="input-field"
+          id='input-field'
           type='text'
           onChange={this.handleInputTextChange}
           onKeyPress={this.onKeyDown}
