@@ -10,6 +10,7 @@
 export interface TagProps {
   tag: any
   classNames: any
+  onDelete: () => {}
 }
 
 export interface TagState { }

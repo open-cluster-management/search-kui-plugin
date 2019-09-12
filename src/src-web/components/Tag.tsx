@@ -22,9 +22,9 @@ class Tag extends React.Component<TagProps, TagState> {
     }
   }
   render() {
-    const { classNames, tag } = this.props
+    const { classNames, onDelete, tag } = this.props
     return (
-      <button type='button' className={this.getClassType(tag)} >
+      <button type='button' className={this.getClassType(tag)} onClick={onDelete} >
         <span className={classNames.selectedTagName}>{tag.name}</span>
       </button>
     )
