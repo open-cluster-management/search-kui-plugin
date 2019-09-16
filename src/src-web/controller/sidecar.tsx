@@ -111,7 +111,7 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
     else{
       HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
       .then(resp => {
-        const resource = resp.data.getResource[0] ? resp.data.getResource[0] : resp.data.getResource
+        const resource = !resp.errors ? resp.data.getResource : resp
         resolve(buildSidecar('resource', data, resource))
       })
     }
