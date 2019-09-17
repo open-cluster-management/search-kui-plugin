@@ -99,21 +99,24 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
   if (args.argv.length === 2){
     resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${args.command} kind:<keyword> name:<keyword> namespace:<keyword>\nEXAMPLE: ${args.command} kind:pod name:audit-logging-fluentd-ds-7tpnw namespace:kube-system`)
   }
+
+  const node = document.createElement('pre')
+  node.setAttribute('class', 'oops')
+  node.innerText = strings('search.no.resources.found')
   
   HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
   .then(res => {
-    const data = res.data.searchResult[0]
+    const data = lodash.get(res, 'data.searchResult[0]', '')
 
-    if(args.command.includes("related:resources")){
-      resolve(buildSidecar('query', data))
-    }
+    !data || data.count === 0
+    ? resolve(node)
+    : args.command.includes("related:resources") 
 
-    else{
-      HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
-      .then(resp => {
-        const resource = !resp.errors ? resp.data.getResource : resp
-        resolve(buildSidecar('resource', data, resource))
-      })
-    }
+      ? resolve(buildSidecar('query', data))
+      : HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
+        .then(resp => {
+          const resource = !resp.errors ? resp.data.getResource : resp
+          resolve(buildSidecar('resource', data, resource))
+        })
   })
 })

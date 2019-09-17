@@ -97,6 +97,7 @@
 "search.label.view.related" : "View Related Resources",
 "search.loading" : "Loading results",
 "search.noresults" : "No search results found.",
+"search.no.resources.found" : "No resources found.",
 "search.notfound" : "No logs found",
 "search.placeholder" : "Search items",
 "search.tile.results" : "Results",

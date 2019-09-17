@@ -27,7 +27,7 @@ const doSearch = (args) => new Promise((resolve, reject) => {
   const renderNoResults = () => {
     const node = document.createElement('pre')
     node.setAttribute('class', 'oops')
-    node.innerText = 'No resources found.'
+    node.innerText = strings('search.no.resources.found')
     return node
   }
 
