@@ -15,6 +15,7 @@ import { convertStringToQuery } from '../util/search-helper'
 import { GET_SEARCH_COMPLETE } from '../definitions/search-queries'
 import {SearchBarProps, SearchBarState} from '../model/SearchBar'
 import InputTag from '../components/Tag'
+// helper function for translations
 import i18n from '@kui-shell/core/util/i18n'
 const strings = i18n('plugin-search')
 
