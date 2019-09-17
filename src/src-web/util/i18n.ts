@@ -27,9 +27,11 @@ const i18n = (locale: string): Record<string, string> => {
     }
 }
 
-const _strings = i18n(locale)
+// Start with the default strings then replace with the locale strings. So if a
+// string isn't defined for a specific locale, we use the default (English) string.
+const _strings = {...defaultStrings, ...i18n(locale)}
 let string = _strings[key]
-if (args) {
+if (string && args) {
     args.forEach((arg, idx) => {
     string = string.replace(`{${idx}}`, arg)
     })
