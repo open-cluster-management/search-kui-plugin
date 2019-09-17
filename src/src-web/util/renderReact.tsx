@@ -11,7 +11,8 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import ResourceTable from '../components/ResourceTable'
 import repl = require('@kui-shell/core/core/repl')
-import strings from '../util/i18n'
+import i18n from '@kui-shell/core/util/i18n'
+const strings = i18n('plugin-search')
 
 export default function renderReact(data: any, node: HTMLDivElement, command: string) {
   const uniqueKinds = [...new Set(data.items ? data.items.map((item) => item.kind) : data.map((item) => item.kind))]

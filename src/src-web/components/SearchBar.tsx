@@ -15,7 +15,8 @@ import { convertStringToQuery } from '../util/search-helper'
 import { GET_SEARCH_COMPLETE } from '../definitions/search-queries'
 import {SearchBarProps, SearchBarState} from '../model/SearchBar'
 import InputTag from '../components/Tag'
-import strings from '../../src-web/util/i18n'
+import i18n from '@kui-shell/core/util/i18n'
+const strings = i18n('plugin-search')
 
 const ReactTags = require('react-tag-autocomplete')
 
@@ -171,8 +172,8 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
     const labelTag = {
       id: 'id-filter-label',
       key: 'key-filter-label',
-      name: strings('searchbar.values.label', [searchComplete]),
-      value: strings('searchbar.values.label', [searchComplete]),
+      name: strings('searchbar.values.label', searchComplete),
+      value: strings('searchbar.values.label', searchComplete),
       disabled: true,
     }
 
@@ -200,8 +201,8 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
         if (data.searchComplete[0] === 'isNumber') {
           if (chosenOperator !== null) {
             const rangeText = data.searchComplete.length > 2
-              ? strings('searchbar.operator.range', [data.searchComplete[1], data.searchComplete[2]])
-              : strings('searchbar.operator.range', [data.searchComplete[1], data.searchComplete[1]])
+              ? strings('searchbar.operator.range', data.searchComplete[1], data.searchComplete[2])
+              : strings('searchbar.operator.range', data.searchComplete[1], data.searchComplete[1])
             return [
               labelTag,
               {
@@ -235,8 +236,8 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
             {
               id: 'id-filter-label',
               key: 'key-filter-label',
-              name: strings('searchbar.operator.dateSort', [searchComplete]),
-              value: strings('searchbar.operator.dateSort', [searchComplete]),
+              name: strings('searchbar.operator.dateSort', searchComplete),
+              value: strings('searchbar.operator.dateSort', searchComplete),
               disabled: true,
             },
           )

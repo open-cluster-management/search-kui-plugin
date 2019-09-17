@@ -14,7 +14,8 @@ import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
-import strings from '../../src-web/util/i18n'
+import i18n from '@kui-shell/core/util/i18n'
+const strings = i18n('plugin-search')
 
 const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)

@@ -13,7 +13,8 @@ import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from './helpfiles/savedsearchhelp'
 import { SEARCH_QUERY_COUNT, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
-import strings from '../../src-web/util/i18n'
+import i18n from '@kui-shell/core/util/i18n'
+const strings = i18n('plugin-search')
 
 function getQueryCount(searches) {
   const input = [...searches.map((query) => convertStringToQuery(query.searchText))]

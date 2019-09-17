@@ -13,7 +13,8 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { StructuredListWrapper, StructuredListBody, StructuredListRow, StructuredListCell, ClickableTile } from 'carbon-components-react'
 import repl = require('@kui-shell/core/core/repl')
-import strings from '../../util/i18n'
+import i18n from '@kui-shell/core/util/i18n'
+const strings = i18n('plugin-search')
 
 /**
  * Renders a structured list of related resources for the selected resource's sidecar.
@@ -131,7 +132,7 @@ export const queryRelatedTab = (resource: any) => {
     type: 'custom',
     isEntity: true,
     content: buildQueryRelated(resource.related),
-    name: strings('search.label.query', [lodash.get(resource, 'items[0].kind', '')]),
+    name: strings('search.label.query', lodash.get(resource, 'items[0].kind', '')),
     viewName: `${lodash.get(resource, 'items[0].kind', '')}`,
     modes: [
       {

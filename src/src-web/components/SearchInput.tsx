@@ -10,9 +10,10 @@
 import * as React from 'react'
 import HTTPClient from '../controller/HTTPClient'
 import SearchBar from './SearchBar'
-import strings from '../../src-web/util/i18n'
 import { GET_SEARCH_SCHEMA } from '../definitions/search-queries'
 import { SearchInputProps, SearchInputState } from '../model/SearchInput'
+import i18n from '@kui-shell/core/util/i18n'
+const strings = i18n('plugin-search')
 
 export default class SearchInput extends React.PureComponent<SearchInputProps, SearchInputState> {
   static propTypes = { }

@@ -18,7 +18,8 @@ import * as ReactDOM from 'react-dom'
 import { ToastNotification } from 'carbon-components-react'
 import { CommandRegistrar } from '@kui-shell/core/models/command'
 import HTTPClient from './HTTPClient'
-import strings from '../util/i18n'
+import i18n from '@kui-shell/core/util/i18n'
+const strings = i18n('plugin-search')
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 
 export const notify = (content) => {
@@ -54,7 +55,7 @@ function deleteSavedSearch(args) {
     // Check if the record exist before trying to delete.
     HTTPClient('post', 'mcm', SAVED_SEARCH_QUERY)
     .then((res) => {
-      res['warning'] = strings('modal.save.warning', [name])
+      res['warning'] = strings('modal.save.warning', name)
       res.data.items.forEach(record => {
         if(record.name === name)
           warningToDelete = false // Record is available
@@ -68,7 +69,7 @@ function deleteSavedSearch(args) {
       .then((res) => {
         resolve(
           res.data.deleteQuery.userQueries
-          ? notify(strings('modal.deleted.save.success', [name]))
+          ? notify(strings('modal.deleted.save.success', name))
           : notify(res.errors[0])
         )
       })
@@ -87,7 +88,7 @@ function deleteResource(args) {
       resolve(
         res.errors
           ? notify(res.errors[0])
-          : notify(strings('modal.deleted.resource', [args.argv[1]]))
+          : notify(strings('modal.deleted.resource', args.argv[1]))
       )
     })
   })
