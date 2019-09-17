@@ -13,3 +13,8 @@ Execute `npm run compile` at the root-level of the KUI repo.
 Execute `npm run start` at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for MCM KUI testing).
 
 Try `search` commands. Ex: `search kind:pod`
+
+# Trigger a release
+To trigger a new release you must push a commit of type `fix` or `release`
+```
+npm run commit```
