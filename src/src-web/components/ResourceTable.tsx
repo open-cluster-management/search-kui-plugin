@@ -107,7 +107,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
               isDelete={true}
               onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
               key={action}
-              itemText={strings('table.actions.remove.resource', kind)} />
+              itemText={strings('table.actions.remove.resource', kind.toString())} />
           </OverflowMenu>
         )
       }
@@ -204,8 +204,8 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
               disabled={pageSize >= totalItems}
               isLastPage={pageSize >= totalItems}
               itemsPerPageText={strings('pagination.itemsPerPage')}
-              pageRangeText={(current, total) => strings('pagination.pageRange', current, total)}
-              itemRangeText={(min, max, total) => `${strings('pagination.itemRange', min, max)} ${strings('pagination.itemRangeDescription', total)}`}
+              pageRangeText={(current, total) => strings('pagination.pageRange', current.toString(), total.toString())}
+              itemRangeText={(min, max, total) => `${strings('pagination.itemRange', min.toString(), max.toString())} ${strings('pagination.itemRangeDescription', total.toString())}`}
               pageInputDisabled={pageSize >= totalItems}
             />
           : null
