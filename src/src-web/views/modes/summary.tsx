@@ -12,8 +12,7 @@ import * as lodash from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { StructuredListWrapper, StructuredListBody, StructuredListRow, StructuredListCell } from 'carbon-components-react'
-import i18n from '@kui-shell/core/util/i18n'
-const strings = i18n('plugin-search')
+import strings from '../../util/i18n'
 
 /**
  * Render resource's summary list

@@ -18,8 +18,7 @@ import * as PropTypes from 'prop-types'
 import repl = require('@kui-shell/core/core/repl')
 import { Modal } from 'carbon-components-react'
 import { ModalProps, ModalState } from '../model/Modal'
-import i18n from '@kui-shell/core/util/i18n'
-const strings = i18n('plugin-search')
+import strings from '../util/i18n'
 
 export default class ResourceTable extends React.PureComponent<ModalProps, ModalState> {
   static propTypes = {
@@ -51,7 +50,7 @@ export default class ResourceTable extends React.PureComponent<ModalProps, Modal
   render() {
     const { item, modalOpen } = this.props
     const bodyLabel = item['kind']
-    const heading = strings('modal.remove.heading', item['kind'])
+    const heading = strings('modal.remove.heading', [item['kind']])
     return (
       <Modal
         danger
@@ -65,7 +64,7 @@ export default class ResourceTable extends React.PureComponent<ModalProps, Modal
         onRequestSubmit={() => this.handleDelete()}
         role='region'
         aria-label={heading} >
-          <p>{strings('modal.remove.confirm', item['name'])}</p>
+          <p>{strings('modal.remove.confirm', [item['name']])}</p>
       </Modal>
     )
   }

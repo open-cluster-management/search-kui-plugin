@@ -15,8 +15,7 @@ import { SEARCH_MCM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-qu
 import { summaryTab, buildSummary } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
 import { relatedTab, queryRelatedTab, buildQueryRelated } from '../views/modes/related';
-import i18n from '@kui-shell/core/util/i18n'
-const strings = i18n('plugin-search')
+import strings from '../../src-web/util/i18n'
 
 export const buildSidecar = (type: string, data: any, resource?: any) => {
   const badges: Badge[] = []
@@ -30,7 +29,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
     return{
       type: 'custom',
       isEntity: true,
-      name: strings('search.label.query', lodash.get(data, 'items[0].kind', '')),
+      name: strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
       viewName: `${lodash.get(data, 'items[0].kind', '')}`,
       modes: [
         {

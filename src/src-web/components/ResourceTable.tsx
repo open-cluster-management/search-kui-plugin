@@ -21,8 +21,7 @@ import Modal from '../components/Modal'
 import { Pagination, DataTable, OverflowMenu, OverflowMenuItem } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/ResourceTable'
 import repl = require('@kui-shell/core/core/repl')
-import i18n from '@kui-shell/core/util/i18n'
-const strings = i18n('plugin-search')
+import strings from '../util/i18n'
 
 const { Table, TableHead, TableRow, TableBody, TableCell } = DataTable
 const PAGE_SIZES = { DEFAULT: 10, VALUES: [5, 10, 20, 50, 75, 100] }
@@ -107,7 +106,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
               isDelete={true}
               onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
               key={action}
-              itemText={strings('table.actions.remove.resource', kind.toString())} />
+              itemText={strings('table.actions.remove.resource', [kind])} />
           </OverflowMenu>
         )
       }
@@ -204,8 +203,8 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
               disabled={pageSize >= totalItems}
               isLastPage={pageSize >= totalItems}
               itemsPerPageText={strings('pagination.itemsPerPage')}
-              pageRangeText={(current, total) => strings('pagination.pageRange', current.toString(), total.toString())}
-              itemRangeText={(min, max, total) => `${strings('pagination.itemRange', min.toString(), max.toString())} ${strings('pagination.itemRangeDescription', total.toString())}`}
+              pageRangeText={(current, total) => strings('pagination.pageRange', [current, total])}
+              itemRangeText={(min, max, total) => `${strings('pagination.itemRange', [min, max])} ${strings('pagination.itemRangeDescription', [total])}`}
               pageInputDisabled={pageSize >= totalItems}
             />
           : null

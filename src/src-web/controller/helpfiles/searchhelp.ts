@@ -7,8 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import i18n from '@kui-shell/core/util/i18n'
-const strings = i18n('plugin-search')
+import strings from '../../util/i18n'
 
 /** how many options to show at a time, i.e. before scrolling */
 const nRowsInViewport = 1
