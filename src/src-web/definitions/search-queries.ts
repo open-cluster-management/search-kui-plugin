@@ -74,6 +74,19 @@ export const SAVED_SEARCH_QUERY = {
   query: 'query userQueries {\n items: userQueries {\n name\n description\n searchText\n __typename\n}\n}\n',
 }
 
+export const RESOURCE_LOGS = (record) => {
+  return {
+    operationName:"getLogs",
+    variables: {
+      containerName: record.container,
+      podName: record.name,
+      podNamespace: record.namespace,
+      clusterName: record.cluster
+    },
+    query: "query getLogs($containerName: String!, $podName: String!, $podNamespace: String!, $clusterName: String!) {\n  logs(containerName: $containerName, podName: $podName, podNamespace: $podNamespace, clusterName: $clusterName)\n}\n"
+  }
+}
+
 export const DELETE_QUERY = (name) => {
   return {
     operationName: 'deleteQuery',

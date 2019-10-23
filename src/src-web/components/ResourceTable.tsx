@@ -22,6 +22,8 @@ import { Pagination, DataTable, OverflowMenu, OverflowMenuItem } from 'carbon-co
 import { TableProps, TableState } from '../model/ResourceTable'
 import repl = require('@kui-shell/core/core/repl')
 import strings from '../util/i18n'
+import { CheckmarkFilled16, ErrorFilled16, WarningFilled16 } from '@carbon/icons-react'
+import Status from '../util/status'
 
 const { Table, TableHead, TableRow, TableBody, TableCell } = DataTable
 const PAGE_SIZES = { DEFAULT: 10, VALUES: [5, 10, 20, 50, 75, 100] }
@@ -159,9 +161,15 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
                               onClick={this.handleSort(header.key)}
                               className={`bx--table-sort-v2${sortDirection === 'asc' ? ' bx--table-sort-v2--ascending' : ''}${sortColumn === header.key ? ' bx--table-sort-v2--active' : ''}`}
                               data-key={header.key} >
-                              <span className='bx--table-header-label'>{header.header}<span className={'arrow-down-header-label'}>&#9660;</span></span>
+                              <span className='bx--table-header-label'>{header.header}
+                                <span className={'arrow-header-label'}>{this.state.sortDirection === 'asc' 
+                                  ? <span>&#9650;</span>
+                                  : <span>&#9660;</span>
+                                }</span>
+                              </span>
                             </div>
-                          : null}
+                          : null
+                        }
                       </th>
                     ))}
                   </TableRow>
@@ -170,18 +178,37 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
                   {rows.map((row) => (
                     <TableRow key={row.id} className='bx--data-table--compact'>
                       {row.cells.map((cell) => <TableCell key={cell.id} onClick={() => {
-                        const _ = row.cells.filter((data) => data.info.header === 'namespace')
+                        const ns = row.cells.filter((data) => data.info.header === 'namespace')
                         if (this.props.kind === 'savedSearches' && cell.info['header'] === 'name') {
                           // When user clicks on saved search name we want to run the query seen in search text column
                           return repl.pexec(`search ${row.cells[2].value}`)
-                        } else if (cell.info['header'] === 'name' && _.length > 0 && _[0].value) {
+                        } else if (cell.info['header'] === 'name' && ns.length > 0 && ns[0].value) {
                           return repl.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
                         } else if (cell.info['header'] === 'name') {
                           return repl.pexec(`search summary kind:${this.props.kind} name:${row.cells[0].value}`)
                         } else {
                           return null
                         }
-                      }}>{cell.value}</TableCell>)}
+                      }}>
+                      {
+                        cell.info['header'] !== 'status'
+                        ? cell.value
+                        : <div> 
+                            { // If the resource contains a status, add a status icon to that column in the table.
+                              Status.Success.includes(cell.value)
+                              ? <CheckmarkFilled16 className={`status-success`}/>
+                              : Status.Warning.includes(cell.value)
+                                ? <WarningFilled16 className={`status-warning`}/>
+                                : Status.Failed.includes(cell.value)
+                                  ? <ErrorFilled16 className={`status-failed`}/>
+                                  : Status.Completed.includes(cell.value)
+                                    ? <CheckmarkFilled16 className={`status-completed`}/>
+                                    : null
+                            }
+                            <span className={`status-name`}>{`${cell.value}`}</span>
+                          </div>
+                      }
+                      </TableCell>)}
                     </TableRow>
                   ))}
                 </TableBody>

@@ -17,4 +17,5 @@ Try `search` commands. Ex: `search kind:pod`
 # Trigger a release
 To trigger a new release you must push a commit of type `fix` or `release`
 ```
-npm run commit```
+npm run commit
+```

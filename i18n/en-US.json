@@ -91,6 +91,7 @@
 
 "search.label" : "Search",
 "search.label.links" : "Search [+Search]",
+"search.label.logs" : "Logs",
 "search.label.related" : "Related Resources",
 "search.label.summary" : "Summary",
 "search.label.query" : "Related resources for search results: {0}",

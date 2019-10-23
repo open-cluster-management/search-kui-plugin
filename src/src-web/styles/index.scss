@@ -220,6 +220,25 @@
             }
           }
         }
+
+        .status-{
+          &success{
+            fill: var(--color-support-02);
+            height: 10px;
+          }
+          &warning{
+            fill: var(--color-support-03);
+            height: 10px;
+          }
+          &failed{
+            fill: var(--color-support-01);
+            height: 10px;
+          }
+          &completed{
+            fill: var(--color-processing);
+            height: 10px;
+          }
+        }
       }
 
       &:hover{
@@ -280,15 +299,15 @@
     .bx--table-header-label{
       cursor: pointer;
       &:hover{
-        .arrow-down-header-label{
+        .arrow-header-label{
           opacity: 1;
         }
       }
-      .arrow-down-header-label{
+      .arrow-header-label{
         opacity: 0;
         font-size: 0.5rem;
         margin-left: 5px;
-      }      
+      }
     }
   }
 
@@ -699,13 +718,30 @@ span{
 .scrollable{
   &.bx--structured-list--summary{
     width: 98%;
-    margin-left: 2%;
+    margin-left: 2.5%;
     padding-right: 20px;
   
     .bx--structured-list-row{
       &:hover{
         background-color: var(--color-sidecar-header)
       }
+    }
+
+    .bx--dropdown__wrapper{
+      &.bx--list-box__wrapper{
+        margin-top: 2%; 
+      }
+    }
+
+    .bx--list-box__menu-item__option{
+      &:hover{
+        text-decoration: underline solid var(--active-tab-color);
+      }
+    }
+
+    .loading-container{
+      margin-top: 13vw;
+      margin-left: 45.5%;
     }
   
     .bx--structured-list-td-header{
@@ -722,15 +758,27 @@ span{
       color: var(--color-name);
     }
   
-    .bx--structured-list-td-body{
-      font-size: 1.2rem;
-      color: var(--color-base07);
-    }
+    .bx--structured-list-td{
+      &-body{
+        font-size: 1.2rem;
+        color: var(--color-base07);
 
+        &-logs{
+          font-size: 0.85rem;
+        }
+      }
+    }
     .bx--structured-list-rowclick{
       &:hover{
         cursor: pointer;
       }
+    }
+
+    .logs-container__content{
+      margin-top: 1%;
+      margin-bottom: 2%;
+      overflow-y: scroll;
+      font-size: 0.8rem;
     }
   }
 
@@ -753,6 +801,8 @@ span{
 
           .bx--tile-container{
             width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis; 
 
             &:hover{
               cursor: pointer;

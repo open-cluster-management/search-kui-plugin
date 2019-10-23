@@ -14,7 +14,8 @@ import HTTPClient from './HTTPClient';
 import { SEARCH_MCM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
 import { summaryTab, buildSummary } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
-import { relatedTab, queryRelatedTab, buildQueryRelated } from '../views/modes/related';
+import { relatedTab, buildRelated } from '../views/modes/related';
+import { logTab } from '../views/modes/logging';
 import strings from '../../src-web/util/i18n'
 
 export const buildSidecar = (type: string, data: any, resource?: any) => {
@@ -24,72 +25,69 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   const balloon = lodash.get(data, 'items[0].name', '').split(/(-[0-9])/)
   badges.push(balloon[0])
 
-  // Returns the related resources sidecar and tab for the search query that was entered.
-  if(type === 'query'){
-    return{
-      type: 'custom',
-      isEntity: true,
-      name: strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
-      viewName: `${lodash.get(data, 'items[0].kind', '')}`,
-      modes: [
-        {
-          defaultMode: true,
-          mode: 'related',
-          direct: () => queryRelatedTab(data),
-          leaveBottomStripeAlone: true,
-          label: strings('search.label.related'),
-        }
-      ],
-      content: buildQueryRelated(data.related)
-    }
-  }
+  const modes = []
 
-  // Returns the sidecar summary, yaml, and related resources tab for the selected table resource.
-  else{
-    const modes = [
-      {
+  if(type !== 'query'){
+    // If there is any item data, add the summary tab.
+    lodash.get(data, 'items[0]', '')
+    ? modes.push({
+      defaultMode: true,
+      mode: 'summary',
+      direct: () => summaryTab(data.items[0]),
+      leaveBottomStripeAlone: true,
+      label: strings('search.label.summary'),
+      order: 1
+    })
+    : null
+
+    // If the sidecar was able to return a yaml object, add the YAML tab.
+    lodash.get(resource, 'message', '') || lodash.get(resource, 'errors', '')
+    ? null
+    : modes.push({
+      defaultMode: true,
+      mode: 'yaml',
+      direct: () => yamlTab(resource),
+      leaveBottomStripeAlone: true,
+      label: 'YAML',
+      order: 2
+    })
+
+    // If the resource is a pod, add the logging tab.
+    lodash.get(data, 'items[0].kind', '') === 'pod' && type !== 'query'
+    ? modes.push({
         defaultMode: true,
-        mode: 'summary',
-        direct: () => summaryTab(data.items[0]),
+        mode: 'logging',
+        direct: () => logTab(data.items[0]),
         leaveBottomStripeAlone: true,
-        label: strings('search.label.summary'),
-        order: 1
-      },
-      {
-        defaultMode: true,
-        mode: 'related',
-        direct: () => relatedTab(data),
-        leaveBottomStripeAlone: true,
-        label: strings('search.label.related'),
+        label: strings('search.label.logs'),
         order: 3
-      },
-      {
-        defaultMode: true,
-        mode: 'yaml',
-        direct: () => yamlTab(resource),
-        leaveBottomStripeAlone: true,
-        label: 'YAML',
-        order: 2
-      },
-    ]
+      })
+    : null
+  }
   
-    // If the sidecar was not able to return a yaml object, remove the YAML tab.
-    if(resource.message || resource.errors){
-      modes.pop()
-    }
-  
-    // Return sidecar entity
-    return {
-      type: 'custom',
-      isEntity: true,
-      content: buildSummary(data.items[0]),
-      contentType: 'json',
-      badges,
-      viewName: `${lodash.get(data, 'items[0].kind', '')}`,
-      name: `${lodash.get(data, 'items[0].name', '')}`,
-      packageName: `${lodash.get(data, 'items[0].namespace', '')}`,
-      modes
-    }
+  // If the resource have any related resources, add the related tab.
+  lodash.get(data, 'related', '').length > 0
+  ? modes.push({
+      defaultMode: true,
+      mode: 'related',
+      direct: () => relatedTab(data, type),
+      leaveBottomStripeAlone: true,
+      label: strings('search.label.related'),
+      order: 4
+    })
+  : null
+
+  // Returns the sidecar and tab for the selected resource || search query that was entered.
+  return {
+    type: 'custom',
+    isEntity: true,
+    badges: type !== 'query' ? badges : null,
+    content: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
+    contentType: type !== 'query' ? 'json' : null,
+    viewName: lodash.get(data, 'items[0].kind', ''),
+    name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
+    packageName: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
+    modes,
   }
 }
 
