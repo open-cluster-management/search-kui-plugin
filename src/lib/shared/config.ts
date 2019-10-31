@@ -22,6 +22,7 @@ const getXsrfToken = () => {
 let config = {
   env: '',
   // TODO - Electron needs to grab backend urls somehow  Ex: https://<cluster-ip>:<backend-port>/(searchapi || hcmuiapi)/graphql
+  // To ensure that the search-api is installed, Electron needs to grab the url Ex: https://<cluster-ip>:8443/multicloud/servicediscovery/search
   // Browser can grab backend urls from the window.location.origin
   SEARCH_API: inBrowser()
     ? `${window && window.location && window.location.origin}/multicloud/search/graphql`
@@ -29,13 +30,17 @@ let config = {
   MCM_API: inBrowser()
     ? `${window && window.location && window.location.origin}/multicloud/graphql`
     : '',
+  SEARCH_SERVICE: inBrowser()
+    ? `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
+    : '',
+
 
   // Browser needs xsrf token for requests
   xsrfToken: inBrowser() ? getXsrfToken() : null,
 
   // Electron needs the user access token
   authorization: `Bearer token`,
-  cookie: `cfc-access-token-cookie=`,
+  cookie: `cfc-access-token-cookie=token`,
 }
 
 if (nconf) {

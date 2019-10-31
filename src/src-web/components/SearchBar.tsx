@@ -17,6 +17,7 @@ import {SearchBarProps, SearchBarState} from '../model/SearchBar'
 import InputTag from '../components/Tag'
 // helper function for translations
 import strings from '../util/i18n'
+import * as lodash from 'lodash'
 
 const ReactTags = require('react-tag-autocomplete')
 
@@ -58,7 +59,9 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.availableFilters, this.state.fieldOptions)) {
-      const fields = this.formatFields(nextProps.availableFilters.allProperties)
+      const fields = nextProps.availableFilters.allProperties
+        ? this.formatFields(nextProps.availableFilters.allProperties)
+        : []
       const labelTag = {
         id: 'id-filter-label',
         key: 'key-filter-label',
@@ -111,6 +114,10 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if(nextState.fieldOptions.length === 1){
+      this.handleClearAllClick()
+    }
+
     return !_.isEqual(nextProps.availableFilters, nextState.fieldOptions)
   }
 
@@ -416,25 +423,30 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
     return (
       <div className='tagInput-filter'>
-        <div className={'tagInput-comboBox'} onKeyDown={this.props.onKeyDown} >
-          <ReactTags
-            placeholder=''
-            tags={tags}
-            suggestions={searchComplete
-              ? this.formatSuggestionOptions(suggestions)
-              : fieldOptions}
-            handleDelete={this.handleDelete}
-            handleAddition={this.handleAddition}
-            tagComponent={InputTag}
-            autoresize={false}
-            minQueryLength={0}
-            allowNew={true}
-            delimiterChars={[' ', ':', ',']}
-            delimiters={[9]}
-            autofocus={true}
-            maxSuggestionsLength= {Infinity}
-          />
-        </div>
+        {
+          <div className={'tagInput-comboBox'} onKeyDown={this.props.onKeyDown}>
+            <ReactTags
+              placeholder=''
+              tags={lodash.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1 ? tags : undefined}
+              suggestions={searchComplete
+                ? this.formatSuggestionOptions(suggestions)
+                : lodash.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1
+                  ? fieldOptions
+                  : []
+              }
+              handleDelete={this.handleDelete}
+              handleAddition={this.handleAddition}
+              tagComponent={InputTag}
+              autoresize={false}
+              minQueryLength={0}
+              allowNew={true}
+              delimiterChars={lodash.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1 ? [' ', ':', ','] : []}
+              delimiters={[9]}
+              autofocus={true}
+              maxSuggestionsLength= {Infinity}
+            />
+          </div>
+        }
       </div>
     )
   }

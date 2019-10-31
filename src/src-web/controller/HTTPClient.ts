@@ -45,7 +45,9 @@ export default function HTTPClient(method, urlType, requestBody) {
   return (
     axios({
       method,
-      url: urlType === 'search' ? config.SEARCH_API : config.MCM_API,
+      url: urlType === 'search' ? config.SEARCH_API : urlType && requestBody
+        ? config.MCM_API : urlType === 'svc' && !requestBody
+        ? config.SEARCH_SERVICE : null,
       headers: getHeaders(),
       data: requestBody,
       withCredentials: true,

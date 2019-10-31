@@ -14,6 +14,7 @@ import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from './helpfiles/savedsearchhelp'
 import { SEARCH_QUERY_COUNT, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 import strings from '../../src-web/util/i18n'
+import { isSearchAvailable, getSearchService } from './search';
 
 function getQueryCount(searches) {
   const input = [...searches.map((query) => convertStringToQuery(query.searchText))]
@@ -41,13 +42,20 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
     return node
   }
 
-  HTTPClient('post', 'mcm', SAVED_SEARCH_QUERY)
+  const svc = getSearchService()
+  svc.enabled && !svc.error
+  ? HTTPClient('post', 'mcm', SAVED_SEARCH_QUERY)
     .then((res) => {
       resolve(
         buildTable(res.data),
       )
     })
-});
+    .catch((err) => {
+      resolve(isSearchAvailable(false, err))
+    })
+  : resolve(isSearchAvailable(false))
+})
+
 
 /**
  * Here we register as a listener for commands

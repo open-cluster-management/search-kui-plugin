@@ -17,6 +17,7 @@ import { yamlTab } from '../views/modes/yaml';
 import { relatedTab, buildRelated } from '../views/modes/related';
 import { logTab } from '../views/modes/logging';
 import strings from '../../src-web/util/i18n'
+import { isSearchAvailable, getSearchService } from './search';
 
 export const buildSidecar = (type: string, data: any, resource?: any) => {
   const badges: Badge[] = []
@@ -100,21 +101,31 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
 
   const node = document.createElement('pre')
   node.setAttribute('class', 'oops')
-  node.innerText = strings('search.no.resources.found')
+  node.innerText = strings('search.no.resources.found')  
   
-  HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-  .then(res => {
-    const data = lodash.get(res, 'data.searchResult[0]', '')
+  const svc = getSearchService()
+  svc.enabled && !svc.error
+  ? HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
+    .then(res => {
+      const data = lodash.get(res, 'data.searchResult[0]', '')
 
-    !data || data.count === 0
-    ? resolve(node)
-    : args.command.includes("related:resources") 
+      !data || data.count === 0
+      ? resolve(node)
+      : args.command.includes("related:resources") 
 
-      ? resolve(buildSidecar('query', data))
-      : HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
-        .then(resp => {
-          const resource = !resp.errors ? resp.data.getResource : resp
-          resolve(buildSidecar('resource', data, resource))
-        })
-  })
+        ? resolve(buildSidecar('query', data))
+        : HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
+          .then(resp => {
+            const resource = !resp.errors ? resp.data.getResource : resp
+            resolve(buildSidecar('resource', data, resource))
+          })
+          .catch((err) => {
+            node.innerText = strings('search.service.available.error')
+            resolve(node)
+          })
+    })
+    .catch((err) => {
+      resolve(isSearchAvailable(false, err))
+    })
+  : resolve(isSearchAvailable(false))
 })

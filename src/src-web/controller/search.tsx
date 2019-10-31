@@ -7,6 +7,8 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import { CommandRegistrar } from '@kui-shell/core/models/command'
 import HTTPClient from './HTTPClient'
 import renderReact from '../util/renderReact';
@@ -15,6 +17,48 @@ import { toplevel as usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
 import strings from '../../src-web/util/i18n'
+
+export const isSearchAvailable = (available, err?) => {
+  const node = document.createElement('div')
+  node.classList.add('is-search-available')
+
+  const status = () => {
+    return(
+      <div>
+        {available
+          ? <p>{strings('search.service.available')}</p>
+          : !available && !err
+            ? <p>{strings('search.service.unavailable')}
+                <span className={'install-details-link'} onClick={
+                  () => window.open('https://www.ibm.com/support/knowledgecenter/en/SSFC4F_1.1.0/kc_welcome_cloud_pak.html')
+                }>{strings('search.service.install.detail')}
+                </span>
+              </p>
+            : <p><span className='oops'>{strings('search.service.available.error')}</span></p>
+        }
+      </div>
+    )
+  }
+
+  ReactDOM.render(React.createElement(status), node)
+  return node
+}
+
+export const getSearchService = () => {
+  return localStorage.getItem('search') // Check for search stored value
+  ? JSON.parse(localStorage.getItem('search'))
+  : { enabled: false }
+}
+
+export const searchChecker = () => new Promise((resolve, reject) => {
+  const svc = getSearchService()
+
+  svc.enabled && !svc.error
+  ? resolve(isSearchAvailable(true))
+  : !svc.enabled && !svc.error
+    ? resolve(isSearchAvailable(false))
+    : resolve(isSearchAvailable(false, svc.error))
+})
 
 const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
@@ -39,13 +83,22 @@ const doSearch = (args) => new Promise((resolve, reject) => {
       : node.appendChild(renderNoResults())
     return node
   }
-
-  HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
+  
+  const svc = getSearchService()
+  args.command !== 'search -i' && args.command !== 's -i' && svc.enabled
+  ? HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
     .then((res) => {
       resolve(
         buildTable(res.data.searchResult[0]),
       )
     })
+    .catch((err) => {
+      const node = document.createElement('pre')
+      node.setAttribute('class', 'oops')
+      node.innerText = strings('search.service.available.error')
+      resolve(node)
+    })
+  : resolve(searchChecker())
 });
 
 /**

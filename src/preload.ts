@@ -11,6 +11,8 @@ import { listen } from '@kui-shell/core/webapp/cli'
 import { inBrowser } from '@kui-shell/core/core/capabilities'
 import { CapabilityRegistration } from '@kui-shell/core/models/plugin'
 import { InputWrapper } from './src-web/components/InputWrapper'
+import HTTPClient from './src-web/controller/HTTPClient';
+import strings from './src-web/util/i18n'
 
 // Register searchBarWrapper
 const registerCapability: CapabilityRegistration = async () => {
@@ -24,6 +26,22 @@ const registerCapability: CapabilityRegistration = async () => {
   }
   const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
   await InputWrapper(stripe)
+
+  // Check and store if search is available
+  HTTPClient('get', 'svc', undefined)
+  .then((res) => {
+    localStorage.setItem('search', `{
+      "enabled": ${res && res === true},
+      "message": "${res ? strings('search.service.available') : strings('search.service.unavailable')}"
+    }`)
+  })
+  .catch((err) => {
+    localStorage.setItem('search', `{
+      "enabled": false,
+      "message": "${strings('search.service.available.error')}",
+      "error": "${err}"
+    }`)
+  })
 
   // Core by default listens to original input bar
   // We need to override that listen to the hijacked input bar by default

@@ -97,6 +97,7 @@
 "search.label.query" : "Related resources for search results: {0}",
 "search.label.view.related" : "View Related Resources",
 "search.loading" : "Loading results",
+"search.loading.fail" : "Loading results failed",
 "search.noresults" : "No search results found.",
 "search.no.resources.found" : "No resources found.",
 "search.notfound" : "No logs found",
@@ -106,6 +107,10 @@
 "search.service.unavailable" : "The search service is not enabled in this cluster.",
 "search.service.install.detail" : "To use the search command you must install the CloudPak for Multicloud Manager.",
 "search.tile.results" : "Results",
+"search.service.available" : "The search service is installed. Try using the search command",
+"search.service.available.error" : "The search service is unavailable. If the problem persist, contact your cluster administrator.",
+"search.service.unavailable" : "The search service is not enabled in this cluster. ",
+"search.service.install.detail" : "To use the search command you must install the CloudPak for Multicloud Manager.",
 
 "searchbar.filters.label" : "Filters",
 "searchbar.values.label" : "{0} Values",
