@@ -31,7 +31,7 @@ const registerCapability: CapabilityRegistration = async () => {
   HTTPClient('get', 'svc', undefined)
   .then((res) => {
     localStorage.setItem('search', `{
-      "enabled": ${res && res === true},
+      "enabled": ${res && (res === 'true' || res === true)},
       "message": "${res ? strings('search.service.available') : strings('search.service.unavailable')}"
     }`)
   })
