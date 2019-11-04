@@ -1,6 +1,18 @@
-language: node_js
-node_js:
-  - "10"
+sudo: required
+services:
+  - docker
+  - xvfb
+
+cache:
+  apt: true
+  directories:
+    - "$TRAVIS_CACHE_DIR"
+
+before_cache:
+  - sudo rm -rf $TRAVIS_CACHE_DIR/selenium-standalone
+
+notifications:
+  email: false
 
 branches:
   only:
@@ -9,34 +21,57 @@ branches:
     - /^v[0-9]+\..*$/
     - /^release-[0-9]+\..*$/
 
-install:
-  - |
-    npm install -g typescript
-    npm install
-    npm run buildCSS
+matrix:
+  include:
+    # --- Search plugin build/test ---
+  - stage: test-pr
+    name: 'PR tests'
+    if: type = pull_request
+    os: linux
+    dist: trusty
+    language: node_js
+    addons:
+      chrome: stable
+    node_js:
+      - "10"
+    env:
+      - JOBNAME=AMD64 DOCKER_TAG=$(git log -1 --pretty="%aN" | sed 's/[^a-zA-Z0-9]*//g')
+    before_install:
+      - make init
+      - make docker-logins
+    install:
+      - make install
+    before_script:
+      - make copyright-check
+      - make package
+    script:
+      - make integrate-plugin
+      - make plugin-tests
+    after_success:
+      - make release
+    after_failure:
+      - make release
 
-before_script:
-  - |
-    sudo add-apt-repository ppa:git-core/ppa -y
-    sudo apt-get update
-    sudo apt-get install git -y
-    git --version
 
-script:
-  - ./build-tools/copyright-check.sh 
-  - npm test
-  - |
-      if [[ "$TRAVIS_EVENT_TYPE" != "pull_request" ]]; then
-        tsc
-        cp -r ./src/* ./
-        ls -a
-        npm pack
-        mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
-      fi
-
-deploy:
-  provider: script
-  script: "npx semantic-release"
-  skip_cleanup: true
-  on:
-    branch: master
+# --- x86 Deploy ---
+  - stage: build
+    name: "Build x86"
+    if: (branch = master) AND (type = push)
+    os: linux
+    language: node_js
+    node_js:
+      - "10"
+    env:
+      - JOBNAME=AMD6
+    before_install:
+      - make init
+    install:
+      - make install
+    before-script:
+      - make package
+    deploy:
+      provider: script
+      script: "npx semantic-release"
+      skip_cleanup: true
+      on:
+        branch: master

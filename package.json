@@ -16,7 +16,6 @@
   "scripts": {
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "test": "echo \"Error: no test specified\"",
     "scss": "sass --watch src/src-web/styles/index.scss src/src-web/styles/index.css",
     "buildCSS": "sass src/src-web/styles/index.scss src/src-web/styles/index.css"
   },
@@ -33,6 +32,7 @@
     "react-tag-autocomplete": "^5.11.1"
   },
   "devDependencies": {
+    "@kui-shell/core": "^3.0.30",
     "@types/lodash": "^4.14.135",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.21",
