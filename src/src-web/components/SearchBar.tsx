@@ -422,7 +422,6 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
     return (
       <div className='tagInput-filter'>
-        {
           <div className={'tagInput-comboBox'} onKeyDown={this.props.onKeyDown}>
             <ReactTags
               placeholder=''
@@ -443,7 +442,6 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
               maxSuggestionsLength= {Infinity}
             />
           </div>
-        }
       </div>
     )
   }

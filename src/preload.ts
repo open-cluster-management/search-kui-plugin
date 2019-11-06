@@ -29,8 +29,6 @@ const registerCapability: CapabilityRegistration = async () => {
   const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
   await InputWrapper(stripe)
 
-  setPluginState('default', ['cluster', 'kind', 'label', 'name', 'namespace', 'status'])
-
   // Check and store if search is available
   HTTPClient('get', 'svc', undefined)
   .then((res) => {
