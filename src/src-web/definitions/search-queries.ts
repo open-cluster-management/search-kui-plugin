@@ -74,16 +74,46 @@ export const SAVED_SEARCH_QUERY = {
   query: 'query userQueries {\n items: userQueries {\n name\n description\n searchText\n __typename\n}\n}\n',
 }
 
+export const SAVED_QUERY = (search) => {
+  return{
+    operationName: 'saveQuery',
+    variables: { 
+      resource: {
+        name: search.name,
+        description: search.description,
+        searchText: search.searchText,
+        id: search.id
+      }
+    },
+    query: 'mutation saveQuery($resource: JSON!) {\n  saveQuery(resource: $resource)\n}\n'
+  }
+}
+
+export const UPDATE_RESOURCE = (resource)=> {
+  return {
+    operationName: 'updateResource',
+    variables: {
+      body: resource,
+      cluster: resource.cluster,
+      kind: resource.kind,
+      name: resource.name,
+      namespace: resource.namespace,
+      selfLink: resource.selfLink,
+    },
+    query: 'query updateResource($selfLink: String, $namespace: String, $kind: String, $name: String, $body: JSON, $cluster: String) {\n  updateResource(selfLink: $selfLink, namespace: $namespace, kind: $kind, name: $name, body: $body, cluster: $cluster)\n}\n',
+  }
+}
+
 export const RESOURCE_LOGS = (record) => {
   return {
-    operationName:"getLogs",
+    operationName:'getLogs',
     variables: {
       containerName: record.container,
       podName: record.name,
       podNamespace: record.namespace,
       clusterName: record.cluster
     },
-    query: "query getLogs($containerName: String!, $podName: String!, $podNamespace: String!, $clusterName: String!) {\n  logs(containerName: $containerName, podName: $podName, podNamespace: $podNamespace, clusterName: $clusterName)\n}\n"
+    query: 'query getLogs($containerName: String!, $podName: String!, $podNamespace: String!, $clusterName: String!) {\n  logs(containerName: $containerName, podName: $podName, podNamespace: $podNamespace, clusterName: $clusterName)\n}\n'
   }
 }
 
