@@ -12,7 +12,9 @@ import { inBrowser } from '@kui-shell/core/core/capabilities'
 import { CapabilityRegistration } from '@kui-shell/core/models/plugin'
 import { InputWrapper } from './src-web/components/InputWrapper'
 import HTTPClient from './src-web/controller/HTTPClient';
-import strings from './src-web/util/i18n'
+import { getPluginState, setPluginState } from './pluginState'
+import { GET_SEARCH_SCHEMA } from './src-web/definitions/search-queries';
+import * as lodash from 'lodash'
 
 // Register searchBarWrapper
 const registerCapability: CapabilityRegistration = async () => {
@@ -27,20 +29,26 @@ const registerCapability: CapabilityRegistration = async () => {
   const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
   await InputWrapper(stripe)
 
+  setPluginState('default', ['cluster', 'kind', 'label', 'name', 'namespace', 'status'])
+
   // Check and store if search is available
   HTTPClient('get', 'svc', undefined)
   .then((res) => {
-    localStorage.setItem('search', `{
-      "enabled": ${res && (res === 'true' || res === true)},
-      "message": "${res ? strings('search.service.available') : strings('search.service.unavailable')}"
-    }`)
+    setPluginState('enabled', (res && (res === 'true' || res === true)))
+
+    if(getPluginState().enabled){
+      HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
+      .then((res) => {
+        setPluginState('searchSchema', lodash.get(res, 'data.searchSchema.allProperties', ''))
+      })
+      .catch((err) => {
+        setPluginState('error', err)
+      })
+    }
   })
   .catch((err) => {
-    localStorage.setItem('search', `{
-      "enabled": false,
-      "message": "${strings('search.service.available.error')}",
-      "error": "${err}"
-    }`)
+    setPluginState('enabled', false)
+    setPluginState('error', err)
   })
 
   // Core by default listens to original input bar

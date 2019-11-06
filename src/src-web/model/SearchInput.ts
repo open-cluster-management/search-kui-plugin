@@ -14,5 +14,5 @@ export interface SearchInputProps {
 }
 
 export interface SearchInputState {
-  searchSchema: object[]
+  searchSchema: any[]
 }

@@ -17,7 +17,6 @@ import {SearchBarProps, SearchBarState} from '../model/SearchBar'
 import InputTag from '../components/Tag'
 // helper function for translations
 import strings from '../util/i18n'
-import * as lodash from 'lodash'
 
 const ReactTags = require('react-tag-autocomplete')
 
@@ -59,8 +58,8 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.availableFilters, this.state.fieldOptions)) {
-      const fields = nextProps.availableFilters.allProperties
-        ? this.formatFields(nextProps.availableFilters.allProperties)
+      const fields = nextProps.availableFilters && _.get(nextProps, 'availableFilters[0].id', '') !== 'failed'
+        ? this.formatFields(nextProps.availableFilters)
         : []
       const labelTag = {
         id: 'id-filter-label',
@@ -427,12 +426,10 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
           <div className={'tagInput-comboBox'} onKeyDown={this.props.onKeyDown}>
             <ReactTags
               placeholder=''
-              tags={lodash.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1 ? tags : undefined}
+              tags={_.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1 ? tags : undefined}
               suggestions={searchComplete
                 ? this.formatSuggestionOptions(suggestions)
-                : lodash.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1
-                  ? fieldOptions
-                  : []
+                : fieldOptions
               }
               handleDelete={this.handleDelete}
               handleAddition={this.handleAddition}
@@ -440,7 +437,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
               autoresize={false}
               minQueryLength={0}
               allowNew={true}
-              delimiterChars={lodash.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1 ? [' ', ':', ','] : []}
+              delimiterChars={_.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1 ? [' ', ':', ','] : []}
               delimiters={[9]}
               autofocus={true}
               maxSuggestionsLength= {Infinity}

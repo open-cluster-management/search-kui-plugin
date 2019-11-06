@@ -17,8 +17,9 @@ import { toplevel as usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
 import strings from '../../src-web/util/i18n'
+import { getPluginState } from '../../pluginState'
 
-export const isSearchAvailable = (available, err?) => {
+export const renderSearchAvailable = (available, err?) => {
   const node = document.createElement('div')
   node.classList.add('is-search-available')
 
@@ -44,21 +45,10 @@ export const isSearchAvailable = (available, err?) => {
   return node
 }
 
-export const getSearchService = () => {
-  return localStorage.getItem('search') // Check for search stored value
-  ? JSON.parse(localStorage.getItem('search'))
-  : { enabled: false }
+
+export const isSearchAvailable = () => {
+  return getPluginState().enabled
 }
-
-export const searchChecker = () => new Promise((resolve, reject) => {
-  const svc = getSearchService()
-
-  svc.enabled && !svc.error
-  ? resolve(isSearchAvailable(true))
-  : !svc.enabled && !svc.error
-    ? resolve(isSearchAvailable(false))
-    : resolve(isSearchAvailable(false, svc.error))
-})
 
 const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
@@ -83,9 +73,8 @@ const doSearch = (args) => new Promise((resolve, reject) => {
       : node.appendChild(renderNoResults())
     return node
   }
-  
-  const svc = getSearchService()
-  args.command !== 'search -i' && args.command !== 's -i' && svc.enabled
+
+  args.command !== 'search -i' && args.command !== 's -i' && isSearchAvailable()
   ? HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
     .then((res) => {
       resolve(
@@ -98,7 +87,7 @@ const doSearch = (args) => new Promise((resolve, reject) => {
       node.innerText = strings('search.service.available.error')
       resolve(node)
     })
-  : resolve(searchChecker())
+  : resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
 });
 
 /**

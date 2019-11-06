@@ -17,7 +17,7 @@ import { yamlTab } from '../views/modes/yaml';
 import { relatedTab, buildRelated } from '../views/modes/related';
 import { logTab } from '../views/modes/logging';
 import strings from '../../src-web/util/i18n'
-import { isSearchAvailable, getSearchService } from './search';
+import { isSearchAvailable, renderSearchAvailable } from './search';
 
 export const buildSidecar = (type: string, data: any, resource?: any) => {
   const badges: Badge[] = []
@@ -65,7 +65,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
       })
     : null
   }
-  
+
   // If the resource have any related resources, add the related tab.
   lodash.get(data, 'related', '').length > 0
   ? modes.push({
@@ -101,17 +101,16 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
 
   const node = document.createElement('pre')
   node.setAttribute('class', 'oops')
-  node.innerText = strings('search.no.resources.found')  
-  
-  const svc = getSearchService()
-  svc.enabled && !svc.error
+  node.innerText = strings('search.no.resources.found')
+
+  isSearchAvailable()
   ? HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
     .then(res => {
       const data = lodash.get(res, 'data.searchResult[0]', '')
 
       !data || data.count === 0
       ? resolve(node)
-      : args.command.includes("related:resources") 
+      : args.command.includes("related:resources")
 
         ? resolve(buildSidecar('query', data))
         : HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
@@ -125,7 +124,7 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
           })
     })
     .catch((err) => {
-      resolve(isSearchAvailable(false, err))
+      resolve(renderSearchAvailable(false, err))
     })
-  : resolve(isSearchAvailable(false))
+  : resolve(renderSearchAvailable(false))
 })

@@ -192,7 +192,7 @@
   tbody {
     tr {
       &.bx--data-table--compact{
-        font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+        font-family: var(--font-sans-serif);
         height: 12px;
 
         .bx--overflow-menu__icon{
@@ -204,7 +204,6 @@
         td{
           &:first-child{
             color: var(--color-text-01);
-            font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
           }
           &:first-child:hover{
             background-color: transparent;
@@ -330,7 +329,7 @@
       border: none;
       color: var(--color-text-01);
       cursor: pointer;
-      font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+      font-family: var(--font-sans-serif);
       font-size: 0.9rem;
       outline: none;
       text-transform: capitalize;

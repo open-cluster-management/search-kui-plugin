@@ -7,23 +7,20 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-export interface SearchBarProps {
-    value: string
-    availableFilters: any[]
-    onChange: any
-    onKeyDown: any
-  }
-
-export interface SearchBarState {
-  suggestions: string[]
-  currentQuery: string,
-  currentTag: {
-      field: string,
-      matchText: string[]
-  },
-  searchComplete: string,
-  tags: object[],
-  fieldOptions: object[],
-  chosenOperator: any,
-  operators: string[]
+const state = {
+  enabled: undefined,
+  searchSchema: [],
+  default: ['cluster', 'kind', 'label', 'name', 'namespace', 'status'],
+  error: undefined
 }
+
+const getPluginState = () => {
+  return state
+}
+
+const setPluginState = (key, value) => {
+  state[key] = value
+}
+
+export { getPluginState, setPluginState }
+

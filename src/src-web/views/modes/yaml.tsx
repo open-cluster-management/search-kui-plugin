@@ -26,7 +26,7 @@ export const yamlTab = (resource: any) => {
     type: 'custom',
     // isEntity: true,
     content: jsYaml.safeDump(resource),
-    contentType: 'json',
+    contentType: 'yaml',
     kind: lodash.get(resource, 'kind', ''),
     name: lodash.get(resource, 'metadata.name', ''),
     packageName: lodash.get(resource, 'metadata.namespace', ''),
