@@ -14,7 +14,7 @@ make init
 make download-clis
 make download-plugins
 rm plugin-downloads/plugin-search.tgz
-mv ../../plugin-search.tgz ./plugin-downloads
+cp ../../plugin-search.tgz ./plugin-downloads
 
 make -C client client-update-plugins
 
