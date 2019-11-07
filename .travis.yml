@@ -67,7 +67,7 @@ matrix:
       - make init
     install:
       - make install
-    before-script:
+    script:
       - make package
     deploy:
       provider: script
