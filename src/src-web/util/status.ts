@@ -8,8 +8,8 @@
 *******************************************************************************/
 
 export default {
-  Success: ['Running','Bound','DEPLOYED','Active'],
-  Warning: ['Pending','Unknown'],
-  Failed: ['Failed'],
-  Completed: ['Completed','Succeeded']
+  Success: ['Running', 'Bound', 'DEPLOYED', 'Active'],
+  Warning: ['Pending', 'Unknown', 'Terminating', 'ContainerCreating'],
+  Failed: ['Failed', 'CrashLoopBackOff', 'ImagePullBackOff', 'ErrImagePull', 'Error'],
+  Completed: ['Completed', 'Succeeded']
 }

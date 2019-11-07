@@ -18,11 +18,11 @@ import * as lodash from 'lodash'
 import * as PropTypes from 'prop-types'
 import tableDefinitions from '../definitions/search-definitions'
 import Modal from '../components/Modal'
-import { Pagination, DataTable, OverflowMenu, OverflowMenuItem } from 'carbon-components-react'
+import { Pagination, DataTable } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/ResourceTable'
 import repl = require('@kui-shell/core/core/repl')
 import strings from '../util/i18n'
-import { CheckmarkFilled16, ErrorFilled16, WarningFilled16 } from '@carbon/icons-react'
+import { CheckmarkFilled16, ErrorFilled16, WarningFilled16, Delete16 } from '@carbon/icons-react'
 import Status from '../util/status'
 
 const { Table, TableHead, TableRow, TableBody, TableCell } = DataTable
@@ -100,16 +100,11 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
       }
 
       if (this.props.kind !== 'cluster' && this.props.kind !== 'release') {
-        const action = 'table.actions.remove'
         row.action = (
-          <OverflowMenu flipped iconDescription={strings('svg.description.overflowMenu')} ariaLabel='Overflow-menu'>
-            <OverflowMenuItem
-              data-table-action={action}
-              isDelete={true}
-              onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
-              key={action}
-              itemText={strings('table.actions.remove.resource', [kind])} />
-          </OverflowMenu>
+          <Delete16
+            className='table-action-remove'
+            onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
+          />
         )
       }
       return row
