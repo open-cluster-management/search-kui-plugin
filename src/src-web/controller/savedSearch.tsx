@@ -15,6 +15,7 @@ import { toplevel as usage } from './helpfiles/savedsearchhelp'
 import { SEARCH_QUERY_COUNT, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 import strings from '../../src-web/util/i18n'
 import { isSearchAvailable, renderSearchAvailable } from './search';
+import { getPluginState, setPluginState } from '../../pluginState';
 
 function getQueryCount(searches) {
   const input = [...searches.map((query) => convertStringToQuery(query.searchText))]
@@ -50,11 +51,11 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
       )
     })
     .catch((err) => {
-      resolve(renderSearchAvailable(false, err))
+      setPluginState('error', err)
+      resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
     })
-  : resolve(renderSearchAvailable(false))
+  : resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
 })
-
 
 /**
  * Here we register as a listener for commands

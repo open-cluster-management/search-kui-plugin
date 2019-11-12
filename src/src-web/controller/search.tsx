@@ -17,34 +17,44 @@ import { toplevel as usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
 import strings from '../../src-web/util/i18n'
-import { getPluginState } from '../../pluginState'
+import { getPluginState, setPluginState } from '../../pluginState'
 
 export const renderSearchAvailable = (available, err?) => {
   const node = document.createElement('div')
   node.classList.add('is-search-available')
 
   const status = () => {
-    return(
-      <div>
-        {available
-          ? <p>{strings('search.service.available')}</p>
-          : !available && !err
-            ? <p>{strings('search.service.unavailable')}
-                <span className={'install-details-link'} onClick={
-                  () => window.open('https://www.ibm.com/support/knowledgecenter/en/SSFC4F_1.1.0/kc_welcome_cloud_pak.html')
-                }>{strings('search.service.install.detail')}
+    const str = strings('search.service.not.installed.detail').split('{0}') // Split the string to only link the product name
+    if (available) {
+      return(
+        <div>
+          {!err
+            ? <p>{strings('search.service.installed')}</p>
+            : <p><span className='oops'>{strings('search.service.installed.error')}</span></p>
+          }
+        </div>
+      )
+    }
+    else {
+      return(
+        <div>
+          {!err
+            ? <p>{strings('search.service.not.installed').concat(str[0])}
+                <span className={'install-details-link'} onClick={ () => window.open('https://www.ibm.com/support/knowledgecenter/en/SSFC4F_1.1.0/kc_welcome_cloud_pak.html')}>
+                  {strings('product.name')}
                 </span>
+                {str[1]}
               </p>
-            : <p><span className='oops'>{strings('search.service.available.error')}</span></p>
-        }
-      </div>
-    )
+            : <p><span className='oops'>{strings('search.service.unavailable.error')}</span></p>
+          }
+        </div>
+      )
+    }
   }
 
   ReactDOM.render(React.createElement(status), node)
   return node
 }
-
 
 export const isSearchAvailable = () => {
   return getPluginState().enabled
@@ -82,12 +92,10 @@ const doSearch = (args) => new Promise((resolve, reject) => {
       )
     })
     .catch((err) => {
-      const node = document.createElement('pre')
-      node.setAttribute('class', 'oops')
-      node.innerText = strings('search.service.available.error')
-      resolve(node)
+      setPluginState('error', err)
+      resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
     })
-  : resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
+  : resolve(renderSearchAvailable(isSearchAvailable()))
 });
 
 /**

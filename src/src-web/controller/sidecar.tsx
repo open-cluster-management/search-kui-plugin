@@ -18,6 +18,7 @@ import { relatedTab, buildRelated } from '../views/modes/related';
 import { logTab } from '../views/modes/logging';
 import strings from '../../src-web/util/i18n'
 import { isSearchAvailable, renderSearchAvailable } from './search';
+import { setPluginState, getPluginState } from '../../pluginState';
 
 export const buildSidecar = (type: string, data: any, resource?: any) => {
   const badges: Badge[] = []
@@ -28,7 +29,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 
   const modes = []
 
-  if(type !== 'query'){
+  if (type !== 'query') {
     // If there is any item data, add the summary tab.
     lodash.get(data, 'items[0]', '')
     ? modes.push({
@@ -95,7 +96,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 export const getSidecar = async (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
 
-  if (args.argv.length === 2){
+  if (args.argv.length === 2) {
     resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${args.command} kind:<keyword> name:<keyword> namespace:<keyword>\nEXAMPLE: ${args.command} kind:pod name:audit-logging-fluentd-ds-7tpnw namespace:kube-system`)
   }
 
@@ -105,26 +106,27 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
 
   isSearchAvailable()
   ? HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-    .then(res => {
+    .then((res) => {
       const data = lodash.get(res, 'data.searchResult[0]', '')
 
       !data || data.count === 0
       ? resolve(node)
-      : args.command.includes("related:resources")
+      : args.command.includes('related:resources')
 
         ? resolve(buildSidecar('query', data))
         : HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
-          .then(resp => {
+          .then((resp) => {
             const resource = !resp.errors ? resp.data.getResource : resp
             resolve(buildSidecar('resource', data, resource))
           })
           .catch((err) => {
-            node.innerText = strings('search.service.available.error')
-            resolve(node)
+            setPluginState('error', err)
+            resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
           })
     })
     .catch((err) => {
-      resolve(renderSearchAvailable(false, err))
+      setPluginState('error', err)
+      resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
     })
-  : resolve(renderSearchAvailable(false))
+  : resolve(renderSearchAvailable(isSearchAvailable()))
 })

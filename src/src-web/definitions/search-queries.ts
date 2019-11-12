@@ -74,10 +74,16 @@ export const SAVED_SEARCH_QUERY = {
   query: 'query userQueries {\n items: userQueries {\n name\n description\n searchText\n __typename\n}\n}\n',
 }
 
+export const SEARCH_SAVED_QUERY = {
+  operationName: 'savedSearches',
+  variables: {},
+  query: 'query savedSearches {\n  items: savedSearches {\n    id\n    name\n    description\n    searchText\n    __typename\n  }\n}\n',
+}
+
 export const SAVED_QUERY = (search) => {
   return{
     operationName: 'saveQuery',
-    variables: { 
+    variables: {
       resource: {
         name: search.name,
         description: search.description,
@@ -131,7 +137,7 @@ export const DELETE_QUERY = (name) => {
 
 export const DELETE_RESOURCE = (name, namespace, kind, cluster, selfLink) => {
   return {
-    perationName: 'deleteResource',
+    operationName: 'deleteResource',
       query: 'mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {\ndeleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)\n}\n',
       variables: {
         // TODO - Not sure if child resources are handled at all..

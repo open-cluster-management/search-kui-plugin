@@ -1,5 +1,6 @@
 
 {
+"product.name" : "Cloud Pak for Multicloud Management",
 "actions.add" : "Add",
 "actions.edit" : "Edit",
 "actions.save" : "Save",
@@ -103,10 +104,11 @@
 "search.notfound" : "No logs found",
 "search.placeholder" : "Search items",
 "search.tile.results" : "Results",
-"search.service.available" : "The search service is installed. Try using the search command",
-"search.service.available.error" : "The search service is unavailable. If the problem persist, contact your cluster administrator.",
-"search.service.unavailable" : "The search service is not enabled in this cluster. ",
-"search.service.install.detail" : "To use the search command you must install the Cloud Pak for Multicloud Management.",
+"search.service.installed" : "The search service is installed and available.",
+"search.service.installed.error" : "The search service is installed, but the connection was not completed. Refresh the page to try connecting again. If the problem persists, contact your cluster administrator.",
+"search.service.not.installed" : "The search service is not installed on this cluster. ",
+"search.service.not.installed.detail" : "You must install the {0} to use the search command.",
+"search.service.unavailable.error" : "The search service is unavailable. If the problem persist, contact your cluster administrator.",
 
 "searchbar.filters.label" : "Filters",
 "searchbar.values.label" : "{0} Values",

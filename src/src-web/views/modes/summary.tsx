@@ -16,7 +16,7 @@ import strings from '../../util/i18n'
 
 /**
  * Render resource's summary list
- * 
+ *
  */
 export const buildSummary = (items: any) => {
   const node = document.createElement('div')
@@ -24,7 +24,7 @@ export const buildSummary = (items: any) => {
   node.classList.add('bx--structured-list--summary')
 
   // Filter out items that being with an underscore
-  const rows = Object.entries(items).filter((key) => !key[0][0].match("_"))
+  const rows = Object.entries(items).filter((key) => !key[0][0].match('_'))
 
   const summary = () => {
     return(
@@ -33,9 +33,9 @@ export const buildSummary = (items: any) => {
           {rows.map((row) => (
             <StructuredListRow key={lodash.get(row, '[0]', '')}>
               <StructuredListCell>
-                <span className="bx--structured-list-td-header">{`${row[0]}`}</span>
+                <span className='bx--structured-list-td-header'>{`${row[0]}`}</span>
                   <br></br>
-                <span className="bx--structured-list-td-body">{`${row[1]}`}</span>
+                <span className='bx--structured-list-td-body'>{`${row[1]}`}</span>
               </StructuredListCell>
             </StructuredListRow>
           ))}
@@ -50,11 +50,11 @@ export const buildSummary = (items: any) => {
 
 /**
  * Render resource's summary tab
- * 
+ *
  */
 export const summaryTab = (items: any) => {
   const badges: Badge[] = []
-  
+
   // This will allow the sidecar balloon element to display the resources name.
   const balloon = items.name.split(/(-[0-9])/)
   badges.push(balloon[0])
@@ -69,7 +69,7 @@ export const summaryTab = (items: any) => {
     badges,
     modes: [
       {
-        defaultMode: true, 
+        defaultMode: true,
         mode: 'summary',
         direct: () => summaryTab(items),
         leaveBottomStripeAlone: true,

@@ -34,10 +34,10 @@ const registerCapability: CapabilityRegistration = async () => {
   .then((res) => {
     setPluginState('enabled', (res && (res === 'true' || res === true)))
 
-    if(getPluginState().enabled){
+    if (getPluginState().enabled) {
       HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
-      .then((res) => {
-        setPluginState('searchSchema', lodash.get(res, 'data.searchSchema.allProperties', ''))
+      .then((resp) => {
+        setPluginState('searchSchema', lodash.get(resp, 'data.searchSchema.allProperties', ''))
       })
       .catch((err) => {
         setPluginState('error', err)

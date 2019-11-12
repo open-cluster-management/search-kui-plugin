@@ -18,7 +18,7 @@ export default function renderReact(data: any, node: HTMLDivElement, command: st
   const searchResource = () => {
     return (
       <div className={'search--resource'}>
-        {data.related && data.related.length > 0 && command.includes(":")
+        {data.related && data.related.length > 0 && command.includes(':')
           ? <div className={'related--resource-table-header'}>
               <button
                 onClick={() => {
