@@ -7,7 +7,6 @@
 # Contract with IBM Corp.
 
 git clone git@github.ibm.com:IBMPrivateCloud/mcm-kui.git
-
 cd mcm-kui/
 
 make init
@@ -27,10 +26,7 @@ make build-image
 
 docker tag mcm-kui-proxy:latest mcm-kui-proxy:$(cat RELEASE_VERSION)
 
+cd ../..
 make run
-
-# git clone git@github.ibm.com:IBMPrivateCloud/mcm-kui-tests.git
-# make -C mcm-kui-tests setup-dependencies
-# make -C mcm-kui-tests run-all-tests
 
 #TODO add our tests ^^

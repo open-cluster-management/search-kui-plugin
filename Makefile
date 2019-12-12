@@ -13,7 +13,7 @@
 GIT_REMOTE_URL = $(shell git config --get remote.origin.url)
 GITHUB_USER ?= $(ARTIFACTORY_USER)
 GITHUB_USER := $(shell echo $(GITHUB_USER) | sed 's/@/%40/g')
-GITHUB_TOKEN ?= 
+GITHUB_TOKEN ?=
 
 DOCKER_SCRATCH_REGISTRY ?= hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com
 DOCKER_INTEGRATION_REGISTRY ?= hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com
@@ -48,7 +48,7 @@ ifndef GITHUB_TOKEN
 	$(info GITHUB_TOKEN not defined)
 	exit -1
 endif
-ifndef ARTIFACTORY_TOKEN 
+ifndef ARTIFACTORY_TOKEN
 	$(info ARTIFACTORY_TOKEN not defined)
 	exit -1
 endif
@@ -58,7 +58,7 @@ endif
 
 SHELL := /bin/bash
 
-.PHONY: docker-logins 
+.PHONY: docker-logins
 docker-logins:
 	$(SELF) docker:login DOCKER_REGISTRY=$(DOCKER_INTEGRATION_REGISTRY)
 	$(SELF) docker:login DOCKER_REGISTRY=$(DOCKER_SCRATCH_REGISTRY)
@@ -95,6 +95,9 @@ copyright-check:
 plugin-tests:
 	#TODO
 
+.PHONY: run
+run:
+	$(SELF) docker:run AUTH_TOKEN=$(shell curl -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=password&username="$(TEST_USER)"&password="$(TEST_PASSWORD)"&scope=openid" $(ICP_EXTERNAL_URL)/idprovider/v1/auth/identitytoken --insecure | jq '.access_token' | tr -d '"')
 
 # Push docker image to artifactory
 .PHONY: release
@@ -103,4 +106,3 @@ release:
 	@echo "Tagged plugin-search image as $(DOCKER_ARCH_URI)"
 	@echo "Pushing plugin-search image to $(DOCKER_ARCH_URI)..."
 	$(SELF) docker:push-arch
-
