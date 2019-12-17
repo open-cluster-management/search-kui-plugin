@@ -14,6 +14,9 @@
   "main": "plugin.js",
   "private": true,
   "scripts": {
+    "test:chrome": "nightwatch ./build-tools/tests/e2e -e chrome",
+    "test:firefox": "nightwatch ./build-tools/tests/e2e -e firefox",
+    "test:safari": "nightwatch ./build-tools/tests/e2e -e safari",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
     "scss": "sass --watch src/src-web/styles/index.scss src/src-web/styles/index.css",
@@ -37,10 +40,16 @@
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.21",
     "@types/react-dom": "^16.8.4",
+    "chalk": "^2.4.2",
+    "chromedriver": "^78.0.1",
     "commitizen": "^3.1.1",
+    "del": "^5.1.0",
+    "geckodriver": "^1.19.1",
     "ghooks": "^2.0.4",
+    "nightwatch": "^1.2.1",
     "sass": "^1.22.1",
-    "semantic-release": "^15.13.18"
+    "semantic-release": "^15.13.18",
+    "xml2json": "^0.11.0"
   },
   "config": {
     "commitizen": {

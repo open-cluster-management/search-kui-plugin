@@ -46,7 +46,7 @@ matrix:
       - make package
     script:
       - make integrate-plugin
-      - make plugin-tests
+      - make run-plugin-tests
     after_success:
       - make release
     after_failure:

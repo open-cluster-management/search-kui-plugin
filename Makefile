@@ -25,8 +25,17 @@ IMAGE_REPO ?= $(DOCKER_INTEGRATION_REGISTRY)/$(DOCKER_NAMESPACE)
 
 DOCKER_IMAGE ?= mcm-kui-proxy
 
-DOCKER_RUN_OPTS ?= -e NODE_ENV=development -e ICP_EXTERNAL_URL=$(ICP_EXTERNAL_URL) -e KUI_INGRESS_PATH="kui" -e AUTH_TOKEN=$(AUTH_TOKEN) -e DEBUG=* -e TEST_USER=$(TEST_USER) -e TEST_PASSWORD=$(TEST_PASSWORD) -d -v $(PWD)/testcerts:/etc/certs
-DOCKER_BIND_PORT ?= 4020:4020
+DOCKER_CONTAINER_NAME ?= mcm-kui-proxy
+DOCKER_RUN_OPTS ?= -e NODE_ENV=development -e ICP_EXTERNAL_URL=$(ICP_EXTERNAL_URL) -e KUI_INGRESS_PATH="kui" -e AUTH_TOKEN=$(AUTH_TOKEN) -e DEBUG=* -d -v $(PWD)/testcerts:/etc/certs
+DOCKER_BIND_PORT ?= 8081:3000
+
+BROWSER ?= chrome
+
+ifeq ($(shell echo $(K8S_CLUSTER_MASTER_IP) | grep "https://" ), )
+	export ICP_EXTERNAL_URL=https://$(K8S_CLUSTER_MASTER_IP)
+else
+	export ICP_EXTERNAL_URL=$(K8S_CLUSTER_MASTER_IP)
+endif
 
 ARCH := $(shell uname -m)
 OS ?= $(shell uname -r | cut -d '.' -f6)
@@ -91,13 +100,16 @@ integrate-plugin:
 copyright-check:
 	./build-tools/copyright-check.sh
 
-.PHONY: plugin-tests
-plugin-tests:
-	#TODO
+.PHONY: run-plugin-tests
+run-plugin-tests:
+	if [ ! -d "build-tools/test-output" ]; then \
+		mkdir build-tools/test-output;	\
+	fi
+	npm run test:$(BROWSER)
 
 .PHONY: run
 run:
-	$(SELF) docker:run AUTH_TOKEN=$(shell curl -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=password&username="$(TEST_USER)"&password="$(TEST_PASSWORD)"&scope=openid" $(ICP_EXTERNAL_URL)/idprovider/v1/auth/identitytoken --insecure | jq '.access_token' | tr -d '"')
+	$(SELF) docker:run AUTH_TOKEN=$(shell curl -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=password&username="$(K8S_CLUSTER_USER)"&password="$(K8S_CLUSTER_PASSWORD)"&scope=openid" $(ICP_EXTERNAL_URL)/idprovider/v1/auth/identitytoken --insecure | jq '.access_token' | tr -d '"')
 
 # Push docker image to artifactory
 .PHONY: release
