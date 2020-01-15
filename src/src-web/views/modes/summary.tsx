@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { Badge } from '@kui-shell/core/webapp/views/sidecar';
+import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'

@@ -8,16 +8,16 @@
 *******************************************************************************/
 
 import * as jsYaml from 'js-yaml'
-import { Badge } from '@kui-shell/core/webapp/views/sidecar';
+import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash'
 
 /**
  * Render resources yaml tab
- * 
+ *
  */
 export const yamlTab = (resource: any) => {
   const badges: Badge[] = []
-  
+
   // This will allow the sidecar balloon element to display the resources name.
   const balloon = resource.metadata.name.split(/(-[0-9])/)
   badges.push(balloon[0])
@@ -33,7 +33,7 @@ export const yamlTab = (resource: any) => {
     badges,
     modes: [
       {
-        defaultMode: true, 
+        defaultMode: true,
         mode: 'yaml',
         direct: () => yamlTab(resource),
         leaveBottomStripeAlone: true,

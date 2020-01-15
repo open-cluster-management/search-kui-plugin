@@ -10,7 +10,7 @@
 import * as React from 'react'
 import SearchBar from './SearchBar'
 import { SearchInputProps, SearchInputState } from '../model/SearchInput'
-import repl = require('@kui-shell/core/core/repl')
+import * as repl from '@kui-shell/core'
 import strings from '../util/i18n'
 import { isSearchAvailable } from '../controller/search';
 import { getPluginState } from '../../pluginState'
@@ -31,7 +31,7 @@ export default class SearchInput extends React.PureComponent<SearchInputProps, S
       : this.setState({ searchSchema: getPluginState().default })
     }
     else{
-      repl.pexec('search -i').then(this.setState({
+      repl.internalBeCarefulPExec('search -i').then(() => this.setState({
         searchSchema: [{id: 'failed', name: strings('search.loading.fail'), disabled: true}]
       }))
     }

@@ -7,12 +7,12 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { CommandRegistrar } from '@kui-shell/core/models/command'
+import { Registrar } from '@kui-shell/core'
 import actions from './src-web/controller/actionHandler'
 import savedSearch from './src-web/controller/savedSearch'
 import search from './src-web/controller/search'
 
-export default async (commandTree: CommandRegistrar) => {
+export default async (commandTree: Registrar) => {
   return Promise.all([
     actions(commandTree),
     search(commandTree),

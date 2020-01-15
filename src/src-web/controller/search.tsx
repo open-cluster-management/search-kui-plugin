@@ -9,7 +9,7 @@
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { CommandRegistrar } from '@kui-shell/core/models/command'
+import { Registrar } from '@kui-shell/core'
 import HTTPClient from './HTTPClient'
 import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
@@ -102,7 +102,7 @@ const doSearch = (args) => new Promise((resolve, reject) => {
  * Here we register as a listener for commands
  *
  */
-export default async (commandTree: CommandRegistrar) => {
+export default async (commandTree: Registrar) => {
   const opts = { usage, noAuthOk: true, inBrowserOk: true }
   commandTree.listen(`/s`, doSearch, opts)
   commandTree.listen(`/search`, doSearch, opts)

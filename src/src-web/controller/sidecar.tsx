@@ -8,7 +8,7 @@
 *******************************************************************************/
 
 import { convertStringToQuery } from '../util/search-helper';
-import { Badge } from '@kui-shell/core/webapp/views/sidecar';
+import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
 import { SEARCH_MCM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';

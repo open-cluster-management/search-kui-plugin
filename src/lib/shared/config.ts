@@ -6,7 +6,7 @@
 * Use, duplication or disclosure restricted by GSA ADP Schedule
 * Contract with IBM Corp.
 *******************************************************************************/
-import { inBrowser } from '@kui-shell/core/core/capabilities'
+import { inBrowser } from '@kui-shell/core'
 
 const nconf = require('nconf')
 
@@ -33,7 +33,6 @@ let config = {
   SEARCH_SERVICE: inBrowser()
     ? `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
     : '',
-
 
   // Browser needs xsrf token for requests
   xsrfToken: inBrowser() ? getXsrfToken() : null,

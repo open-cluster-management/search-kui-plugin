@@ -8,7 +8,7 @@
 *******************************************************************************/
 
 import axios from 'axios'
-import { inElectron } from '@kui-shell/core/core/capabilities'
+import { inElectron } from '@kui-shell/core'
 
 const config = require('../../lib/shared/config')
 

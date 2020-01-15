@@ -8,14 +8,14 @@
 *******************************************************************************/
 
 import * as React from 'react'
-import { listen, unlisten } from '@kui-shell/core/webapp/cli'
+import { listen } from '@kui-shell/core/mdist/webapp/cli'
 import SearchInput from './SearchInput'
 import { InputFieldState, InputFieldProps } from '../model/InputField'
 import { injectOurCSS } from '../util/injectOurCSS'
 
 let repl
 const importRepl = async () => {
-  repl = await import('@kui-shell/core/core/repl')
+  repl = await import('@kui-shell/core')
 }
 importRepl()
 
@@ -63,9 +63,9 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
         const unfinishedText = document.querySelector('.kui--input-stripe .repl-block .repl-input input')['value']
         const searchCommand = (inputText.endsWith(':') || inputText.endsWith(' ')) ? inputText + unfinishedText : inputText + ' ' + unfinishedText
         if (searchCommand.trim() === 'search') {
-          await repl.pexec('search -h')
+          await repl.internalBeCarefulPExec('search -h')
         } else {
-          await repl.pexec(searchCommand)
+          await repl.internalBeCarefulPExec(searchCommand)
         }
       }
     }

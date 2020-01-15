@@ -1,13 +1,11 @@
 {
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2016",
-    "sourceMap": true,
+    "downlevelIteration": true,
     "jsx": "react",
-    "declaration": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "lib": ["dom", "esnext", "es6", "dom.iterable", "scripthost"]
-  },
-  "include": ["./src"]
+    "composite": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "resolveJsonModule": true
+  }
 }

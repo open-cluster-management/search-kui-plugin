@@ -7,17 +7,17 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { Badge } from '@kui-shell/core/webapp/views/sidecar';
+import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { StructuredListWrapper, StructuredListBody, StructuredListRow, StructuredListCell, ClickableTile } from 'carbon-components-react'
-import repl = require('@kui-shell/core/core/repl')
+import * as repl from '@kui-shell/core'
 import strings from '../../util/i18n'
 
 /**
  * Renders a structured list of related resources for the selected resource's sidecar.
- * @param related 
+ * @param related
  */
 export const buildRelated = (related: any, type?: string) => {
   const node = document.createElement('div')
@@ -34,12 +34,12 @@ export const buildRelated = (related: any, type?: string) => {
               <StructuredListCell onClick={() => {
                 const results = related.filter((r) => r.kind.includes(row.kind))
                 let command = `search kind:${row.kind} name:`
-                
+
                 results[0].items.forEach((element) => {
                   command += `${element.name},`
                 });
 
-                repl.pexec(command.substring(0, command.length - 1))
+                repl.internalBeCarefulPExec(command.substring(0, command.length - 1))
               }}>
               <span className='bx--structured-list-td-related-header'>{`${row.count}`}</span>
                   <br></br>
@@ -57,12 +57,12 @@ export const buildRelated = (related: any, type?: string) => {
         <ClickableTile key={row.kind} handleClick={() => {
           const results = related.filter((r) => r.kind.includes(row.kind))
           let command = `search kind:${row.kind} name:`
-          
+
           results[0].items.forEach((element) => {
             command += `${element.name},`
           });
 
-            repl.pexec(command.substring(0, command.length - 1))
+            repl.internalBeCarefulPExec(command.substring(0, command.length - 1))
           }}>
           <div className='bx--tile-container'>
             <span className='bx--structured-list-td-related-header'>{`${row.count}`}</span>
@@ -80,7 +80,7 @@ export const buildRelated = (related: any, type?: string) => {
 
 /**
  * Renders a related tab for the selected resource's || search query's sidecar.
- * @param resource 
+ * @param resource
  * @param type
  */
 export const relatedTab = (data: any, type?: string) => {

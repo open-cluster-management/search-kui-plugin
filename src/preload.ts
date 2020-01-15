@@ -7,14 +7,15 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { listen } from '@kui-shell/core/webapp/cli'
-import { inBrowser } from '@kui-shell/core/core/capabilities'
-import { CapabilityRegistration } from '@kui-shell/core/models/plugin'
+import { listen } from '@kui-shell/core/mdist/webapp/cli'
+import { inBrowser } from '@kui-shell/core'
+import { CapabilityRegistration } from '@kui-shell/core'
 import { InputWrapper } from './src-web/components/InputWrapper'
 import HTTPClient from './src-web/controller/HTTPClient';
 import { getPluginState, setPluginState } from './pluginState'
 import { GET_SEARCH_SCHEMA } from './src-web/definitions/search-queries';
 import * as lodash from 'lodash'
+
 
 // Register searchBarWrapper
 const registerCapability: CapabilityRegistration = async () => {

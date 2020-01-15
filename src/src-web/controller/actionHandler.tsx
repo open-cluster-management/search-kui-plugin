@@ -16,7 +16,7 @@ if (!window || !window.navigator || !window.navigator.userAgent){
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { ToastNotification } from 'carbon-components-react'
-import { CommandRegistrar } from '@kui-shell/core/models/command'
+import { Registrar } from '@kui-shell/core'
 import HTTPClient from './HTTPClient'
 import strings from '../util/i18n'
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
@@ -115,7 +115,7 @@ const deleteResourceUsage = {
 /**
  * Here we register as a listener for commands
  */
-export default async (commandTree: CommandRegistrar) => {
+export default async (commandTree: Registrar) => {
   const deleteSavedSearchOpts = { deleteSavedSearchUsage, noAuthOk: true, inBrowserOk: true }
   const deleteResourceOpts = { deleteResourceUsage, noAuthOk: true, inBrowserOk: true }
   commandTree.listen(`/deleteSavedSearch`, deleteSavedSearch, deleteSavedSearchOpts)

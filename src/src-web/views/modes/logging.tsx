@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { Badge } from '@kui-shell/core/webapp/views/sidecar';
+import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
@@ -16,7 +16,7 @@ import Logger from '../../components/Logger'
 
 /**
  * Render resource's log list
- * 
+ *
  */
 export const buildLog = (data: any) => new Promise((resolve, reject) => {
   const node = document.createElement('div')
@@ -40,7 +40,7 @@ export const buildLog = (data: any) => new Promise((resolve, reject) => {
 
 /**
  * Render resource's logs tab
- * 
+ *
  */
 export const logTab = (data: any) => {
   const badges: Badge[] = []

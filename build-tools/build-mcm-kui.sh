@@ -6,7 +6,7 @@
 # Use, duplication or disclosure restricted by GSA ADP Schedule
 # Contract with IBM Corp.
 
-git clone git@github.ibm.com:IBMPrivateCloud/mcm-kui.git
+git clone git@github.ibm.com:IBMPrivateCloud/mcm-kui.git -b 5.7.x-bump-with-search
 cd mcm-kui/
 
 make init

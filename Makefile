@@ -85,7 +85,8 @@ install:
 .PHONY: package
 package:
 	tsc
-	cp -r ./src/* ./
+	mkdir ./dist/src-web/styles && cp ./src/src-web/styles/index.css ./dist/src-web/styles
+	cp -r ./dist ./mdist
 	ls -a
 	npm pack
 	mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz

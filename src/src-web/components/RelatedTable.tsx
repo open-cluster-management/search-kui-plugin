@@ -18,7 +18,7 @@ import * as PropTypes from 'prop-types'
 
 import { DataTable } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/RelatedTable'
-import repl = require('@kui-shell/core/core/repl')
+import * as repl from '@kui-shell/core'
 
 const { Table, TableRow, TableBody, TableCell } = DataTable
 
@@ -76,7 +76,7 @@ export default class RelatedTable extends React.PureComponent<TableProps, TableS
                         command += `${element.name},`
                       });
 
-                      repl.pexec(command.substring(0, command.length - 1))
+                      repl.internalBeCarefulPExec(command.substring(0, command.length - 1))
                     }}>
                       {cell.value}</TableCell>)}
                   </TableRow>))}
