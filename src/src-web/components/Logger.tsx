@@ -89,7 +89,7 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
         lodash.get(res, 'data.logs', '').split('\n').filter((log) => log).forEach((log, index) => {
           logs[index] = log
         });
-  
+
         this.setState({
           selectedItem: this.container,
           logs: lodash.get(res, 'data.logs', '')
@@ -101,7 +101,7 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
   render() {
     return (
       <React.Fragment>
-        <Dropdown 
+        <Dropdown
           id='resource-container-dropdown'
           label={lodash.get(this.props.items, '[0]', '')}
           items={this.props.items}
@@ -115,7 +115,7 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
               {this.state.logs}
             </pre>
           </div>
-        } 
+        }
       </React.Fragment>
     )
   }

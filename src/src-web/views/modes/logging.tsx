@@ -49,22 +49,29 @@ export const logTab = (data: any) => {
   const balloon = data.name.split(/(-[0-9])/)
   badges.push(balloon[0])
 
-  return{
-    type: 'custom',
-    isEntity: true,
-    content: buildLog(data),
-    viewName: data.kind,
-    name: data.name,
-    packageName: lodash.get(data, 'namespace', ''),
-    badges,
-    modes: [
-      {
-        defaultMode: true,
-        mode: 'logging',
-        direct: () => logTab(data),
-        leaveBottomStripeAlone: true,
-        label: strings('search.label.logs'),
-      },
-    ]
+  return {
+    mode: 'logging',
+    label: strings('search.label.logs'),
+    order: 3,
+    content: buildLog(data)
   }
+
+  // return{
+  //   type: 'custom',
+  //   isEntity: true,
+  //   content: buildLog(data),
+  //   viewName: data.kind,
+  //   name: data.name,
+  //   packageName: lodash.get(data, 'namespace', ''),
+  //   badges,
+  //   modes: [
+  //     {
+  //       defaultMode: true,
+  //       mode: 'logging',
+  //       direct: () => logTab(data),
+  //       leaveBottomStripeAlone: true,
+  //       label: strings('search.label.logs'),
+  //     },
+  //   ]
+  // }
 }

@@ -9,6 +9,7 @@
 
 import * as React from 'react'
 import { listen } from '@kui-shell/core/mdist/webapp/cli'
+import { getCurrentTab } from '@kui-shell/core'
 import SearchInput from './SearchInput'
 import { InputFieldState, InputFieldProps } from '../model/InputField'
 import { injectOurCSS } from '../util/injectOurCSS'
@@ -31,7 +32,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.reverseSearch === '' && this.state.reverseSearch.length > 0 ) {
-      // User has canceled/exited reverse-i-search we neeed to re-listen to the prompt
+      // User has canceled/exited reverse-i-search we need to re-listen to the prompt
       const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
       listen(prompt)
     }
@@ -54,7 +55,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     const { inputText, searchCheck, reverseSearch } = this.state
     e.persist()
     if (e.which === 13) {
-      this.setState({ searchCheck: false, inputText: '', reverseSearch: '' })
+      this.setState({ searchCheck: false, /* inputText: '',*/reverseSearch: '' })
       // If user tries to run a i-search we need to set inputText to the reverse search
       if (reverseSearch !== '') {
         this.setState({ inputText: reverseSearch})
@@ -63,9 +64,9 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
         const unfinishedText = document.querySelector('.kui--input-stripe .repl-block .repl-input input')['value']
         const searchCommand = (inputText.endsWith(':') || inputText.endsWith(' ')) ? inputText + unfinishedText : inputText + ' ' + unfinishedText
         if (searchCommand.trim() === 'search') {
-          await repl.internalBeCarefulPExec('search -h')
+          await getCurrentTab().REPL.pexec('search -h')
         } else {
-          await repl.internalBeCarefulPExec(searchCommand)
+          await getCurrentTab().REPL.pexec(searchCommand)
         }
       }
     }

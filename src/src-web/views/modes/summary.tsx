@@ -60,21 +60,29 @@ export const summaryTab = (items: any) => {
   badges.push(balloon[0])
 
   return{
-    type: 'custom',
-    isEntity: true,
+    mode: 'summaryTab',
+    defaultMode: true,
+    label: strings('search.label.summary'),
+    order: 1,
     content: buildSummary(items),
-    viewName: items.kind,
-    name: items.name,
-    packageName: lodash.get(items, 'namespace', ''),
-    badges,
-    modes: [
-      {
-        defaultMode: true,
-        mode: 'summary',
-        direct: () => summaryTab(items),
-        leaveBottomStripeAlone: true,
-        label: strings('search.label.summary')
-      },
-    ]
   }
+
+  // return{
+  //   type: 'custom',
+  //   isEntity: true,
+  //   content: buildSummary(items),
+  //   viewName: items.kind,
+  //   name: items.name,
+  //   packageName: lodash.get(items, 'namespace', ''),
+  //   badges,
+  //   modes: [
+  //     {
+  //       defaultMode: true,
+  //       mode: 'summary',
+  //       direct: () => summaryTab(items),
+  //       leaveBottomStripeAlone: true,
+  //       label: strings('search.label.summary')
+  //     },
+  //   ]
+  // }
 }

@@ -10,7 +10,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import ResourceTable from '../components/ResourceTable'
-import * as repl from '@kui-shell/core'
+import { getCurrentTab } from '@kui-shell/core'
 import strings from './i18n'
 
 export default function renderReact(data: any, node: HTMLDivElement, command: string) {
@@ -22,7 +22,7 @@ export default function renderReact(data: any, node: HTMLDivElement, command: st
           ? <div className={'related--resource-table-header'}>
               <button
                 onClick={() => {
-                  repl.internalBeCarefulPExec(command.replace('search ', 'search related:resources '))
+                  getCurrentTab().REPL.pexec(command.replace('search ', 'search related:resources '))
                 }}
                 className={'related--resource-table-header-button'}>
                 {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}

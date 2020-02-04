@@ -20,7 +20,7 @@ import tableDefinitions from '../definitions/search-definitions'
 import Modal from '../components/Modal'
 import { Pagination, DataTable } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/ResourceTable'
-import * as repl from '@kui-shell/core'
+import { getCurrentTab } from '@kui-shell/core'
 import strings from '../util/i18n'
 import { CheckmarkFilled16, ErrorFilled16, WarningFilled16, Delete16 } from '@carbon/icons-react'
 import Status from '../util/status'
@@ -176,11 +176,11 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
                         const ns = row.cells.filter((data) => data.info.header === 'namespace')
                         if (this.props.kind === 'savedSearches' && cell.info['header'] === 'name') {
                           // When user clicks on saved search name we want to run the query seen in search text column
-                          return repl.internalBeCarefulPExec(`search ${row.cells[2].value}`)
+                          return getCurrentTab().REPL.pexec(`search ${row.cells[2].value}`)
                         } else if (cell.info['header'] === 'name' && ns.length > 0 && ns[0].value) {
-                          return repl.internalBeCarefulPExec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
+                          return getCurrentTab().REPL.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
                         } else if (cell.info['header'] === 'name') {
-                          return repl.internalBeCarefulPExec(`search summary kind:${this.props.kind} name:${row.cells[0].value}`)
+                          return getCurrentTab().REPL.pexec(`search summary kind:${this.props.kind} name:${row.cells[0].value}`)
                         } else {
                           return null
                         }

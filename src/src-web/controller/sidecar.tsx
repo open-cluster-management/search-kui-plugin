@@ -30,65 +30,37 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   const modes = []
 
   if (type !== 'query') {
-    // If there is any item data, add the summary tab.
-    lodash.get(data, 'items[0]', '')
-    ? modes.push({
-      defaultMode: true,
-      mode: 'summary',
-      direct: () => summaryTab(data.items[0]),
-      leaveBottomStripeAlone: true,
-      label: strings('search.label.summary'),
-      order: 1
-    })
-    : null
 
-    // If the sidecar was able to return a yaml object, add the YAML tab.
-    lodash.get(resource, 'message', '') || lodash.get(resource, 'errors', '')
-    ? null
-    : modes.push({
-      defaultMode: true,
-      mode: 'yaml',
-      direct: () => yamlTab(resource),
-      leaveBottomStripeAlone: true,
-      label: 'YAML',
-      order: 2
-    })
+    // If there is any item data, add the summary tab
+    lodash.get(data, 'items[0]', '')
+    ? modes.push(summaryTab(data.items[0]))
+    : null
 
     // If the resource is a pod, add the logging tab.
     lodash.get(data, 'items[0].kind', '') === 'pod' && type !== 'query'
-    ? modes.push({
-        defaultMode: true,
-        mode: 'logging',
-        direct: () => logTab(data.items[0]),
-        leaveBottomStripeAlone: true,
-        label: strings('search.label.logs'),
-        order: 3
-      })
+    ? modes.push(logTab(data.items[0]))
     : null
+
+    lodash.get(resource, 'message', '') || lodash.get(resource, 'errors', '')
+    ? null
+    : modes.push(yamlTab(resource))
   }
 
   // If the resource have any related resources, add the related tab.
   lodash.get(data, 'related', '').length > 0
-  ? modes.push({
-      defaultMode: true,
-      mode: 'related',
-      direct: () => relatedTab(data, type),
-      leaveBottomStripeAlone: true,
-      label: strings('search.label.related'),
-      order: 4
-    })
+  ? modes.push(relatedTab(data, type))
   : null
 
   // Returns the sidecar and tab for the selected resource || search query that was entered.
   return {
-    type: 'custom',
-    isEntity: true,
+    apiVersion: 'mcm.ibm.com/v1',
     badges: type !== 'query' ? badges : null,
-    content: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
-    contentType: type !== 'query' ? 'json' : null,
-    viewName: lodash.get(data, 'items[0].kind', ''),
-    name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
-    packageName: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
+    kind: lodash.get(data, 'items[0].kind', ''),
+    summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
+    metadata: {
+      name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
+      namespace: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
+    },
     modes,
   }
 }

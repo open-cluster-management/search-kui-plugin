@@ -9,7 +9,7 @@
 
 
 module.exports = {
-    '@disabled': false,
+    '@disabled': true,
     before: function (browser) {
       const loginPage = browser.page.LoginPage()
       if (!process.env.TEST_LOCAL) {

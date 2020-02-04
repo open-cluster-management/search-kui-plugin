@@ -12,7 +12,7 @@ import * as lodash from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { StructuredListWrapper, StructuredListBody, StructuredListRow, StructuredListCell, ClickableTile } from 'carbon-components-react'
-import * as repl from '@kui-shell/core'
+import { getCurrentTab } from '@kui-shell/core'
 import strings from '../../util/i18n'
 
 /**
@@ -39,7 +39,7 @@ export const buildRelated = (related: any, type?: string) => {
                   command += `${element.name},`
                 });
 
-                repl.internalBeCarefulPExec(command.substring(0, command.length - 1))
+                getCurrentTab().REPL.pexec(command.substring(0, command.length - 1))
               }}>
               <span className='bx--structured-list-td-related-header'>{`${row.count}`}</span>
                   <br></br>
@@ -62,7 +62,7 @@ export const buildRelated = (related: any, type?: string) => {
             command += `${element.name},`
           });
 
-            repl.internalBeCarefulPExec(command.substring(0, command.length - 1))
+            getCurrentTab().REPL.pexec(command.substring(0, command.length - 1))
           }}>
           <div className='bx--tile-container'>
             <span className='bx--structured-list-td-related-header'>{`${row.count}`}</span>
@@ -90,22 +90,29 @@ export const relatedTab = (data: any, type?: string) => {
   const balloon = lodash.get(data, 'items[0].name', '').split(/(-[0-9])/)
   badges.push(balloon[0])
 
-  return{
-    type: 'custom',
-    isEntity: true,
-    content: buildRelated(data.related, type),
-    badges: type !== 'query' ? badges : null,
-    viewName: lodash.get(data, 'items[0].kind', ''),
-    name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
-    packageName: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
-    modes: [
-      {
-        defaultMode: true,
-        mode: 'related',
-        direct: () => relatedTab(data, type),
-        leaveBottomStripeAlone: true,
-        label: strings('search.label.related')
-      },
-    ]
+  return {
+    mode: 'related',
+    label: strings('search.label.related'),
+    order: 9999,
+    content: buildRelated(data.related, type)
   }
+
+  // return{
+  //   type: 'custom',
+  //   isEntity: true,
+  //   content: buildRelated(data.related, type),
+  //   badges: type !== 'query' ? badges : null,
+  //   viewName: lodash.get(data, 'items[0].kind', ''),
+  //   name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
+  //   packageName: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
+  //   modes: [
+  //     {
+  //       defaultMode: true,
+  //       mode: 'related',
+  //       direct: () => relatedTab(data, type),
+  //       leaveBottomStripeAlone: true,
+  //       label: strings('search.label.related')
+  //     },
+  //   ]
+  // }
 }

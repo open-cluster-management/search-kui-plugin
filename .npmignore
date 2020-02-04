@@ -1,8 +1,12 @@
 .gitignore
 .travis.yml
+.DS_Store
 package-lock.json
-tsconfig.json
+ts*
+nightwatch*
 src
+.build-harness
+build-tools
+Makefile
 CHANGELOG.md
 node_modules
-.DS_Store

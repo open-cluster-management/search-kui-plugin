@@ -25,9 +25,9 @@
     "buildCSS": "sass src/src-web/styles/index.scss src/src-web/styles/index.css"
   },
   "dependencies": {
-    "axios": "^0.19.0",
-    "carbon-components": "^10.9.0",
-    "carbon-components-react": "^7.9.0",
+    "axios": "^0.19.2",
+    "carbon-components": "^10.9.2",
+    "carbon-components-react": "^7.9.2",
     "graphql": "^14.5.8",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
@@ -38,22 +38,22 @@
     "typescript": "^3.7.4"
   },
   "devDependencies": {
-    "@kui-shell/core": "^5.7.23",
+    "@kui-shell/core": "^5.7.47",
     "@types/lodash": "^4.14.149",
-    "@types/node": "^12.12.24",
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
-    "chalk": "^2.4.2",
-    "chromedriver": "^78.0.1",
-    "commitizen": "^3.1.2",
+    "@types/node": "^13.1.8",
+    "@types/react": "^16.9.18",
+    "@types/react-dom": "^16.9.5",
+    "chalk": "^3.0.0",
+    "chromedriver": "^79.0.0",
+    "commitizen": "^4.0.3",
     "del": "^5.1.0",
-    "electron": "^7.1.8",
     "geckodriver": "^1.19.1",
     "ghooks": "^2.0.4",
-    "nightwatch": "^1.2.1",
-    "sass": "^1.24.2",
-    "semantic-release": "^15.14.0",
-    "xml2json": "^0.11.0"
+    "nightwatch": "^1.3.2",
+    "sass": "^1.25.0",
+    "semantic-release": "^16.0.2",
+    "xml2json": "^0.12.0",
+    "electron": "6.1.5"
   },
   "config": {
     "commitizen": {

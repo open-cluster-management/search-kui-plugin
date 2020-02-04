@@ -37,13 +37,13 @@
 
       .search--resource-table {
         margin-top: 2%;
-    
+
         .search--resource-table-header {
           font-weight: 600;
           font-size: 1.125rem;
           margin-bottom: 0.5rem;
           text-transform: capitalize;
-    
+
           &-button {
             display: flex;
             align-items: center;
@@ -64,7 +64,7 @@
                 text-decoration: underline;
               }
             }
-            
+
             .arrow-down{
               font-size: 0.46rem;
               margin-left: 3%;
@@ -165,14 +165,14 @@
       }
     }
   }
-  
+
   .search--results-view {
     margin-top: 2rem;
   }
 
   .bx--toast-notification-content{
     width: 100vw;
-    
+
     .notification{
       float: right;
 
@@ -184,7 +184,7 @@
       }
     }
   }
-  
+
   @media (max-width: 768px) {
     .search-notification{
       background: #ffffff;
@@ -228,8 +228,8 @@
           border-top: none;
           border-right: none;
           border-left: none;
-          
-          td{   
+
+          td{
             &:nth-child(n){
               background-color: transparent;
               border-bottom: 1px solid var(--color-ui-04);
@@ -742,7 +742,7 @@ span{
     width: 98%;
     margin-left: 2.5%;
     padding-right: 20px;
-  
+
     .bx--structured-list-row{
       &:hover{
         background-color: var(--color-sidecar-header)
@@ -751,7 +751,7 @@ span{
 
     .bx--dropdown__wrapper{
       &.bx--list-box__wrapper{
-        margin-top: 2%; 
+        margin-top: 2%;
       }
     }
 
@@ -765,7 +765,7 @@ span{
       margin-top: 13vw;
       margin-left: 45.5%;
     }
-  
+
     .bx--structured-list-td-header{
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -779,7 +779,7 @@ span{
       font-weight: 500;
       color: var(--color-map-key);
     }
-  
+
     .bx--structured-list-td{
       &-body{
         font-size: 1.2rem;
@@ -824,7 +824,7 @@ span{
           .bx--tile-container{
             width: 100%;
             overflow: hidden;
-            text-overflow: ellipsis; 
+            text-overflow: ellipsis;
 
             &:hover{
               cursor: pointer;
@@ -832,7 +832,7 @@ span{
               .bx--structured-list-td-related-header{
                 opacity: 1;
               }
-            
+
               .bx--structured-list-td-body{
                 opacity: 1;
               }
@@ -850,7 +850,7 @@ span{
             text-decoration: none;
             opacity: 0.8;
           }
-        
+
           .bx--structured-list-td-body{
             font-size: 0.9rem;
             color: var(--color-base07);
@@ -879,7 +879,7 @@ body {
 
   &[kui-theme="IBM Dark"] .react-tags__suggestions li.is-disabled {
     border-bottom: 1px solid var(--color-ui-02);
-  
+
     &:first-of-type {
       color: var(--color-base06);
       background: var(--color-ui-03);

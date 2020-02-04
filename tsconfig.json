@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*"],
+  "include": ["./src"],
   "compilerOptions": {
     "downlevelIteration": true,
     "jsx": "react",

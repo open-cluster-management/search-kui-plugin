@@ -15,7 +15,7 @@ if (!window || !window.navigator || !window.navigator.userAgent){
 
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
-import * as repl from '@kui-shell/core'
+import { getCurrentTab } from '@kui-shell/core'
 import { Modal } from 'carbon-components-react'
 import { ModalProps, ModalState } from '../model/Modal'
 import strings from '../util/i18n'
@@ -38,11 +38,11 @@ export default class ResourceTable extends React.PureComponent<ModalProps, Modal
     switch (item['kind']) {
       case 'savedSearches':
         // Backend doesn't handle error case when deleting a saved query
-        repl.internalBeCarefulPExec(`deleteSavedSearch ${item['name']}`)
+        getCurrentTab().REPL.pexec(`deleteSavedSearch ${item['name']}`)
         this.props.onClose()
         break
       default:
-        repl.internalBeCarefulPExec(`deleteResource ${item['name']} ${item['namespace']} ${item['kind']} ${item['cluster']} ${item['selfLink']}`)
+        getCurrentTab().REPL.pexec(`deleteResource ${item['name']} ${item['namespace']} ${item['kind']} ${item['cluster']} ${item['selfLink']}`)
         this.props.onClose()
     }
   }

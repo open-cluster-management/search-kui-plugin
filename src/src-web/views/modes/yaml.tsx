@@ -23,22 +23,30 @@ export const yamlTab = (resource: any) => {
   badges.push(balloon[0])
 
   return{
-    type: 'custom',
-    // isEntity: true,
+    mode: 'yaml',
+    label: 'YAML',
+    order: 2,
     content: jsYaml.safeDump(resource),
     contentType: 'yaml',
-    kind: lodash.get(resource, 'kind', ''),
-    name: lodash.get(resource, 'metadata.name', ''),
-    packageName: lodash.get(resource, 'metadata.namespace', ''),
-    badges,
-    modes: [
-      {
-        defaultMode: true,
-        mode: 'yaml',
-        direct: () => yamlTab(resource),
-        leaveBottomStripeAlone: true,
-        label: 'YAML'
-      },
-    ]
   }
+
+  // return{
+  //   type: 'custom',
+  //   // isEntity: true,
+  //   content: jsYaml.safeDump(resource),
+  //   contentType: 'yaml',
+  //   kind: lodash.get(resource, 'kind', ''),
+  //   name: lodash.get(resource, 'metadata.name', ''),
+  //   packageName: lodash.get(resource, 'metadata.namespace', ''),
+  //   badges,
+  //   modes: [
+  //     {
+  //       defaultMode: true,
+  //       mode: 'yaml',
+  //       direct: () => yamlTab(resource),
+  //       leaveBottomStripeAlone: true,
+  //       label: 'YAML'
+  //     },
+  //   ]
+  // }
 }
