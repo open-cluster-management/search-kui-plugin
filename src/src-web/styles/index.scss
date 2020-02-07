@@ -727,6 +727,10 @@ span{
 
 // SIDECAR STYLING
 
+#sidecar .sidecar-header .sidecar-top-stripe .bx--tabs li[data-mode="summary"] {
+  display: none
+}
+
 .sidecar-header-icon {
   color: var(--color-map-key)
 }
