@@ -66,23 +66,4 @@ export const summaryTab = (items: any) => {
     order: 1,
     content: buildSummary(items),
   }
-
-  // return{
-  //   type: 'custom',
-  //   isEntity: true,
-  //   content: buildSummary(items),
-  //   viewName: items.kind,
-  //   name: items.name,
-  //   packageName: lodash.get(items, 'namespace', ''),
-  //   badges,
-  //   modes: [
-  //     {
-  //       defaultMode: true,
-  //       mode: 'summary',
-  //       direct: () => summaryTab(items),
-  //       leaveBottomStripeAlone: true,
-  //       label: strings('search.label.summary')
-  //     },
-  //   ]
-  // }
 }

@@ -55,23 +55,4 @@ export const logTab = (data: any) => {
     order: 3,
     content: buildLog(data)
   }
-
-  // return{
-  //   type: 'custom',
-  //   isEntity: true,
-  //   content: buildLog(data),
-  //   viewName: data.kind,
-  //   name: data.name,
-  //   packageName: lodash.get(data, 'namespace', ''),
-  //   badges,
-  //   modes: [
-  //     {
-  //       defaultMode: true,
-  //       mode: 'logging',
-  //       direct: () => logTab(data),
-  //       leaveBottomStripeAlone: true,
-  //       label: strings('search.label.logs'),
-  //     },
-  //   ]
-  // }
 }

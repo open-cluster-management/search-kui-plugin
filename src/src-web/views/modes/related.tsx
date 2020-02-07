@@ -96,23 +96,4 @@ export const relatedTab = (data: any, type?: string) => {
     order: 9999,
     content: buildRelated(data.related, type)
   }
-
-  // return{
-  //   type: 'custom',
-  //   isEntity: true,
-  //   content: buildRelated(data.related, type),
-  //   badges: type !== 'query' ? badges : null,
-  //   viewName: lodash.get(data, 'items[0].kind', ''),
-  //   name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
-  //   packageName: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
-  //   modes: [
-  //     {
-  //       defaultMode: true,
-  //       mode: 'related',
-  //       direct: () => relatedTab(data, type),
-  //       leaveBottomStripeAlone: true,
-  //       label: strings('search.label.related')
-  //     },
-  //   ]
-  // }
 }

@@ -14,12 +14,6 @@ import SearchInput from './SearchInput'
 import { InputFieldState, InputFieldProps } from '../model/InputField'
 import { injectOurCSS } from '../util/injectOurCSS'
 
-let repl
-const importRepl = async () => {
-  repl = await import('@kui-shell/core')
-}
-importRepl()
-
 export class InputField extends React.PureComponent<InputFieldProps, InputFieldState> {
   constructor(props) {
     super(props)

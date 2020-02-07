@@ -9,7 +9,6 @@
 
 import * as jsYaml from 'js-yaml'
 import { Badge } from '@kui-shell/core';
-import * as lodash from 'lodash'
 
 /**
  * Render resources yaml tab
@@ -29,24 +28,4 @@ export const yamlTab = (resource: any) => {
     content: jsYaml.safeDump(resource),
     contentType: 'yaml',
   }
-
-  // return{
-  //   type: 'custom',
-  //   // isEntity: true,
-  //   content: jsYaml.safeDump(resource),
-  //   contentType: 'yaml',
-  //   kind: lodash.get(resource, 'kind', ''),
-  //   name: lodash.get(resource, 'metadata.name', ''),
-  //   packageName: lodash.get(resource, 'metadata.namespace', ''),
-  //   badges,
-  //   modes: [
-  //     {
-  //       defaultMode: true,
-  //       mode: 'yaml',
-  //       direct: () => yamlTab(resource),
-  //       leaveBottomStripeAlone: true,
-  //       label: 'YAML'
-  //     },
-  //   ]
-  // }
 }
