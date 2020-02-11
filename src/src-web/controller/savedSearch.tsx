@@ -17,7 +17,7 @@ import strings from '../../src-web/util/i18n'
 import { isSearchAvailable, renderSearchAvailable } from './search';
 import { getPluginState, setPluginState } from '../../pluginState';
 
-function getQueryCount(searches) {
+export function getQueryCount(searches) {
   const input = [...searches.map((query) => convertStringToQuery(query.searchText))]
   return HTTPClient('post', 'search', SEARCH_QUERY_COUNT(input))
     .then((res) => {
@@ -27,7 +27,7 @@ function getQueryCount(searches) {
     })
 }
 
-const doSavedSearch = (args) => new Promise((resolve, reject) => {
+export const doSavedSearch = (args) => new Promise((resolve, reject) => {
   const str = `${strings('validation.error')}:\t${strings('validation.savedsearches.parameters')}.\n\n${strings('validation.usage')}:\t${strings('validation.definition.savedsearches')}`
 
   if (args.argv.length > 1) {
@@ -44,7 +44,7 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
   }
 
   isSearchAvailable()
-  ? HTTPClient('post', 'mcm', SAVED_SEARCH_QUERY)
+  ? HTTPClient('post', 'search', SAVED_SEARCH_QUERY)
     .then((res) => {
       resolve(
         buildTable(res.data),
@@ -63,6 +63,7 @@ const doSavedSearch = (args) => new Promise((resolve, reject) => {
  */
 export default async (commandTree: Registrar) => {
   const opts = { usage, noAuthOk: true, inBrowserOk: true }
-  commandTree.listen(`/ss`, doSavedSearch, opts)
-  commandTree.listen(`/savedsearches`, doSavedSearch, opts)
+
+  const cmd = commandTree.listen(`/savedsearches`, doSavedSearch, opts)
+  commandTree.synonym('/ss', doSavedSearch, cmd, opts)
 }

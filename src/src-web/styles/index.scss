@@ -66,7 +66,7 @@
             }
 
             .arrow-down{
-              font-size: 0.46rem;
+              font-size: 0.66rem;
               margin-left: 3%;
               margin-top: 5px;
             }
@@ -80,24 +80,6 @@
 
         .bx--data-table{
           width: 100%;
-          .bx--data-table--compact{
-            .bx--overflow-menu__icon{
-              width: 100%;
-              height: 100%;
-              padding: 0 0.5rem;
-            }
-
-            &:hover{
-              .table-action-remove{
-                opacity: 1;
-                fill: var(--color-text-01);
-              }
-            }
-
-            .table-action-remove{
-              opacity: 0;
-            }
-          }
         }
       }
 
@@ -115,6 +97,7 @@
         font-size: 1rem;
         padding: 0rem;
         outline: none;
+        width: 90vw;
 
         &:hover{
           .linked-resources{
@@ -124,7 +107,7 @@
 
         .arrow-right{
           font-size: 1.3rem;
-          padding-left: 3%;
+          padding-left: 1.5%;
           margin-top: -4px;
         }
       }
@@ -212,15 +195,44 @@
           padding: 0 0.5rem;
         }
 
+        &:hover{
+          .table-action{
+            opacity: 1;
+            fill: var(--color-text-01);
+            cursor: pointer;
+          }
+        }
+
+        .table-action{
+          opacity: 0;
+        }
+
         td{
           color: var(--color-text-01);
 
-          &:first-child:hover{
-            background-color: transparent;
-            color: var(--color-name);
-            border-bottom: 1px solid var(--color-ui-04);
-            text-decoration: underline;
-            cursor: pointer;
+          &:first-child{
+            &:hover{
+              background-color: transparent;
+              color: var(--color-name);
+              border-bottom: 1px solid var(--color-ui-04);
+              text-decoration: underline;
+              cursor: pointer;
+            }
+
+            &:focus{
+              background-color: transparent;
+              color: var(--color-name);
+              border-bottom: 1px solid var(--color-ui-04);
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
+
+          &:focus{
+            .table-action{
+              opacity: 1;
+              fill: var(--color-text-01);
+            }
           }
         }
 
@@ -251,6 +263,10 @@
             height: 10px;
           }
           &completed{
+            fill: var(--color-processing);
+            height: 10px;
+          }
+          &unknown{
             fill: var(--color-processing);
             height: 10px;
           }
@@ -436,14 +452,91 @@ span{
   }
 }
 
+.oops {
+  &.save-text-error {
+    margin-bottom: 2%;
+  }
+}
+
 .bx--modal {
+
+  &.bx--modal-share {
+    .bx--modal-container {
+      .bx--modal-footer {
+        display: none;
+      }
+    }
+  }
+
   .bx--modal-container {
+    .bx--modal-content {
+      width: 100%;
+      padding: 0 16px;
+      .bx--action-edit {
+        .save-text {
+          margin-bottom: 4%
+        }
+
+        .bx--form-item{
+          .bx--text-area__wrapper {
+            width: 100%;
+
+            .bx--text-area {
+              &.bx--action-description {
+                background-color: #fff;
+                &:focus {
+                  border-bottom: 3px solid var(--active-tab-color);
+                  outline: none;
+                }
+              }
+            }
+          }
+
+          &.bx--text-input-wrapper {
+            .bx--label {
+              font-weight: 500;
+              font-size: 0.8rem;
+            }
+
+            .bx--text-input__field-wrapper{
+              width: 100%;
+
+              .bx--action-name {
+                margin-bottom: 4%;
+                &:focus {
+                  border-bottom: 3px solid var(--active-tab-color);
+                  outline: none;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .bx--action-share {
+        margin-bottom: 4.5%;
+
+        .copy-description {
+          margin-bottom: 1%;
+        }
+
+        .bx--snippet {
+          &.bx--snippet--single {
+            border: 1px solid black;
+            height: 42px;
+
+            .bx--snippet-container {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
     .bx--modal-footer {
       padding: 0rem;
     }
   }
 }
-
 
 // REACT TAG STYLING
 
@@ -829,6 +922,7 @@ span{
             width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
+            padding:  0.3rem;
 
             &:hover{
               cursor: pointer;

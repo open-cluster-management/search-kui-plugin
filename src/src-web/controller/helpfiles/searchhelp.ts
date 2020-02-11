@@ -9,40 +9,60 @@
 
 import strings from '../../util/i18n'
 
-/** how many options to show at a time, i.e. before scrolling */
-const nRowsInViewport = 1
+const sections = [{
+  title:  strings('validation.definition.flag'),
+  rows: [
+    {
+      name: '-i',
+      docs: strings('searchhelp.search.install.docs'),
+    },
+    {
+      name: '--save',
+      docs: strings('searchhelp.search.save.docs'),
+      noclick: true,
+    },
+  ],
+}]
 
-/** list of related commands */
-const all = [
-  'savedsearches',
+const detailedExample = [
+  {
+    command: `search <${strings('validation.definition.value')}>`,
+    docs: strings('searchhelp.search.value.example'),
+  },
+  {
+    command: `search <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>`,
+    docs: strings('searchhelp.search.field.example'),
+  },
+  {
+    command: `search <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}> --save`,
+    docs: strings('searchhelp.search.save.example'),
+  },
+  {
+    command: `search ${strings('validation.definition.summary')} <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>`,
+    docs: strings('searchhelp.search.summary.example'),
+  },
 ]
-const allExcept = (cmd) => all.filter((_) => _ !== cmd)
-
-/* the breadcrumb chain */
-const parents = ['search']
-
-const header = {
-  search: strings('searchhelp.title'),
-  savedsearches: strings('savedsearchhelp.title')
-}
 
 /**
  * Usage model for the search plugin
  *
  */
 export const toplevel = {
-    breadcrumb: 'search',
-    command: 'search',
-    title: strings('searchhelp.title'),
-    header: `${strings('searchhelp.header')}.`,
-    example: `search <${strings('validation.definition.value')}>\nsearch <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>\nsearch ${strings('validation.definition.summary')} <${strings('validation.definition.kind')}> <${strings('validation.definition.resource')}>`,
-    nRowsInViewport: 4,
-    available: [
-      {
-        docs: header.search,
-        dir: true,
-        commandPrefix: 'search -h',
-      },
-    ],
-    related: ['savedsearches'],
-  }
+  breadcrumb: 'search',
+  command: 'search',
+  title: strings('searchhelp.title'),
+  header: strings('searchhelp.header'),
+  detailedExample, // Example
+  example: `search [${strings('validation.definition.flag')}][${strings('validation.definition.option')}]`, // Usage
+  nRowsInViewport: 4,
+  available: [
+    {
+      docs: strings('searchhelp.title'),
+      dir: true,
+      commandPrefix: 'search -h',
+    },
+  ],
+  sections,
+  alias: 's',
+  related: ['savedsearches'],
+}

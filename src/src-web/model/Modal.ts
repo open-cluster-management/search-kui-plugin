@@ -11,8 +11,12 @@ export interface ModalProps {
   item: object,
   modalOpen: boolean,
   onClose: any,
+  action: string
 }
 
 export interface ModalState {
-  errors: string
+  description: string,
+  name: string,
+  errors: string,
+  open: any
 }

@@ -8,7 +8,7 @@
 *******************************************************************************/
 
 // Hack to workaround build issues with Carbon dependencies
-if (!window || !window.navigator || !window.navigator.userAgent){
+if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(window, 'navigator', { value: { userAgent: 'node'}, writable: true })
   Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 }
@@ -22,8 +22,8 @@ import { Pagination, DataTable } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/ResourceTable'
 import { getCurrentTab } from '@kui-shell/core'
 import strings from '../util/i18n'
-import { CheckmarkFilled16, ErrorFilled16, WarningFilled16, Delete16 } from '@carbon/icons-react'
-import Status from '../util/status'
+import { Delete16, Edit16, Share16 } from '@carbon/icons-react'
+import { getStatusIcon } from '../util/status'
 
 const { Table, TableHead, TableRow, TableBody, TableCell } = DataTable
 const PAGE_SIZES = { DEFAULT: 10, VALUES: [5, 10, 20, 50, 75, 100] }
@@ -36,10 +36,13 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
     kind: PropTypes.string,
   }
 
+  tabHeaders = ['name', 'action', 'share', 'edit']
+
   constructor(props) {
     super(props)
     this.state = {
-      itemToDelete: {},
+      action: '',
+      itemForAction: {},
       page: 1,
       pageSize: PAGE_SIZES.DEFAULT,
       sortDirection: 'asc',
@@ -50,6 +53,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
 
     this.getHeaders = this.getHeaders.bind(this)
     this.getRows = this.getRows.bind(this)
+    this.handleEvent = this.handleEvent.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,6 +75,12 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
       key: col.key, header: strings(`table.header.${col.msgKey || col.key}`),
     }))
     headers.push({ key: 'action', header: ''})
+
+    if (kind === 'savedSearches') {
+      headers.push({ key: 'edit', header: '' })
+      headers.push({ key: 'share', header: '' })
+    }
+
     return headers
   }
 
@@ -102,10 +112,26 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
       if (this.props.kind !== 'cluster' && this.props.kind !== 'release') {
         row.action = (
           <Delete16
-            className='table-action-remove'
-            onClick={() => this.setState({ itemToDelete: item, modalOpen: true })}
+            className='table-action'
+            onClick={() => this.setState({ itemForAction: item, modalOpen: true, action: 'remove' })}
           />
         )
+
+        if (kind === 'savedSearches') {
+          row['share'] = (
+            <Share16
+              className='table-action'
+              onClick={() => this.setState({ itemForAction: item, modalOpen: true, action: 'share' })}
+            />
+          )
+
+          row['edit'] = (
+            <Edit16
+              className='table-action'
+              onClick={() => this.setState({ itemForAction: item, modalOpen: true, action: 'edit' })}
+            />
+          )
+        }
       }
       return row
     })
@@ -119,6 +145,43 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
     }
   }
 
+  handleEvent = (row, cell, e?) => {
+    if ((e && e.which === 13) || !e) {
+      const item = this.props.items.filter((data) => data['name'] === lodash.get(row, '[0].value', ''))
+
+      switch (cell.info['header']) {
+        case 'action':
+          this.setState({ itemForAction: lodash.get(item, '[0]', ''), modalOpen: true, action: 'remove' })
+          break
+        case 'edit':
+          this.setState({ itemForAction: lodash.get(item, '[0]', ''), modalOpen: true, action: 'edit' })
+          break
+        case 'share':
+          this.setState({ itemForAction: lodash.get(item, '[0]', ''), modalOpen: true, action: 'share' })
+          break
+        default:
+          const headers = ['name', 'namespace', 'cluster'] // Headers used for filters keywords
+          let filters = '' // Query filters
+
+          // Since multiple resources can have the same name, get the namespace and cluster name for that resource
+          const _ = row.filter((data) => (data && data.value && (headers.includes(data.info['header']))))
+
+          _.forEach((data) => {
+            filters += `${data.info['header']}:${data.value} `
+          })
+
+          if (this.props.kind === 'savedSearches' && cell.info['header'] === 'name') {
+            // When user clicks on saved search name we want to run the query seen in search text column
+            return getCurrentTab().REPL.pexec(`search ${row[2].value}`)
+          } else if (cell.info['header'] === 'name' && filters) {
+            return getCurrentTab().REPL.pexec(`search summary kind:${this.props.kind} ${filters}`)
+          } else {
+            return null
+          }
+      }
+    }
+  }
+
   render() {
     const { page, pageSize, sortDirection, selectedKey, modalOpen, collapse } = this.state
     const totalItems = this.props.items.length
@@ -128,14 +191,12 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
       <React.Fragment>
         <div className={'search--resource-table-header'}>
           <div>
-            {
-              <button
-                onClick={this.toggleCollapseTable}
-                className={'search--resource-table-header-button'}>
-                {<span className={'linked-resources'}>{`${this.props.kind}(${this.props.items.length})`}</span>}
-                {!collapse ? <span className={'arrow-up'}>&#9650;</span> : <span className={'arrow-down'}>&#9660;</span>}
-              </button>
-            }
+            <button
+              onClick={this.toggleCollapseTable}
+              className={'search--resource-table-header-button'}>
+              {<span className={'linked-resources'}>{`${this.props.kind}(${this.props.items.length})`}</span>}
+              {!collapse ? <span className={'arrow-up'}>&#9650;</span> : <span className={'arrow-down'}>&#9660;</span>}
+            </button>
           </div>
         </div>
         {!collapse
@@ -172,33 +233,18 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow key={row.id} className='bx--data-table--compact'>
-                      {row.cells.map((cell) => <TableCell key={cell.id} onClick={() => {
-                        const ns = row.cells.filter((data) => data.info.header === 'namespace')
-                        if (this.props.kind === 'savedSearches' && cell.info['header'] === 'name') {
-                          // When user clicks on saved search name we want to run the query seen in search text column
-                          return getCurrentTab().REPL.pexec(`search ${row.cells[2].value}`)
-                        } else if (cell.info['header'] === 'name' && ns.length > 0 && ns[0].value) {
-                          return getCurrentTab().REPL.pexec(`search summary kind:${this.props.kind} name:${cell.value} namespace:${row.cells[1].value}`)
-                        } else if (cell.info['header'] === 'name') {
-                          return getCurrentTab().REPL.pexec(`search summary kind:${this.props.kind} name:${row.cells[0].value}`)
-                        } else {
-                          return null
-                        }
-                      }}>
+                      {row.cells.map((cell) => <TableCell
+                        onKeyPress={(e) => this.handleEvent(row.cells, cell, e)}
+                        tabIndex={this.tabHeaders.includes(cell.info['header']) ? 0 : null}
+                        key={cell.id}
+                        onClick={() => this.handleEvent(row.cells, cell) }
+                        >
                       {
                         cell.info['header'] !== 'status'
                         ? cell.value
                         : <div>
                             { // If the resource contains a status, add a status icon to that column in the table.
-                              Status.Success.includes(cell.value)
-                              ? <CheckmarkFilled16 className={`status-success`}/>
-                              : Status.Warning.includes(cell.value)
-                                ? <WarningFilled16 className={`status-warning`}/>
-                                : Status.Failed.includes(cell.value)
-                                  ? <ErrorFilled16 className={`status-failed`}/>
-                                  : Status.Completed.includes(cell.value)
-                                    ? <CheckmarkFilled16 className={`status-completed`}/>
-                                    : null
+                              getStatusIcon(cell.value)
                             }
                             <span className={`status-name`}>{`${cell.value}`}</span>
                           </div>
@@ -236,9 +282,11 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
         : null }
 
         <Modal
-          item={this.state.itemToDelete}
+          item={this.state.itemForAction}
           modalOpen={modalOpen}
-          onClose={() => this.setState({ modalOpen: false })} />
+          onClose={() => this.setState({ itemForAction: {}, modalOpen: false, action: '' })}
+          action={this.state.action}
+        />
       </React.Fragment>
     )
   }

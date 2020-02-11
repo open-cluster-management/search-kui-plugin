@@ -30,7 +30,7 @@ export const SEARCH_RELATED_QUERY = (keywords, filters) => {
     variables: {
      input: [{ keywords, filters }],
     },
-    query: 'query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    count\n    items\n    related {\n      kind\n      count\n      items\n      __typename\n    }\n    __typename\n  }\n}\n',
+    query: 'query searchResult($input: [SearchInput]) {\n  searchResult: search(input: $input) {\n    items\n    related {\n      kind\n      items\n      __typename\n    }\n    __typename\n  }\n}\n',
   }
 }
 
@@ -69,33 +69,42 @@ export const SEARCH_MCM_QUERY = (record) => {
 }
 
 export const SAVED_SEARCH_QUERY = {
-  operationName: 'userQueries',
-  variables: {},
-  query: 'query userQueries {\n items: userQueries {\n name\n description\n searchText\n __typename\n}\n}\n',
-}
-
-export const SEARCH_SAVED_QUERY = {
   operationName: 'savedSearches',
   variables: {},
   query: 'query savedSearches {\n  items: savedSearches {\n    id\n    name\n    description\n    searchText\n    __typename\n  }\n}\n',
 }
 
-export const SAVED_QUERY = (search) => {
+export const SAVED_QUERY = (data) => {
   return{
     operationName: 'saveQuery',
     variables: {
       resource: {
-        name: search.name,
-        description: search.description,
-        searchText: search.searchText,
-        id: search.id
-      }
+        name: data.name,
+        description: data.description,
+        searchText: data.searchText,
+        id: data.id,
+      },
     },
-    query: 'mutation saveQuery($resource: JSON!) {\n  saveQuery(resource: $resource)\n}\n'
+    query: 'mutation saveQuery($resource: JSON!) {\n  saveQuery(resource: $resource)\n}\n',
   }
 }
 
-export const UPDATE_RESOURCE = (resource)=> {
+export const SAVE_SEARCH = (search) => {
+  return{
+    operationName: 'saveSearch',
+    variables: {
+      resource: {
+        id: search.id,
+        name: search.name,
+        description: search.description,
+        searchText: search.searchText,
+      },
+    },
+    query: 'mutation saveSearch($resource: JSON!) {\n  saveSearch(resource: $resource)\n}\n'
+  }
+}
+
+export const UPDATE_RESOURCE = (resource) => {
   return {
     operationName: 'updateResource',
     variables: {
@@ -112,21 +121,21 @@ export const UPDATE_RESOURCE = (resource)=> {
 
 export const RESOURCE_LOGS = (record) => {
   return {
-    operationName:'getLogs',
+    operationName: 'getLogs',
     variables: {
       containerName: record.container,
       podName: record.name,
       podNamespace: record.namespace,
-      clusterName: record.cluster
+      clusterName: record.cluster,
     },
-    query: 'query getLogs($containerName: String!, $podName: String!, $podNamespace: String!, $clusterName: String!) {\n  logs(containerName: $containerName, podName: $podName, podNamespace: $podNamespace, clusterName: $clusterName)\n}\n'
+    query: 'query getLogs($containerName: String!, $podName: String!, $podNamespace: String!, $clusterName: String!) {\n  logs(containerName: $containerName, podName: $podName, podNamespace: $podNamespace, clusterName: $clusterName)\n}\n',
   }
 }
 
 export const DELETE_QUERY = (name) => {
   return {
-    operationName: 'deleteQuery',
-    query: 'mutation deleteQuery($resource: JSON!) {\n deleteQuery(resource: $resource)\n}\n',
+    operationName: 'deleteSearch',
+    query: 'mutation deleteSearch($resource: JSON!) {\n deleteSearch(resource: $resource)\n}\n',
     variables: {
       resource: {
         name,
@@ -138,7 +147,7 @@ export const DELETE_QUERY = (name) => {
 export const DELETE_RESOURCE = (name, namespace, kind, cluster, selfLink) => {
   return {
     operationName: 'deleteResource',
-      query: 'mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {\ndeleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)\n}\n',
+      query: 'mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {\n  deleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)\n}\n',
       variables: {
         // TODO - Not sure if child resources are handled at all..
         // childResources,

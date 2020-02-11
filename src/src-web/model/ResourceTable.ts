@@ -13,11 +13,12 @@ export interface TableProps {
   }
 
 export interface TableState {
-  itemToDelete: object,
+  itemForAction: object,
   page: number,
   pageSize: number,
   sortDirection: any,
   selectedKey: string,
   modalOpen: boolean,
-  collapse: boolean
+  collapse: boolean,
+  action: string
 }

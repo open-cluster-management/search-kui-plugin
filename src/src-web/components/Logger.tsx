@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /*******************************************************************************
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -8,7 +10,7 @@
 *******************************************************************************/
 
 // Hack to workaround build issues with Carbon dependencies
-if (!window || !window.navigator || !window.navigator.userAgent){
+if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(window, 'navigator', { value: { userAgent: 'node'}, writable: true })
   Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 }
@@ -23,19 +25,22 @@ import * as lodash from 'lodash'
 import HTTPClient from '../controller/HTTPClient';
 import { RESOURCE_LOGS } from '../definitions/search-queries';
 
+import strings from '../../src-web/util/i18n'
+
 export default class Logger extends React.PureComponent<LoggerProps, LoggerState> {
   static propTypes = {
     data: PropTypes.any,
     items: PropTypes.any,
   }
+
   refresh: any
   container: any
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       selectedItem: lodash.get(this.props.items, '[0]', ''),
-      logs: ''
+      logs: '',
     }
     this.handleOnChange = this.handleOnChange.bind(this)
     this.getLogs = this.getLogs.bind(this)
@@ -52,7 +57,7 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
     clearInterval(this.refresh)
   }
 
-  handleOnChange(event){
+  handleOnChange(event) {
     this.container = event.selectedItem
     this.setState({logs: ''})
     this.getLogs()
@@ -70,8 +75,8 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
       : this.componentWillUnmount()
   }
 
-  getLogs(){
-    if(!document.hidden){
+  getLogs() {
+    if (!document.hidden) {
       const node = document.createElement('div')
       node.classList.add('scrollable')
       node.classList.add('bx--structured-list--summary')
@@ -80,19 +85,14 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
         cluster: this.props.data.cluster,
         container: this.container,
         name: this.props.data.name,
-        namespace: this.props.data.namespace
+        namespace: this.props.data.namespace,
       }
 
       HTTPClient('post', 'mcm', RESOURCE_LOGS(record))
       .then((res) => {
-        let logs = {}
-        lodash.get(res, 'data.logs', '').split('\n').filter((log) => log).forEach((log, index) => {
-          logs[index] = log
-        });
-
         this.setState({
           selectedItem: this.container,
-          logs: lodash.get(res, 'data.logs', '')
+          logs: lodash.get(res, 'data.logs', '') !== null ? res.data.logs : strings('search.notfound'),
         })
       })
     }

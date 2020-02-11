@@ -7,41 +7,27 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-/** how many options to show at a time, i.e. before scrolling */
-const nRowsInViewport = 1
-
-/** list of related commands */
-const all = [
-  'search',
-]
-const allExcept = (cmd) => all.filter((_) => _ !== cmd)
-
-/* the breadcrumb chain */
-const parents = ['savedsearches']
-
-const header = {
-    search: 'Search across managed clouds for kubernetes resources',
-    savedsearches: 'Show saved searches of Kubernetes resources across managed clouds',
-}
+import strings from '../../util/i18n'
 
 /**
  * Usage model for the savedsearches plugin
  *
  */
 export const toplevel = {
-    breadcrumb: 'savedsearches',
-    command: 'savedsearches',
-    title: 'Show saved searches of Kubernetes resources across managed clouds',
-    header: 'This command helps you retrieve saved searches.',
-    example: 'savedsearches',
-    nRowsInViewport: 1,
-    available: [
-      {
-        command: 'savedsearches',
-        docs: header.savedsearches,
-        dir: true,
-        commandPrefix: null,
-      },
-    ],
-    related: ['search'],
-  }
+  breadcrumb: 'savedsearches',
+  command: 'savedsearches',
+  title: strings('savedsearchhelp.title'),
+  header: strings('savedsearchhelp.header'),
+  example: strings('savedsearchhelp.example'),
+  nRowsInViewport: 1,
+  available: [
+    {
+      command: 'savedsearches',
+      docs: strings('savedsearchhelp.title'),
+      dir: true,
+      commandPrefix: null,
+    },
+  ],
+  alias: 'ss',
+  related: ['search'],
+}

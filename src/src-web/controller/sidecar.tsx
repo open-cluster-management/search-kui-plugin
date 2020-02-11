@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /*******************************************************************************
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -30,26 +31,26 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   const modes = []
 
   if (type !== 'query') {
-
     // If there is any item data, add the summary tab
-    lodash.get(data, 'items[0]', '')
-    ? modes.push(summaryTab(data.items[0]))
-    : null
+    if (lodash.get(data, 'items[0]', '')) {
+      modes.push(summaryTab(data.items[0]))
+    }
 
     // If the resource is a pod, add the logging tab.
-    lodash.get(data, 'items[0].kind', '') === 'pod' && type !== 'query'
-    ? modes.push(logTab(data.items[0]))
-    : null
+    if (lodash.get(data, 'items[0].kind', '') === 'pod') {
+      modes.push(logTab(data.items[0]))
+    }
 
-    lodash.get(resource, 'message', '') || lodash.get(resource, 'errors', '')
-    ? null
-    : modes.push(yamlTab(resource))
+    // If the sidecar was able to return a yaml object, add the YAML tab.
+    if (!lodash.get(resource, 'errors', '') && lodash.get(data, 'getResource', '') === '') {
+      modes.push(yamlTab(resource))
+    }
   }
 
   // If the resource have any related resources, add the related tab.
-  lodash.get(data, 'related', '').length > 0
-  ? modes.push(relatedTab(data, type))
-  : null
+  if (lodash.get(data, 'related', '').length > 0) {
+    modes.push(relatedTab(data, type))
+  }
 
   // Returns the sidecar and tab for the selected resource || search query that was entered.
   return {
@@ -76,29 +77,32 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
   node.setAttribute('class', 'oops')
   node.innerText = strings('search.no.resources.found')
 
-  isSearchAvailable()
-  ? HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
+  if (isSearchAvailable()) {
+    HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
     .then((res) => {
       const data = lodash.get(res, 'data.searchResult[0]', '')
 
-      !data || data.count === 0
-      ? resolve(node)
-      : args.command.includes('related:resources')
-
-        ? resolve(buildSidecar('query', data))
-        : HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
-          .then((resp) => {
-            const resource = !resp.errors ? resp.data.getResource : resp
-            resolve(buildSidecar('resource', data, resource))
-          })
-          .catch((err) => {
-            setPluginState('error', err)
-            resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
-          })
+      if (!data || data.items.length === 0) {
+        resolve(node)
+      } else if (args.command.includes('related:resources')) {
+        resolve(buildSidecar('query', data))
+      } else {
+        HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
+        .then((resp) => {
+          const resource = !resp.errors ? resp.data.getResource : resp
+          resolve(buildSidecar('resource', data, resource))
+        })
+        .catch((err) => {
+          setPluginState('error', err)
+          resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
+        })
+      }
     })
     .catch((err) => {
       setPluginState('error', err)
       resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
     })
-  : resolve(renderSearchAvailable(isSearchAvailable()))
+  } else {
+    resolve(renderSearchAvailable(isSearchAvailable()))
+  }
 })

@@ -25,7 +25,7 @@ export default class SearchInput extends React.PureComponent<SearchInputProps, S
   }
 
   componentDidMount() {
-    if(isSearchAvailable()){
+    if (isSearchAvailable()) {
       getPluginState().searchSchema.length > 0
       ? this.setState({ searchSchema: getPluginState().searchSchema })
       : this.setState({ searchSchema: getPluginState().default })

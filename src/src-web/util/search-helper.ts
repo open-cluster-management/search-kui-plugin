@@ -9,12 +9,15 @@
 
 export const convertStringToQuery = (searchText) => {
   let searchTokens
-  if (searchText.indexOf('search summary ') !== -1) {
-    searchTokens = searchText.replace('search summary ', '').split(' ')
-  } else if (searchText.indexOf('search related:resources ') !== -1) {
-    searchTokens = searchText.replace('search related:resources ', '').split(' ')
+
+  const search = searchText.split(' ')
+
+  if (searchText.indexOf(`${search[0]} summary `) !== -1) { // This will allow the alias for search to access the searchTokens for the command.
+    searchTokens = searchText.replace(`${search[0]} summary `, '').split(' ')
+  } else if (searchText.indexOf(`${search[0]} related:resources `) !== -1) {
+    searchTokens = searchText.replace(`${search[0]} related:resources `, '').split(' ')
   } else {
-    searchTokens = searchText.replace('search ', '').split(' ')
+    searchTokens = searchText.replace(`${search[0]} `, '').split(' ')
   }
 
   const keywords = searchTokens.filter((token) => token !== '' && token.indexOf(':') < 0)

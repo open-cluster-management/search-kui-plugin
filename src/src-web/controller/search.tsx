@@ -18,6 +18,7 @@ import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
 import strings from '../../src-web/util/i18n'
 import { getPluginState, setPluginState } from '../../pluginState'
+import Modal from '../components/Modal';
 
 export const renderSearchAvailable = (available, err?) => {
   const node = document.createElement('div')
@@ -34,8 +35,7 @@ export const renderSearchAvailable = (available, err?) => {
           }
         </div>
       )
-    }
-    else {
+    } else {
       return(
         <div>
           {!err
@@ -60,12 +60,30 @@ export const isSearchAvailable = () => {
   return getPluginState().enabled
 }
 
-const doSearch = (args) => new Promise((resolve, reject) => {
+export const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
   const str = `${strings('validation.error')}:\t${strings('validation.missing.parameters')}.\n\n${strings('validation.usage')}:\tsearch <${strings('validation.definition.value')}>\n\tsearch <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>\n\tsearch summary <${strings('validation.definition.kind')}> <${strings('validation.definition.resource')}>`
 
   if (args.argv.length === 1) {
     resolve(str)
+  }
+
+  if (args.command.includes('--save') && args.argv.indexOf('--save') === args.argv.length - 1) {
+    const node = document.createElement('div')
+
+    const save = () => {
+      return (
+        <Modal
+          item={args}
+          modalOpen={true}
+          onClose={false}
+          action={'save'}
+        />
+      )
+    }
+
+    ReactDOM.render(React.createElement(save), node)
+    resolve(node)
   }
 
   const renderNoResults = () => {
@@ -104,8 +122,13 @@ const doSearch = (args) => new Promise((resolve, reject) => {
  */
 export default async (commandTree: Registrar) => {
   const opts = { usage, noAuthOk: true, inBrowserOk: true }
-  commandTree.listen(`/s`, doSearch, opts)
-  commandTree.listen(`/search`, doSearch, opts)
-  await commandTree.listen('/search/summary', getSidecar, opts)
-  await commandTree.listen('/search/related:resources', getSidecar, opts)
+
+  const searchCmd = commandTree.listen('/search', doSearch, opts)
+  commandTree.synonym('/s', doSearch, searchCmd, opts)
+
+  const summaryCmd = await commandTree.listen('/search/summary', getSidecar, opts)
+  commandTree.synonym('/s/summary', getSidecar, summaryCmd, opts)
+
+  const relatedCmd = await commandTree.listen('/search/related:resources', getSidecar, opts)
+  commandTree.synonym('/s/related:resources', getSidecar, relatedCmd, opts)
 }

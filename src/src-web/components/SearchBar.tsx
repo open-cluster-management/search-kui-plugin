@@ -113,7 +113,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if(nextState.fieldOptions.length === 1){
+    if (nextState.fieldOptions.length === 1) {
       this.handleClearAllClick()
     }
 

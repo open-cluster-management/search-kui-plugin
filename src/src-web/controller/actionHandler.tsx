@@ -8,7 +8,7 @@
 *******************************************************************************/
 
 // Hack to workaround build issues with Carbon dependencies
-if (!window || !window.navigator || !window.navigator.userAgent){
+if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(window, 'navigator', { value: { userAgent: 'node'}, writable: true })
   Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 }
@@ -20,6 +20,8 @@ import { Registrar } from '@kui-shell/core'
 import HTTPClient from './HTTPClient'
 import strings from '../util/i18n'
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
+import { setPluginState, getPluginState } from '../../pluginState'
+import { renderSearchAvailable, isSearchAvailable } from './search'
 
 export const notify = (content) => {
   const node = document.createElement('div')
@@ -42,56 +44,66 @@ export const notify = (content) => {
   return node
 }
 
-function deleteSavedSearch(args) {
+export const deleteSavedSearch = (args) => new Promise((resolve, reject) => {
   if (args.argv.length === 1) {
     return 'ERROR: Received wrong number of parameters.\nUSAGE: deleteSavedSearch <saved-search-name>'
   }
 
   const name = args.command.replace('deleteSavedSearch ', '')
-  return new Promise((resolve, reject) => {
-    let warningToDelete = true
+  let warningToDelete = true
 
-    // Check if the record exist before trying to delete.
-    HTTPClient('post', 'mcm', SAVED_SEARCH_QUERY)
-    .then((res) => {
+  // Check if the record exist before trying to delete.
+  HTTPClient('post', 'search', SAVED_SEARCH_QUERY)
+  .then((res) => {
+    res.data.items.forEach((record) => {
+      if (record.name === name) {
+        warningToDelete = false // Record is available
+      }
+    })
+
+    if (warningToDelete) { // Record is not available
       res['warning'] = strings('modal.save.warning', [name])
-      res.data.items.forEach(record => {
-        if(record.name === name)
-          warningToDelete = false // Record is available
-      })
+      resolve(notify(res))
+    }
 
-      warningToDelete
-      ? resolve(notify(res))
-      : null
-
-      HTTPClient('post', 'mcm', DELETE_QUERY(name))
-      .then((res) => {
-        resolve(
-          res.data.deleteQuery.userQueries
-          ? notify(strings('modal.deleted.save.success', [name]))
-          : notify(res.errors[0])
-        )
-      })
+    HTTPClient('post', 'search', DELETE_QUERY(name))
+    .then((resp) => {
+      if (resp.data.deleteSearch) {
+        resolve(notify(strings('modal.deleted.save.success', [name])))
+      } else {
+        resolve(notify(resp.errors[0]))
+      }
+    })
+    .catch((err) => {
+      setPluginState('error', err)
+      resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
     })
   })
-}
+  .catch((err) => {
+    setPluginState('error', err)
+    resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
+  })
+})
 
-function deleteResource(args) {
+export const deleteResource = (args) => new Promise((resolve, reject) => {
   if (args.argv.length !== 6) {
     return 'ERROR: Received wrong number of parameters.\nUSAGE: deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>'
   }
-  return new Promise((resolve, reject) => {
-    // delete resource args = (name, namespace, kind, cluster, selfLink)
-    HTTPClient('post', 'mcm', DELETE_RESOURCE(args.argv[1], args.argv[2], args.argv[3], args.argv[4], args.argv[5]))
-    .then((res) => {
-      resolve(
-        res.errors
-          ? notify(res.errors[0])
-          : notify(strings('modal.deleted.resource', [args.argv[1]]))
-      )
-    })
+
+  // delete resource args = (name, namespace, kind, cluster, selfLink)
+  HTTPClient('post', 'mcm', DELETE_RESOURCE(args.argv[1], args.argv[2], args.argv[3], args.argv[4], args.argv[5]))
+  .then((res) => {
+    resolve(
+      res.errors
+        ? notify(res.errors[0])
+        : notify(strings('modal.deleted.resource', [args.argv[1]]))
+    )
   })
-}
+  .catch((err) => {
+    setPluginState('error', err)
+    resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
+  })
+})
 
 const deleteSavedSearchUsage = {
   command: 'deleteSavedSearch',

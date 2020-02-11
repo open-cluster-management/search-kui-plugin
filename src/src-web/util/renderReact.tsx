@@ -15,6 +15,7 @@ import strings from './i18n'
 
 export default function renderReact(data: any, node: HTMLDivElement, command: string) {
   const uniqueKinds = [...new Set(data.items ? data.items.map((item) => item.kind) : data.map((item) => item.kind))]
+
   const searchResource = () => {
     return (
       <div className={'search--resource'}>

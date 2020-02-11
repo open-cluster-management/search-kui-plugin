@@ -15,33 +15,43 @@ import { StructuredListWrapper, StructuredListBody, StructuredListRow, Structure
 import { getCurrentTab } from '@kui-shell/core'
 import strings from '../../util/i18n'
 
+const handleEvent = (resource, cluster?, event?) => {
+  if ((event && event.which === 13) || !event) {
+    let command = `search kind:${lodash.get(resource, 'kind', '')} `
+
+    if (cluster && lodash.get(resource, 'kind', '') !== 'cluster') { // Include cluster name when returning the related data.
+      command += `cluster:${cluster} name:`
+    } else {
+      command += 'name:'
+    }
+
+    lodash.get(resource, 'items', '').forEach((item) => {
+      command += `${item.name},`
+    })
+    getCurrentTab().REPL.pexec(command.substring(0, command.length - 1))
+  }
+}
+
 /**
  * Renders a structured list of related resources for the selected resource's sidecar.
  * @param related
  */
-export const buildRelated = (related: any, type?: string) => {
+export const buildRelated = (data: any, type?: string) => {
   const node = document.createElement('div')
   node.classList.add('scrollable')
   node.classList.add(type !== 'query' ? 'bx--structured-list--summary' : 'bx--tile-related')
+
+  const cluster = lodash.get(data, 'items[0].cluster', '')
 
   const relatedResource = type !== 'query'
   ? () => {
     return(
       <StructuredListWrapper>
         <StructuredListBody>
-          {related.map(row => (
+          {data.map((row) => (
             <StructuredListRow key={`${row.kind}`} className='bx--structured-list-rowclick'>
-              <StructuredListCell onClick={() => {
-                const results = related.filter((r) => r.kind.includes(row.kind))
-                let command = `search kind:${row.kind} name:`
-
-                results[0].items.forEach((element) => {
-                  command += `${element.name},`
-                });
-
-                getCurrentTab().REPL.pexec(command.substring(0, command.length - 1))
-              }}>
-              <span className='bx--structured-list-td-related-header'>{`${row.count}`}</span>
+              <StructuredListCell tabIndex={0} onKeyPress={(e) => handleEvent(row, cluster, e)} onClick={() => handleEvent(row, cluster)}>
+              <span className='bx--structured-list-td-related-header'>{`${row.items.length}`}</span>
                   <br></br>
               <span className='bx--structured-list-td-body'>{`Related ${row.kind}`}</span>
               </StructuredListCell>
@@ -53,19 +63,10 @@ export const buildRelated = (related: any, type?: string) => {
   }
   : () => {
     return(
-      related.map(row => (
-        <ClickableTile key={row.kind} handleClick={() => {
-          const results = related.filter((r) => r.kind.includes(row.kind))
-          let command = `search kind:${row.kind} name:`
-
-          results[0].items.forEach((element) => {
-            command += `${element.name},`
-          });
-
-            getCurrentTab().REPL.pexec(command.substring(0, command.length - 1))
-          }}>
+      data.map((row) => (
+        <ClickableTile tabIndex={0} onKeyPress={(e) => handleEvent(row, cluster, e)} key={row.kind} handleClick={() => handleEvent(row, cluster)}>
           <div className='bx--tile-container'>
-            <span className='bx--structured-list-td-related-header'>{`${row.count}`}</span>
+            <span className='bx--structured-list-td-related-header'>{`${row.items.length}`}</span>
                 <br></br>
             <span className='bx--structured-list-td-body'>{`Related ${row.kind}`}</span>
           </div>
