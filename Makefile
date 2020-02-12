@@ -57,10 +57,10 @@ ifndef GITHUB_TOKEN
 	$(info GITHUB_TOKEN not defined)
 	exit -1
 endif
-ifndef ARTIFACTORY_TOKEN
-	$(info ARTIFACTORY_TOKEN not defined)
-	exit -1
-endif
+# ifndef ARTIFACTORY_TOKEN 
+# 	$(info ARTIFACTORY_TOKEN not defined)
+# 	exit -1
+# endif
 
 -include $(shell curl -so .build-harness -H "Authorization: token ${GITHUB_TOKEN}" -H "Accept: application/vnd.github.v3.raw" "https://raw.github.ibm.com/ICP-DevOps/build-harness/master/templates/Makefile.build-harness"; echo .build-harness)
 
