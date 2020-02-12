@@ -24,33 +24,33 @@ branches:
 matrix:
   include:
     # --- Search plugin build/test ---
-  - stage: test-pr
-    name: 'PR tests'
-    if: type = pull_request
-    os: linux
-    dist: trusty
-    language: node_js
-    addons:
-      chrome: stable
-    node_js:
-      - "10"
-    env:
-      - JOBNAME=AMD64 DOCKER_TAG=$(git log -1 --pretty="%aN" | sed 's/[^a-zA-Z0-9]*//g')
-    before_install:
-      - make init
-      - make docker-logins
-    install:
-      - make install
-    before_script:
-      - make copyright-check
-      - make package
-    script:
-      - make integrate-plugin
-      - make run-plugin-tests
-    after_success:
-      - make release
-    after_failure:
-      - make release
+  # - stage: test-pr
+  #   name: 'PR tests'
+  #   if: type = pull_request
+  #   os: linux
+  #   dist: trusty
+  #   language: node_js
+  #   addons:
+  #     chrome: stable
+  #   node_js:
+  #     - "10"
+  #   env:
+  #     - JOBNAME=AMD64 DOCKER_TAG=$(git log -1 --pretty="%aN" | sed 's/[^a-zA-Z0-9]*//g')
+  #   before_install:
+  #     - make init
+  #     - make docker-logins
+  #   install:
+  #     - make install
+  #   before_script:
+  #     - make copyright-check
+  #     - make package
+  #   script:
+  #     - make integrate-plugin
+  #     - make run-plugin-tests
+  #   after_success:
+  #     - make release
+  #   after_failure:
+  #     - make release
 
 
 # --- x86 Deploy ---
@@ -63,8 +63,6 @@ matrix:
       - "10"
     env:
       - JOBNAME=AMD6
-    before_install:
-      - make init
     install:
       - make install
     script:
