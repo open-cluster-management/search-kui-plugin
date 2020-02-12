@@ -65,7 +65,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.ibm.com/IBMPrivateCloud/search-kui-plugin"
+    "url": "git@github.com:open-cluster-management/search-kui-plugin.git"
   },
   "release": {
     "branch": "master",
