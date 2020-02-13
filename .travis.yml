@@ -73,10 +73,10 @@ jobs:
     - stage: publish
       name: "Publish the plugin"
       if: (branch = master) AND (type = push)
-  #     os: linux
-  #     language: node_js
-  #     node_js:
-  #       - "10"
+      os: linux
+      language: node_js
+      node_js:
+        - "10"
   #     env:
   #       - JOBNAME=AMD6
       before_install:
