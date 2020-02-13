@@ -1,5 +1,5 @@
 # search-kui-plugin
-Adds MCM Search capabilities to [MCM KUI](https://github.ibm.com/IBMPrivateCloud/mcm-kui).
+Adds Search capabilities to [KUI Web Terminal](https://github.com/open-container-management/kui-web-terminal).
 
 ## Development
 Clone the [KUI repository](https://github.com/IBM/kui) and follow developer set-up directions from that repo.
