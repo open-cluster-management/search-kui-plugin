@@ -110,27 +110,27 @@ default::
 
 # # search-plugin build/test
 
-# .PHONY: install
-# install:
-# 	npm install -g typescript
-# 	npm install
-# 	npm run buildCSS
+.PHONY: install
+install:
+	npm install -g typescript
+	npm install
+	npm run buildCSS
 
 
-# .PHONY: package
-# package:
-# 	tsc
-# 	mkdir ./dist/src-web/styles && cp ./src/src-web/styles/index.css ./dist/src-web/styles
-# 	cp -r ./dist ./mdist
-# 	ls -a
-# 	npm pack
-# 	mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
+.PHONY: package
+package:
+	tsc
+	mkdir ./dist/src-web/styles && cp ./src/src-web/styles/index.css ./dist/src-web/styles
+	cp -r ./dist ./mdist
+	ls -a
+	npm pack
+	mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 
 
-# .PHONY: integrate-plugin
-# integrate-plugin:
-# 	@cd build-tools; \
-# 		./build-mcm-kui.sh
+.PHONY: integrate-plugin
+integrate-plugin:
+	@cd build-tools; \
+		./build-mcm-kui.sh
 
 # .PHONY: copyright-check
 # copyright-check:
