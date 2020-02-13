@@ -6,29 +6,27 @@
 # Use, duplication or disclosure restricted by GSA ADP Schedule
 # Contract with IBM Corp.
 
-set -e
-# git clone git@github.com:open-cluster-management/kui-web-terminal.git
+set -echo
+
 git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
 cd kui-web-terminal/
 
-make init
-make download-clis
-make download-plugins
-rm plugin-downloads/plugin-search.tgz
-cp ../../plugin-search.tgz ./plugin-downloads
+# make init
+# make download-clis
+# make download-plugins
+# rm plugin-downloads/plugin-search.tgz
+# cp ../../plugin-search.tgz ./plugin-downloads
 
-make -C client client-update-plugins
+# make -C client client-update-plugins
 
-echo "Installing proxy and client"
-make install-proxy
-make install-client
-make webpack
-make headless
-make build-image
+# echo "Installing proxy and client"
+# make install-proxy
+# make install-client
+# make webpack
+# make headless
+# make build-image
 
 # docker tag mcm-kui-proxy:latest mcm-kui-proxy:$(cat RELEASE_VERSION)
 
 # cd ../..
 # make run
-
-#TODO add our tests ^^
