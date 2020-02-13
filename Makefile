@@ -13,17 +13,8 @@ default::
 	@echo "Build Harness Bootstrapped"
 
 
-
-# DOCKER_SCRATCH_REGISTRY ?= hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com
-# DOCKER_INTEGRATION_REGISTRY ?= hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com
-
-# DOCKER_USER ?= $(ARTIFACTORY_USER)
-# DOCKER_PASS ?= $(ARTIFACTORY_TOKEN)
-
 # IMAGE_REPO ?= $(DOCKER_INTEGRATION_REGISTRY)/$(DOCKER_NAMESPACE)
-
 # DOCKER_IMAGE ?= mcm-kui-proxy
-
 # DOCKER_CONTAINER_NAME ?= mcm-kui-proxy
 # DOCKER_RUN_OPTS ?= -e NODE_ENV=development -e ICP_EXTERNAL_URL=$(ICP_EXTERNAL_URL) -e KUI_INGRESS_PATH="kui" -e AUTH_TOKEN=$(AUTH_TOKEN) -e DEBUG=* -d -v $(PWD)/testcerts:/etc/certs
 # DOCKER_BIND_PORT ?= 8081:3000
