@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /*******************************************************************************
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -50,7 +49,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     const { inputText, searchCheck, reverseSearch } = this.state
     e.persist()
     if (e.which === 13) {
-      this.setState({ searchCheck: false, inputText: e.target.value, reverseSearch: '' })
+      this.setState({ searchCheck: false, inputText: '', reverseSearch: '' })
       // If user tries to run a i-search we need to set inputText to the reverse search
       if (reverseSearch !== '') {
         this.setState({ inputText: reverseSearch})
