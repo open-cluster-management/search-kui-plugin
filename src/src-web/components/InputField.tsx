@@ -49,7 +49,7 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     const { inputText, searchCheck, reverseSearch } = this.state
     e.persist()
     if (e.which === 13) {
-      this.setState({ searchCheck: false, /* inputText: '',*/reverseSearch: '' })
+      this.setState({ searchCheck: false, inputText: e.target.value, reverseSearch: '' })
       // If user tries to run a i-search we need to set inputText to the reverse search
       if (reverseSearch !== '') {
         this.setState({ inputText: reverseSearch})
