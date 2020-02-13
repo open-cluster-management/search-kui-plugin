@@ -15,8 +15,6 @@
 default::
 	@echo "Build Harness Bootstrapped"
 
-# install:
-# 	npm install
 
 # lint:
 # 	npm run lint
@@ -129,7 +127,7 @@ package:
 
 .PHONY: integrate-plugin
 integrate-plugin:
-	@cd build-tools; \
+	@cd build; \
 		./build-mcm-kui.sh
 
 # .PHONY: copyright-check

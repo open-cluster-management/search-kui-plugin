@@ -6,8 +6,8 @@
 # Use, duplication or disclosure restricted by GSA ADP Schedule
 # Contract with IBM Corp.
 
-git clone git@github.ibm.com:IBMPrivateCloud/mcm-kui.git
-cd mcm-kui/
+git clone git@github.com:open-cluster-management/kui-web-terminal.git
+cd kui-web-terminal/
 
 make init
 make download-clis
@@ -24,9 +24,9 @@ make webpack
 make headless
 make build-image
 
-docker tag mcm-kui-proxy:latest mcm-kui-proxy:$(cat RELEASE_VERSION)
+# docker tag mcm-kui-proxy:latest mcm-kui-proxy:$(cat RELEASE_VERSION)
 
-cd ../..
-make run
+# cd ../..
+# make run
 
 #TODO add our tests ^^
