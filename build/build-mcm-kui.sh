@@ -11,6 +11,8 @@ set -echo
 git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
 cd kui-web-terminal/
 
+echo "TODO: Re-enable building the test image."
+
 # make init
 # make download-clis
 # make download-plugins
