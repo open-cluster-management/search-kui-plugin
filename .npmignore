@@ -5,8 +5,12 @@ package-lock.json
 ts*
 nightwatch*
 src
-.build-harness
+build-harness
+build-harness-extensions
+.build-harness-bootstrap
 build-tools
 Makefile
 CHANGELOG.md
 node_modules
+COMPONENT_NAME
+COMPONENT_VERSION

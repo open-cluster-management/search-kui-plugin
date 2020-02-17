@@ -13,22 +13,22 @@ cd kui-web-terminal/
 
 echo "TODO: Re-enable building the test image."
 
-# make init
-# make download-clis
-# make download-plugins
-# rm plugin-downloads/plugin-search.tgz
-# cp ../../plugin-search.tgz ./plugin-downloads
+make init
+make download-clis
+make download-plugins
+rm plugin-downloads/plugin-search.tgz
+cp ../../plugin-search.tgz ./plugin-downloads
 
-# make -C client client-update-plugins
+make -C client client-update-plugins
 
-# echo "Installing proxy and client"
-# make install-proxy
-# make install-client
-# make webpack
-# make headless
-# make build-image
+echo "Installing proxy and client"
+make install-proxy
+make install-client
+make webpack
+make headless
+make build-image
 
-# docker tag mcm-kui-proxy:latest mcm-kui-proxy:$(cat RELEASE_VERSION)
+docker tag $DOCKER_IMAGE_AND_TAG `echo $DOCKER_IMAGE_AND_TAG | sed "s/:.*/:${USER_NAME}/g"`
 
-# cd ../..
-# make run
+cd ../..
+make run

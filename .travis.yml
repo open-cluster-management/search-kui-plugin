@@ -3,14 +3,8 @@ services:
   - docker
   - xvfb
 
-cache:
-  apt: true
-  directories:
-    - "$TRAVIS_CACHE_DIR"
-
-before_cache:
-  - sudo rm -rf $TRAVIS_CACHE_DIR/selenium-standalone
-
+language: node_js
+node_js: "10"
 
 branches:
   only:
@@ -52,8 +46,8 @@ jobs:
       script:
         # Set the image tag differently for PRs
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-        # Bootstrap the build harness, pull test image, and run unit tests.   
-        # - make component/pull 
+        # Bootstrap the build harness, pull test image, and run unit tests.
+        # - make component/pull
         - make component/test/unit
         # - sonar-scanner --debug
     - stage: test-e2e
@@ -62,7 +56,7 @@ jobs:
       script:
         #Check out a clusterpool, set up oc, deploy, run e2e tests, and return clusterpool cluster
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-        # - make component/pull 
+        # - make component/pull
         - make component/test/e2e
     # - stage: publish
     #   name: "Publish the image to quay with an official version/sha tag and publish entry to integration pipeline stage"
