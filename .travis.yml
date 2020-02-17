@@ -3,10 +3,9 @@ services:
   - docker
   - xvfb
 
-cache:
-  apt: true
-  directories:
-    - "$TRAVIS_CACHE_DIR"
+language: node_js
+node_js:
+  - "10"
 
 before_cache:
   - sudo rm -rf $TRAVIS_CACHE_DIR/selenium-standalone
