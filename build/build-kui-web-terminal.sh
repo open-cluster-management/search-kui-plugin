@@ -29,4 +29,4 @@ make headless
 make build-image
 
 cd ../..
-make run
+# make run
