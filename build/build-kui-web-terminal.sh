@@ -8,7 +8,7 @@
 
 set -e
 
-git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
+git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git #TODO?: pull specific release branch instead of master
 cd kui-web-terminal/
 
 echo "TODO: Re-enable building the test image."
@@ -27,8 +27,6 @@ make install-client
 make webpack
 make headless
 make build-image
-
-docker tag $DOCKER_IMAGE_AND_TAG `echo $DOCKER_IMAGE_AND_TAG | sed "s/:.*/:${USER_NAME}/g"`
 
 cd ../..
 make run
