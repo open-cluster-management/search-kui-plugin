@@ -12,22 +12,7 @@
 default::
 	@echo "Build Harness Bootstrapped"
 
-
-# IMAGE_REPO ?= $(DOCKER_INTEGRATION_REGISTRY)/$(DOCKER_NAMESPACE)
-# DOCKER_IMAGE ?= mcm-kui-proxy
-# DOCKER_CONTAINER_NAME ?= mcm-kui-proxy
-# DOCKER_RUN_OPTS ?= -e NODE_ENV=development -e ICP_EXTERNAL_URL=$(ICP_EXTERNAL_URL) -e KUI_INGRESS_PATH="kui" -e AUTH_TOKEN=$(AUTH_TOKEN) -e DEBUG=* -d -v $(PWD)/testcerts:/etc/certs
-# DOCKER_BIND_PORT ?= 8081:3000
-
-# BROWSER ?= chrome
-
-# ifeq ($(shell echo $(K8S_CLUSTER_MASTER_IP) | grep "https://" ), )
-# 	export ICP_EXTERNAL_URL=https://$(K8S_CLUSTER_MASTER_IP)
-# else
-# 	export ICP_EXTERNAL_URL=$(K8S_CLUSTER_MASTER_IP)
-# endif
-
-
+DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 # # search-plugin build/test
 
@@ -36,7 +21,6 @@ install:
 	npm install -g typescript
 	npm install
 	npm run buildCSS
-
 
 .PHONY: package
 package:
@@ -51,7 +35,7 @@ package:
 .PHONY: integrate-plugin
 integrate-plugin:
 	@cd build; \
-		./build-mcm-kui.sh
+		./build-kui-web-terminal.sh
 
 # .PHONY: copyright-check
 # copyright-check:
@@ -67,4 +51,3 @@ integrate-plugin:
 # .PHONY: run
 # run:
 # 	$(SELF) docker:run AUTH_TOKEN=$(shell curl -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=password&username="$(K8S_CLUSTER_USER)"&password="$(K8S_CLUSTER_PASSWORD)"&scope=openid" $(ICP_EXTERNAL_URL)/idprovider/v1/auth/identitytoken --insecure | jq '.access_token' | tr -d '"')
-
