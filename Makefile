@@ -12,10 +12,7 @@
 default::
 	@echo "Build Harness Bootstrapped"
 
-DOCKER_USER ?= $(ARTIFACTORY_USER)
-DOCKER_PASS ?= $(ARTIFACTORY_TOKEN)
-
-DOCKER_IMAGE ?= search-kui-plugin
+DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 # # search-plugin build/test
 
@@ -24,7 +21,6 @@ install:
 	npm install -g typescript
 	npm install
 	npm run buildCSS
-
 
 .PHONY: package
 package:
@@ -55,4 +51,3 @@ integrate-plugin:
 # .PHONY: run
 # run:
 # 	$(SELF) docker:run AUTH_TOKEN=$(shell curl -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=password&username="$(K8S_CLUSTER_USER)"&password="$(K8S_CLUSTER_PASSWORD)"&scope=openid" $(ICP_EXTERNAL_URL)/idprovider/v1/auth/identitytoken --insecure | jq '.access_token' | tr -d '"')
-

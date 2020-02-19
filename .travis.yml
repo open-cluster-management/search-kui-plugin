@@ -28,8 +28,8 @@ env:
     - COMPONENT_E2E_TEST_COMMAND=${TRAVIS_BUILD_DIR}/build/run-e2e-tests.sh
 
 stages:
-  - unit-test
   - build
+  - unit-test
   - test-e2e
   - publish
 
@@ -39,6 +39,12 @@ before_script:
 
 jobs:
   include:
+    - stage: build
+      name: "Build and push search-kui-plugin test image"
+      script:
+        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
+        - make component/build
+        - make component/push
     - stage: unit-test
       name: "Run unit tests"
       if: type = pull_request
@@ -49,12 +55,6 @@ jobs:
         # - make component/pull
         - make component/test/unit
         # - sonar-scanner --debug
-    - stage: build
-      name: "Build and push search-kui-plugin test image"
-      script:
-        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-        - make component/build
-        - make component/push
     - stage: test-e2e
       name: "Deploy the image to a cluster and run e2e tests"
       if: type = pull_request
@@ -63,11 +63,6 @@ jobs:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         # - make component/pull
         - make component/test/e2e
-    # - stage: publish
-    #   name: "Publish the image to quay with an official version/sha tag and publish entry to integration pipeline stage"
-    #   if: type = push AND branch =~ /^release-[0-9]+\..*$/
-    #   script:
-    #     - make pipeline-manifest/update PIPELINE_MANIFEST_COMPONENT_SHA256=${TRAVIS_COMMIT} PIPELINE_MANIFEST_COMPONENT_REPO=${TRAVIS_REPO_SLUG} PIPELINE_MANIFEST_BRANCH=${TRAVIS_BRANCH}
 
     - stage: publish
       name: "Publish the plugin"

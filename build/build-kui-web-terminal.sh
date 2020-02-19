@@ -8,7 +8,7 @@
 
 set -e
 
-git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git #TODO?: pull specific release branch instead of master
+git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
 cd kui-web-terminal/
 
 echo "TODO: Re-enable building the test image."
@@ -29,4 +29,3 @@ make headless
 make build-image
 
 cd ../..
-# make run
