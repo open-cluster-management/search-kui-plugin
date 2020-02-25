@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resources/Query sidecar related mode should render a tab entity for the selected resource related resources 1`] = `
+Object {
+  "content": <div
+    class="scrollable bx--structured-list--summary"
+  >
+    <section
+      aria-label="Structured list section"
+      class="bx--structured-list"
+    >
+      <div
+        class="bx--structured-list-tbody"
+      >
+        <div
+          class="bx--structured-list-row bx--structured-list-rowclick"
+        >
+          <div
+            class="bx--structured-list-td"
+            tabindex="0"
+          >
+            <span
+              class="bx--structured-list-td-related-header"
+            >
+              1
+            </span>
+            <br />
+            <span
+              class="bx--structured-list-td-body"
+            >
+              Related release
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>,
+  "label": "Related Resources",
+  "mode": "related",
+  "order": 9999,
+}
+`;

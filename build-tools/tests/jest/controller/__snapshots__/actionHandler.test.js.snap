@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search action handler Delete resources should delete a resource 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "argv": Array [
+          "deleteResource",
+          "fake-name",
+          "fake-namespace",
+          "fake-kind",
+          "fake-cluster",
+          "fake-selfLink",
+        ],
+        "command": "deleteResource fake-name fake-namespace fake-kind fake-cluster fake-selfLink",
+      },
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": Promise {},
+    },
+  ],
+}
+`;
+
+exports[`Search action handler Delete saved searches should delete a saved search 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "argv": Array [
+          "deleteSavedSearch",
+          "All Fake Pods",
+        ],
+        "command": "deleteSavedSearch All Fake Pods",
+      },
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": Promise {},
+    },
+  ],
+}
+`;
