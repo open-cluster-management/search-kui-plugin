@@ -42,6 +42,7 @@ integrate-plugin:
 
 .PHONY: run-plugin-tests
 run-plugin-tests:
+	tsc
 ifeq ($(UNIT_TESTS), TRUE)
 	if [ ! -d "test-output" ]; then \
 		mkdir test-output; \
