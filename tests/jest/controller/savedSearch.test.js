@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const search = require('../../../../dist/src-web/controller/savedSearch')
+const search = require('../../../dist/src-web/controller/savedSearch')
 const savedsearches = require('../../data/savedsearches')
 
 const args = {

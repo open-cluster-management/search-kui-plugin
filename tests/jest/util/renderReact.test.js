@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const renderReact = require('../../../../dist/src-web/util/renderReact')
+const renderReact = require('../../../dist/src-web/util/renderReact')
 const resource = require('../../data/pod')
 
 describe('Rendering react components for searched query data table', () => {
@@ -19,7 +19,7 @@ describe('Rendering react components for searched query data table', () => {
   }
 
   const spy = jest.spyOn(renderReact, 'default')
-  
+
   if(resource.data.items.length <= 0){
     it('should not render a data table', () => {
       expect(spy).not.toBeCalled()

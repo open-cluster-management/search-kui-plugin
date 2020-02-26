@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const related = require('../../../../../dist/src-web/views/modes/related')
+const related = require('../../../../dist/src-web/views/modes/related')
 
 const items = [
   {kind: require('../../../data/configmaps')}

@@ -7,8 +7,8 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const search = require('../../../../dist/src-web/controller/search')
-const pluginState = require('../../../../dist/pluginState')
+const search = require('../../../dist/src-web/controller/search')
+const pluginState = require('../../../dist/pluginState')
 
 const args = {
   argv: ['search', 'kind:pod', 'name:logging-elk-filebeat-ds-62jxh'],

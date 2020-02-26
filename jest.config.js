@@ -31,12 +31,12 @@ const jestConfig = {
   //   },
   // },
   testMatch: [
-    '<rootDir>/build-tools/tests/jest/**/*.test.js?(x)',
-    '<rootDir>/build-tools/tests/jest/**/**/*.test.js?(x)',
-    '<rootDir>/build-tools/tests/jest/**/**/**/*.test.js?(x)'
+    '<rootDir>/tests/jest/**/*.test.js?(x)',
+    '<rootDir>/tests/jest/**/**/*.test.js?(x)',
+    '<rootDir>/tests/jest/**/**/**/*.test.js?(x)'
   ],
   testPathIgnorePatterns: [
-    '<rootDir>/build-tools/tests/jest/views/modes/related.test.js'
+    '<rootDir>/tests/jest/views/modes/related.test.js'
   ]
   // globalSetup: '<rootDir>/build-tools/tests/jest/config/properties-to-json.js',
   // setupFiles: [

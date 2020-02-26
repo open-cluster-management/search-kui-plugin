@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const actionHandler = require('../../../../dist/src-web/controller/actionHandler')
+const actionHandler = require('../../../dist/src-web/controller/actionHandler')
 
 describe('Search action handler', () => {
   const name = 'All Fake Pods'

@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const searchdefinitions = require('../../../../dist/src-web/definitions/search-definitions')
+const searchdefinitions = require('../../../dist/src-web/definitions/search-definitions')
 
 describe('Search definitions', () => {
   const kinds = [

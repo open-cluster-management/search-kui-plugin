@@ -7,8 +7,8 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const queries = require('../../../../dist/src-web/definitions/search-queries')
-const HTTPClient = require('../../../../dist/src-web/controller/HTTPClient')
+const queries = require('../../../dist/src-web/definitions/search-queries')
+const HTTPClient = require('../../../dist/src-web/controller/HTTPClient')
 
 const svc = 'svc'
 const search = 'search'

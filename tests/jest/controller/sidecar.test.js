@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const fn = require('../../../../dist/src-web/controller/sidecar')
+const fn = require('../../../dist/src-web/controller/sidecar')
 const related = require('../../data/related')
 
 const data = related.data

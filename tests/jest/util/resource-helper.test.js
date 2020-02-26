@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const helper = require('../../../../dist/src-web/util/resource-helper')
+const helper = require('../../../dist/src-web/util/resource-helper')
 
 const items = [
   {

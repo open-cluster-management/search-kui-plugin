@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const logging = require('../../../../../dist/src-web/views/modes/logging')
+const logging = require('../../../../dist/src-web/views/modes/logging')
 
 const items = [
   {kind: require('../../../data/pod')},
