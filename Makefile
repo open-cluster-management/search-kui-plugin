@@ -18,8 +18,7 @@ DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 .PHONY: install
 install:
-	npm install -g typescript jest
-
+	npm install -g typescript
 	npm install
 	npm run buildCSS
 
@@ -43,6 +42,8 @@ integrate-plugin:
 
 .PHONY: run-plugin-tests
 run-plugin-tests:
+	npm install -g typescript jest
+	npm install
 	tsc
 ifeq ($(UNIT_TESTS), TRUE)
 	if [ ! -d "test-output" ]; then \
