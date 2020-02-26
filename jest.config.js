@@ -30,6 +30,9 @@ const jestConfig = {
   //     statements: -10,
   //   },
   // },
+  moduleFileExtensions: [
+    "js", "json"
+  ],
   testMatch: [
     '<rootDir>/tests/jest/**/*.test.js?(x)',
     '<rootDir>/tests/jest/**/**/*.test.js?(x)',
