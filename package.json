@@ -4,6 +4,9 @@
   "description": "KUI plugin for MCM/ICP Search.",
   "author": "IBM Multicloud Manager/Cloud Private",
   "license": "ISC",
+  "engines": {
+    "npm": ">=6.9.0"
+  },
   "keywords": [
     "kui",
     "plugin",
