@@ -15,13 +15,13 @@ const data = {
       cluster: "local-cluster",
       container: "icp-memcached",
       created: "2019-09-17T18:17:13Z",
-      hostIP: "1.1.1.1",
+      hostIP: "9.30.206.76",
       image: "hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/ibmcom-amd64/icp-memcached:latest",
       kind: "pod",
       label: "app=icp-memcached; chart=system-healthcheck-service-99.99.99; pod-template-hash=5bd5ddbd86; release=system-healthcheck-service",
       name: "icp-memcached-5bd5ddbd86-9ckrj",
       namespace: "kube-system",
-      podIP: "1.1.1.1",
+      podIP: "10.1.222.115",
       restarts: 0,
       selfLink: "/api/v1/namespaces/kube-system/pods/icp-memcached-5bd5ddbd86-9ckrj",
       startedAt: "2019-09-17T18:17:13Z",
@@ -52,11 +52,11 @@ const data = {
           cpu: 8,
           created: "2019-09-17T17:48:58Z",
           kind: "node",
-          label: "beta.kubernetes.io/arch=amd64; beta.kubernetes.io/os=linux; etcd=true; kubernetes.io/hostname=1.1.1.1; management=true; master=true; node-role.kubernetes.io/etcd=true; node-role.kubernetes.io/management=true; node-role.kubernetes.io/master=true; node-role.kubernetes.io/proxy=true; node-role.kubernetes.io/va=true; proxy=true; role=master; va=true",
-          name: "1.1.1.1",
+          label: "beta.kubernetes.io/arch=amd64; beta.kubernetes.io/os=linux; etcd=true; kubernetes.io/hostname=172.16.44.51; management=true; master=true; node-role.kubernetes.io/etcd=true; node-role.kubernetes.io/management=true; node-role.kubernetes.io/master=true; node-role.kubernetes.io/proxy=true; node-role.kubernetes.io/va=true; proxy=true; role=master; va=true",
+          name: "172.16.44.51",
           osImage: "Ubuntu 18.04.3 LTS",
           role: "etcd, management, master, proxy, va",
-          selfLink: "/api/v1/nodes/1.1.1.1"
+          selfLink: "/api/v1/nodes/172.16.44.51"
         }
       ],
       kind: "node"

@@ -19,7 +19,7 @@ const pod = {
   metadata: {
     name: "nginx",
     namespace: "kube-system",
-    labels: {
+    labels: { 
       name: "nginx"
     }
   },
@@ -53,8 +53,8 @@ const data = {
         "startedAt": "2019-09-17T18:13:28Z",
         "restarts": 34,
         "image": "hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/ibmcom-amd64/search-collector:latest",
-        "podIP": "1.1.1.1",
-        "hostIP": "1.1.1.1"
+        "podIP": "10.1.222.94",
+        "hostIP": "9.30.206.76"
     },
     {
         "kind": "pod",
@@ -69,8 +69,8 @@ const data = {
         "startedAt": "2019-09-17T18:00:29Z",
         "restarts": 0,
         "image": "hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/ibmcom-amd64/icp-management-ingress:latest",
-        "podIP": "1.1.1.1",
-        "hostIP": "1.1.1.1"
+        "podIP": "10.1.222.73",
+        "hostIP": "9.30.206.76"
     },
     {
         "kind": "pod",
@@ -84,8 +84,8 @@ const data = {
         "startedAt": "2019-09-17T17:49:08Z",
         "restarts": 0,
         "image": "hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/ibmcom-amd64/kmsplugin:latest",
-        "podIP": "1.1.1.1",
-        "hostIP": "1.1.1.1"
+        "podIP": "9.30.206.76",
+        "hostIP": "9.30.206.76"
     },
     {
         "kind": "pod",
@@ -100,8 +100,8 @@ const data = {
         "startedAt": "2019-09-17T18:17:13Z",
         "restarts": 0,
         "image": "hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/ibmcom-amd64/icp-memcached:latest",
-        "podIP": "1.1.1.1",
-        "hostIP": "1.1.1.1"
+        "podIP": "10.1.222.115",
+        "hostIP": "9.30.206.76"
     },
   ]
 }
