@@ -31,7 +31,6 @@ package:
 	npm pack
 	mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 
-
 .PHONY: integrate-plugin
 integrate-plugin:
 	@cd build; \
@@ -41,12 +40,22 @@ integrate-plugin:
 # copyright-check:
 # 	./build-tools/copyright-check.sh
 
-# .PHONY: run-plugin-tests
-# run-plugin-tests:
-# 	if [ ! -d "build-tools/test-output" ]; then \
+.PHONY: run-plugin-tests
+run-plugin-tests:
+	tsc
+ifeq ($(UNIT_TESTS), TRUE)
+	if [ ! -d "test-output" ]; then \
+		mkdir test-output; \
+	fi
+	npm test
+endif
+
+# ifeq ($(SELENIUM_TESTS), TRUE)
+# 	if [ ! -d "build-tools/test-output" ]; then	\
 # 		mkdir build-tools/test-output;	\
 # 	fi
 # 	npm run test:$(BROWSER)
+# endif
 
 # .PHONY: run
 # run:
