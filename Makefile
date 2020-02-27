@@ -47,7 +47,7 @@ ifeq ($(UNIT_TESTS), TRUE)
 	if [ ! -d "test-output" ]; then \
 		mkdir test-output; \
 	fi
-	npm test
+	npm run test
 endif
 
 # ifeq ($(SELENIUM_TESTS), TRUE)
