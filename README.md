@@ -6,15 +6,39 @@ Adds Search capabilities to [KUI Web Terminal](https://github.com/open-container
 ## Development
 Clone the [KUI repository](https://github.com/IBM/kui) and follow developer set-up directions from that repo.
 
-Set SEARCH_API and accessToken in src/lib/shared/config.ts. To get an access token login to your env using: `cloudctl login -a https://<cluster URL>:8443`. Then run `cloudctl tokens` and copy the access token, everything after `Bearer`.
-
 To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [KUI repository](https://github.com/IBM/kui).  It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
 
-Execute `npm install`
+1. The following variables need to be set in the `src/lib/shared/config.ts` file.
 
-Execute `npm run compile` at the root-level of the KUI repo.
+<pre>
+SEARCH_API - Endpoint of the search API
+ACM_API - Endpoint of the ACM API
+SEARCH_SERVICE - Search service URL. (The value retrieved from this endpoint, is to ensure that the Search API is installed on the cluster)
+</pre>
 
-Execute `npm run start` at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for MCM KUI testing).
+To get an access token login to your env using: `cloudctl login -a https://<cluster URL>:8443`. Then run `cloudctl tokens --access` and copy the access token, everything after `Bearer`.
+
+<pre>
+authorization & cookie - User access token
+</pre>
+
+2. Install the plugin dependencies
+
+```
+npm install
+```
+
+3. Compile the code at the root-level of the KUI repo.
+
+```
+npm run compile
+```
+
+4. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for MCM KUI testing).
+
+```
+npm run start
+```
 
 Try `search` commands. Ex: `search kind:pod`
 
@@ -27,7 +51,9 @@ Try `search` commands. Ex: `search kind:pod`
 
 The following will run all jest based unit tests. (Jest configurations can be specified within the `package.json` file or the `jest.config.js` file.)
 
-`npm run test:unit`
+```
+npm run test:unit
+```
 
 ## NPM Commands
 
