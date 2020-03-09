@@ -60,7 +60,7 @@ jobs:
         # Bootstrap the build harness, pull test image, and run unit tests.
         # - make component/pull
         - make component/test/unit
-        # - sonar-scanner --debug
+        
     - stage: test-e2e
       name: "Deploy the image to a cluster and run e2e tests"
       if: type = pull_request
@@ -69,6 +69,7 @@ jobs:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         # - make component/pull
         - make component/test/e2e
+        - sonar-scanner --debug
 
     - stage: publish
       name: "Publish the plugin"
