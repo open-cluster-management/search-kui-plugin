@@ -16,6 +16,12 @@ branches:
     - master
     - /^release-[0-9]+\..*$/
 
+addons:
+  sonarcloud:
+    organization: "open-cluster-management"
+    token:
+      secure: "U9S8G7DRk8vCMJkhOeYo2kWWBCUU8rNucSsF0ts6TSlHPkScU+f6Ds1wUfP7QNR0AsxZVw/JhVqxQ/QX1qunQEs2SB5fRK35/+5zJDbxCE/lMDesGHE+gCtOZobuF7XaeiUNDpwtAJ9MNxARf5ixoKe7qBvzdia8DPiTr5S+q2GFnrqyWcNjJlfdMwmY/GAmsTbfDqLooy1gSCv+0Go36VT5IqmX9/nLUzSQ7bhnLKazmSfFsa9fvMcfeE/NiMDpt2UpL8N/xnNsnblAe7iBSQL3hjDRYUouGJBE2Z2z1FI/RbhryCGDAsI4RiIV8JeVrJFTEw1hSDCt9zM1j9sXwIDTZl9sRs1nG4D1Rmered9C2matm1ut5dnVU2mCSyR/aUj1SAJ/K2GwYnHsNJa5I4ikjtiAGRJHL8txsSYOgB6moYf+Z5+ZImc4Pa8Z8e/j2/ObnXAsyw5uxsKGUy9fFrQXN1OaJZ0lC+xe3Hp0Na37BubJK1sCYiwz8BilhjtdOp65e15urS79Chm0u/khrec1BAw98pq+za4QJpXvpv7BkIiK1+cxQ09XMEFZwlKKBQz4SDhv4Z5zU7fzSBT91wBRntyfMb0/i0pUPiwoQOOyjxcudDLCExpzpKHR2HDVyY+7ICaauMBr5JzM3V/ijVgRW0R7jzNeOBQv1HceizU="
+
 env:
   global:
     # Required
