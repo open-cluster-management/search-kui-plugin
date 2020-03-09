@@ -55,16 +55,16 @@ export async function getConfig(): Promise<Config> {
         : staticConfig.MCM_API,
       SEARCH_SERVICE: inBrowser()
         ? `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
-        : staticConfig.SEARCH_SERVICE
+        : staticConfig.SEARCH_SERVICE,
     },
     {
       // Browser needs xsrf token for requests
       xsrfToken: inBrowser() ? getXsrfToken() : null,
 
         // Electron needs the user access token
-      authorization: '',
-      cookie: '',
-    }
+      authorization: 'Bearer ',
+      cookie: 'cfc-cookie-access-token=',
+    },
   )
 
   if (process.env.NODE_ENV === 'development') {
@@ -74,7 +74,7 @@ export async function getConfig(): Promise<Config> {
         config.authorization = authConfig.authorization
         config.cookie = authConfig.cookie
       }
-    } catch (err){
+    } catch (err) {
       console.error(err)
     }
   }

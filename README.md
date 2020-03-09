@@ -18,19 +18,22 @@ Execute `npm run start` at the root-level of the KUI repo.  The desktop/electron
 
 Try `search` commands. Ex: `search kind:pod`
 
+<a href="docs/readme/images/search-command.gif">
+    <img align="right" alt="" src="docs/readme/images/search-command.gif"></img>
+</a>
+
 ## Testing
 
-The following will run all unit tests and selenium based tests. The selenium based tests require the UI running locally or can target a remote cluster.
+The following will run all unit tests.
 
 npm run test:unit
-npm run test:e2e
 
 ## NPM Commands
 
 | Command                | Description                                                         |
 |------------------------|---------------------------------------------------------------------|
 | `npm run test:unit`    | Run jest tests                                                      |
-| `npm run test:e2e`     | Run e2e test                                                        |
+<!-- | `npm run test:e2e`     | Run e2e test                                                        |-->
 | `npm run commit`       | CLI tool that helps format commit messages with a series of prompts |
 | `npm run buildCSS`     | Compile SCSS into readable CSS                                      |
 | `npm run scss`         | Watches SCSS style changes and updates the current CSS files        |
@@ -48,3 +51,5 @@ These are a few useful links that will help provide technical reference and best
 - [Carbon Component React](https://github.com/carbon-design-system/carbon-components-react)
 - [NPM Docs](https://docs.npmjs.com)
 - [React Docs](https://reactjs.org/docs/hello-world.html)
+- [Jest Unit Testing](https://jestjs.io/docs/en/getting-started)
+- [Nightwatch E2E Testing](https://nightwatchjs.org/guide)
