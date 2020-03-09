@@ -18,22 +18,22 @@ Execute `npm run start` at the root-level of the KUI repo.  The desktop/electron
 
 Try `search` commands. Ex: `search kind:pod`
 
+<br>
 <a href="docs/readme/images/search-command.gif">
-    <img align="right" alt="" src="docs/readme/images/search-command.gif"></img>
+    <img alt="" src="docs/readme/images/search-command.gif"></img>
 </a>
 
 ## Testing
 
-The following will run all unit tests.
+The following will run all jest based unit tests. (Jest configurations can be specified within the `package.json` file or the `jest.config.js` file.)
 
-npm run test:unit
+`npm run test:unit`
 
 ## NPM Commands
 
 | Command                | Description                                                         |
 |------------------------|---------------------------------------------------------------------|
 | `npm run test:unit`    | Run jest tests                                                      |
-<!-- | `npm run test:e2e`     | Run e2e test                                                        |-->
 | `npm run commit`       | CLI tool that helps format commit messages with a series of prompts |
 | `npm run buildCSS`     | Compile SCSS into readable CSS                                      |
 | `npm run scss`         | Watches SCSS style changes and updates the current CSS files        |
