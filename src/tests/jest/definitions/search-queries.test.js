@@ -61,10 +61,10 @@ describe('Search Queries', () => {
     expect(searchqueries.RESOURCE_LOGS(resource.pod)).toMatchSnapshot()
   })
   
-  it('should SEARCH_MCM_QUERY', () => {
-    expect(searchqueries.SEARCH_MCM_QUERY(resource.pod)).toBeDefined()
-    expect(Object.keys(searchqueries.SEARCH_MCM_QUERY(resource.pod))).toEqual(expect.arrayContaining(keys))
-    expect(searchqueries.SEARCH_MCM_QUERY(resource.pod)).toMatchSnapshot()
+  it('should SEARCH_ACM_QUERY', () => {
+    expect(searchqueries.SEARCH_ACM_QUERY(resource.pod)).toBeDefined()
+    expect(Object.keys(searchqueries.SEARCH_ACM_QUERY(resource.pod))).toEqual(expect.arrayContaining(keys))
+    expect(searchqueries.SEARCH_ACM_QUERY(resource.pod)).toMatchSnapshot()
   })
   
   it('should SEARCH_QUERY', () => {

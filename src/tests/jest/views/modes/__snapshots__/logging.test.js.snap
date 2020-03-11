@@ -4,23 +4,9 @@ exports[`logging mode should build a resource log node element 1`] = `Promise {}
 
 exports[`logging mode should render a tab entity for the resource log 1`] = `
 Object {
-  "badges": Array [
-    "nginx",
-  ],
   "content": Promise {},
-  "isEntity": true,
-  "modes": Array [
-    Object {
-      "defaultMode": true,
-      "direct": [Function],
-      "label": "Logs",
-      "leaveBottomStripeAlone": true,
-      "mode": "logging",
-    },
-  ],
-  "name": "nginx",
-  "packageName": "kube-system",
-  "type": "custom",
-  "viewName": "Pod",
+  "label": "Logs",
+  "mode": "logging",
+  "order": 3,
 }
 `;

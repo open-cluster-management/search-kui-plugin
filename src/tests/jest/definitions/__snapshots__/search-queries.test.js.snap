@@ -2,9 +2,9 @@
 
 exports[`Search Queries should DELETE_QUERY 1`] = `
 Object {
-  "operationName": "deleteQuery",
-  "query": "mutation deleteQuery($resource: JSON!) {
- deleteQuery(resource: $resource)
+  "operationName": "deleteSearch",
+  "query": "mutation deleteSearch($resource: JSON!) {
+ deleteSearch(resource: $resource)
 }
 ",
   "variables": Object {
@@ -19,7 +19,7 @@ exports[`Search Queries should DELETE_RESOURCE 1`] = `
 Object {
   "operationName": "deleteResource",
   "query": "mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {
-deleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)
+  deleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)
 }
 ",
   "variables": Object {
@@ -101,21 +101,22 @@ Object {
 
 exports[`Search Queries should SAVED_SEARCH_QUERY 1`] = `
 Object {
-  "operationName": "userQueries",
-  "query": "query userQueries {
- items: userQueries {
- name
- description
- searchText
- __typename
-}
+  "operationName": "savedSearches",
+  "query": "query savedSearches {
+  items: savedSearches {
+    id
+    name
+    description
+    searchText
+    __typename
+  }
 }
 ",
   "variables": Object {},
 }
 `;
 
-exports[`Search Queries should SEARCH_MCM_QUERY 1`] = `
+exports[`Search Queries should SEARCH_ACM_QUERY 1`] = `
 Object {
   "operationName": "getResource",
   "query": "query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $selfLink: String) {

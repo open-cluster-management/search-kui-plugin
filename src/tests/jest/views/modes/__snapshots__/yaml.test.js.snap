@@ -2,9 +2,6 @@
 
 exports[`YAML mode should display an editor object with a detailed yaml 1`] = `
 Object {
-  "badges": Array [
-    "myapp",
-  ],
   "content": "apiVersion: apps/v1
 kind: Deployment
 name: myapp
@@ -51,18 +48,8 @@ spec:
               cpu: 100m
 ",
   "contentType": "yaml",
-  "kind": "Deployment",
-  "modes": Array [
-    Object {
-      "defaultMode": true,
-      "direct": [Function],
-      "label": "YAML",
-      "leaveBottomStripeAlone": true,
-      "mode": "yaml",
-    },
-  ],
-  "name": "myapp",
-  "packageName": "kube-system",
-  "type": "custom",
+  "label": "YAML",
+  "mode": "yaml",
+  "order": 2,
 }
 `;

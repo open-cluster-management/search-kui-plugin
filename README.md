@@ -14,7 +14,7 @@ Execute `npm install`
 
 Execute `npm run compile` at the root-level of the KUI repo.
 
-Execute `npm run start` at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for MCM KUI testing).
+Execute `npm run start` at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for ACM KUI testing).
 
 Try `search` commands. Ex: `search kind:pod`
 
