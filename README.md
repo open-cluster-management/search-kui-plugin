@@ -16,7 +16,7 @@ ACM_API - Endpoint of the ACM API
 SEARCH_SERVICE - Search service URL. (The value retrieved from this endpoint, is to ensure that the Search API is installed on the cluster)
 </pre>
 
-To get an access token login to your env using: `cloudctl login -a https://<cluster URL>:8443`. Then run `cloudctl tokens --access` and copy the access token, everything after `Bearer`.
+To get an access token login to your env using: `oc login --token=<cluster API Token> --server=https://<cluster URL>:6443`. The login command can be found by accessing the OCP console. After logging into the OCP console, click the top right dropdown menu and select `Copy Login Command`. The user will be redirected to display the token. Copy the command, and execute the command within the CLI. Then run `oc whoami --show-token` and copy the access token.
 
 <pre>
 authorization & cookie - User access token
