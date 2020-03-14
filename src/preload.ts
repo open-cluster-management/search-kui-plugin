@@ -19,8 +19,8 @@ const registerCapability: CapabilityRegistration = async () => {
   if (inBrowser() && (await getConfig()).env !== 'development') {
     // Get user token from browser
     fetch('/multicloud/search')
-      .then(page => page.text())
-      .then(data => {
+      .then((page) => page.text())
+      .then((data) => {
         const dom = new DOMParser().parseFromString(data, 'text/html')
         const access = dom.querySelector('#app-access')
         document.querySelector('body').appendChild(access)

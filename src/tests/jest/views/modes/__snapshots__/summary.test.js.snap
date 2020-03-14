@@ -189,9 +189,6 @@ exports[`summary mode should build a resource summary node element 1`] = `
 
 exports[`summary mode should render a tab entity for the resource summary 1`] = `
 Object {
-  "badges": Array [
-    "nginx",
-  ],
   "content": <div
     class="scrollable bx--structured-list--summary"
   >
@@ -376,19 +373,9 @@ Object {
       </div>
     </section>
   </div>,
-  "isEntity": true,
-  "modes": Array [
-    Object {
-      "defaultMode": true,
-      "direct": [Function],
-      "label": "Summary",
-      "leaveBottomStripeAlone": true,
-      "mode": "summary",
-    },
-  ],
-  "name": "nginx",
-  "packageName": "kube-system",
-  "type": "custom",
-  "viewName": "Pod",
+  "defaultMode": true,
+  "label": "Summary",
+  "mode": "summaryTab",
+  "order": 1,
 }
 `;

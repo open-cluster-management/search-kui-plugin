@@ -7,14 +7,15 @@ exports[`HTTP Client - GET return a axios request object with urlType - [svc] - 
       "post",
       "search",
       Object {
-        "operationName": "userQueries",
-        "query": "query userQueries {
- items: userQueries {
- name
- description
- searchText
- __typename
-}
+        "operationName": "savedSearches",
+        "query": "query savedSearches {
+  items: savedSearches {
+    id
+    name
+    description
+    searchText
+    __typename
+  }
 }
 ",
         "variables": Object {},
@@ -46,14 +47,15 @@ exports[`HTTP Client - POST return a axios request object with urlType - [search
       "post",
       "search",
       Object {
-        "operationName": "userQueries",
-        "query": "query userQueries {
- items: userQueries {
- name
- description
- searchText
- __typename
-}
+        "operationName": "savedSearches",
+        "query": "query savedSearches {
+  items: savedSearches {
+    id
+    name
+    description
+    searchText
+    __typename
+  }
 }
 ",
         "variables": Object {},

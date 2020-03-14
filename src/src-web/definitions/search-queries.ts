@@ -54,7 +54,7 @@ export const SEARCH_QUERY_COUNT = (input) => {
   }
 }
 
-export const SEARCH_MCM_QUERY = (record) => {
+export const SEARCH_ACM_QUERY = (record) => {
   return {
     operationName: 'getResource',
     variables: {
