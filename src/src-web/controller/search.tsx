@@ -39,12 +39,7 @@ export const renderSearchAvailable = (available, err?) => {
       return(
         <div>
           {!err
-            ? <p>{strings('search.service.not.installed').concat(str[0])}
-                <span className={'install-details-link'} onClick={ () => window.open('https://www.ibm.com/support/knowledgecenter/en/SSFC4F_1.1.0/kc_welcome_cloud_pak.html')}>
-                  {strings('product.name')}
-                </span>
-                {str[1]}
-              </p>
+            ? <p>{strings('search.service.not.installed')}</p>
             : <p><span className='oops'>{strings('search.service.unavailable.error')}</span></p>
           }
         </div>
