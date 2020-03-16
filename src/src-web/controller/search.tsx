@@ -25,7 +25,6 @@ export const renderSearchAvailable = (available, err?) => {
   node.classList.add('is-search-available')
 
   const status = () => {
-    const str = strings('search.service.not.installed.detail').split('{0}') // Split the string to only link the product name
     if (available) {
       return(
         <div>
