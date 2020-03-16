@@ -1,6 +1,6 @@
 
 {
-"product.name" : "Advanced Cluster Management",
+"product.name" : "Red Hat Advanced Cluster Management for Kubernetes",
 "actions.add" : "Add",
 "actions.edit" : "Edit",
 "actions.save" : "Save",
