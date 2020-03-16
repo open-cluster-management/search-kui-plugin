@@ -8,7 +8,48 @@ Clone the [KUI repository](https://github.com/IBM/kui) and follow developer set-
 
 To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [KUI repository](https://github.com/IBM/kui).  It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
 
-1. The following variables need to be set in the `src/lib/shared/config.ts` file.
+<pre>
+.
+├── ...
+├── package.json
+├── plugins
+│   ├── plugin-sample
+│   └── plugin-search
+|       ├── ...
+|       └── tsconfig.json
+├── tsconfig-es6.json
+└── tsconfig.json
+</pre>
+
+1. To use the plugin within the dev environment, add then `plugin-search` path to the `dependencies` list in the `package.json` at the root level.
+
+##### package.json
+
+```
+ "dependencies": {
+    "@kui-shell/plugin-sample": "file:plugins/plugin-sample",
+    "@kui-shell/plugin-search": "file:plugins/plugin-search",
+```
+
+2. Add plugin's reference path to the root level `tsconfig.json` & `tsconfig-es6.json` file.
+
+##### tsconfig.json
+```
+  "references": [
+    { "path": "./plugins/plugin-sample" },
+    { "path": "./plugins/plugin-search" }
+  ]
+```
+
+##### tsconfig-es6.json
+```
+  "references": [
+    { "path": "./plugins/plugin-sample/tsconfig-es6.json" },
+    { "path": "./plugins/plugin-search/tsconfig-es6.json" }
+  ]
+```
+
+3. The following variables need to be set in the `src/lib/shared/config.ts` file.
 
 <pre>
 SEARCH_API - Endpoint of the search API
@@ -22,19 +63,19 @@ To get an access token login to your env using: `oc login --token=<cluster API T
 authorization & cookie - User access token
 </pre>
 
-2. Install the plugin dependencies
+4. Install the plugin dependencies
 
 ```
 npm install
 ```
 
-3. Compile the code at the root-level of the KUI repo.
+5. Compile the code at the root-level of the KUI repo.
 
 ```
 npm run compile
 ```
 
-4. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for MCM KUI testing).
+6. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for ACM KUI testing).
 
 ```
 npm run start
