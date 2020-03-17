@@ -18,7 +18,7 @@ DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 .PHONY: install
 install:
-	npm install -g typescript
+	npm install -g typescript sass
 	npm install
 	npm run buildCSS
 
