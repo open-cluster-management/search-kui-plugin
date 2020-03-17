@@ -25,7 +25,6 @@ export const renderSearchAvailable = (available, err?) => {
   node.classList.add('is-search-available')
 
   const status = () => {
-    const str = strings('search.service.not.installed.detail').split('{0}') // Split the string to only link the product name
     if (available) {
       return(
         <div>
@@ -39,12 +38,7 @@ export const renderSearchAvailable = (available, err?) => {
       return(
         <div>
           {!err
-            ? <p>{strings('search.service.not.installed').concat(str[0])}
-                <span className={'install-details-link'} onClick={ () => window.open('https://www.ibm.com/support/knowledgecenter/en/SSFC4F_1.1.0/kc_welcome_cloud_pak.html')}>
-                  {strings('product.name')}
-                </span>
-                {str[1]}
-              </p>
+            ? <p>{strings('search.service.not.installed')}</p>
             : <p><span className='oops'>{strings('search.service.unavailable.error')}</span></p>
           }
         </div>

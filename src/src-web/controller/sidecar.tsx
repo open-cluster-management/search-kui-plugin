@@ -12,7 +12,7 @@ import { convertStringToQuery } from '../util/search-helper';
 import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
-import { SEARCH_MCM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
+import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
 import { summaryTab, buildSummary } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
 import { relatedTab, buildRelated } from '../views/modes/related';
@@ -87,7 +87,7 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
       } else if (args.command.includes('related:resources')) {
         resolve(buildSidecar('query', data))
       } else {
-        HTTPClient('post', 'mcm', SEARCH_MCM_QUERY(data.items[0]))
+        HTTPClient('post', 'acm', SEARCH_ACM_QUERY(data.items[0]))
         .then((resp) => {
           const resource = !resp.errors ? resp.data.getResource : resp
           resolve(buildSidecar('resource', data, resource))

@@ -116,7 +116,7 @@ Object {
 }
 `;
 
-exports[`Search Queries should SEARCH_MCM_QUERY 1`] = `
+exports[`Search Queries should SEARCH_ACM_QUERY 1`] = `
 Object {
   "operationName": "getResource",
   "query": "query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $selfLink: String) {

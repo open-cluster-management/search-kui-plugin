@@ -14,7 +14,7 @@ import { Config, getConfig } from '../../lib/shared/config'
 
 // Browser requires xsrf token for calls & and electron needs the access token
 function getHeaders(config: Config) {
-  if (process.env.NODE_ENV === 'development'){
+  if (process.env.NODE_ENV === 'development') {
     return {
       'content-type': 'application/json',
       authorization: config.authorization,
@@ -43,7 +43,7 @@ export default async function HTTPClient(method, urlType, requestBody) {
     urlType === 'search'
       ? config.SEARCH_API
       : urlType && requestBody
-      ? config.MCM_API
+      ? config.ACM_API
       : urlType === 'svc' && !requestBody
       ? config.SEARCH_SERVICE
       : null
@@ -54,24 +54,24 @@ export default async function HTTPClient(method, urlType, requestBody) {
       json: true,
       headers: getHeaders(config),
       agent
-    }).then(res => {
+    }).then((res) => {
       return res.body
-    }).catch(err => {
+    }).catch((err) => {
       throw new Error(err)
     })
   }
-    return (
-      axios({
-        method,
-        url,
-        headers: getHeaders(config),
-        data: requestBody,
-        withCredentials: true,
-        httpsAgent: agent,
-      }).then((res) => {
-        return res.data
-      }).catch((err) => {
-        throw new Error(err)
-      })
-    )
+  return (
+    axios({
+      method,
+      url,
+      headers: getHeaders(config),
+      data: requestBody,
+      withCredentials: true,
+      httpsAgent: agent,
+    }).then((res) => {
+      return res.data
+    }).catch((err) => {
+      throw new Error(err)
+    })
+  )
 }

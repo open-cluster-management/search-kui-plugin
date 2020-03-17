@@ -40,7 +40,7 @@ exports[`Rendering search available should render that search is not installed 1
       <span
         class="install-details-link"
       >
-        Cloud Pak for Multicloud Management
+        Red Hat Advanced Cluster Management for Kubernetes
       </span>
        to use the search command.
     </p>

@@ -21,7 +21,7 @@ const getXsrfToken = () => {
 interface StaticConfig {
   env: string
   SEARCH_API: string
-  MCM_API: string
+  ACM_API: string
   SEARCH_SERVICE: string
 }
 
@@ -50,31 +50,31 @@ export async function getConfig(): Promise<Config> {
       SEARCH_API: inBrowser()
         ? `${window && window.location && window.location.origin}/multicloud/search/graphql`
         : staticConfig.SEARCH_API ,
-      MCM_API: inBrowser()
+      ACM_API: inBrowser()
         ? `${window && window.location && window.location.origin}/multicloud/graphql`
-        : staticConfig.MCM_API,
+        : staticConfig.ACM_API,
       SEARCH_SERVICE: inBrowser()
         ? `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
-        : staticConfig.SEARCH_SERVICE
+        : staticConfig.SEARCH_SERVICE,
     },
     {
       // Browser needs xsrf token for requests
       xsrfToken: inBrowser() ? getXsrfToken() : null,
 
         // Electron needs the user access token
-      authorization: '',
-      cookie: '',
-    }
+      authorization: 'Bearer ',
+      cookie: 'cfc-cookie-access-token=',
+    },
   )
 
   if (process.env.NODE_ENV === 'development') {
     try {
       const authConfig: AuthConfig = require('@kui-shell/client/config.d/search-auth.json')
-      if (authConfig.authorization){
+      if (authConfig.authorization) {
         config.authorization = authConfig.authorization
         config.cookie = authConfig.cookie
       }
-    } catch (err){
+    } catch (err) {
       console.error(err)
     }
   }
