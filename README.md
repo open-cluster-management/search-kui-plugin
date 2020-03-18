@@ -98,12 +98,19 @@ npm run test:unit
 
 ## NPM Commands
 
-| Command                | Description                                                         |
-|------------------------|---------------------------------------------------------------------|
-| `npm run test:unit`    | Run jest tests                                                      |
-| `npm run commit`       | CLI tool that helps format commit messages with a series of prompts |
-| `npm run buildCSS`     | Compile SCSS into readable CSS                                      |
-| `npm run scss`         | Watches SCSS style changes and updates the current CSS files        |
+| Command                                | Description                                                                |
+|----------------------------------------|----------------------------------------------------------------------------|
+| `npm run test`                         | Run jest tests                                                             |
+| `npm run test:chrome`                  | Run Nightwatch E2E testing in chrome                                       |
+| `npm run test:firefox`                 | Run Nightwatch E2E testing in firefox                                      |
+| `npm run test:safari`                  | Run Nightwatch E2E testing in safari                                       |
+| `npm run test:unit`                    | Run jest unit tests                                                        |
+| `npm run test:update-snapshot`         | Run and update jest tests snapshots                                        |
+| `npm run test:watch`                   | Watches jest tests                                                         |
+| `npm run semantic-release`             | Uses the commit messages to determine the type of changes in the codebase  |
+| `npm run commit`                       | CLI tool that helps format commit messages with a series of prompts        |
+| `npm run buildCSS`                     | Compile SCSS into readable CSS                                             |
+| `npm run scss`                         | Watches SCSS style changes and updates the current CSS files               |
 
 ## Trigger a release
 To trigger a new release you must push a commit of type `fix` or `release`
