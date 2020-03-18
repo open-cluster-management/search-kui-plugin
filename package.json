@@ -4,6 +4,9 @@
   "description": "KUI plugin for MCM/ICP Search.",
   "author": "IBM Multicloud Manager/Cloud Private",
   "license": "ISC",
+  "engines": {
+    "npm": ">=6.9.0"
+  },
   "keywords": [
     "kui",
     "plugin",
@@ -16,10 +19,13 @@
   "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
+    "test:unit": "jest --colors",
+    "test": "npx jest --silent",
+    "test:watch": "jest --watch",
+    "test:update-snapshot": "jest --updateSnapshot",
     "test:chrome": "nightwatch ./build-tools/tests/e2e -e chrome",
     "test:firefox": "nightwatch ./build-tools/tests/e2e -e firefox",
     "test:safari": "nightwatch ./build-tools/tests/e2e -e safari",
-    "test:unit": "npx jest --watch src",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
     "scss": "sass --watch src/src-web/styles/index.scss src/src-web/styles/index.css",
@@ -36,10 +42,14 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-tag-autocomplete": "^5.11.2",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "jest": "^25.1.0",
+    "sass": "^1.25.0"
   },
   "devDependencies": {
+    "@kui-shell/client": "npm:@kui-shell/plugin-client-default@^6.0.13",
     "@kui-shell/core": "^6.0.13",
+    "@kui-shell/plugin-search": "file:./",
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.1.8",
     "@types/react": "^16.9.18",
@@ -48,13 +58,13 @@
     "chromedriver": "^79.0.0",
     "commitizen": "^4.0.3",
     "del": "^5.1.0",
+    "electron": "6.1.5",
     "geckodriver": "^1.19.1",
     "ghooks": "^2.0.4",
     "nightwatch": "^1.3.2",
-    "sass": "^1.25.0",
     "semantic-release": "^16.0.2",
     "xml2json": "^0.12.0",
-    "electron": "6.1.5"
+    "jest-tap-reporter": "^1.9.0"
   },
   "config": {
     "commitizen": {
