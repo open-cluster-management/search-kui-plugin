@@ -96,6 +96,12 @@ The following will run all jest based unit tests. (Jest configurations can be sp
 npm run test:unit
 ```
 
+The following will run all nightwatch e2e tests. (Nightwatch configurations can be specified within the `nightwatch.json` file.)
+
+```
+npm run test:firefox
+```
+
 ## NPM Commands
 
 | Command                                | Description                                                                |
