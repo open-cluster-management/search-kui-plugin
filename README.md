@@ -49,7 +49,19 @@ To activate this plugin, copy this repository into the `plugins/` directory in t
   ]
 ```
 
-3. The following variables need to be set in the `src/lib/shared/config.ts` file.
+3. Add extends path to the`tsconfig.json` file in the `plugin-search` repo.
+
+```
+"extends": "../../node_modules/@kui-shell/builder/tsconfig-base.json",
+```
+
+If the extended path is missing, the user will be met with this error when compiling the code.
+
+```
+error TS5070: Option '--resolveJsonModule' cannot be specified without 'node' module resolution strategy.
+```
+
+4. The following variables need to be set in the `src/lib/shared/config.ts` file.
 
 <pre>
 SEARCH_API - Endpoint of the search API
@@ -57,25 +69,52 @@ ACM_API - Endpoint of the ACM API
 SEARCH_SERVICE - Search service URL. (The value retrieved from this endpoint, is to ensure that the Search API is installed on the cluster)
 </pre>
 
+The user can set the `staticConfig` path to their own `search.json` file, and the `authConfig` path to their own `search-auth.json` file. This will set the cluster configurations for the local dev environment. A template of each file can be found in the `src/lib/shared/` directory.
+
+```
+staticConfig = require('path/to/file/search.json')
+authConfig: AuthConfig = require('path/to/file/search-auth.json')
+```
+##### search.json
+```
+{
+  "env": "development",
+  "SEARCH_API": "https://<cluster search-api route host>/searchapi/graphql",
+  "CONSOLE_API": "https://<cluster console-api route host>/hcmuiapi/graphql",
+  "SEARCH_SERVICE": "https://<cluster multicloud-console route host>/multicloud/servicediscovery/search",
+  "serverSideConfig": {
+    "inBrowserOk": false
+  }
+}
+```
+
+##### search-auth.json
+```
+{
+  "authorization": "Bearer <oc token>",
+  "cookie": "cfc-cookie-access-token=<oc token>"
+}
+```
+
 To get an access token login to your env using: `oc login --token=<cluster API Token> --server=https://<cluster URL>:6443`. The login command can be found by accessing the OCP console. After logging into the OCP console, click the top right dropdown menu and select `Copy Login Command`. The user will be redirected to display the token. Copy the command, and execute the command within the CLI. Then run `oc whoami --show-token` and copy the access token.
 
 <pre>
 authorization & cookie - User access token
 </pre>
 
-4. Install the plugin dependencies
+5. Install the plugin dependencies
 
 ```
 npm install
 ```
 
-5. Compile the code at the root-level of the KUI repo.
+6. Compile the code at the root-level of the KUI repo.
 
 ```
 npm run compile
 ```
 
-6. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for ACM KUI testing).
+7. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for ACM KUI testing).
 
 ```
 npm run start
@@ -108,7 +147,7 @@ npm run test:firefox
 |----------------------------------------|----------------------------------------------------------------------------|
 | `npm run test`                         | Run jest tests                                                             |
 | `npm run test:chrome`                  | Run Nightwatch E2E testing in chrome                                       |
-| `npm run test:firefox`                 | Run Nightwatch E2E testing in firefox                                      |
+| `npm run test:firefox`                 | Run Nightwatch E2E testing in firefox (Default)                            |
 | `npm run test:safari`                  | Run Nightwatch E2E testing in safari                                       |
 | `npm run test:unit`                    | Run jest unit tests                                                        |
 | `npm run test:update-snapshot`         | Run and update jest tests snapshots                                        |
