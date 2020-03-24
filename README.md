@@ -136,7 +136,7 @@ npm run test:unit
 ```
 
 <a href="docs/readme/images/search-command.gif">
-    <img alt="" src="docs/readme/images/jest-testing.gif"></img>
+    <img alt="" src="docs/readme/images/jest-testing.gif" width=890 height=400></img>
 </a>
 
 The following will run all nightwatch e2e tests. (Nightwatch configurations can be specified within the `nightwatch.json` file.)
