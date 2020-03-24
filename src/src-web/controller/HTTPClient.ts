@@ -68,7 +68,7 @@ export default async function HTTPClient(method, urlType, requestBody) {
       data: requestBody,
       withCredentials: true,
       httpsAgent: agent,
-      timeout: 30000, // Timeout after 30 seconds
+      timeout: 10000, // Timeout after 10 seconds
     }).then((res) => {
       return res.data
     }).catch((err) => {
