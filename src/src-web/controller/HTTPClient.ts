@@ -49,7 +49,7 @@ export default async function HTTPClient(method, urlType, requestBody) {
       : null
 
   // TODO:Rob - figure out same dependency here for http req
-  if (process.env.NODE_ENV === 'development'){
+  if (process.env.NODE_ENV === 'development') {
     return needle(method, url, requestBody || {}, {
       json: true,
       headers: getHeaders(config),
@@ -68,6 +68,7 @@ export default async function HTTPClient(method, urlType, requestBody) {
       data: requestBody,
       withCredentials: true,
       httpsAgent: agent,
+      timeout: 10000, // Timeout after 10 seconds
     }).then((res) => {
       return res.data
     }).catch((err) => {
