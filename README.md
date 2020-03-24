@@ -25,7 +25,7 @@ To activate this plugin, copy this repository into the `plugins/` directory in t
 
 ##### package.json
 
-```
+```bash
  "dependencies": {
     "@kui-shell/plugin-sample": "file:plugins/plugin-sample",
     "@kui-shell/plugin-search": "file:plugins/plugin-search",
@@ -34,7 +34,7 @@ To activate this plugin, copy this repository into the `plugins/` directory in t
 2. Add plugin's reference path to the root level `tsconfig.json` & `tsconfig-es6.json` file.
 
 ##### tsconfig.json
-```
+```bash
   "references": [
     { "path": "./plugins/plugin-sample" },
     { "path": "./plugins/plugin-search" }
@@ -42,7 +42,7 @@ To activate this plugin, copy this repository into the `plugins/` directory in t
 ```
 
 ##### tsconfig-es6.json
-```
+```bash
   "references": [
     { "path": "./plugins/plugin-sample/tsconfig-es6.json" },
     { "path": "./plugins/plugin-search/tsconfig-es6.json" }
@@ -51,13 +51,13 @@ To activate this plugin, copy this repository into the `plugins/` directory in t
 
 3. Add extends path to the`tsconfig.json` file in the `plugin-search` repo.
 
-```
+```bash
 "extends": "../../node_modules/@kui-shell/builder/tsconfig-base.json",
 ```
 
 If the extended path is missing, the user will be met with this error when compiling the code.
 
-```
+```bash
 error TS5070: Option '--resolveJsonModule' cannot be specified without 'node' module resolution strategy.
 ```
 
@@ -71,12 +71,12 @@ SEARCH_SERVICE - Search service URL. (The value retrieved from this endpoint, is
 
 The user can set the `staticConfig` path to their own `search.json` file, and the `authConfig` path to their own `search-auth.json` file. This will set the cluster configurations for the local dev environment. A template of each file can be found in the `src/lib/shared/` directory.
 
-```
+```bash
 staticConfig = require('path/to/file/search.json')
 authConfig: AuthConfig = require('path/to/file/search-auth.json')
 ```
 ##### search.json
-```
+```bash
 {
   "env": "development",
   "SEARCH_API": "https://<cluster search-api route host>/searchapi/graphql",
@@ -89,7 +89,7 @@ authConfig: AuthConfig = require('path/to/file/search-auth.json')
 ```
 
 ##### search-auth.json
-```
+```bash
 {
   "authorization": "Bearer <oc token>",
   "cookie": "cfc-cookie-access-token=<oc token>"
@@ -104,19 +104,19 @@ authorization & cookie - User access token
 
 5. Install the plugin dependencies
 
-```
+```bash
 npm install
 ```
 
 6. Compile the code at the root-level of the KUI repo.
 
-```
+```bash
 npm run compile
 ```
 
 7. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for ACM KUI testing).
 
-```
+```bash
 npm run start
 ```
 
@@ -131,7 +131,7 @@ Try `search` commands. Ex: `search kind:pod`
 
 The following will run all jest based unit tests. (Jest configurations can be specified within the `package.json` file or the `jest.config.js` file.)
 
-```
+```bash
 npm run test:unit
 ```
 
@@ -141,7 +141,7 @@ npm run test:unit
 
 The following will run all nightwatch e2e tests. (Nightwatch configurations can be specified within the `nightwatch.json` file.)
 
-```
+```bash
 npm run test:firefox
 ```
 
@@ -163,7 +163,7 @@ npm run test:firefox
 
 ## Trigger a release
 To trigger a new release you must push a commit of type `fix` or `release`
-```
+```bash
 npm run commit
 ```
 
