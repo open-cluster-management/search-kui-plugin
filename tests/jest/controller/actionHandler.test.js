@@ -53,17 +53,28 @@ describe('Search action handler', () => {
     })
   })
 
-  // describe('Notifications', () =>  {
-  //   it('should return a success notification', () => {
-  //     expect(actionHandler.notify(notification.success.content)).toMatchSnapshot()
-  //   })
+  describe('Notifications', () =>  {
+    const constantDate = new Date('2020-01-01T12:00:00')
 
-  //   it('should return a warning notification', () => {
-  //     expect(actionHandler.notify(notification.warning)).toMatchSnapshot()
-  //   })
+    beforeAll(() => {
+      global.Date = class extends Date {
+        constructor () {
+          super()
+          return constantDate
+        }
+      }
+    })
 
-  //   it('should return a error notification', () => {
-  //     expect(actionHandler.notify(notification.error)).toMatchSnapshot()
-  //   })
-  // })
+    it('should return a success notification', () => {
+      expect(actionHandler.notify(notification.success.content)).toMatchSnapshot()
+    })
+
+    it('should return a warning notification', () => {
+      expect(actionHandler.notify(notification.warning)).toMatchSnapshot()
+    })
+
+    it('should return a error notification', () => {
+      expect(actionHandler.notify(notification.error)).toMatchSnapshot()
+    })
+  })
 })
