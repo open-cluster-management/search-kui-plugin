@@ -36,7 +36,13 @@ exports[`Rendering search available should render that search is not installed 1
 >
   <div>
     <p>
-      The search service is not installed on this cluster. 
+      The search service is not installed on this cluster. You must install the 
+      <span
+        class="install-details-link"
+      >
+        Red Hat Advanced Cluster Management for Kubernetes
+      </span>
+       to use the search command.
     </p>
   </div>
 </div>
