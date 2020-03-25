@@ -63,7 +63,7 @@
 "modal.query.info.heading" : "Search guide",
 "modal.query.info.heading.subtext" : "Use keywords or property filters to search for resources.",
 "modal.query.info.keyword.desc" : "To search for a keyword, type the word in the search box.",
-"modal.query.info.keyword.example" : "A list of resources containing the keyword 'IBM' in any field.",
+"modal.query.info.keyword.example" : "A list of resources containing the keyword 'Red Hat' in any field.",
 "modal.query.info.filter.desc" : "To search for resources with a given property value, type or select the property name from the autocomplete list. Then type or select the value for the selected property filter.",
 "modal.query.info.filter.example" : "A list of resources with status 'failed' or 'pending'.",
 "modal.query.info.note.label" : "Additional information:",
