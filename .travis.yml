@@ -83,7 +83,8 @@ jobs:
       before_install:
         - make init
       install:
-        - make install
+        - npm install
+        - npm run buildCSS
       script:
         - make package
       deploy:
