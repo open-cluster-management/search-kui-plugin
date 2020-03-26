@@ -54,7 +54,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 
   // Returns the sidecar and tab for the selected resource || search query that was entered.
   return {
-    apiVersion: 'mcm.ibm.com/v1',
+    apiVersion: 'mcm.ibm.com/v1', // TODO: check if a different API version is needed
     badges: type !== 'query' ? badges : null,
     kind: lodash.get(data, 'items[0].kind', ''),
     summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
