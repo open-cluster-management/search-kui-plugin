@@ -13,7 +13,7 @@ import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
 import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
-import { summaryTab, buildSummary } from '../views/modes/summary';
+import { buildSummary } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
 import { relatedTab, buildRelated } from '../views/modes/related';
 import { logTab } from '../views/modes/logging';
@@ -31,11 +31,6 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   const modes = []
 
   if (type !== 'query') {
-    // If there is any item data, add the summary tab
-    if (lodash.get(data, 'items[0]', '')) {
-      modes.push(summaryTab(data.items[0]))
-    }
-
     // If the resource is a pod, add the logging tab.
     if (lodash.get(data, 'items[0].kind', '') === 'pod') {
       modes.push(logTab(data.items[0]))
@@ -47,8 +42,8 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
     }
   }
 
-  // If the resource have any related resources, add the related tab.
-  if (lodash.get(data, 'related', '').length > 0) {
+  // If the resource have any related resources, add the related tab. (For now, we're removing this tab from the query's sidecar and using the summary tab to represent this one.)
+  if (lodash.get(data, 'related', '').length > 0 && type !== 'query') {
     modes.push(relatedTab(data, type))
   }
 
