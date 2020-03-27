@@ -13,7 +13,7 @@ import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
 import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
-import { summaryTab, buildSummary } from '../views/modes/summary';
+import { buildSummary } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
 import { relatedTab, buildRelated } from '../views/modes/related';
 import { logTab } from '../views/modes/logging';
