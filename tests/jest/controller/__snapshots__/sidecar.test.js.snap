@@ -9,7 +9,157 @@ Object {
     "name": "Related resources for search results: pod",
     "namespace": null,
   },
-  "modes": Array [],
+  "modes": Array [
+    Object {
+      "content": <div
+        class="scrollable bx--tile-related"
+      >
+        <a
+          class="bx--link bx--tile bx--tile--clickable"
+          tabindex="0"
+        >
+          <div
+            class="bx--tile-container"
+          >
+            <span
+              class="bx--structured-list-td-related-header"
+            >
+              1
+            </span>
+            <br />
+            <span
+              class="bx--structured-list-td-body"
+            >
+              Related secret
+            </span>
+          </div>
+        </a>
+        <a
+          class="bx--link bx--tile bx--tile--clickable"
+          tabindex="0"
+        >
+          <div
+            class="bx--tile-container"
+          >
+            <span
+              class="bx--structured-list-td-related-header"
+            >
+              1
+            </span>
+            <br />
+            <span
+              class="bx--structured-list-td-body"
+            >
+              Related node
+            </span>
+          </div>
+        </a>
+        <a
+          class="bx--link bx--tile bx--tile--clickable"
+          tabindex="0"
+        >
+          <div
+            class="bx--tile-container"
+          >
+            <span
+              class="bx--structured-list-td-related-header"
+            >
+              1
+            </span>
+            <br />
+            <span
+              class="bx--structured-list-td-body"
+            >
+              Related release
+            </span>
+          </div>
+        </a>
+        <a
+          class="bx--link bx--tile bx--tile--clickable"
+          tabindex="0"
+        >
+          <div
+            class="bx--tile-container"
+          >
+            <span
+              class="bx--structured-list-td-related-header"
+            >
+              1
+            </span>
+            <br />
+            <span
+              class="bx--structured-list-td-body"
+            >
+              Related cluster
+            </span>
+          </div>
+        </a>
+        <a
+          class="bx--link bx--tile bx--tile--clickable"
+          tabindex="0"
+        >
+          <div
+            class="bx--tile-container"
+          >
+            <span
+              class="bx--structured-list-td-related-header"
+            >
+              1
+            </span>
+            <br />
+            <span
+              class="bx--structured-list-td-body"
+            >
+              Related service
+            </span>
+          </div>
+        </a>
+        <a
+          class="bx--link bx--tile bx--tile--clickable"
+          tabindex="0"
+        >
+          <div
+            class="bx--tile-container"
+          >
+            <span
+              class="bx--structured-list-td-related-header"
+            >
+              1
+            </span>
+            <br />
+            <span
+              class="bx--structured-list-td-body"
+            >
+              Related deployment
+            </span>
+          </div>
+        </a>
+        <a
+          class="bx--link bx--tile bx--tile--clickable"
+          tabindex="0"
+        >
+          <div
+            class="bx--tile-container"
+          >
+            <span
+              class="bx--structured-list-td-related-header"
+            >
+              1
+            </span>
+            <br />
+            <span
+              class="bx--structured-list-td-body"
+            >
+              Related replicaset
+            </span>
+          </div>
+        </a>
+      </div>,
+      "label": "Related Resources",
+      "mode": "related",
+      "order": 9999,
+    },
+  ],
   "summary": <div
     class="scrollable bx--tile-related"
   >
@@ -169,6 +319,291 @@ Object {
     "namespace": "kube-system",
   },
   "modes": Array [
+    Object {
+      "content": <div
+        class="scrollable bx--structured-list--summary"
+      >
+        <section
+          aria-label="Structured list section"
+          class="bx--structured-list"
+        >
+          <div
+            class="bx--structured-list-tbody"
+          >
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  cluster
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  local-cluster
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  container
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  icp-memcached
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  created
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  2019-09-17T18:17:13Z
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  hostIP
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  1.1.1.1
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  image
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/ibmcom-amd64/icp-memcached:latest
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  kind
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  pod
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  label
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  app=icp-memcached; chart=system-healthcheck-service-99.99.99; pod-template-hash=5bd5ddbd86; release=system-healthcheck-service
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  name
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  icp-memcached-5bd5ddbd86-9ckrj
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  namespace
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  kube-system
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  podIP
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  1.1.1.1
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  restarts
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  0
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  selfLink
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  /api/v1/namespaces/kube-system/pods/icp-memcached-5bd5ddbd86-9ckrj
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  startedAt
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  2019-09-17T18:17:13Z
+                </span>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <span
+                  class="bx--structured-list-td-header"
+                >
+                  status
+                </span>
+                <br />
+                <span
+                  class="bx--structured-list-td-body"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>,
+      "defaultMode": true,
+      "label": "Summary",
+      "mode": "summaryTab",
+      "order": 1,
+    },
     Object {
       "content": Promise {},
       "label": "Logs",
