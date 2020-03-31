@@ -45,12 +45,12 @@ before_script:
 
 jobs:
   include:
-    - stage: build
-      name: "Build and push search-kui-plugin test image"
-      script:
-        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-        - make component/build
-        - make component/push
+    # - stage: build
+    #   name: "Build and push search-kui-plugin test image"
+    #   script:
+    #     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
+    #     - make component/build
+    #     - make component/push
     - stage: unit-test
       name: "Run unit tests"
       if: type = pull_request
@@ -69,7 +69,7 @@ jobs:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         # - make component/pull
         - make component/test/e2e
-        - sonar-scanner --debug
+        # - sonar-scanner --debug
 
     - stage: publish
       name: "Publish the plugin"

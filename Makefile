@@ -7,6 +7,8 @@
 #  IBM Corporation - initial API and implementation
 ###############################################################################
 
+BROWSER ?= firefox
+
 -include $(shell curl -H 'Authorization: token ${GITHUB_TOKEN}' -H 'Accept: application/vnd.github.v4.raw' -L https://api.github.com/repos/open-cluster-management/build-harness-extensions/contents/templates/Makefile.build-harness-bootstrap -o .build-harness-bootstrap; echo .build-harness-bootstrap)
 
 default::
@@ -40,22 +42,20 @@ integrate-plugin:
 # copyright-check:
 # 	./build-tools/copyright-check.sh
 
-.PHONY: run-plugin-tests
-run-plugin-tests:
+.PHONY: run-unit-tests
+run-unit-tests:
 	tsc
-ifeq ($(UNIT_TESTS), TRUE)
 	if [ ! -d "test-output" ]; then \
 		mkdir test-output; \
 	fi
 	npm run test
-endif
 
-# ifeq ($(SELENIUM_TESTS), TRUE)
-# 	if [ ! -d "build-tools/test-output" ]; then	\
-# 		mkdir build-tools/test-output;	\
-# 	fi
-# 	npm run test:$(BROWSER)
-# endif
+.PHONY: run-e2e-tests
+run-e2e-tests:
+	if [ ! -d "test-output" ]; then \
+		mkdir test-output; \
+	fi
+	npm run test:$(BROWSER)
 
 # .PHONY: run
 # run:
