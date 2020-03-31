@@ -9,18 +9,21 @@
 
 
 module.exports = {
-    '@disabled': true,
+    '@disabled': false,
     before: function (browser) {
       const loginPage = browser.page.LoginPage()
+      const Search = browser.page.Search()
       if (!process.env.TEST_LOCAL) {
         loginPage.navigate()
         loginPage.authenticate()
       }
+      Search.navigate()
+      Search.waitForPageLoad(browser),
+      Search.verifyWebsocketConnection(browser)
     },
 
     'Verify search help': browser => {
       const Search = browser.page.Search()
-      Search.navigate()
       Search.searchHelp(browser)
     },
 
@@ -30,7 +33,6 @@ module.exports = {
     },
 
     // 'Verify search keyword': browser => {
-    //   const CLI = browser.page.Search()
     //   const Search = browser.page.Search()
     //   Search.searchKeyword(browser)
 

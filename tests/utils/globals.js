@@ -14,6 +14,9 @@ const reportFolder = `${cwd}/test-output/`
 /* eslint-disable no-console */
 module.exports = {
 
+  // Controls time out for async hooks. Expects done() callback to be invoked within this time or an error is thrown.
+  asyncHookTimeout: 60000,
+
   // External before hook is ran at the beginning of the tests run, before creating the Selenium session
   before: function(done) {
     del([reportFolder + '*', `${cwd}/selenium-debug.log`]).then(() => {

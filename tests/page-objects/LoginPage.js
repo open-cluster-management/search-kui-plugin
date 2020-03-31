@@ -12,13 +12,7 @@ module.exports = {
     return `${this.api.launchUrl}`
   },
   elements: {
-    username: '#username',
-    password: '#password',
-    submit: 'button[name="loginButton"]',
-    error: '.bx--inline-notification--error',
-    header: '.app-header',
-    loginPage: '.login-container',
-    pageContainer: '.page-content-container',
+    header: '.app-header'
   },
    /* eslint-disable @typescript-eslint/no-use-before-define */
   commands: [{
@@ -31,42 +25,65 @@ module.exports = {
   }]
 }
 
-// helper for other pages to use for authentication in before() their suit
 function authenticate(user, password) {
-  this.waitForLoginPageLoad()
-  this.inputUsername(user)
-  this.inputPassword(password)
-  this.submit()
-  this.waitForLoginSuccess()
+  let loginPage = 'html.login-pf'
+  let specialSelect = '.login a.idp'
+  let useUser = process.env.USE_USER || 'ocp'
+  let userNameField = '#inputUsername'
+  let passwordField = '#inputPassword'
+  let submitBtn = 'button[type="submit"]'
+  this.api.element('css selector', loginPage, res => {
+    if (res.value !== 0) { // OCP
+      console.log('Logging into OCP')
+    } else { // ICP
+      console.log('Logging into ICP')
+      loginPage = '.login-container'
+      userNameField = '#username'
+      passwordField = '#password'
+      submitBtn = 'button[name="loginButton"]'
+    }
+    const execLogin = () => {
+      this.waitForElementPresent(userNameField)
+      this.inputUsername(user, userNameField)
+      this.inputPassword(password, passwordField)
+      this.submit(submitBtn)
+      this.waitForLoginSuccess(loginPage)
+    }
+    this.waitForLoginPageLoad(loginPage)
+    this.api.elements('css selector', specialSelect, res => {
+      if (res.status < 0 || res.value.length < 1) {
+        console.log('Normal login')
+        execLogin();
+      }else{
+        const  userSelector = `.login a.idp[title="Log in with ${useUser}"]`
+        console.log('Selecting User',useUser,'use selector: ',userSelector)
+        this.press(userSelector)
+        execLogin()
+      }
+    })
+
+  })
 }
 
-function inputUsername(user) {
-  this.waitForElementPresent('@username')
-    .setValue('@username', user || process.env.K8S_CLUSTER_USER)
+function inputUsername(user, userNameField) {
+  this.waitForElementPresent(userNameField)
+    .setValue(userNameField, user || process.env.K8S_CLUSTER_USER)
 }
 
-function inputPassword(password) {
-  this.waitForElementPresent('@password')
-    .setValue('@password', password || process.env.K8S_CLUSTER_PASSWORD)
+function inputPassword(password, passwordField) {
+  this.waitForElementPresent(passwordField)
+    .setValue(passwordField, password || process.env.K8S_CLUSTER_PASSWORD)
 }
 
-function submit() {
-  this.waitForElementPresent('@submit')
-    .press('button[name="loginButton"]')
+function submit(submitBtn) {
+  this.waitForElementPresent(submitBtn)
+    .press(submitBtn)
 }
 
 function waitForLoginSuccess() {
   this.waitForElementPresent('@header', 20000)
 }
 
-function waitForLoginPageLoad() {
-  // The acceptInsecuretCerts config for Firefox doesn't work, so we have to click and accept
-  this.api.element('css selector', '#errorPageContainer', res => {
-    if (res.status !== -1) {
-      this.waitForElementPresent('#advancedButton').press('#advancedButton')
-      this.waitForElementPresent('#exceptionDialogButton').click('#exceptionDialogButton')
-      this.waitForElementNotPresent('#errorPageContainer')
-    }
-    this.waitForElementPresent('@loginPage', 20000)
-  })
+function waitForLoginPageLoad(loginPage) {
+  this.waitForElementPresent(loginPage, 20000)
 }

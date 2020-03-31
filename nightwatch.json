@@ -1,12 +1,12 @@
 {
   "src_folders": [
-    "build-tools/tests/e2e"
+    "tests/e2e"
   ],
-  "output_folder": "build-tools/test-output/e2e",
-  "custom_assertions_path": "build-tools/tests/assertions",
-  "page_objects_path": "build-tools/tests/page-objects",
-  "custom_commands_path": "build-tools/tests/commands",
-  "globals_path": "build-tools/tests/utils/globals.js",
+  "output_folder": "test-output/e2e",
+  "custom_assertions_path": "tests/assertions",
+  "page_objects_path": "tests/page-objects",
+  "custom_commands_path": "tests/commands",
+  "globals_path": "tests/utils/globals.js",
   "test_settings": {
     "default": {
       "launch_url": "//SET DYNAMICALLY VIA CONFIG",
@@ -39,7 +39,8 @@
           "args" : [
             "window-size=1024,768",
             "--no-sandbox",
-            "--disable-gpu"
+            "--disable-gpu",
+            "ignore-certificate-errors"
           ]
         }
       }
@@ -55,7 +56,10 @@
         "browserName": "firefox",
         "javascriptEnabled": true,
         "acceptInsecureCerts": true,
-        "version": ""
+        "version": "",
+        "alwaysMatch": {
+          "acceptInsecureCerts": true
+        }
       }
     },
     "safari": {

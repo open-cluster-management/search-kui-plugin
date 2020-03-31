@@ -9,8 +9,8 @@
  * Contract with IBM Corp.
  *******************************************************************************/
 
-// const chalk = require('chalk')
-// const { outputSelector, successSelector, resultInputSelector, failureSelector } = require('../config/selectors')
+const chalk = require('chalk')
+const { outputSelector, successSelector, resultInputSelector, failureSelector } = require('../config/selectors')
 
 module.exports = {
     url: function () {
@@ -24,10 +24,35 @@ module.exports = {
       searchHelpOutput: '.usage-error-wrapper'
     },
     commands: [{
+      waitForPageLoad,
+      verifyWebsocketConnection,
       searchHelp,
       searchSuggestions,
       // searchKeyword
     }]
+  }
+
+  function waitForPageLoad(browser) {
+    this.api.pause(5000)
+      // The acceptInsecuretCerts config for Firefox doesn't work, so we have to click and accept
+      this.api.element('css selector', '#errorPageContainer', res => {
+        if (res.status !== -1) {
+          this.waitForElementPresent('#advancedButton').press('#advancedButton')
+          this.waitForElementPresent('#exceptionDialogButton').click('#exceptionDialogButton')
+          this.waitForElementNotPresent('#errorPageContainer')
+        }
+        browser.element('css selector', '.page', res => {
+          this.waitForElementNotPresent('@pageLoading', 60000)
+          this.waitForElementPresent('@page', 20000)
+          this.waitForElementPresent('@main')
+          this.waitForElementPresent('@tabStripe')
+        })
+      })
+  }
+
+  function verifyWebsocketConnection(browser) {
+    this.waitForElementPresent(successSelector, 60000)
+    browser.assert.isCommand("ready")
   }
 
   function searchHelp(browser){
