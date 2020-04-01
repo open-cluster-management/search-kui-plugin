@@ -42,7 +42,6 @@ stages:
 before_script:
   - make init
 
-
 jobs:
   include:
     - stage: build
@@ -64,10 +63,12 @@ jobs:
     #     - make component/test/unit
 
     - stage: test-e2e
-      name: "Run e2e tests"
+      name: "Run functional tests"
       if: type = pull_request
       addons:
         firefox: latest
+      before_install:
+        - make add-search-test
       script:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         - make component/pull

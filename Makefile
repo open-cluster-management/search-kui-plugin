@@ -7,7 +7,20 @@
 #  IBM Corporation - initial API and implementation
 ###############################################################################
 
-BROWSER ?= firefox
+# BROWSER ?= firefox
+
+.PHONY: init\:
+init::
+	@mkdir -p variables
+ifndef GITHUB_USER
+	$(info GITHUB_USER not defined)
+	exit -1
+endif
+	$(info Using GITHUB_USER=$(GITHUB_USER))
+ifndef GITHUB_TOKEN
+	$(info GITHUB_TOKEN not defined)
+	exit -1
+endif
 
 -include $(shell curl -H 'Authorization: token ${GITHUB_TOKEN}' -H 'Accept: application/vnd.github.v4.raw' -L https://api.github.com/repos/open-cluster-management/build-harness-extensions/contents/templates/Makefile.build-harness-bootstrap -o .build-harness-bootstrap; echo .build-harness-bootstrap)
 
@@ -41,6 +54,11 @@ integrate-plugin:
 # copyright-check:
 # 	./build-tools/copyright-check.sh
 
+.PHONY: add-search-test
+add-search-test:
+	@cd build; \
+		./add-search-test.sh
+
 .PHONY: run-unit-tests
 run-unit-tests:
 	tsc
@@ -49,27 +67,19 @@ run-unit-tests:
 	fi
 	npm run test
 
-.PHONY: run-e2e-tests
-run-e2e-tests:
-ifeq ($(TEST_LOCAL), TRUE)
-	$(SELF) run > /dev/null
-	if [ ! -d "node_modules" ]; then \
-		npm install; \
-	fi
-	if [ ! -d "test-output" ]; then \
-		mkdir test-output; \
-	fi
-	npm run test:$(BROWSER)
-else
-	@echo e2e tests are disabled, export TEST_LOCAL="true" to run tests.
-endif
-
-.PHONY: install-oc
-install-oc:
-	@bash scripts/install-oc.sh
-.PHONY: login-oc
-login-oc:
-	@bash scripts/login-oc.sh
+# .PHONY: run-e2e-tests
+# run-e2e-tests:
+# ifeq ($(TEST_LOCAL), TRUE)
+# 	if [ ! -d "node_modules" ]; then \
+# 		npm install; \
+# 	fi
+# 	if [ ! -d "test-output" ]; then \
+# 		mkdir test-output; \
+# 	fi
+# 	npm run test:$(BROWSER)
+# else
+# 	@echo e2e tests are disabled, export TEST_LOCAL="true" to run tests.
+# endif
 
 # .PHONY: run
 # run:
