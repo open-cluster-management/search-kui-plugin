@@ -3,7 +3,7 @@ set -e
 
 echo "> Running build/run-e2e-tests.sh"
 export DOCKER_IMAGE_AND_TAG=${1}
-make install
-make package
-make integrate-plugin
+
+sudo make install-oc
+make login-oc
 make run-e2e-tests

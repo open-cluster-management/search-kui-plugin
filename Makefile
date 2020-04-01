@@ -29,7 +29,6 @@ package:
 	tsc
 	mkdir ./dist/src-web/styles && cp ./src/src-web/styles/index.css ./dist/src-web/styles
 	cp -r ./dist ./mdist
-	ls -a
 	npm pack
 	mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 
@@ -52,10 +51,24 @@ run-unit-tests:
 
 .PHONY: run-e2e-tests
 run-e2e-tests:
+ifeq ($(TEST_LOCAL), TRUE)
+	$(SELF) run > /dev/null
+	if [ ! -d "node_modules" ]; then \
+		npm install; \
+	fi
 	if [ ! -d "test-output" ]; then \
 		mkdir test-output; \
 	fi
 	npm run test:$(BROWSER)
+else
+	@echo e2e tests are disabled, export TEST_LOCAL="true" to run tests.
+
+.PHONY: install-oc
+install-oc:
+	@bash scripts/install-oc.sh
+.PHONY: login-oc
+login-oc:
+	@bash scripts/login-oc.sh
 
 # .PHONY: run
 # run:

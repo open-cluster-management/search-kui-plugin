@@ -12,7 +12,7 @@ module.exports = (settings => {
   if (process.env.TEST_LOCAL) {
     var defaultUrl = 'https://localhost:8081/kui'
   } else {
-    var defaultUrl = process.env.ICP_EXTERNAL_URL || process.env.K8S_CLUSTER_MASTER_IP
+    var defaultUrl = process.env.K8S_CLUSTER_MASTER_IP
     defaultUrl = !defaultUrl.endsWith('/kui') ? `${defaultUrl}/kui` : defaultUrl
   }
 
