@@ -62,6 +62,7 @@ ifeq ($(TEST_LOCAL), TRUE)
 	npm run test:$(BROWSER)
 else
 	@echo e2e tests are disabled, export TEST_LOCAL="true" to run tests.
+endif
 
 .PHONY: install-oc
 install-oc:
