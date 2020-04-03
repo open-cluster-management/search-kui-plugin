@@ -7,7 +7,7 @@ cd kui-web-terminal/
 echo 'initialize tests repo'
 make test-module
 
-rm ./tests/tests/e2e/* # remove kui tests for now
+# rm ./tests/tests/e2e/* # remove kui tests for faster build/test debug
 rm ./tests/tests/commands/enter.js
 
 cp ../../tests/e2e/search.test.js ./tests/tests/e2e/
