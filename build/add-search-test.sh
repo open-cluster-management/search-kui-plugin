@@ -8,10 +8,12 @@ echo 'initialize tests repo'
 make test-module
 
 # rm ./tests/tests/e2e/* # remove kui tests for faster build/test debug
-rm ./tests/tests/commands/enter.js
+rm ./tests/tests/commands/enter.js # temp replacing enter until we merge with CORE
 
-cp ../../tests/e2e/search.test.js ./tests/tests/e2e/
-cp ../../tests/page-objects/Search.js ./tests/tests/page-objects
-cp ../../tests/commands/enter.js ./tests/tests/commands/
+mkdir ./tests/tests/{e2e/searchPlugin/,page-objects/searchPlugin/}
+
+cp ../../tests/e2e/search.test.js ./tests/tests/e2e/searchPlugin/
+cp ../../tests/page-objects/Search.js ./tests/tests/page-objects/searchPlugin/
+cp ../../tests/commands/enter.js ./tests/commands/
 
 cd ../..
