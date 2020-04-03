@@ -12,6 +12,6 @@ rm ./tests/tests/commands/enter.js
 
 cp ../../tests/e2e/search.test.js ./tests/tests/e2e/
 cp ../../tests/page-objects/Search.js ./tests/tests/page-objects
-cp ../../tests/commands/enter.js ./tests/tests/page-objects
+cp ../../tests/commands/enter.js ./tests/tests/commands/
 
 cd ../..

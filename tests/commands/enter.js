@@ -17,7 +17,6 @@ const events = require('events')
 function enter () {
   events.EventEmitter.call(this)
 }
-console.log('enter')
 util.inherits(enter, events.EventEmitter)
 
 enter.prototype.command = function () {
