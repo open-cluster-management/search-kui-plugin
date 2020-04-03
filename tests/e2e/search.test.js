@@ -22,15 +22,20 @@ module.exports = {
       Search.verifyWebsocketConnection(browser)
     },
 
-    'Verify search help': browser => {
+    'Verify search plugin': browser => {
       const Search = browser.page.Search()
-      Search.searchHelp(browser)
+      Search.triggerSearch()
     },
 
-    'Verify search and suggestions': browser => {
-      const Search = browser.page.Search()
-      Search.searchSuggestions(browser)
-    },
+    // 'Verify search help': browser => {
+    //   const Search = browser.page.Search()
+    //   Search.searchHelp()
+    // },
+
+    // 'Verify search and suggestions': browser => {
+    //   const Search = browser.page.Search()
+    //   Search.searchSuggestions(browser)
+    // },
 
     // 'Verify search keyword': browser => {
     //   const Search = browser.page.Search()
