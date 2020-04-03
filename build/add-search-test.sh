@@ -14,6 +14,6 @@ mkdir ./tests/tests/{e2e/searchPlugin/,page-objects/searchPlugin/}
 
 cp ../../tests/e2e/search.test.js ./tests/tests/e2e/searchPlugin/
 cp ../../tests/page-objects/Search.js ./tests/tests/page-objects/searchPlugin/
-cp ../../tests/commands/enter.js ./tests/commands/
+cp ../../tests/commands/enter.js ./tests/tests/commands/
 
 cd ../..
