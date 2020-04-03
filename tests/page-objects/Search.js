@@ -12,7 +12,7 @@
  *******************************************************************************/
 
 const chalk = require('chalk')
-const { outputSelector, successSelector, resultInputSelector, failureSelector, failureOutputSelector, failureOutputXtermSelector, clearedTerminalSelector } = require('../config/selectors')
+const { outputSelector, successSelector, resultInputSelector, failureSelector, failureOutputSelector, failureOutputXtermSelector, clearedTerminalSelector } = require('../../config/selectors')
 
 module.exports = {
     url: function () {
