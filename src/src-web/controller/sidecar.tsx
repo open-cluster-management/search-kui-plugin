@@ -30,9 +30,11 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 
   const modes = []
 
+  const kind = lodash.get(data, 'items[0].kind', '')
+
   if (type !== 'query') {
     // If the resource is a pod, add the logging tab.
-    if (lodash.get(data, 'items[0].kind', '') === 'pod') {
+    if (kind === 'pod') {
       modes.push(logTab(data.items[0]))
     }
 
@@ -51,10 +53,10 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   return {
     apiVersion: 'mcm.ibm.com/v1', // TODO: check if a different API version is needed
     badges: type !== 'query' ? badges : null,
-    kind: lodash.get(data, 'items[0].kind', ''),
+    kind,
     summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
     metadata: {
-      name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
+      name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [kind]),
       namespace: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
     },
     modes,
