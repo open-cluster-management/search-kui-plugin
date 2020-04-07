@@ -21,7 +21,7 @@ const getXsrfToken = () => {
 interface StaticConfig {
   env: string
   SEARCH_API: string
-  ACM_API: string
+  CONSOLE_API: string
   SEARCH_SERVICE: string
 }
 
@@ -50,9 +50,9 @@ export async function getConfig(): Promise<Config> {
       SEARCH_API: inBrowser()
         ? `${window && window.location && window.location.origin}/multicloud/search/graphql`
         : staticConfig.SEARCH_API ,
-      ACM_API: inBrowser()
+      CONSOLE_API: inBrowser()
         ? `${window && window.location && window.location.origin}/multicloud/graphql`
-        : staticConfig.ACM_API,
+        : staticConfig.CONSOLE_API,
       SEARCH_SERVICE: inBrowser()
         ? `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
         : staticConfig.SEARCH_SERVICE,
