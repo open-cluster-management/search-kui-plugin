@@ -962,16 +962,16 @@ span{
   */
 
 body {
-  &[kui-theme="IBM Dark"] .react-tags__suggestions ul {
+  &[kui-theme="Carbon Gray90"] .react-tags__suggestions ul {
     background-color: var(--color-ui-03);
     border-color: var(--color-ui-03);
   }
 
-  &[kui-theme="IBM Dark"] .react-tags__suggestions li mark {
+  &[kui-theme="Carbon Gray90"] .react-tags__suggestions li mark {
     color: var(--color-base06);
   }
 
-  &[kui-theme="IBM Dark"] .react-tags__suggestions li.is-disabled {
+  &[kui-theme="Carbon Gray90"] .react-tags__suggestions li.is-disabled {
     border-bottom: 1px solid var(--color-ui-02);
 
     &:first-of-type {
@@ -980,7 +980,7 @@ body {
     }
   }
 
-  &[kui-theme="IBM Dark"] .bx--data-table {
+  &[kui-theme="Carbon Gray90"] .bx--data-table {
     &.bx--data-table--no-border thead tr th {
       background-color: var(--color-base02);
     }
@@ -993,14 +993,14 @@ body {
     }
   }
 
-  &[kui-theme="IBM Dark"] .bx--pagination {
+  &[kui-theme="Carbon Gray90"] .bx--pagination {
     background-color: var(--color-base02);
   }
-  &[kui-theme="IBM Dark"] .bx--pagination .bx--pagination__text {
+  &[kui-theme="Carbon Gray90"] .bx--pagination .bx--pagination__text {
     color: var(--color-base06);
   }
 
-  &[kui-theme="IBM Dark"] .bx--modal-container {
+  &[kui-theme="Carbon Gray90"] .bx--modal-container {
     background-color: var(--color-base02);
   }
 }
