@@ -65,7 +65,7 @@ error TS5070: Option '--resolveJsonModule' cannot be specified without 'node' mo
 
 <pre>
 SEARCH_API - Endpoint of the search API
-ACM_API - Endpoint of the ACM API
+CONSOLE_API - Endpoint of the CONSOLE API
 SEARCH_SERVICE - Search service URL. (The value retrieved from this endpoint, is to ensure that the Search API is installed on the cluster)
 </pre>
 
