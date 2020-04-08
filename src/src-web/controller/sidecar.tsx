@@ -83,7 +83,7 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
       } else if (args.command.includes('related:resources')) {
         resolve(buildSidecar('query', data))
       } else {
-        HTTPClient('post', 'acm', SEARCH_ACM_QUERY(data.items[0]))
+        HTTPClient('post', 'console', SEARCH_ACM_QUERY(data.items[0]))
         .then((resp) => {
           const resource = !resp.errors ? resp.data.getResource : resp
           resolve(buildSidecar('resource', data, resource))
