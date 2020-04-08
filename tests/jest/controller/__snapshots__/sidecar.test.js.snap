@@ -3,7 +3,6 @@
 exports[`Building Sidecar should build a query sidecar with tabs [Related Resources] 1`] = `
 Object {
   "apiVersion": "mcm.ibm.com/v1",
-  "badges": null,
   "kind": "pod",
   "metadata": Object {
     "name": "Related resources for search results: pod",
@@ -160,9 +159,6 @@ Object {
 exports[`Building Sidecar should build a resource sidecar with tabs [Summary, YAML, Related Resources] 1`] = `
 Object {
   "apiVersion": "mcm.ibm.com/v1",
-  "badges": Array [
-    "icp-memcached",
-  ],
   "kind": "pod",
   "metadata": Object {
     "name": "icp-memcached-5bd5ddbd86-9ckrj",

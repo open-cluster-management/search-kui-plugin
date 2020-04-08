@@ -7,7 +7,6 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
@@ -53,13 +52,7 @@ export const buildSummary = (items: any) => {
  *
  */
 export const summaryTab = (items: any) => {
-  const badges: Badge[] = []
-
-  // This will allow the sidecar balloon element to display the resources name.
-  const balloon = items.name.split(/(-[0-9])/)
-  badges.push(balloon[0])
-
-  return{
+  return {
     mode: 'summaryTab',
     defaultMode: true,
     label: strings('search.label.summary'),
