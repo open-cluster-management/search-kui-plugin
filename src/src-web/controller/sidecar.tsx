@@ -43,7 +43,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 
   // Returns the sidecar and tab for the selected resource || search query that was entered.
   return {
-    apiVersion: 'mcm.ibm.com/v1', // TODO: check if a different API version is needed
+    apiVersion: 'mcm.ibm.com/v1',
     kind,
     summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
     metadata: {
@@ -55,10 +55,11 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 }
 
 export const getSidecar = async (args) => new Promise((resolve, reject) => {
-  const userQuery = convertStringToQuery(args.command)
+  const { command } = args
+  const userQuery = convertStringToQuery(command)
 
   if (args.argv.length === 2) {
-    resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${args.command} kind:<keyword> name:<keyword> namespace:<keyword>\nEXAMPLE: ${args.command} kind:pod name:audit-logging-fluentd-ds-7tpnw namespace:kube-system`)
+    resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${command} kind:<keyword> name:<keyword>\nEXAMPLE: ${command} kind:pod name:audit-logging-fluentd-ds-7tpnw`)
   }
 
   const node = document.createElement('pre')
@@ -72,7 +73,7 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
 
       if (!data || data.items.length === 0) {
         resolve(node)
-      } else if (args.command.includes('related:resources')) {
+      } else if (command.includes('related:resources')) {
         resolve(buildSidecar('query', data))
       } else {
         HTTPClient('post', 'console', SEARCH_ACM_QUERY(data.items[0]))
