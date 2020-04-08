@@ -18,7 +18,7 @@ const filters = ['cluster', 'kind', 'label', 'name', 'namespace', 'status', 'api
 
 describe('Search plugin state', () => {
   const spy = jest.spyOn(pluginState, 'getPluginState')
-  const _ = pluginState.getPluginState()
+  pluginState.getPluginState()
 
   expect(spy).toBeCalled()
 
@@ -60,7 +60,7 @@ describe('Search plugin state', () => {
 
 describe('Is search available', () => {
   const spy = jest.spyOn(search, 'isSearchAvailable')
-  const _ = search.isSearchAvailable()
+  search.isSearchAvailable()
 
   expect(spy).toBeCalled()
 
@@ -71,7 +71,7 @@ describe('Is search available', () => {
 
 describe('Rendering search available', () => {
   const spy = jest.spyOn(search, 'renderSearchAvailable')
-  const _  = search.renderSearchAvailable(true, undefined)
+  search.renderSearchAvailable(true, undefined)
 
   expect(spy).toBeCalled()
 
@@ -102,7 +102,7 @@ describe('Rendering search available', () => {
 
 describe('Search command', () => {
   const spy = jest.spyOn(search, 'doSearch')
-  const _ = search.doSearch(args)
+  search.doSearch(args)
 
   expect(spy).toBeCalled()
 

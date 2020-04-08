@@ -17,7 +17,7 @@ const pod = items[0].kind.pod
 // Resource's Logs tab
 describe('logging mode', () => {
   let spy = jest.spyOn(logging, 'logTab')
-  let _ = logging.logTab(pod)
+  logging.logTab(pod)
 
   it('should render a tab entity for the resource log', () => {
     expect(spy).toBeCalled()
@@ -25,7 +25,7 @@ describe('logging mode', () => {
   })
 
   spy = jest.spyOn(logging, 'buildLog')
-  _ = logging.buildLog(pod)
+  logging.buildLog(pod)
 
   it('should build a resource log node element', () => {
     expect(spy).toBeCalled()

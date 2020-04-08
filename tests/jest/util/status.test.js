@@ -10,7 +10,7 @@
 const status = require('../../../dist/src-web/util/status')
 
 const spy = jest.spyOn(status, 'getStatusIcon')
-const _ = status.getStatusIcon()
+status.getStatusIcon()
 
 const data = ['OK', 'Unknown', 'OOMKilled', 'Pending', 'Completed']
 

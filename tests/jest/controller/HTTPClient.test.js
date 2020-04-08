@@ -15,7 +15,7 @@ const search = 'search'
 
 describe('HTTP Client - POST', () => {
   const spy = jest.spyOn(HTTPClient, 'default')
-  const _ = HTTPClient.default('post', search, queries.SAVED_SEARCH_QUERY).then(data => Promise.resolve(data))
+  HTTPClient.default('post', search, queries.SAVED_SEARCH_QUERY).then(data => Promise.resolve(data))
 
   it(`return a axios request object with urlType - [${search}] - POST`, () => {
     expect(spy).toBeCalled()
@@ -26,7 +26,7 @@ describe('HTTP Client - POST', () => {
 
 describe('HTTP Client - GET', () => {
   const spy = jest.spyOn(HTTPClient, 'default')
-  const _ = HTTPClient.default('get', svc, undefined).then(data => Promise.resolve(data))
+  HTTPClient.default('get', svc, undefined).then(data => Promise.resolve(data))
 
   it(`return a axios request object with urlType - [${svc}] - GET`, () => {
     expect(spy).toBeCalled()

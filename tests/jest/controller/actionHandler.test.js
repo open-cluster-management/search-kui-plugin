@@ -30,7 +30,7 @@ describe('Search action handler', () => {
     }
 
     const spy = jest.spyOn(actionHandler, 'deleteSavedSearch')
-    const _ = actionHandler.deleteSavedSearch(args)
+    actionHandler.deleteSavedSearch(args)
 
     it('should delete a saved search', () => {
       expect(spy).toBeCalled()
@@ -45,7 +45,7 @@ describe('Search action handler', () => {
     }
 
     const spy = jest.spyOn(actionHandler, 'deleteResource')
-    const _ = actionHandler.deleteResource(args)
+    actionHandler.deleteResource(args)
 
     it('should delete a resource', () => {
       expect(spy).toBeCalled()

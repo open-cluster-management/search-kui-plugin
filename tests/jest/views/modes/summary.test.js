@@ -17,7 +17,7 @@ const pod = items[0].kind.pod
 // Resource's Summary tab
 describe('summary mode', () => {
   let spy = jest.spyOn(summary, 'summaryTab')
-  let _ = summary.summaryTab(pod)
+  summary.summaryTab(pod)
 
   it('should render a tab entity for the resource summary', () => {
     expect(spy).toBeCalled()
@@ -25,7 +25,7 @@ describe('summary mode', () => {
   })
 
   spy = jest.spyOn(summary, 'buildSummary')
-  _ = summary.buildSummary(pod)
+  summary.buildSummary(pod)
 
   it('should build a resource summary node element', () => {
     expect(spy).toBeCalled()

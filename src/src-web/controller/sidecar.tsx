@@ -29,7 +29,6 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   badges.push(balloon[0])
 
   const modes = []
-
   const kind = lodash.get(data, 'items[0].kind', '')
 
   if (type !== 'query') {

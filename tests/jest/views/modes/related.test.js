@@ -18,7 +18,7 @@ describe('Resources/Query sidecar', () => {
   // Resource's Related Resources tab
   describe('related mode', () => {
     const spy = jest.spyOn(related, 'relatedTab')
-    const _ = related.relatedTab(configmap)
+    related.relatedTab(configmap)
 
     it('should render a tab entity for the selected resource related resources', () => {
       expect(spy).toBeCalled()
@@ -28,14 +28,14 @@ describe('Resources/Query sidecar', () => {
 
   describe('build related', () => {
     const spy = jest.spyOn(related,  'buildRelated')
-    let _  = related.buildRelated(configmap)
+    related.buildRelated(configmap)
 
     it('should build a related resources node element - structured list', () => {
       expect(spy).toBeCalled()
       expect(related.buildRelated(configmap)).toMatchSnapshot()
     })
 
-    _  = related.buildRelated(configmap, 'query')
+    related.buildRelated(configmap, 'query')
 
     it('should build a related resources node element - clickable list', () => {
       expect(spy).toBeCalled()

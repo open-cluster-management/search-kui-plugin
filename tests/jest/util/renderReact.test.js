@@ -27,7 +27,7 @@ describe('Rendering react components for searched query data table', () => {
   }
 
   else{
-    const _ = renderReact.default(resource.data.items, node, args.command)
+    renderReact.default(resource.data.items, node, args.command)
     it('should render a data table', () => {
       expect(spy).toBeCalled()
       expect(resource.data.items).toBeDefined()

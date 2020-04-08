@@ -29,7 +29,7 @@ const items = [
 describe('Resource helper getAge', () => {
   items.forEach(item => {
     const spy = jest.spyOn(helper, 'getAge')
-    const _ = helper.getAge(item, null, 'created')
+    helper.getAge(item, null, 'created')
 
     it(`should get the age of ${item.name} from the moment it was created (${item.created})`, () => {
       expect(spy).toBeCalled()

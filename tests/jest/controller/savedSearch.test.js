@@ -17,7 +17,7 @@ const args = {
 
 describe('Get query count', () => {
   const spy = jest.spyOn(search, 'getQueryCount')
-  const _ = search.getQueryCount(savedsearches.data)
+  search.getQueryCount(savedsearches.data)
 
   expect(spy).toBeCalled()
 
@@ -29,7 +29,7 @@ describe('Get query count', () => {
 
 describe('Saved Search command', () => {
   const spy = jest.spyOn(search, 'doSavedSearch')
-  const _ = search.doSavedSearch(args)
+  search.doSavedSearch(args)
 
   expect(spy).toBeCalled()
 

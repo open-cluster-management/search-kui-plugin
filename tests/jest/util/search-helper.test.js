@@ -20,7 +20,7 @@ describe('Search helper', () => {
   ]
   commands.forEach(command => {
     const spy = jest.spyOn(helper, 'convertStringToQuery')
-    const _ = helper.convertStringToQuery(command)
+    helper.convertStringToQuery(command)
 
     it(`should convert ${command} to a query`, () => {
       expect(spy).toBeCalled()
