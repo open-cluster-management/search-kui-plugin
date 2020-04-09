@@ -7,6 +7,12 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+// Hack to workaround build issues with Carbon dependencies
+if (!window || !window.navigator || !window.navigator.userAgent) {
+  Object.defineProperty(window, 'navigator', { value: { userAgent: 'node'}, writable: true })
+  Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
+}
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Registrar } from '@kui-shell/core'
@@ -116,11 +122,11 @@ export const doSearch = (args) => new Promise((resolve, reject) => {
  */
 export default async (commandTree: Registrar) => {
 
-  let opts = {usage, noAuthOk: true, inBrowserOk: true}
+  // let opts = {usage, noAuthOk: true, inBrowserOk: true}
 
-  // let opts = window.location.href === 'https://localhost:8081/kui'
-  // ? { usage, noAuthOk: true, inBrowserOk: false}
-  // : {usage, noAuthOk: true, inBrowserOk: true}
+  let opts = window.location.href === 'https://localhost:8081/kui'
+  ? { usage, noAuthOk: true, inBrowserOk: false}
+  : {usage, noAuthOk: true, inBrowserOk: true}
 
   const searchCmd = commandTree.listen('/search', doSearch, opts)
   commandTree.synonym('/s', doSearch, searchCmd, opts)
