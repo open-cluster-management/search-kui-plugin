@@ -54,10 +54,15 @@ integrate-plugin:
 # copyright-check:
 # 	./build-tools/copyright-check.sh
 
-.PHONY: add-search-test
-add-search-test:
-	@cd build; \
-		./add-search-test.sh
+.PHONY: test-module
+test-module:
+	sed -i "s/git@github.com:/https:\/\/$(GITHUB_USER):$(GITHUB_TOKEN)@github.com\//" .gitmodules
+	git submodule update --init --recursive
+
+# .PHONY: add-search-test
+# add-search-test:
+# 	@cd build; \
+# 		./add-search-test.sh
 
 .PHONY: run-unit-tests
 run-unit-tests:
@@ -67,19 +72,21 @@ run-unit-tests:
 	fi
 	npm run test
 
-# .PHONY: run-e2e-tests
-# run-e2e-tests:
-# ifeq ($(TEST_LOCAL), TRUE)
-# 	if [ ! -d "node_modules" ]; then \
-# 		npm install; \
-# 	fi
-# 	if [ ! -d "test-output" ]; then \
-# 		mkdir test-output; \
-# 	fi
-# 	npm run test:$(BROWSER)
-# else
-# 	@echo e2e tests are disabled, export TEST_LOCAL="true" to run tests.
-# endif
+.PHONY: run
+run:
+	$(MAKE) -C kui-tests run DOCKER_IMAGE_AND_TAG=$(DOCKER_IMAGE_AND_TAG)
+
+
+.PHONY: run-e2e-tests
+run-e2e-tests:
+ifeq ($(TEST_LOCAL), true)
+	$(SELF) run > /dev/null
+	$(MAKE) -C kui-tests setup-dependencies
+	$(MAKE) -C kui-tests run-all-tests
+else
+	@echo Tests are disabled, export TEST_LOCAL="true" to run tests.
+endif
+
 
 # .PHONY: run
 # run:
