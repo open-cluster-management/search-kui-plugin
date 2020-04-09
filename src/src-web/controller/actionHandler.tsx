@@ -91,7 +91,7 @@ export const deleteResource = (args) => new Promise((resolve, reject) => {
   }
 
   // delete resource args = (name, namespace, kind, cluster, selfLink)
-  HTTPClient('post', 'acm', DELETE_RESOURCE(args.argv[1], args.argv[2], args.argv[3], args.argv[4], args.argv[5]))
+  HTTPClient('post', 'console', DELETE_RESOURCE(args.argv[1], args.argv[2], args.argv[3], args.argv[4], args.argv[5]))
   .then((res) => {
     resolve(
       res.errors

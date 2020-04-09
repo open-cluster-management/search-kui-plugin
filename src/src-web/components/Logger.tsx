@@ -88,7 +88,7 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
         namespace: this.props.data.namespace,
       }
 
-      HTTPClient('post', 'acm', RESOURCE_LOGS(record))
+      HTTPClient('post', 'console', RESOURCE_LOGS(record))
       .then((res) => {
         this.setState({
           selectedItem: this.container,
