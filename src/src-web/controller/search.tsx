@@ -115,8 +115,13 @@ export const doSearch = (args) => new Promise((resolve, reject) => {
  *
  */
 export default async (commandTree: Registrar) => {
-  const opts = { usage, noAuthOk: true, inBrowserOk: true }
 
+  let opts = { usage, noAuthOk: true, inBrowserOk: true}
+  if (window.location.href === 'https://localhost:8081/kui'){
+    opts.inBrowserOk = false
+  }
+
+  console.log(window.location.hostname)
   const searchCmd = commandTree.listen('/search', doSearch, opts)
   commandTree.synonym('/s', doSearch, searchCmd, opts)
 
