@@ -8,8 +8,8 @@
 *******************************************************************************/
 
 // Hack to workaround build issues with Carbon dependencies
-if (!window || !window.navigator || !window.navigator.userAgent) {
-  Object.defineProperty(window, 'navigator', { value: { userAgent: 'node'}, writable: true })
+if (!window || !window.location || !window.location.href) {
+  Object.defineProperty(window, 'location', { value: { href: 'https://localhost:8081/kui'}, writable: true })
   Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 }
 
@@ -122,11 +122,11 @@ export const doSearch = (args) => new Promise((resolve, reject) => {
  */
 export default async (commandTree: Registrar) => {
 
-  // let opts = {usage, noAuthOk: true, inBrowserOk: true}
+  let opts = {usage, noAuthOk: true, inBrowserOk: true}
 
-  let opts = window.location.href === 'https://localhost:8081/kui'
-  ? { usage, noAuthOk: true, inBrowserOk: false}
-  : {usage, noAuthOk: true, inBrowserOk: true}
+  window.location.href === 'https://localhost:8081/kui'
+  ? opts.inBrowserOk = false
+  : opts.inBrowserOk = true
 
   const searchCmd = commandTree.listen('/search', doSearch, opts)
   commandTree.synonym('/s', doSearch, searchCmd, opts)
