@@ -67,3 +67,4 @@ export default async (commandTree: Registrar) => {
   const cmd = commandTree.listen(`/savedsearches`, doSavedSearch, opts)
   commandTree.synonym('/ss', doSavedSearch, cmd, opts)
 }
+ 

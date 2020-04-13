@@ -234,3 +234,4 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
     )
   }
 }
+ 

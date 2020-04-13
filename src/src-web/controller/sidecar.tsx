@@ -95,3 +95,4 @@ export const getSidecar = async (args) => new Promise((resolve, reject) => {
     resolve(renderSearchAvailable(isSearchAvailable()))
   }
 })
+ 

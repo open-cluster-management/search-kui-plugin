@@ -32,3 +32,4 @@ class Tag extends React.Component<TagProps, TagState> {
 }
 
 export default Tag
+ 

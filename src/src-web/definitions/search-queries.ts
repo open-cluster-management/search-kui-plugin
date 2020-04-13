@@ -159,3 +159,4 @@ export const DELETE_RESOURCE = (name, namespace, kind, cluster, selfLink) => {
       },
   }
 }
+ 

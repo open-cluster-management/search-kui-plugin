@@ -91,3 +91,4 @@ export const relatedTab = (data: any, type?: string) => {
     content: buildRelated(data.related, type)
   }
 }
+ 

@@ -27,8 +27,8 @@ export const convertStringToQuery = (searchText) => {
       let values
       // This will allow the search to return the clusterrolebinding resources
       if (f.includes('name:system:') || f.includes('name:icp:')) {
-        [ property, values ] = f.split('name:')
         property = 'name'
+        values = f.replace('name:', '')
       } else {
         [ property, values ] = f.split(':')
       }

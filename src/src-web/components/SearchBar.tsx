@@ -446,3 +446,4 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
     )
   }
 }
+ 

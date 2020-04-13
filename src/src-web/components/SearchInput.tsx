@@ -48,3 +48,4 @@ export default class SearchInput extends React.PureComponent<SearchInputProps, S
     )
   }
 }
+ 

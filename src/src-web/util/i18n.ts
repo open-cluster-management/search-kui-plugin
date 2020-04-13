@@ -36,4 +36,4 @@ export default (key: string, args?: Array<any>) => {
       })
   }
   return string || defaultStrings[key] || key
-  }
+}

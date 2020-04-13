@@ -126,3 +126,4 @@ export default async (commandTree: Registrar) => {
   const relatedCmd = await commandTree.listen('/search/related:resources', getSidecar, opts)
   commandTree.synonym('/s/related:resources', getSidecar, relatedCmd, opts)
 }
+ 

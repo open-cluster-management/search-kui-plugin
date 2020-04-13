@@ -120,3 +120,4 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
     )
   }
 }
+ 

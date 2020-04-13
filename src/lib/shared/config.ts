@@ -38,8 +38,8 @@ export type Config = StaticConfig &
 export async function getConfig(): Promise<Config> {
 
   const nconf = require('nconf')
-
   const WHITELIST = ['contextPath']
+  const origin = window && window.location && window.location.origin
 
   let config: Config = Object.assign(
     {
@@ -48,13 +48,13 @@ export async function getConfig(): Promise<Config> {
       // To ensure that the search-api is installed, Electron needs to grab the url Ex: https://<cluster-ip>:8443/multicloud/servicediscovery/search
       // Browser can grab backend urls from the window.location.origin
       SEARCH_API: inBrowser()
-        ? `${window && window.location && window.location.origin}/multicloud/search/graphql`
-        : staticConfig.SEARCH_API ,
+        ? `${origin}/multicloud/search/graphql`
+        : staticConfig.SEARCH_API,
       CONSOLE_API: inBrowser()
-        ? `${window && window.location && window.location.origin}/multicloud/graphql`
+        ? `${origin}/multicloud/graphql`
         : staticConfig.CONSOLE_API,
       SEARCH_SERVICE: inBrowser()
-        ? `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
+        ? `${origin}/multicloud/servicediscovery/search`
         : staticConfig.SEARCH_SERVICE,
     },
     {
@@ -80,10 +80,10 @@ export async function getConfig(): Promise<Config> {
   }
 
   if (nconf) {
-    WHITELIST.forEach( i => {
+    WHITELIST.forEach((i) => {
       config[i] = nconf.get(i)
     })
-    if (process.env.NODE_ENV){
+    if (process.env.NODE_ENV) {
       config.env = process.env.NODE_ENV
     }
   } else {

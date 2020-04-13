@@ -11,7 +11,7 @@ import { injectCSS } from '@kui-shell/core'
 
 export const injectOurCSS = () => {
   injectCSS({
-    css: require('@kui-shell/plugin-search/mdist/src-web/styles/index.css'),
-    key: 'search'
+    css: require('@kui-shell/plugin-search/src/src-web/styles/index.css'),
+    key: 'search',
   })
 }

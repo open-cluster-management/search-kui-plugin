@@ -48,3 +48,4 @@ export default function renderReact(data: any, node: HTMLDivElement, command: st
   ReactDOM.render(React.createElement(searchResource), node)
   return node
 }
+ 

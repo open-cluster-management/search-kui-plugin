@@ -16,6 +16,6 @@ export default async (commandTree: Registrar) => {
   return Promise.all([
     actions(commandTree),
     search(commandTree),
-    savedSearch(commandTree),
+    savedSearch(commandTree)
   ])
 }

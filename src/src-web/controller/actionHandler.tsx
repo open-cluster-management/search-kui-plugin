@@ -133,3 +133,4 @@ export default async (commandTree: Registrar) => {
   commandTree.listen(`/deleteSavedSearch`, deleteSavedSearch, deleteSavedSearchOpts)
   commandTree.listen(`/deleteResource`, deleteResource, deleteResourceOpts)
 }
+ 
