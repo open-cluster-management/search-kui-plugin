@@ -74,23 +74,8 @@ export const SAVED_SEARCH_QUERY = {
   query: 'query savedSearches {\n  items: savedSearches {\n    id\n    name\n    description\n    searchText\n    __typename\n  }\n}\n',
 }
 
-export const SAVED_QUERY = (data) => {
-  return{
-    operationName: 'saveQuery',
-    variables: {
-      resource: {
-        name: data.name,
-        description: data.description,
-        searchText: data.searchText,
-        id: data.id,
-      },
-    },
-    query: 'mutation saveQuery($resource: JSON!) {\n  saveQuery(resource: $resource)\n}\n',
-  }
-}
-
 export const SAVE_SEARCH = (search) => {
-  return{
+  return {
     operationName: 'saveSearch',
     variables: {
       resource: {

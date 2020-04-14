@@ -15,9 +15,8 @@ import * as lodash from 'lodash'
 * UI helpers to help with data transformations
 * */
 
-export const getAge = (item, timestampKey) => {
+export const getAge = (item, timestampKey?) => {
   const key = timestampKey || 'created'
   const createdTime = lodash.get(item, key)
-
-  return moment(createdTime, 'YYYY-MM-DDHH:mm:ssZ').fromNow()
+  return moment(createdTime, 'YYYY-MM-DDTHH:mm:ssZ').fromNow()
 }

@@ -10,6 +10,7 @@
 const searchqueries = require('../../../dist/src-web/definitions/search-queries')
 const resource = require('../../data/pod')
 const yaml = require('../../data/deployment')
+const savedsearches = require('../../data/savedsearches')
 
 const keys = ['operationName', 'query', 'variables']
 
@@ -85,15 +86,17 @@ describe('Search Queries', () => {
     expect(searchqueries.SEARCH_RELATED_QUERY(input.keywords, input.filters)).toMatchSnapshot()
   })
 
-  it('should RESOURCE_LOGS', () => {
-    expect(searchqueries.RESOURCE_LOGS(resource.pod)).toBeDefined()
-    expect(Object.keys(searchqueries.RESOURCE_LOGS(resource.pod))).toEqual(expect.arrayContaining(keys))
-    expect(searchqueries.RESOURCE_LOGS(resource.pod)).toMatchSnapshot()
-  })
-
   it('should UPDATE_RESOURCE', () => {
     expect(searchqueries.UPDATE_RESOURCE(yaml.deployment)).toBeDefined()
     expect(Object.keys(searchqueries.UPDATE_RESOURCE(yaml.deployment))).toEqual(expect.arrayContaining(keys))
     expect(searchqueries.UPDATE_RESOURCE(yaml.deployment)).toMatchSnapshot()
   })
+
+  savedsearches.data.forEach(search => {
+    it(`should SAVE_SEARCH query - ${search.name}`, () => {
+      expect(searchqueries.SAVE_SEARCH(search)).toBeDefined()
+      expect(Object.keys(searchqueries.SAVE_SEARCH(search))).toEqual(expect.arrayContaining(keys))
+      expect(searchqueries.SAVE_SEARCH(search)).toMatchSnapshot()
+    })
+  });
 })

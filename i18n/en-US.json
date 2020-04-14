@@ -245,6 +245,7 @@
 "table.header.services" : "Services",
 "table.header.source" : "Source",
 "table.header.status" : "Status",
+"table.header.startedAt" : "Started At",
 "table.header.status.healthy" : "Healthy",
 "table.header.status.unhealthy" : "Unhealthy",
 "table.header.storage" : "Storage",
