@@ -64,7 +64,8 @@ jobs:
         - npm install
         - npm run buildCSS
         - make package
-        - make run-plugin-tests
+        - make integrate-plugin
+        - npm run test
         - make sonar/js
 
     # - stage: test-e2e
