@@ -60,6 +60,9 @@ jobs:
         # Bootstrap the build harness, pull test image, and run unit tests.
         # - make component/pull
         - make sonar/js/jest-init
+        - npm install -g typescript sass carbon-components
+        - npm install
+        - npm run buildCSS
         - make package
         - make run-plugin-tests
         - make sonar/js
