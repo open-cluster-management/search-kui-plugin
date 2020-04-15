@@ -59,17 +59,17 @@ jobs:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         - make component/test/unit
 
-    # - stage: test-e2e
-    #   name: "Run functional tests"
-    #   if: type = pull_request
-    #   addons:
-    #     firefox: latest
-    #   before_install:
-    #     - make test-module
-    #   script:
-    #     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-    #     # - make component/pull
-    #     - make component/test/e2e
+    - stage: test-e2e
+      name: "Run functional tests"
+      if: type = pull_request
+      addons:
+        firefox: latest
+      before_install:
+        - make test-module
+      script:
+        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
+        # - make component/pull
+        - make component/test/e2e
 
     - stage: publish
       name: "Publish the plugin"
