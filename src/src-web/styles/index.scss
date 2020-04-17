@@ -895,56 +895,53 @@ span{
     width: 100%;
     margin-left: 10%;
 
-    .bx--link{
+    .bx--tile{
       background-color: transparent;
+      text-decoration: none;
 
-      &.bx--tile{
-        text-decoration: none;
+      &.bx--tile--clickable{
+        margin-top: 5%;
+        float: left;
+        width: 30%;
+        height: 100px;
+        border: none;
 
-        &.bx--tile--clickable{
-          margin-top: 5%;
-          float: left;
-          width: 30%;
-          height: 100px;
-          border: none;
-
-          .bx--tile-container{
-            width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding:  0.3rem;
-
-            &:hover{
-              cursor: pointer;
-
-              .bx--structured-list-td-related-header{
-                opacity: 1;
-              }
-
-              .bx--structured-list-td-body{
-                opacity: 1;
-              }
-            }
-          }
+        .bx--tile-container{
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding:  0.3rem;
 
           &:hover{
-            cursor: none;
-          }
+            cursor: pointer;
 
-          .bx--structured-list-td-related-header{
-            font-size: 2rem;
-            font-weight: 500;
-            color: var(--color-map-key);
-            text-decoration: none;
-            opacity: 0.8;
-          }
+            .bx--structured-list-td-related-header{
+              opacity: 1;
+            }
 
-          .bx--structured-list-td-body{
-            font-size: 0.9rem;
-            color: var(--color-base07);
-            text-decoration: none;
-            opacity: 0.8;
+            .bx--structured-list-td-body{
+              opacity: 1;
+            }
           }
+        }
+
+        &:hover{
+          cursor: none;
+        }
+
+        .bx--structured-list-td-related-header{
+          font-size: 2rem;
+          font-weight: 500;
+          color: var(--color-map-key);
+          text-decoration: none;
+          opacity: 0.8;
+        }
+
+        .bx--structured-list-td-body{
+          font-size: 0.9rem;
+          color: var(--color-base07);
+          text-decoration: none;
+          opacity: 0.8;
         }
       }
     }
