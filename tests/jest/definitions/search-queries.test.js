@@ -8,7 +8,7 @@
 *******************************************************************************/
 'use strict'
 const searchqueries = require('../../../dist/src-web/definitions/search-queries')
-const resource = require('../../data/pod')
+const res = require('../../data/pod')
 const yaml = require('../../data/deployment')
 const savedsearches = require('../../data/savedsearches')
 
@@ -27,15 +27,15 @@ const input = {
 // Each query should be defined and return an object with the same keys.
 describe('Search Queries', () => {
   it('should DELETE_QUERY', () => {
-    expect(searchqueries.DELETE_QUERY(resource.pod.name)).toBeDefined()
-    expect(Object.keys(searchqueries.DELETE_QUERY(resource.pod.name))).toEqual(expect.arrayContaining(keys))
-    expect(searchqueries.DELETE_QUERY(resource.pod.name)).toMatchSnapshot()
+    expect(searchqueries.DELETE_QUERY(res.pod.name)).toBeDefined()
+    expect(Object.keys(searchqueries.DELETE_QUERY(res.pod.name))).toEqual(expect.arrayContaining(keys))
+    expect(searchqueries.DELETE_QUERY(res.pod.name)).toMatchSnapshot()
   })
 
   it('should DELETE_RESOURCE', () => {
-    expect(searchqueries.DELETE_RESOURCE(resource.pod.name, resource.pod.namespace, resource.pod.kind, resource.pod.cluster, resource.pod.selfLink)).toBeDefined()
-    expect(Object.keys(searchqueries.DELETE_RESOURCE(resource.pod.name, resource.pod.namespace, resource.pod.kind, resource.pod.cluster, resource.pod.selfLink))).toEqual(expect.arrayContaining(keys))
-    expect(searchqueries.DELETE_RESOURCE(resource.pod.name, resource.pod.namespace, resource.pod.kind, resource.pod.cluster, resource.pod.selfLink)).toMatchSnapshot()
+    expect(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.selfLink)).toBeDefined()
+    expect(Object.keys(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.selfLink))).toEqual(expect.arrayContaining(keys))
+    expect(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.selfLink)).toMatchSnapshot()
   })
 
   it('should GET_SEARCH_COMPLETE', () => {
@@ -57,15 +57,15 @@ describe('Search Queries', () => {
   })
 
   it('should RESOURCE_LOGS', () => {
-    expect(searchqueries.RESOURCE_LOGS(resource.pod)).toBeDefined()
-    expect(Object.keys(searchqueries.RESOURCE_LOGS(resource.pod))).toEqual(expect.arrayContaining(keys))
-    expect(searchqueries.RESOURCE_LOGS(resource.pod)).toMatchSnapshot()
+    expect(searchqueries.RESOURCE_LOGS(res.pod)).toBeDefined()
+    expect(Object.keys(searchqueries.RESOURCE_LOGS(res.pod))).toEqual(expect.arrayContaining(keys))
+    expect(searchqueries.RESOURCE_LOGS(res.pod)).toMatchSnapshot()
   })
 
   it('should SEARCH_ACM_QUERY', () => {
-    expect(searchqueries.SEARCH_ACM_QUERY(resource.pod)).toBeDefined()
-    expect(Object.keys(searchqueries.SEARCH_ACM_QUERY(resource.pod))).toEqual(expect.arrayContaining(keys))
-    expect(searchqueries.SEARCH_ACM_QUERY(resource.pod)).toMatchSnapshot()
+    expect(searchqueries.SEARCH_ACM_QUERY(res.pod)).toBeDefined()
+    expect(Object.keys(searchqueries.SEARCH_ACM_QUERY(res.pod))).toEqual(expect.arrayContaining(keys))
+    expect(searchqueries.SEARCH_ACM_QUERY(res.pod)).toMatchSnapshot()
   })
 
   it('should SEARCH_QUERY', () => {

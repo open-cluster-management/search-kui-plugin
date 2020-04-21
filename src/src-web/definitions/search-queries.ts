@@ -134,8 +134,6 @@ export const DELETE_RESOURCE = (name, namespace, kind, cluster, selfLink) => {
     operationName: 'deleteResource',
       query: 'mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {\n  deleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)\n}\n',
       variables: {
-        // TODO - Not sure if child resources are handled at all..
-        // childResources,
         name,
         namespace,
         kind,

@@ -48,9 +48,7 @@ describe('Search definitions', () => {
             { key: 'searchText' },
             { key: 'count' },
           ],
-          actions: [
-            'table.actions.remove',
-          ]
+          actions: []
         })
       }
       expect(searchdefinitions.default[kind]).toMatchSnapshot()

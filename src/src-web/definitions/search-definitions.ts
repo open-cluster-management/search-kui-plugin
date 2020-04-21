@@ -19,9 +19,7 @@ export default {
       { key: 'namespace' },
       { key: 'created', transform: getAge },
     ],
-    actions: [
-      'table.actions.applications.remove',
-    ],
+    actions: [],
   },
   applicationrelationship: {
     columns: [
@@ -45,9 +43,7 @@ export default {
       { key: 'storage'},
       { key: 'memory'},
     ],
-    actions: [
-      'table.actions.cluster.edit.labels',
-    ],
+    actions: [],
   },
   configmap: {
     columns: [
@@ -205,10 +201,7 @@ export default {
       { key: 'podIP'},
       { key: 'created', transform: getAge },
     ],
-    actions: [
-      'table.actions.pod.logs',
-      'table.actions.remove',
-    ],
+    actions: [],
   },
   policy: {
     columns: [
@@ -229,9 +222,7 @@ export default {
       { key: 'chartVersion'},
       { key: 'updated', transform: getAge },
     ],
-    actions: [
-      'table.actions.remove',
-    ],
+    actions: [],
   },
   replicaset: {
     columns: [
@@ -251,9 +242,7 @@ export default {
       { key: 'searchText' },
       { key: 'count' },
     ],
-    actions: [
-      'table.actions.remove',
-    ],
+    actions: [],
   },
   secret: {
     columns: [
