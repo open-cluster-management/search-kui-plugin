@@ -50,6 +50,14 @@ ifeq ($(UNIT_TESTS), TRUE) # I don't trust this ...
 	npm run test
 endif
 
+.PHONY: run-standalone-plugin-tests
+run-plugin-tests:
+	tsc
+	if [ ! -d "test-output" ]; then \
+		mkdir test-output; \
+	fi
+	npm run test
+
 # ifeq ($(SELENIUM_TESTS), TRUE)
 # 	if [ ! -d "build-tools/test-output" ]; then	\
 # 		mkdir build-tools/test-output;	\
