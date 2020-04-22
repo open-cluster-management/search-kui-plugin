@@ -61,9 +61,10 @@ jobs:
         # - make component/pull
         
         
-        - npm install
+        
         - npm install typescript sass carbon-components
         - npm run buildCSS
+        - npm install
         - make package
         - make integrate-plugin
         - make sonar/js/jest-init
