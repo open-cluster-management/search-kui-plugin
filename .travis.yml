@@ -61,6 +61,7 @@ jobs:
         # - make component/pull
         - make sonar/js/jest-init
         - npm install -g typescript
+        - make package
         - make integrate-plugin
         - make run-plugin-tests
         - make sonar/js
