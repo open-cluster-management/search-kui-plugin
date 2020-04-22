@@ -51,7 +51,7 @@ ifeq ($(UNIT_TESTS), TRUE) # I don't trust this ...
 endif
 
 .PHONY: run-standalone-plugin-tests
-run-plugin-tests:
+run-standalone-plugin-tests:
 	tsc
 	if [ ! -d "test-output" ]; then \
 		mkdir test-output; \
