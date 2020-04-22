@@ -36,14 +36,14 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
     }
   }
 
-  // If the resource have any related resources, add the related tab. (For now, we're removing this tab from the query's sidecar and using the summary tab to represent this one.)
+  // If the resource have any related resources, add the related tab. (For now, we're removing this tab from the query's sidecar and using the summary tab to represent this one)
   if (lodash.get(data, 'related', '').length > 0 && type !== 'query') {
     modes.push(relatedTab(data, type))
   }
 
   // Returns the sidecar and tab for the selected resource || search query that was entered.
   return {
-    apiVersion: 'mcm.ibm.com/v1', // TODO: check if a different API version is needed
+    apiVersion: 'mcm.ibm.com/v1',
     kind,
     summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
     metadata: {
@@ -55,10 +55,11 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 }
 
 export const getSidecar = async (args) => new Promise((resolve, reject) => {
-  const userQuery = convertStringToQuery(args.command)
+  const { command } = args
+  const userQuery = convertStringToQuery(command)
 
   if (args.argv.length === 2) {
-    resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${args.command} kind:<keyword> name:<keyword> namespace:<keyword>\nEXAMPLE: ${args.command} kind:pod name:audit-logging-fluentd-ds-7tpnw namespace:kube-system`)
+    resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${command} kind:<keyword> name:<keyword>\nEXAMPLE: ${command} kind:pod name:alertmanager-main-0`)
   }
 
   const node = document.createElement('pre')

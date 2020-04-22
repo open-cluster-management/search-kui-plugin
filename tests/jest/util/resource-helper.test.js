@@ -9,35 +9,39 @@
 'use strict'
 const helper = require('../../../dist/src-web/util/resource-helper')
 
+const namespace = 'open-cluster-management'
+const cluster = 'local-cluster'
+const timestamp = '2019-09-17T18:00:29Z'
+
 const items = [
   {
     kind: "pod",
     name: "mock-name",
-    namespace: "kube-system",
-    cluster: "local-cluster",
-    created: "2019-09-17T18:13:28Z",
+    namespace,
+    cluster,
+    created: timestamp,
   },
   {
     kind: "cronjob",
     name: "mock-name2",
-    namespace: "kube-system",
-    cluster: "local-cluster",
-    created: "2019-09-17T18:00:29Z",
+    namespace,
+    cluster,
+    created: timestamp,
     schedule: "mock-schedule",
     suspend: "mock-suspend",
     active: "mock-active",
-    lastSchedule: "2019-09-17T18:00:29Z",
+    lastSchedule: timestamp,
   },
   {
     kind: "release",
     name: "mock-name3",
-    namespace: "kube-system",
-    cluster: "local-cluster",
-    created: "2019-09-17T18:00:29Z",
+    namespace,
+    cluster,
+    created: timestamp,
     status: "DEPLOYED",
     chartName: "mock-chart-name",
     chartVersion: "0.0.0",
-    updated: "2019-09-17T18:00:29Z",
+    updated: timestamp,
   }
 ]
 
