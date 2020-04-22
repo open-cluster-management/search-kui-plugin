@@ -59,12 +59,9 @@ jobs:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         # Bootstrap the build harness, pull test image, and run unit tests.
         # - make component/pull
-        
-        
-        
-        - npm install typescript sass carbon-components
-        - npm run buildCSS
         - npm install
+        - npm install -g typescript sass carbon-components
+        - npm run buildCSS
         - make package
         - make integrate-plugin
         - make sonar/js/jest-init
