@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Injecting our CSS should import and inject our css for environment (dev) 1`] = `undefined`;
+
+exports[`Injecting our CSS should import and inject our css for environment (test) 1`] = `
+Object {
+  "css": "@kui-shell/plugin-search/mdist/src-web/styles/index.css",
+  "key": "search",
+}
+`;

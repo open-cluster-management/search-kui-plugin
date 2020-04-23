@@ -7,7 +7,6 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
@@ -43,12 +42,6 @@ export const buildLog = (data: any) => new Promise((resolve, reject) => {
  *
  */
 export const logTab = (data: any) => {
-  const badges: Badge[] = []
-
-  // This will allow the sidecar balloon element to display the resources name.
-  const balloon = data.name.split(/(-[0-9])/)
-  badges.push(balloon[0])
-
   return {
     mode: 'logging',
     label: strings('search.label.logs'),

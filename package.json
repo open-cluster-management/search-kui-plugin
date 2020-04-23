@@ -19,6 +19,7 @@
   "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
+    "test:coverage": "jest --coverage --no-cache",
     "test:unit": "jest --colors",
     "test": "npx jest --silent",
     "test:watch": "jest --watch",
