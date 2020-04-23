@@ -59,11 +59,11 @@ jobs:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         # Bootstrap the build harness, pull test image, and run unit tests.
         # - make component/pull
+        - make sonar/js/jest-init
         - npm install
         - npm run buildCSS
         - make package
         - make integrate-plugin
-        - make sonar/js/jest-init
         - make run-standalone-plugin-tests
         - make sonar/js
 
