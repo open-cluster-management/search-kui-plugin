@@ -65,18 +65,17 @@ jobs:
         # - make integrate-plugin
         # - make run-standalone-plugin-tests
         # - make sonar/js
-
-        - | 
-          npm install -g typescript 
-          npm install -g sass 
-          npm install -g carbon-components
-          npm install
-          sass src/src-web/styles/index.scss src/src-web/styles/index.css
-          make package
-          make integrate-plugin
-          make sonar/js/jest-init
-          make run-standalone-plugin-tests
-          make sonar/js
+ 
+        - npm install -g typescript 
+        - npm install -g sass 
+        - npm install -g carbon-components
+        - npm install
+        - make package
+        - make integrate-plugin
+        - sass src/src-web/styles/index.scss src/src-web/styles/index.css
+        - make sonar/js/jest-init
+        - make run-standalone-plugin-tests
+        - make sonar/js
 
     # - stage: test-e2e
     #   name: "Deploy the image to a cluster and run e2e tests"
