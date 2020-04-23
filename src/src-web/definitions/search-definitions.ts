@@ -18,11 +18,8 @@ export default {
       { key: 'name' },
       { key: 'namespace' },
       { key: 'created', transform: getAge },
-    //   { key: 'dashboard', transform: createDashboardLink },
     ],
-    actions: [
-      'table.actions.applications.remove',
-    ],
+    actions: [],
   },
   applicationrelationship: {
     columns: [
@@ -39,25 +36,21 @@ export default {
     columns: [
       { key: 'name' },
       { key: 'namespace' },
-    //   { key: 'status', transform: getClusterStatusIcon },
       { key: 'nodes'},
       { key: 'klusterletVersion'},
       { key: 'kubernetesVersion', msgKey: 'k8sVersion' },
       { key: 'cpu'},
       { key: 'storage'},
       { key: 'memory'},
-    //   { key: 'consoleURL', msgKey: 'endpoint', transform: getExternalLink },
     ],
-    actions: [
-      'table.actions.cluster.edit.labels',
-    ],
+    actions: [],
   },
   configmap: {
     columns: [
       { key: 'name' },
       { key: 'namespace' },
       { key: 'cluster' },
-      { key: 'created', transform: getAge},
+      { key: 'created', transform: getAge },
     ],
   },
   cronjob: {
@@ -68,8 +61,8 @@ export default {
       { key: 'schedule' },
       { key: 'suspend' },
       { key: 'active' },
-      { key: 'lastSchedule', transform: (item) => getAge( item, null, 'lastSchedule') },
-      { key: 'created', transform: getAge},
+      { key: 'lastSchedule', transform: getAge },
+      { key: 'created', transform: getAge },
     ],
   },
   daemonset: {
@@ -125,7 +118,7 @@ export default {
       { key: 'completions' },
       { key: 'parallelism' },
       { key: 'successful' },
-      { key: 'created', transform: getAge},
+      { key: 'created', transform: getAge },
     ],
   },
   namespace: {
@@ -203,24 +196,20 @@ export default {
       { key: 'namespace' },
       { key: 'cluster'},
       { key: 'status'},
-      { key: 'restarts'},
+      { key: 'restarts' },
       { key: 'hostIP'},
       { key: 'podIP'},
       { key: 'created', transform: getAge },
     ],
-    actions: [
-      'table.actions.pod.logs',
-      'table.actions.remove',
-    ],
+    actions: [],
   },
   policy: {
     columns: [
       { key: 'name' },
       { key: 'namespace' },
-    //   { key: 'compliant', transform: getPolicyStatusIcon },
       { key: 'cluster'},
       { key: 'remediationAction'},
-      { key: 'created', transform: getAge},
+      { key: 'created', transform: getAge },
     ],
   },
   release: {
@@ -231,11 +220,9 @@ export default {
       { key: 'status'},
       { key: 'chartName'},
       { key: 'chartVersion'},
-      { key: 'updated', transform: (item) => getAge( item, null, 'updated' ) },
+      { key: 'updated', transform: getAge },
     ],
-    actions: [
-      'table.actions.remove',
-    ],
+    actions: [],
   },
   replicaset: {
     columns: [
@@ -255,9 +242,7 @@ export default {
       { key: 'searchText' },
       { key: 'count' },
     ],
-    actions: [
-      'table.actions.remove',
-    ],
+    actions: [],
   },
   secret: {
     columns: [
@@ -265,7 +250,7 @@ export default {
       { key: 'namespace' },
       { key: 'cluster' },
       { key: 'type' },
-      { key: 'created', transform: getAge},
+      { key: 'created', transform: getAge },
     ],
   },
   service: {

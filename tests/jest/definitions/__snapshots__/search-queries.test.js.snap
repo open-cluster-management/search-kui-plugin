@@ -81,20 +81,38 @@ Object {
 }
 `;
 
-exports[`Search Queries should RESOURCE_LOGS 2`] = `
+exports[`Search Queries should SAVE_SEARCH query - All deployments 1`] = `
 Object {
-  "operationName": "getLogs",
-  "query": "query getLogs($containerName: String!, $podName: String!, $podNamespace: String!, $clusterName: String!) {
-  logs(containerName: $containerName, podName: $podName, podNamespace: $podNamespace, clusterName: $clusterName)
+  "operationName": "saveSearch",
+  "query": "mutation saveSearch($resource: JSON!) {
+  saveSearch(resource: $resource)
 }
 ",
   "variables": Object {
-    "clusterName": "local-cluster",
-    "containerName": Array [
-      "fake-container",
-    ],
-    "podName": "nginx",
-    "podNamespace": "kube-system",
+    "resource": Object {
+      "description": "All deployments",
+      "id": "1573570796793",
+      "name": "All deployments",
+      "searchText": "kind:deployments",
+    },
+  },
+}
+`;
+
+exports[`Search Queries should SAVE_SEARCH query - All pods 1`] = `
+Object {
+  "operationName": "saveSearch",
+  "query": "mutation saveSearch($resource: JSON!) {
+  saveSearch(resource: $resource)
+}
+",
+  "variables": Object {
+    "resource": Object {
+      "description": "All pods",
+      "id": "1573570796760",
+      "name": "All pods",
+      "searchText": "kind:pod",
+    },
   },
 }
 `;

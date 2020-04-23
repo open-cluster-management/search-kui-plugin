@@ -11,7 +11,6 @@ export const convertStringToQuery = (searchText) => {
   let searchTokens
 
   const search = searchText.split(' ')
-
   if (searchText.indexOf(`${search[0]} summary `) !== -1) { // This will allow the alias for search to access the searchTokens for the command.
     searchTokens = searchText.replace(`${search[0]} summary `, '').split(' ')
   } else if (searchText.indexOf(`${search[0]} related:resources `) !== -1) {
@@ -26,9 +25,8 @@ export const convertStringToQuery = (searchText) => {
       let property
       let values
       // This will allow the search to return the clusterrolebinding resources
-      if (f.includes('name:system:') || f.includes('name:icp:')) {
-        [ property, values ] = f.split('name:')
-        property = 'name'
+      if (f.includes('name:')) {
+        [ property, values ] = ['name', f.replace('name:', '')]
       } else {
         [ property, values ] = f.split(':')
       }
