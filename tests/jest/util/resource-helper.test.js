@@ -33,7 +33,7 @@ describe('Resource helper getAge', () => {
 
     it(`should get the age of ${item.name} from the moment it was created (${item.created})`, () => {
       expect(spy).toBeCalled()
-      // expect(helper.getAge(item, null, 'created')).toMatchSnapshot()
+      expect(helper.getAge(item, null, 'created')).toMatchSnapshot()
     })
   })
 })

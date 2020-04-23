@@ -32,7 +32,7 @@ describe('Rendering react components for searched query data table', () => {
       expect(spy).toBeCalled()
       expect(resource.data.items).toBeDefined()
       expect(resource.data.items.length).not.toBe(0)
-      // expect(renderReact.default(resource.data.items, node, args.command)).toMatchSnapshot()
+      expect(renderReact.default(resource.data.items, node, args.command)).toMatchSnapshot()
    })
   }
 })
