@@ -70,6 +70,7 @@ jobs:
         - npm install -g sass 
         # - npm install -g carbon-components
         - npm install
+        - ls
         - sass src/src-web/styles/index.scss src/src-web/styles/index.css
         - make package
         - make integrate-plugin
