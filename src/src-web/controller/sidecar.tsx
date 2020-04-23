@@ -9,7 +9,6 @@
 *******************************************************************************/
 
 import { convertStringToQuery } from '../util/search-helper';
-import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
 import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
@@ -22,17 +21,12 @@ import { isSearchAvailable, renderSearchAvailable } from './search';
 import { setPluginState, getPluginState } from '../../pluginState';
 
 export const buildSidecar = (type: string, data: any, resource?: any) => {
-  const badges: Badge[] = []
-
-  // This will allow the sidecar balloon element to display the resources name.
-  const balloon = lodash.get(data, 'items[0].name', '').split(/(-[0-9])/)
-  badges.push(balloon[0])
-
   const modes = []
+  const kind = lodash.get(data, 'items[0].kind', '')
 
   if (type !== 'query') {
     // If the resource is a pod, add the logging tab.
-    if (lodash.get(data, 'items[0].kind', '') === 'pod') {
+    if (kind === 'pod') {
       modes.push(logTab(data.items[0]))
     }
 
@@ -42,19 +36,18 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
     }
   }
 
-  // If the resource have any related resources, add the related tab. (For now, we're removing this tab from the query's sidecar and using the summary tab to represent this one.)
+  // If the resource have any related resources, add the related tab. (For now, we're removing this tab from the query's sidecar and using the summary tab to represent this one)
   if (lodash.get(data, 'related', '').length > 0 && type !== 'query') {
     modes.push(relatedTab(data, type))
   }
 
   // Returns the sidecar and tab for the selected resource || search query that was entered.
   return {
-    apiVersion: 'mcm.ibm.com/v1', // TODO: check if a different API version is needed
-    badges: type !== 'query' ? badges : null,
-    kind: lodash.get(data, 'items[0].kind', ''),
+    apiVersion: 'mcm.ibm.com/v1',
+    kind,
     summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
     metadata: {
-      name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [lodash.get(data, 'items[0].kind', '')]),
+      name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [kind]),
       namespace: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
     },
     modes,
@@ -62,10 +55,11 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 }
 
 export const getSidecar = async (args) => new Promise((resolve, reject) => {
-  const userQuery = convertStringToQuery(args.command)
+  const { command } = args
+  const userQuery = convertStringToQuery(command)
 
   if (args.argv.length === 2) {
-    resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${args.command} kind:<keyword> name:<keyword> namespace:<keyword>\nEXAMPLE: ${args.command} kind:pod name:audit-logging-fluentd-ds-7tpnw namespace:kube-system`)
+    resolve(`ERROR: Received wrong number of parameters.\nUSAGE: ${command} kind:<keyword> name:<keyword>\nEXAMPLE: ${command} kind:pod name:alertmanager-main-0`)
   }
 
   const node = document.createElement('pre')
