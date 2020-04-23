@@ -70,8 +70,8 @@ jobs:
         - npm install -g sass 
         - npm install -g carbon-components
         - npm install
-        - make package
         - make integrate-plugin
+        - make package
         - sass src/src-web/styles/index.scss src/src-web/styles/index.css
         - make sonar/js/jest-init
         - make run-standalone-plugin-tests
