@@ -59,27 +59,18 @@ jobs:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         # Bootstrap the build harness, pull test image, and run unit tests.
         # - make component/pull
-        # - npm install
-        # - npm run buildCSS
-        # - make package
-        # - make integrate-plugin
-        # - make run-standalone-plugin-tests
-        # - make sonar/js
- 
-#         - npm install -g typescript 
-#         - npm install -g sass 
-#         - npm install carbon-components
-#         - npm install
-#         - ls -R node_modules
-#         - sass src/src-web/styles/index.scss src/src-web/styles/index.css
-#         - make package
-#         - make integrate-plugin
-#         - make sonar/js/jest-init
-#         - make run-standalone-plugin-tests
-#         - make sonar/js
+
+        - npm install -g typescript 
+        - npm install -g sass 
+        - npm install carbon-components
+        - npm install
+        - sass src/src-web/styles/index.scss src/src-web/styles/index.css
+        - make package
+        - make integrate-plugin
         - make sonar/js/jest-init
-        - make component/test/unit
+        - make run-standalone-plugin-tests
         - make sonar/js
+
 
     - stage: test-e2e
       name: "Deploy the image to a cluster and run e2e tests"
