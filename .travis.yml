@@ -45,12 +45,12 @@ before_script:
 
 jobs:
   include:
-    # - stage: build
-    #   name: "Build and push search-kui-plugin test image"
-    #   script:
-    #     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-    #     - make component/build
-    #     - make component/push
+    - stage: build
+      name: "Build and push search-kui-plugin test image"
+      script:
+        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
+        - make component/build
+        - make component/push
     - stage: unit-test
       name: "Run unit tests"
       if: type = pull_request
@@ -81,34 +81,34 @@ jobs:
         - make component/test/unit
         - make sonar/js
 
-    # - stage: test-e2e
-    #   name: "Deploy the image to a cluster and run e2e tests"
-    #   if: type = pull_request
-    #   script:
-    #     #Check out a clusterpool, set up oc, deploy, run e2e tests, and return clusterpool cluster
-    #     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-    #     # - make component/pull
-    #     - make component/test/e2e
+    - stage: test-e2e
+      name: "Deploy the image to a cluster and run e2e tests"
+      if: type = pull_request
+      script:
+        #Check out a clusterpool, set up oc, deploy, run e2e tests, and return clusterpool cluster
+        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
+        # - make component/pull
+        - make component/test/e2e
         
-  #   - stage: publish
-  #     name: "Publish the plugin"
-  #     if: (branch = master) AND (type = push)
-  #     os: linux
-  #     language: node_js
-  #     node_js:
-  #       - "10"
-  # #     env:
-  # #       - JOBNAME=AMD6
-  #     before_install:
-  #       - make init
-  #     install:
-  #       - npm install
-  #       - npm run buildCSS
-  #     script:
-  #       - make package
-  #     deploy:
-  #       provider: script
-  #       script: "npx semantic-release"
-  #       skip_cleanup: true
-  #       on:
-  #         branch: master
+    - stage: publish
+      name: "Publish the plugin"
+      if: (branch = master) AND (type = push)
+      os: linux
+      language: node_js
+      node_js:
+        - "10"
+  #     env:
+  #       - JOBNAME=AMD6
+      before_install:
+        - make init
+      install:
+        - npm install
+        - npm run buildCSS
+      script:
+        - make package
+      deploy:
+        provider: script
+        script: "npx semantic-release"
+        skip_cleanup: true
+        on:
+          branch: master
