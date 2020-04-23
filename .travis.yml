@@ -68,7 +68,7 @@ jobs:
  
         - npm install -g typescript 
         - npm install -g sass 
-        - npm install -g carbon-components
+        - npm install carbon-components
         - npm install
         - ls -R node_modules
         - sass src/src-web/styles/index.scss src/src-web/styles/index.css
