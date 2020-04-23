@@ -65,7 +65,10 @@ jobs:
         # - make integrate-plugin
         # - make run-standalone-plugin-tests
         # - make sonar/js
-        # - npm install -g typescript sass carbon-components
+
+        - npm install -g typescript 
+        - npm install -g sass 
+        - npm install -g carbon-components
         - npm install
         - sass src/src-web/styles/index.scss src/src-web/styles/index.css
         - make package
