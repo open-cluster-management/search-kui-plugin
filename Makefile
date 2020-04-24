@@ -33,7 +33,7 @@ DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 .PHONY: install
 install:
 	# npm install -g typescript sass carbon-components
-	# npm install
+	npm install
 	npm run buildCSS
 
 .PHONY: package
