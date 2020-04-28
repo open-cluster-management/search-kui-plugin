@@ -1,12 +1,18 @@
 # search-kui-plugin
 [![Build Status](https://travis-ci.com/open-cluster-management/search-kui-plugin.svg?token=jzyyzQmWYBEu33MCMh9p&branch=master)](https://travis-ci.com/open-cluster-management/search-kui-plugin)
 
-Adds Search capabilities to [KUI Web Terminal](https://github.com/open-container-management/kui-web-terminal).
+Adds Search capabilities to [KUI Web Terminal](https://github.com/open-cluster-management/kui-web-terminal).
 
 ## Development
-Clone the [KUI repository](https://github.com/IBM/kui) and follow developer set-up directions from that repo.
+Clone the [Plugin Kubectl Boilerplate](https://github.com/kui-shell/plugin-kubectl-boilerplate) repository.
+  *IMPORTANT- be sure to checkout commit `-2374814`, which is representative of the KUI client at version 6.0.13.  The search plugin is not yet compatible with any version greater than 6.0.13.
+  <pre>
+    git clone git@github.com:kui-shell/plugin-kubectl-boilerplate.git
+    cd plugin-kubectl-boilerplate/
+    git checkout -b &lt;dev_branch_name&gt; 2374814c0b737d0e84f34c2005a7af5ea5f942d7
+  </pre>
 
-To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [KUI repository](https://github.com/IBM/kui).  It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
+To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [Plugin Kubectl Boilerplate](https://github.com/kui-shell/plugin-kubectl-boilerplate) repo.  It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
 
 <pre>
 .
@@ -15,8 +21,8 @@ To activate this plugin, copy this repository into the `plugins/` directory in t
 ├── plugins
 │   ├── plugin-sample
 │   └── plugin-search
-|       ├── ...
-|       └── tsconfig.json
+│      ├── ...
+│      └── tsconfig.json
 ├── tsconfig-es6.json
 └── tsconfig.json
 </pre>
