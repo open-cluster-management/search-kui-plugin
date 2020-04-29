@@ -45,6 +45,9 @@ jobs:
       name: "Build and push search-kui-plugin test image"
       script:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
+        - make
+        - make component/pull
+        - make run-search-e2e
         - make component/build
         - make component/push
 
@@ -67,7 +70,8 @@ jobs:
         - make test-module
       script:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-        # - make component/pull
+        - make
+        - make component/pull
         - make component/test/e2e
 
     - stage: publish
