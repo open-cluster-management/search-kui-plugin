@@ -68,7 +68,6 @@ jobs:
       script:
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
         # - make component/pull
-        - make run-search-api
         - make component/test/e2e
 
     - stage: publish

@@ -6,4 +6,5 @@ export DOCKER_IMAGE_AND_TAG=${1}
 
 sudo make -C kui-tests install-oc
 make -C kui-tests login-oc
+make run-search-api
 make run-e2e-tests
