@@ -16,12 +16,11 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
 
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
-import { getCurrentTab } from '@kui-shell/core'
+import { getCurrentTab, inBrowser } from '@kui-shell/core'
 import { Modal, TextInput, TextArea, Tooltip } from 'carbon-components-react'
 import { Copy16 } from  '@carbon/icons-react'
 import { ModalProps, ModalState } from '../model/Modal'
 import strings from '../util/i18n'
-import { inBrowser } from '@kui-shell/core'
 import HTTPClient from '../controller/HTTPClient'
 import { SAVE_SEARCH, SEARCH_RELATED_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 import { convertStringToQuery } from '../util/search-helper'
