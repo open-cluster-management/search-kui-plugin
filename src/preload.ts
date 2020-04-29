@@ -29,7 +29,7 @@ const registerCapability: CapabilityRegistration = async () => {
 
   HTTPClient('get', 'svc', undefined)
   .then((res) => {
-    setPluginState('enabled', (res && (res === 'true' || res === true)))
+    setPluginState('enabled', true)
 
     if (getPluginState().enabled) {
       HTTPClient('post', 'search', GET_SEARCH_SCHEMA)

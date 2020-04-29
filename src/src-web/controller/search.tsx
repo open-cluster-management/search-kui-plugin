@@ -7,6 +7,12 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+// Hack to workaround build issues with Carbon dependencies
+if (!window || !window.location || !window.location.href) {
+  Object.defineProperty(window, 'location', { value: { href: 'https://localhost:8081/kui'}, writable: true })
+  Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
+}
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Registrar } from '@kui-shell/core'
@@ -115,7 +121,12 @@ export const doSearch = (args) => new Promise((resolve, reject) => {
  *
  */
 export default async (commandTree: Registrar) => {
-  const opts = { usage, noAuthOk: true, inBrowserOk: true }
+
+  let opts = {usage, noAuthOk: true, inBrowserOk: true}
+
+  window.location.href === 'https://localhost:8081/kui'
+  ? opts.inBrowserOk = false
+  : opts.inBrowserOk = true
 
   const searchCmd = commandTree.listen('/search', doSearch, opts)
   commandTree.synonym('/s', doSearch, searchCmd, opts)

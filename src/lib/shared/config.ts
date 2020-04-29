@@ -60,7 +60,7 @@ export async function getConfig(): Promise<Config> {
     {
       // Browser needs xsrf token for requests
       xsrfToken: inBrowser() ? getXsrfToken() : null,
-
+      
         // Electron needs the user access token
       authorization: 'Bearer ',
       cookie: 'cfc-cookie-access-token=',
