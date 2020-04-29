@@ -16,11 +16,11 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
 
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
-import { getCurrentTab } from '@kui-shell/core'
-import { Modal, TextInput, TextArea, CodeSnippet } from 'carbon-components-react'
+import { getCurrentTab, inBrowser } from '@kui-shell/core'
+import { Modal, TextInput, TextArea, Tooltip } from 'carbon-components-react'
+import { Copy16 } from  '@carbon/icons-react'
 import { ModalProps, ModalState } from '../model/Modal'
 import strings from '../util/i18n'
-import { inBrowser } from '@kui-shell/core'
 import HTTPClient from '../controller/HTTPClient'
 import { SAVE_SEARCH, SEARCH_RELATED_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 import { convertStringToQuery } from '../util/search-helper'
@@ -211,18 +211,27 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
         {this.props.action === 'share'
           ? <div className='bx--action-share'>
               <p className='copy-description'>{strings('modal.query.share.name.label')}</p>
-              <CodeSnippet
-                onClick={() => navigator.clipboard.writeText(inBrowser()
-                  ? `${window && window.location && window.location.href}?filters={"textsearch":"${encodeURIComponent(this.props.item['searchText'])}"}`
-                  : `search ${this.props.item['searchText']}`,
-                )}
-                type='single'
-              >
+              <div className='bx--snippet bx--snippet--single'>
                 {inBrowser()
-                  ? `${window && window.location && window.location.href}?filters={"textsearch":"${encodeURIComponent(this.props.item['searchText'])}"}`
+                  ? `${window && window.location && window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(this.props.item['searchText'])}"}`
                   : `search ${this.props.item['searchText']}`
                 }
-              </CodeSnippet>
+                <Tooltip
+                  direction='top'
+                  tabIndex={0}
+                  tooltipBodyId='tooltip-body'
+                  renderIcon={Copy16}
+                  showIcon
+                  onChange={() => navigator.clipboard.writeText(inBrowser()
+                    ? `${window && window.location && window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(this.props.item['searchText'])}"}`
+                    : `search ${this.props.item['searchText']}`,
+                  )}
+                >
+                  <p id='tooltip-body'>
+                    {strings('modal.button.copied.to.clipboard')}
+                  </p>
+                </Tooltip>
+              </div>
             </div>
           : null
         }

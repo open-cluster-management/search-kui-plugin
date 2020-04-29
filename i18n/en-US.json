@@ -51,6 +51,7 @@
 "modal.button.submit" : "Submit",
 "modal.button.copy" : "Copy",
 "modal.button.copied" : "Copied",
+"modal.button.copied.to.clipboard" : "Copied to clipboard",
 "modal.query.save.heading" : "Save search",
 "modal.query.delete.heading" : "Delete search",
 "modal.query.share.heading" : "Share search",
