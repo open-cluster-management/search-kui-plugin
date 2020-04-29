@@ -74,12 +74,11 @@ run-search-api:
 	-e NODE_ENV=test \
 	-e MOCK=true \
 	--name search-api \
-	--ip 10.10.0.6 \
 	-d -p 127.0.0.1:4010:4010 quay.io/open-cluster-management/search-api:3.5.0-SNAPSHOT-2020-04-29-01-52-26
 
 .PHONY: run-e2e-tests
 run-e2e-tests:
-ifeq ($(TEST_LOCAL), true)]
+ifeq ($(TEST_LOCAL), true)
 	$(SELF) run > /dev/null
 	$(MAKE) -C kui-tests setup-dependencies
 	$(MAKE) -C kui-tests run-all-tests
