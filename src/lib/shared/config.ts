@@ -10,8 +10,6 @@ import { inBrowser } from '@kui-shell/core'
 
 let staticConfig
 if (process.env.NODE_ENV === 'development'){
-  staticConfig = require('@kui-shell/client/config.d/search.json')
-} else if (process.env.NODE_ENV === 'test'){
   staticConfig = {
     env: "test",
     SEARCH_API: "https://localhost:4010/searchapi/graphql",
@@ -22,7 +20,6 @@ if (process.env.NODE_ENV === 'development'){
     }
   }
 }
-console.log(staticConfig)
 
 const getXsrfToken = () => {
   const token = document.querySelector('#app-access') ? document.querySelector('#app-access')['value'] : ''
