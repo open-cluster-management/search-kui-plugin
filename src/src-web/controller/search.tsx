@@ -124,9 +124,7 @@ export default async (commandTree: Registrar) => {
 
   let opts = {usage, noAuthOk: true, inBrowserOk: true}
 
-  window.location.href === 'https://localhost:8081/kui'
-  ? opts.inBrowserOk = false
-  : opts.inBrowserOk = true
+  opts.inBrowserOk = window.location.href !== 'https://localhost:8081/kui'
 
   const searchCmd = commandTree.listen('/search', doSearch, opts)
   commandTree.synonym('/s', doSearch, searchCmd, opts)

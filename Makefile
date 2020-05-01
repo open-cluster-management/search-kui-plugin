@@ -7,6 +7,9 @@
 #  IBM Corporation - initial API and implementation
 ###############################################################################
 
+SEARCH_IMAGE ?= quay.io/open-cluster-management/search-api:3.5.0-SNAPSHOT-2020-04-30-22-40-54
+CONSOLE_IMAGE ?= quay.io/open-cluster-management/console-api:1.0.0-SNAPSHOT-2020-04-30-22-40-54
+
 .PHONY: init\:
 init::
 	@mkdir -p variables
@@ -55,7 +58,7 @@ integrate-plugin:
 
 .PHONY: run
 run:
-	$(MAKE) -C kui-tests run DOCKER_IMAGE_AND_TAG=$(DOCKER_IMAGE_AND_TAG)
+	$(MAKE) -C kui-tests run DOCKER_IMAGE_AND_TAG=$(DOCKER_IMAGE_AND_TAG) DOCKER_RUN_OPTS= -e NODE_ENV=test
 
 .PHONY: run-unit-tests
 run-unit-tests:
@@ -67,14 +70,25 @@ ifeq ($(UNIT_TESTS), TRUE)
 	npm run test
 endif
 
-.PHONY: run-search-api
-run-search-api:
-	docker pull quay.io/open-cluster-management/search-api:3.5.0-SNAPSHOT-2020-04-29-01-52-26 
+.PHONY: run-test-containers
+run-test-containers:
+	docker network create --subnet 10.10.0.0/16 console-network
+	docker pull ${CONSOLE_IMAGE}
+	docker pull ${SEARCH_IMAGE}
 	docker run \
 	-e NODE_ENV=test \
 	-e MOCK=true \
+	--network console-network \
+	--name console-api \
+	--ip 10.10.0.5 \
+	-d -p 127.0.0.1:4000:4000 ${CONSOLE_IMAGE}
+	docker run \
+	-e NODE_ENV=test \
+	-e MOCK=true \
+	--network console-network \
 	--name search-api \
-	-d -p 127.0.0.1:4010:4010 quay.io/open-cluster-management/search-api:3.5.0-SNAPSHOT-2020-04-29-01-52-26
+	--ip 10.10.0.6 \
+	-d -p 127.0.0.1:4010:4010 ${SEARCH_IMAGE}
 
 .PHONY: run-e2e-tests
 run-e2e-tests:
