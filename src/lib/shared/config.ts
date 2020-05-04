@@ -6,15 +6,18 @@
 * Use, duplication or disclosure restricted by GSA ADP Schedule
 * Contract with IBM Corp.
 *******************************************************************************/
+import * as nconf from 'nconf'
 import { inBrowser } from '@kui-shell/core'
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 let staticConfig
 if (process.env.NODE_ENV === 'development'){
   staticConfig = {
     env: "test",
-    SEARCH_API: "https://localhost:4010/searchapi/graphql",
-    CONSOLE_API: "https://localhost:4000/hcmuiapi/graphql",
-    SEARCH_SERVICE: "https://multicloud-console.apps.rhowingt-dev.dev07.red-chesterfield.com/multicloud/servicediscovery/search",
+    SEARCH_API: process.env.SEARCH_API || "https://localhost:4010/searchapi/graphql",
+    CONSOLE_API: process.env.CONSOLE_API || "https://localhost:4000/hcmuiapi/graphql",
+    SEARCH_SERVICE: process.env.SEARCH_SERVICE || "https://multicloud-console.apps.rhowingt-dev.dev07.red-chesterfield.com/multicloud/servicediscovery/search",
     serverSideConfig: {
       inBrowserOk: false
     }
