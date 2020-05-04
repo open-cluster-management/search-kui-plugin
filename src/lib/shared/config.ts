@@ -6,10 +6,7 @@
 * Use, duplication or disclosure restricted by GSA ADP Schedule
 * Contract with IBM Corp.
 *******************************************************************************/
-import * as nconf from 'nconf'
 import { inBrowser } from '@kui-shell/core'
-
-process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 let staticConfig
 if (process.env.NODE_ENV === 'development'){
@@ -23,6 +20,7 @@ if (process.env.NODE_ENV === 'development'){
     }
   }
 }
+console.log('staticconfig', staticConfig)
 
 const getXsrfToken = () => {
   const token = document.querySelector('#app-access') ? document.querySelector('#app-access')['value'] : ''
