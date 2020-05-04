@@ -7,7 +7,6 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { Badge } from '@kui-shell/core';
 import * as lodash from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
@@ -85,12 +84,6 @@ export const buildRelated = (data: any, type?: string) => {
  * @param type
  */
 export const relatedTab = (data: any, type?: string) => {
-  const badges: Badge[] = []
-
-  // This will allow the sidecar balloon element to display the resources name.
-  const balloon = lodash.get(data, 'items[0].name', '').split(/(-[0-9])/)
-  badges.push(balloon[0])
-
   return {
     mode: 'related',
     label: strings('search.label.related'),
