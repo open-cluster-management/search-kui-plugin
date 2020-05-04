@@ -6,11 +6,12 @@ Adds Search capabilities to [KUI Web Terminal](https://github.com/open-cluster-m
 ## Development
 Clone the [Plugin Kubectl Boilerplate](https://github.com/kui-shell/plugin-kubectl-boilerplate) repository.
   *IMPORTANT- be sure to checkout commit `-2374814`, which is representative of the KUI client at version 6.0.13.  The search plugin is not yet compatible with any version greater than 6.0.13.
-  <pre>
-    git clone git@github.com:kui-shell/plugin-kubectl-boilerplate.git
-    cd plugin-kubectl-boilerplate/
-    git checkout -b &lt;dev_branch_name&gt; 2374814c0b737d0e84f34c2005a7af5ea5f942d7
-  </pre>
+
+<pre>
+git clone git@github.com:kui-shell/plugin-kubectl-boilerplate.git
+cd plugin-kubectl-boilerplate/
+git checkout -b &lt;dev_branch_name&gt; 2374814c0b737d0e84f34c2005a7af5ea5f942d7
+</pre>
 
 To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [Plugin Kubectl Boilerplate](https://github.com/kui-shell/plugin-kubectl-boilerplate) repo.  It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
 
@@ -67,12 +68,19 @@ If the extended path is missing, the user will be met with this error when compi
 error TS5070: Option '--resolveJsonModule' cannot be specified without 'node' module resolution strategy.
 ```
 
-4. The following variables need to be set in the `src/lib/shared/config.ts` file.
+4. The following routes need to be created within the cluster, in order for the API request calls to be executed successfully.
+
+| Name           | Service                        | Node Port | TLS Termination | Insecure Traffic |
+|----------------|--------------------------------|-----------|-----------------|------------------|
+| searchapi      | search-search-api              | 4010      | Passthrough     | Redirect         |
+| consoleapi     | console-chart-xxxxx-consoleapi | 4000      | Passthrough     | Redirect         |
+
+5. The following variables need to be set in the `src/lib/shared/config.ts` file.
 
 <pre>
-SEARCH_API - Endpoint of the search API
-CONSOLE_API - Endpoint of the CONSOLE API
-SEARCH_SERVICE - Search service URL. (The value retrieved from this endpoint, is to ensure that the Search API is installed on the cluster)
+SEARCH_API - Endpoint of the search API.
+CONSOLE_API - Endpoint of the console API.
+SEARCH_SERVICE - Endpoint of management-ingress. (The value retrieved from this endpoint, is to ensure that the Search service is installed on the cluster)
 </pre>
 
 The user can set the `staticConfig` path to their own `search.json` file, and the `authConfig` path to their own `search-auth.json` file. This will set the cluster configurations for the local dev environment. A template of each file can be found in the `src/lib/shared/` directory.
@@ -108,19 +116,19 @@ To get an access token login to your env using: `oc login --token=<cluster API T
 authorization & cookie - User access token
 </pre>
 
-5. Install the plugin dependencies
+6. Install the plugin dependencies
 
 ```bash
 npm install
 ```
 
-6. Compile the code at the root-level of the KUI repo.
+7. Compile the code at the root-level of the KUI repo.
 
 ```bash
 npm run compile
 ```
 
-7. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for ACM KUI testing).
+8. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for ACM KUI testing).
 
 ```bash
 npm run start
@@ -155,13 +163,14 @@ npm run test:firefox
 
 | Command                                | Description                                                                |
 |----------------------------------------|----------------------------------------------------------------------------|
-| `npm run test`                         | Run jest tests                                                             |
+| `npm run test`                         | Run Jest tests                                                             |
+| `npm run test:coverage`                | Run Jest tests and creates code coverage test-output files                 |
 | `npm run test:chrome`                  | Run Nightwatch E2E testing in chrome                                       |
 | `npm run test:firefox`                 | Run Nightwatch E2E testing in firefox (Default)                            |
 | `npm run test:safari`                  | Run Nightwatch E2E testing in safari                                       |
-| `npm run test:unit`                    | Run jest unit tests                                                        |
-| `npm run test:update-snapshot`         | Run and update jest tests snapshots                                        |
-| `npm run test:watch`                   | Watches jest tests                                                         |
+| `npm run test:unit`                    | Run Jest unit tests                                                        |
+| `npm run test:update-snapshot`         | Run and update Jest tests snapshots                                        |
+| `npm run test:watch`                   | Watches Jest tests                                                         |
 | `npm run semantic-release`             | Uses the commit messages to determine the type of changes in the codebase  |
 | `npm run commit`                       | CLI tool that helps format commit messages with a series of prompts        |
 | `npm run buildCSS`                     | Compile SCSS into readable CSS                                             |
@@ -182,3 +191,4 @@ These are a few useful links that will help provide technical reference and best
 - [React Docs](https://reactjs.org/docs/hello-world.html)
 - [Jest Unit Testing](https://jestjs.io/docs/en/getting-started)
 - [Nightwatch E2E Testing](https://nightwatchjs.org/guide)
+- [Release Versioning](https://semver.org)

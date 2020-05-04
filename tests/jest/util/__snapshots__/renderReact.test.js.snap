@@ -606,13 +606,13 @@ exports[`Rendering react components for searched query data table should render 
               id="bx--modal-header__heading--modal-2"
             />
             <button
-              aria-label="close the modal"
+              aria-label="Close"
               class="bx--modal-close"
-              title="close the modal"
+              title="Close"
               type="button"
             >
               <svg
-                aria-label="close the modal"
+                aria-label="Close"
                 class="bx--modal-close__icon"
                 focusable="false"
                 height="20"
@@ -644,7 +644,6 @@ exports[`Rendering react components for searched query data table should render 
             </button>
             <button
               class="bx--btn bx--btn--primary"
-              inputref="[object Object]"
               tabindex="0"
               type="button"
             >
