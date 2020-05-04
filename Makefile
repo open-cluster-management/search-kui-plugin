@@ -58,7 +58,7 @@ integrate-plugin:
 
 .PHONY: run
 run:
-	$(MAKE) -C kui-tests run DOCKER_IMAGE_AND_TAG=$(DOCKER_IMAGE_AND_TAG) DOCKER_RUN_OPTS= -e NODE_ENV=development
+	$(MAKE) -C kui-tests run DOCKER_IMAGE_AND_TAG=$(DOCKER_IMAGE_AND_TAG)
 
 .PHONY: run-unit-tests
 run-unit-tests:
