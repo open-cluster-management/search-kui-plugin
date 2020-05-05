@@ -64,20 +64,20 @@ export const deleteSavedSearch = (args) => new Promise((resolve, reject) => {
     if (warningToDelete) { // Record is not available
       res['warning'] = strings('modal.save.warning', [name])
       resolve(notify(res))
+    } else {
+      HTTPClient('post', 'search', DELETE_QUERY(name))
+      .then((resp) => {
+        if (resp.data.deleteSearch) {
+          resolve(notify(strings('modal.deleted.save.success', [name])))
+        } else {
+          resolve(notify(resp.errors[0]))
+        }
+      })
+      .catch((err) => {
+        setPluginState('error', err)
+        resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
+      })
     }
-
-    HTTPClient('post', 'search', DELETE_QUERY(name))
-    .then((resp) => {
-      if (resp.data.deleteSearch) {
-        resolve(notify(strings('modal.deleted.save.success', [name])))
-      } else {
-        resolve(notify(resp.errors[0]))
-      }
-    })
-    .catch((err) => {
-      setPluginState('error', err)
-      resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
-    })
   })
   .catch((err) => {
     setPluginState('error', err)
