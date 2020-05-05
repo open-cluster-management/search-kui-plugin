@@ -45,7 +45,7 @@ export default async function HTTPClient(method, urlType, requestBody) {
       case 'console':
         return config.CONSOLE_API
       case 'svc':
-        return config.SEARCH_SERVICE
+        // return config.SEARCH_SERVICE
       default:
         return undefined
     }
