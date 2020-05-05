@@ -27,8 +27,8 @@ const registerCapability: CapabilityRegistration = async () => {
       })
   }
 
-  HTTPClient('get', 'svc', undefined)
-  .then((res) => {
+  // HTTPClient('get', 'svc', undefined)
+  // .then((res) => {
     setPluginState('enabled', true)
 
     if (getPluginState().enabled) {
@@ -40,11 +40,11 @@ const registerCapability: CapabilityRegistration = async () => {
         setPluginState('error', err)
       })
     }
-  })
-  .catch((err) => {
-    setPluginState('enabled', false)
-    setPluginState('error', err)
-  })
+  // })
+  // .catch((err) => {
+  //   setPluginState('enabled', false)
+  //   setPluginState('error', err)
+  // })
 
   if (!isHeadless()) {
     // Core by default listens to original input bar

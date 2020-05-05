@@ -11,7 +11,7 @@ import { inBrowser } from '@kui-shell/core'
 let staticConfig = {
     SEARCH_API: process.env.SEARCH_API || "https://localhost:4010/searchapi/graphql",
     CONSOLE_API: process.env.CONSOLE_API || "https://localhost:4000/hcmuiapi/graphql",
-    SEARCH_SERVICE: process.env.SEARCH_SERVICE || "https://multicloud-console.apps.rhowingt-dev.dev07.red-chesterfield.com/multicloud/servicediscovery/search",
+    // SEARCH_SERVICE: process.env.SEARCH_SERVICE || "https://multicloud-console.apps.rhowingt-dev.dev07.red-chesterfield.com/multicloud/servicediscovery/search",
     serverSideConfig: {
       inBrowserOk: false
   }
@@ -28,7 +28,7 @@ interface StaticConfig {
   env: string
   SEARCH_API: string
   CONSOLE_API: string
-  SEARCH_SERVICE: string
+  // SEARCH_SERVICE: string
 }
 
 interface AuthConfig {
@@ -58,10 +58,10 @@ export async function getConfig(): Promise<Config> {
       : `${window && window.location && window.location.origin}/multicloud/search/graphql`,
       CONSOLE_API: staticConfig
       ? staticConfig.CONSOLE_API
-      : `${window && window.location && window.location.origin}/multicloud/graphql`,
-      SEARCH_SERVICE: staticConfig
-      ? staticConfig.SEARCH_SERVICE
-      : `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
+      : `${window && window.location && window.location.origin}/multicloud/graphql`
+      // SEARCH_SERVICE: staticConfig
+      // ? staticConfig.SEARCH_SERVICE
+      // : `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
     },
     {
       // Browser needs xsrf token for requests
