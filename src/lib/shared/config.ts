@@ -8,18 +8,15 @@
 *******************************************************************************/
 import { inBrowser } from '@kui-shell/core'
 
-let staticConfig
-if (process.env.NODE_ENV === 'development'){
-  staticConfig = {
-    env: "test",
+let staticConfig = {
     SEARCH_API: process.env.SEARCH_API || "https://localhost:4010/searchapi/graphql",
     CONSOLE_API: process.env.CONSOLE_API || "https://localhost:4000/hcmuiapi/graphql",
     SEARCH_SERVICE: process.env.SEARCH_SERVICE || "https://multicloud-console.apps.rhowingt-dev.dev07.red-chesterfield.com/multicloud/servicediscovery/search",
     serverSideConfig: {
       inBrowserOk: false
-    }
   }
 }
+
 console.log('staticconfig', staticConfig)
 
 const getXsrfToken = () => {
