@@ -7,12 +7,25 @@
 #  IBM Corporation - initial API and implementation
 ###############################################################################
 
+DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
+
+.PHONY: init\:
+init::
+	@mkdir -p variables
+ifndef GITHUB_USER
+	$(info GITHUB_USER not defined)
+	exit -1
+endif
+	$(info Using GITHUB_USER=$(GITHUB_USER))
+ifndef GITHUB_TOKEN
+	$(info GITHUB_TOKEN not defined)
+	exit -1
+endif
+
 -include $(shell curl -H 'Authorization: token ${GITHUB_TOKEN}' -H 'Accept: application/vnd.github.v4.raw' -L https://api.github.com/repos/open-cluster-management/build-harness-extensions/contents/templates/Makefile.build-harness-bootstrap -o .build-harness-bootstrap; echo .build-harness-bootstrap)
 
 default::
 	@echo "Build Harness Bootstrapped"
-
-DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 # # search-plugin build/test
 
@@ -40,8 +53,12 @@ integrate-plugin:
 # copyright-check:
 # 	./build-tools/copyright-check.sh
 
-.PHONY: run-plugin-tests
-run-plugin-tests:
+.PHONY: run
+run:
+	$(MAKE) -C kui-tests run DOCKER_IMAGE_AND_TAG=$(DOCKER_IMAGE_AND_TAG)
+
+.PHONY: run-unit-tests
+run-unit-tests:
 	tsc
 ifeq ($(UNIT_TESTS), TRUE)
 	if [ ! -d "test-output" ]; then \
@@ -50,13 +67,18 @@ ifeq ($(UNIT_TESTS), TRUE)
 	npm run test
 endif
 
-# ifeq ($(SELENIUM_TESTS), TRUE)
-# 	if [ ! -d "build-tools/test-output" ]; then	\
-# 		mkdir build-tools/test-output;	\
-# 	fi
-# 	npm run test:$(BROWSER)
-# endif
+.PHONY: run-e2e-tests
+run-e2e-tests:
+ifeq ($(TEST_LOCAL), true)
+	$(SELF) run > /dev/null
+	$(MAKE) -C kui-tests setup-dependencies
+	$(MAKE) -C kui-tests run-all-tests
+else
+	@echo Tests are disabled, export TEST_LOCAL="true" to run tests.
+endif
 
-# .PHONY: run
-# run:
-# 	$(SELF) docker:run AUTH_TOKEN=$(shell curl -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=password&username="$(K8S_CLUSTER_USER)"&password="$(K8S_CLUSTER_PASSWORD)"&scope=openid" $(ICP_EXTERNAL_URL)/idprovider/v1/auth/identitytoken --insecure | jq '.access_token' | tr -d '"')
+.PHONY: test-module
+test-module:
+	sed -i "s/git@github.com:/https:\/\/$(GITHUB_USER):$(GITHUB_TOKEN)@github.com\//" .gitmodules
+	git submodule update --init --recursive
+	
