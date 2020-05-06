@@ -5,6 +5,6 @@ echo "> Running build/build.sh"
 
 export DOCKER_IMAGE_AND_TAG=${1}
 
-make install
+make compile-plugin
 make package
 make integrate-plugin
