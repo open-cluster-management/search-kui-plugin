@@ -30,7 +30,6 @@
     "test:safari": "nightwatch ./build-tools/tests/e2e -e safari",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "scss": "sass --watch src/src-web/styles/index.scss src/src-web/styles/index.css",
     "buildCSS": "sass src/src-web/styles/index.scss src/src-web/styles/index.css"
   },
   "dependencies": {
