@@ -1,13 +1,14 @@
 {
   "name": "@kui-shell/plugin-search",
   "version": "0.0.0-semantically-released",
-  "description": "KUI plugin for MCM/ICP Search.",
-  "author": "IBM Multicloud Manager/Cloud Private",
+  "description": "KUI plugin for Open Cluster Management Search.",
+  "author": "Open Cluster Management",
   "license": "ISC",
   "engines": {
     "npm": ">=6.9.0"
   },
   "keywords": [
+    "open cluster management",
     "kui",
     "plugin",
     "search",
