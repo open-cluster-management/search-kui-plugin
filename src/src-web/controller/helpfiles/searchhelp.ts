@@ -64,5 +64,5 @@ export const toplevel = {
   ],
   sections,
   alias: 's',
-  related: ['savedsearches'],
+  related: ['savedsearches', 'deleteResource', 'deleteSavedSearch'],
 }
