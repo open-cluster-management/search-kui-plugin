@@ -13,14 +13,14 @@ KUI_REPO_DIR=$(pwd)
 echo "Configure plugin-kubectl-boilerplate repo."
 echo "Update package.json"
 
-jq '.devDependencies |= . +{"@kui-shell/plugin-search": $searchPluginDir}' --arg searchPluginDir "file:${SEARCH_PLUGIN_DIR}" package.json > new.package.json
+jq '.dependencies |= . +{"@kui-shell/plugin-search": $searchPluginDir}' --arg searchPluginDir "file:${SEARCH_PLUGIN_DIR}" package.json > new.package.json
 mv new.package.json package.json
 #  "devDependencies": {
 #     "@kui-shell/plugin-search": "file:plugins/plugin-search",
 
 echo "Update tsconfig.json"
 
-jq '.references + [{ "path": $searchPluginDir }]' --arg searchPluginDir $SEARCH_PLUGIN_DIR tsconfig.json > new.tsconfig.json
+jq '.references += [{ "path": $searchPluginDir }]' --arg searchPluginDir $SEARCH_PLUGIN_DIR tsconfig.json > new.tsconfig.json
 mv new.tsconfig.json tsconfig.json
 
 # "references": [
@@ -30,7 +30,7 @@ mv new.tsconfig.json tsconfig.json
 
 echo "Update tsconfig-es6.json"
 
-jq '.references + [{ "path": $path }]' --arg path "${SEARCH_PLUGIN_DIR}/tsconfig-es6.json" tsconfig-es6.json > new.tsconfig-es6.json
+jq '.references += [{ "path": $path }]' --arg path "${SEARCH_PLUGIN_DIR}/tsconfig-es6.json" tsconfig-es6.json > new.tsconfig-es6.json
 mv new.tsconfig-es6.json tsconfig-es6.json
 # "references": [
 #     { "path": "./plugins/plugin-sample/tsconfig-es6.json" },
@@ -54,6 +54,7 @@ echo "Update src/lib/shared/search-auth.json"
 
 echo "Runing 'npm i' on $SEARCH_PLUGIN_DIR"
 npm i
+sleep 5
 echo "Runing 'npm run buildCSS' on $SEARCH_PLUGIN_DIR"
 npm run buildCSS
 
