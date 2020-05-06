@@ -84,8 +84,8 @@ jobs:
         - make init
       install:
         - npm install
-        - npm run buildCSS
       script:
+        - make compile-plugin
         - make package
       deploy:
         provider: script
