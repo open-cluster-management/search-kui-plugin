@@ -10,7 +10,7 @@ import { inBrowser } from '@kui-shell/core'
 
 let staticConfig
 if (process.env.NODE_ENV === 'development'){
-  staticConfig = require('@kui-shell/client/config.d/search.json')
+  staticConfig = require('./search.json')
 }
 
 const getXsrfToken = () => {

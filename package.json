@@ -72,7 +72,6 @@
       "path": "node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "pre-commit": "npm test"
     }
   },
   "repository": {
