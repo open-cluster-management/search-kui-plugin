@@ -22,6 +22,7 @@ import strings from '../util/i18n'
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 import { setPluginState, getPluginState } from '../../pluginState'
 import { renderSearchAvailable, isSearchAvailable } from './search'
+import * as usage from './helpfiles/deletehelp'
 
 export const notify = (content) => {
   const node = document.createElement('div')
@@ -105,31 +106,12 @@ export const deleteResource = (args) => new Promise((resolve, reject) => {
   })
 })
 
-const deleteSavedSearchUsage = {
-  command: 'deleteSavedSearch',
-  strict: 'deleteSavedSearch',
-  title: 'Deletes a previously saved search',
-  header: 'Deletes a previously saved search',
-  example: 'deleteSavedSearch <saved-search-name>',
-  optional: [
-    { name: 'name', positional: true },
-  ],
-}
-
-const deleteResourceUsage = {
-  command: 'deleteResource',
-  strict: 'deleteResource',
-  title: 'Deletes a cluster resource',
-  header: 'Deletes a cluster resource',
-  example: 'deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>',
-}
-
 /**
  * Here we register as a listener for commands
  */
 export default async (commandTree: Registrar) => {
-  const deleteSavedSearchOpts = { deleteSavedSearchUsage, noAuthOk: true, inBrowserOk: true }
-  const deleteResourceOpts = { deleteResourceUsage, noAuthOk: true, inBrowserOk: true }
+  const deleteSavedSearchOpts = { usage: usage.deleteSavedSearch, noAuthOk: true, inBrowserOk: true }
+  const deleteResourceOpts = { usage: usage.deleteResource, noAuthOk: true, inBrowserOk: true }
   commandTree.listen(`/deleteSavedSearch`, deleteSavedSearch, deleteSavedSearchOpts)
   commandTree.listen(`/deleteResource`, deleteResource, deleteResourceOpts)
 }

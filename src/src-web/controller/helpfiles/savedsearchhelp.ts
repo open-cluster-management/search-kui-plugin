@@ -29,5 +29,5 @@ export const toplevel = {
     },
   ],
   alias: 'ss',
-  related: ['search'],
+  related: ['search', 'deleteResource', 'deleteSavedSearch'],
 }
