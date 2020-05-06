@@ -2,5 +2,5 @@
 set -e
 
 echo "> Running build/run-unit-tests.sh"
-make install
+npm run buildCSS
 make run-plugin-tests
