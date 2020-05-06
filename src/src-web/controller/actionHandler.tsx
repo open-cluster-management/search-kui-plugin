@@ -46,7 +46,7 @@ export const notify = (content) => {
 
 export const deleteSavedSearch = (args) => new Promise((resolve, reject) => {
   if (args.argv.length === 1) {
-    return 'ERROR: Received wrong number of parameters.\nUSAGE: deleteSavedSearch <saved-search-name>'
+    resolve('ERROR: Received wrong number of parameters.\nUSAGE: deleteSavedSearch <saved-search-name>')
   }
 
   const name = args.command.replace('deleteSavedSearch ', '')
@@ -87,7 +87,7 @@ export const deleteSavedSearch = (args) => new Promise((resolve, reject) => {
 
 export const deleteResource = (args) => new Promise((resolve, reject) => {
   if (args.argv.length !== 6) {
-    return 'ERROR: Received wrong number of parameters.\nUSAGE: deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>'
+    resolve('ERROR: Received wrong number of parameters.\nUSAGE: deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>')
   }
 
   // delete resource args = (name, namespace, kind, cluster, selfLink)
