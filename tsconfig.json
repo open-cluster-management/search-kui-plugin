@@ -1,7 +1,7 @@
 {
   "include": [
     "./src",
-    "./i18n/*.json",
+    "./src/i18n/*.json",
     "./src/lib/shared/*.json"
   ],
   "compilerOptions": {
@@ -9,7 +9,7 @@
     "jsx": "react",
     "composite": true,
     "outDir": "dist",
-    "rootDir": ".",
+    "rootDir": "src",
     "resolveJsonModule": true
   }
 }

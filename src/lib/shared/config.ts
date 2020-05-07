@@ -69,7 +69,7 @@ export async function getConfig(): Promise<Config> {
 
   if (process.env.NODE_ENV === 'development') {
     try {
-      const authConfig: AuthConfig = require('@kui-shell/client/config.d/search-auth.json')
+      const authConfig: AuthConfig = require('./search-auth.json')
       if (authConfig.authorization) {
         config.authorization = authConfig.authorization
         config.cookie = authConfig.cookie

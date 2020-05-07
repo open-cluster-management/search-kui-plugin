@@ -8,16 +8,16 @@
 *******************************************************************************/
 
 export default (key: string, args?: Array<any>) => {
-  const defaultStrings: Record<string, string> = require(`i18n/en-US.json`)
+  const defaultStrings: Record<string, string> = require(`../../i18n/en-US.json`)
   const locale = process.env.LOCALE || (typeof navigator !== 'undefined' && navigator.language)
 
   const i18n = (locale: string): Record<string, string> => {
       try {
-      return (locale && require(`i18n/${locale}.json`)) || defaultStrings
+      return (locale && require(`../../i18n/${locale}.json`)) || defaultStrings
       } catch (err) {
       try {
           return (
-          (locale && require(`i18n/${locale.replace(/-.*$/, '')}.json`)) || defaultStrings
+          (locale && require(`../../i18n/${locale.replace(/-.*$/, '')}.json`)) || defaultStrings
           )
       } catch (err) {
           console.error('Could not find translation for given locale', locale)

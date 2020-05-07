@@ -15,9 +15,9 @@
     "icp",
     "mcm"
   ],
-  "main": "dist/src/plugin.js",
-  "module": "mdist/src/plugin.js",
-  "types": "mdist/src/plugin.d.ts",
+  "main": "dist/plugin.js",
+  "module": "mdist/plugin.js",
+  "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
     "test:coverage": "jest --coverage --no-cache",
