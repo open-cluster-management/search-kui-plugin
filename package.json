@@ -20,6 +20,7 @@
   "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
+    "initialize": "sh setup-dev.sh",
     "test:coverage": "jest --coverage --no-cache",
     "test:unit": "jest --colors",
     "test": "npx jest --silent",
@@ -29,6 +30,7 @@
     "test:firefox": "nightwatch ./build-tools/tests/e2e -e firefox",
     "test:safari": "nightwatch ./build-tools/tests/e2e -e safari",
     "semantic-release": "semantic-release",
+    "start": "cd ../plugin-kubectl-boilerplate && npm run start",
     "commit": "git-cz",
     "buildCSS": "sass src/src-web/styles/index.scss src/src-web/styles/index.css"
   },

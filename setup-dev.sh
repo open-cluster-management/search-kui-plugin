@@ -48,9 +48,24 @@ mv new.tsconfig.json tsconfig.json
 
 
 echo "Update src/lib/shared/search.json"
+CONSOLE_RT=$(oc get routes -n open-cluster-management | grep console-api | awk '{print $2;}')
+SEARCH_RT=$(oc get routes -n open-cluster-management | grep search-api | awk '{print $2;}')
+CONSOLE=$(oc get routes -n open-cluster-management | grep multicloud-console | awk '{print $2;}')
+
+CONSOLE_API="https://${CONSOLE_RT}/hcmuiapi/graphql"
+SEARCH_API="https://${SEARCH_RT}/searchapi/graphql"
+SEARCH_SVC="https://${CONSOLE}/multicloud/servicediscovery/search"
+
+jq '. +{"CONSOLE_API": $consoleApi, "SEARCH_API": $searchApi, "SEARCH_SERVICE": $searchSvc}' --arg consoleApi $CONSOLE_API --arg searchApi $SEARCH_API --arg searchSvc $SEARCH_SVC src/lib/shared/search.json > new.search.json
+mv new.search.json src/lib/shared/search.json
 
 
 echo "Update src/lib/shared/search-auth.json"
+
+TOKEN=$(oc whoami -t)
+jq '. +{"authorization": $auth, "cookie": $cookie}' --arg auth "Bearer ${TOKEN}" --arg cookie "cfc-cookie-access-token=${TOKEN}" src/lib/shared/search-auth.json > new.search-auth.json
+mv new.search-auth.json src/lib/shared/search-auth.json
+
 
 echo "Runing 'npm i' on $SEARCH_PLUGIN_DIR"
 npm i
