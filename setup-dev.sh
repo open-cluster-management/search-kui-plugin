@@ -45,9 +45,6 @@ jq '.bodyCss = ["kui kui--bottom-input"]' style.json > new.style.json
 mv new.style.json style.json
 #   "bodyCss": ["kui kui--bottom-input"]
 
-# cd ../${KUI_REPO_DIR}
-# mv search-kui-plugin ./plugin-kubectl-boilerplate/plugins/plugin-search
-
 
 echo "Configure search-kui-plugin repo"
 cd $SEARCH_PLUGIN_DIR
