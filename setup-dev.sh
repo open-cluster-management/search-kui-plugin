@@ -10,6 +10,7 @@ git checkout -b ocm-dev 2374814c0b737d0e84f34c2005a7af5ea5f942d7
 
 KUI_REPO_DIR=$(pwd)
 
+
 echo "Configure plugin-kubectl-boilerplate repo."
 echo "Update package.json"
 
@@ -18,15 +19,16 @@ mv new.package.json package.json
 #  "devDependencies": {
 #     "@kui-shell/plugin-search": "file:plugins/plugin-search",
 
+
 echo "Update tsconfig.json"
 
 jq '.references += [{ "path": $searchPluginDir }]' --arg searchPluginDir $SEARCH_PLUGIN_DIR tsconfig.json > new.tsconfig.json
 mv new.tsconfig.json tsconfig.json
-
 # "references": [
 #     { "path": "./plugins/plugin-sample" },
 #     { "path": "./plugins/plugin-search" }
 #   ]
+
 
 echo "Update tsconfig-es6.json"
 
@@ -37,8 +39,19 @@ mv new.tsconfig-es6.json tsconfig-es6.json
 #     { "path": "./plugins/plugin-search/tsconfig-es6.json" }
 #   ]
 
+echo "Update style.json in plugin-kubeui-client"
+cd plugins/plugin-kubeui-client/config.d
+jq '.bodyCss = ["kui kui--bottom-input"]' style.json > new.style.json
+mv new.style.json style.json
+#   "bodyCss": ["kui kui--bottom-input"]
+
+# cd ../${KUI_REPO_DIR}
+# mv search-kui-plugin ./plugin-kubectl-boilerplate/plugins/plugin-search
+
+
 echo "Configure search-kui-plugin repo"
 cd $SEARCH_PLUGIN_DIR
+
 
 echo "Update tsconfig.json"
 
@@ -67,15 +80,18 @@ jq '. +{"authorization": $auth, "cookie": $cookie}' --arg auth "Bearer ${TOKEN}"
 mv new.search-auth.json src/lib/shared/search-auth.json
 
 
-echo "Runing 'npm i' on $SEARCH_PLUGIN_DIR"
+echo "Running 'npm i' on $SEARCH_PLUGIN_DIR"
 npm i
 sleep 5
-echo "Runing 'npm run buildCSS' on $SEARCH_PLUGIN_DIR"
-npm run buildCSS
 
 cd $KUI_REPO_DIR
-echo "Runing 'npm i' on $KUI_REPO_DIR"
+echo "Running 'npm i' on $KUI_REPO_DIR"
 npm i
+
+cd $SEARCH_PLUGIN_DIR
+
+echo "Running 'make compile-plugin' on $SEARCH_PLUGIN_DIR"
+make compile-plugin
 
 echo " DONE"
 
