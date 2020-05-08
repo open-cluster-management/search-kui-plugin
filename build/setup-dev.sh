@@ -95,7 +95,9 @@ mv new.search-auth.json src/lib/shared/search-auth.json
 format_title "Step 4: Running 'npm install' on $SEARCH_PLUGIN_DIR"
 npm i
 sleep 1
-format_title "Step 5: Running 'npm run buildCSS' on $SEARCH_PLUGIN_DIR"
+
+format_title "Step 5: Running 'npm run compile' and 'npm run buildCSS' on $SEARCH_PLUGIN_DIR"
+npm run compile
 npm run buildCSS
 
 cd $KUI_REPO_DIR
