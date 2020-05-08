@@ -107,7 +107,7 @@ npm run compile
 npm run buildCSS
 
 # TODO: Need to revisit why this duplication is needed.
-cp -r ./dist/ ./mdist
+cp -a ./dist/ ./mdist
 
 format_title "DONE setting up project for development." 
 echo "To start the project run:"
