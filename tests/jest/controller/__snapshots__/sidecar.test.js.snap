@@ -13,7 +13,7 @@ Object {
     class="scrollable bx--tile-related"
   >
     <a
-      class="bx--tile bx--tile--clickable"
+      class="bx--link bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -33,7 +33,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--tile bx--tile--clickable"
+      class="bx--link bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -53,7 +53,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--tile bx--tile--clickable"
+      class="bx--link bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -73,7 +73,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--tile bx--tile--clickable"
+      class="bx--link bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -93,7 +93,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--tile bx--tile--clickable"
+      class="bx--link bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -113,7 +113,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--tile bx--tile--clickable"
+      class="bx--link bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -133,7 +133,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--tile bx--tile--clickable"
+      class="bx--link bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div

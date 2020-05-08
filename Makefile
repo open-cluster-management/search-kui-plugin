@@ -7,13 +7,12 @@
 #  IBM Corporation - initial API and implementation
 ###############################################################################
 
-
-DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
-
 -include $(shell curl -H 'Authorization: token ${GITHUB_TOKEN}' -H 'Accept: application/vnd.github.v4.raw' -L https://api.github.com/repos/open-cluster-management/build-harness-extensions/contents/templates/Makefile.build-harness-bootstrap -o .build-harness-bootstrap; echo .build-harness-bootstrap)
 
 default::
 	@echo "Build Harness Bootstrapped"
+
+DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 # # search-plugin build/test
 
@@ -21,11 +20,8 @@ default::
 compile-plugin:
 	npm run buildCSS
 	tsc
-	if [ ! -d "./dist/src-web/styles" ]; then \
-		mkdir ./dist/src-web/styles; \
-	fi
-	cp ./src/src-web/styles/index.css ./dist/src-web/styles && sleep 1
-	cp -r ./dist/ ./mdist
+	mkdir ./dist/src-web/styles && cp ./src/src-web/styles/index.css ./dist/src-web/styles
+	cp -r ./dist ./mdist
 
 .PHONY: package
 package:
