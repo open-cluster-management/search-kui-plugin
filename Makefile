@@ -21,6 +21,8 @@ compile-plugin:
 	npm run compile
 	npm run buildCSS
 	cp -r ./dist/ ./mdist
+	# FIXME: Forcing good build
+	cp ./dist/src-web/styles/index.css ./mdist/src-web/styles/index.css
 
 
 .PHONY: package
