@@ -19,8 +19,8 @@ DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 .PHONY: compile-plugin
 compile-plugin:
 	npm run compile
-	cp -r ./dist/ ./mdist
 	npm run buildCSS
+	cp -r ./dist/ ./mdist
 
 
 .PHONY: package
