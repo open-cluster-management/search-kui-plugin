@@ -59,10 +59,11 @@ export const toplevel = {
     {
       docs: strings('searchhelp.title'),
       dir: true,
-      commandPrefix: 'search -h',
+      commandPrefix: '',
+      commandSuffix: '-h'
     },
   ],
   sections,
   alias: 's',
-  related: ['savedsearches'],
+  related: ['savedsearches', 'deleteResource', 'deleteSavedSearch'],
 }

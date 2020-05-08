@@ -7,6 +7,11 @@
 "actions.cancel": "Cancel",
 "actions.delete.search" : "Delete",
 
+"delete.resourcehelp.title" : "Deletes a cluster resource",
+"delete.resourcehelp.header" : "Use the delete resource command to remove a resource from your managed cloud.",
+"delete.savedsearchhelp.title" : "Deletes a previously saved search",
+"delete.savedsearchhelp.header" : "Use the delete saved searches command to remove a saved command query from your managed cloud.",
+
 "modal.createresource.policy" : "Paste content from your policy YAML file in the editor.",
 "modal.createresource.compliance" : "Paste content from your compliance YAML file in the editor.",
 "modal.createresource.application" : "Paste content from your application YAML file in the editor.",
