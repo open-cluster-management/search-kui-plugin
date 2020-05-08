@@ -3,7 +3,18 @@
 
 Adds Search capabilities to [KUI Web Terminal](https://github.com/open-cluster-management/kui-web-terminal).
 
+
 ## Development
+Setup development environment with automated script.
+
+1. Clone this repo.
+2. `oc login ...` to your development cluster.
+3. `npm run setup-dev`
+4. `npm run start`
+
+<details><summary>Setup Development environment manually</summary>
+<p>
+
 Clone the [Plugin Kubectl Boilerplate](https://github.com/kui-shell/plugin-kubectl-boilerplate) repository.
   *IMPORTANT- be sure to checkout commit `-2374814`, which is representative of the KUI client at version 6.0.13.  The search plugin is not yet compatible with any version greater than 6.0.13.
 
@@ -148,6 +159,8 @@ npm run watch
 ```bash
 npm run open
 ```
+
+</p></details>
 
 Try `search` commands. Ex: `search kind:pod`
 

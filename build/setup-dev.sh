@@ -96,15 +96,19 @@ format_title "Step 4: Running 'npm install' on $SEARCH_PLUGIN_DIR"
 npm i
 sleep 1
 
-format_title "Step 5: Running 'npm run compile' and 'npm run buildCSS' on $SEARCH_PLUGIN_DIR"
+cd $KUI_REPO_DIR
+format_title "Step 5: Runing 'npm install' on $KUI_REPO_DIR"
+npm i
+
+
+format_title "Step 6: Running 'npm run compile' and 'npm run buildCSS' on $SEARCH_PLUGIN_DIR"
+cd $SEARCH_PLUGIN_DIR
 npm run compile
 npm run buildCSS
 
-cd $KUI_REPO_DIR
-format_title "Step 6: Runing 'npm install' on $KUI_REPO_DIR"
-npm i
+# TODO: Need to revisit why this duplication is needed.
+cp -r ./dist/ ./mdist
 
 format_title "DONE setting up project for development." 
 echo "To start the project run:"
 echo "  npm run start"
-
