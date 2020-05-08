@@ -36,8 +36,8 @@ export default function renderReact(data: any, node: HTMLDivElement, command: st
           <div className={'search--resource-table'} key={kind.toString()}>
             <ResourceTable
               items={data.items
-                ? data.items.filter((item) => item.kind === kind || item.__type === kind )
-                : data.filter((item) => item.kind === kind || item.__type === kind )}
+                ? data.items.filter((item) => item.kind === kind)
+                : data.filter((item) => item.kind === kind)}
               kind={ kind.toString() }
             />
           </div>

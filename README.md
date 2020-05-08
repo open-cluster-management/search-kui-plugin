@@ -56,7 +56,7 @@ To activate this plugin, copy this repository into the `plugins/` directory in t
   ]
 ```
 
-3. Add extends path to the`tsconfig.json` file in the `plugin-search` repo.
+3. Add extends path to the `tsconfig.json` file in the `plugin-search` repo.
 
 ```bash
 "extends": "../../node_modules/@kui-shell/builder/tsconfig-base.json",
@@ -66,6 +66,19 @@ If the extended path is missing, the user will be met with this error when compi
 
 ```bash
 error TS5070: Option '--resolveJsonModule' cannot be specified without 'node' module resolution strategy.
+```
+
+4. Update `style.json` file within `plugins/plugin-kubeui-client/config.d/` to include "kui--bottom-input" value for "bodyCss" key:
+```bash
+{
+  "defaultTheme": "Dark",
+  "bodyCss": ["kui kui--bottom-input"],
+  "tableStyle": "Light",
+  "promptPlaceholder": "",
+  "topTabs": {
+    "names": "command"
+    }
+}
 ```
 
 4. The following routes need to be created within the cluster, in order for the API request calls to be executed successfully.
@@ -113,25 +126,27 @@ authConfig: AuthConfig = require('path/to/file/search-auth.json')
 To get an access token login to your env using: `oc login --token=<cluster API Token> --server=https://<cluster URL>:6443`. The login command can be found by accessing the OCP console. After logging into the OCP console, click the top right dropdown menu and select `Copy Login Command`. The user will be redirected to display the token. Copy the command, and execute the command within the CLI. Then run `oc whoami --show-token` and copy the access token.
 
 <pre>
-authorization & cookie - User access token
+authorization & cookie = User access token
 </pre>
 
-6. Install the plugin dependencies
+6. Install plugin dependencies, compile css and typescript files.
 
 ```bash
 npm install
+make compile-plugin
 ```
 
-7. Compile the code at the root-level of the KUI repo.
+7. At root-level of KUI repo, install client dependencies, and start dev server.  This will initially compile code and subsequently recompile upon any file changes.
 
 ```bash
-npm run compile
+npm install
+npm run watch
 ```
 
-8. Execute start at the root-level of the KUI repo.  The desktop/electron instance of KUI should launch. (Update this later for steps for ACM KUI testing).
+8. Open the desktop/electron instance of KUI. (Update this later with steps for ACM KUI testing).
 
 ```bash
-npm run start
+npm run open
 ```
 
 Try `search` commands. Ex: `search kind:pod`
