@@ -21,7 +21,7 @@
   "private": true,
   "scripts": {
     "buildCSS": "mkdir -p dist/src-web/styles && sass src/src-web/styles/index.scss dist/src-web/styles/index.css && npm run copyCSS",
-    "copyCSS": "mkdir -p mdist/src-web/styles && cp -r dist/src-web/styles/ mdist/src-web/styles/",
+    "copyCSS": "mkdir -p mdist/src-web/styles && cp -r ./dist/src-web/styles/ ./mdist/src-web/styles",
     "commit": "git-cz",
     "compile": "tsc",
     "semantic-release": "semantic-release",
