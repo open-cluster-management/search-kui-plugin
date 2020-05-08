@@ -4,7 +4,7 @@ exports[`Injecting our CSS should import and inject our css for environment (dev
 
 exports[`Injecting our CSS should import and inject our css for environment (test) 1`] = `
 Object {
-  "css": "../styles/index.css",
+  "css": "@kui-shell/plugin-search/mdist/src-web/styles/index.css",
   "key": "search",
 }
 `;
