@@ -75,7 +75,9 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     },
-    "ghooks": {}
+    "ghooks": {
+      "pre-commit": "npm test"
+    }
   },
   "repository": {
     "type": "git",
