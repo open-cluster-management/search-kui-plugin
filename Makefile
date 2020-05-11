@@ -34,7 +34,7 @@ integrate-plugin:
 
 .PHONY: copyright-check
 copyright-check:
-	./build-tools/copyright-check.sh
+	./build/copyright-check.sh
 
 .PHONY: run-plugin-tests
 run-plugin-tests:
