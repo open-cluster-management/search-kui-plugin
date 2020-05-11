@@ -1,13 +1,14 @@
 {
   "name": "@kui-shell/plugin-search",
   "version": "0.0.0-semantically-released",
-  "description": "KUI plugin for MCM/ICP Search.",
-  "author": "IBM Multicloud Manager/Cloud Private",
+  "description": "KUI plugin for Open Cluster Management Search.",
+  "author": "Open Cluster Management",
   "license": "ISC",
   "engines": {
     "npm": ">=6.9.0"
   },
   "keywords": [
+    "open cluster management",
     "kui",
     "plugin",
     "search",
@@ -19,6 +20,13 @@
   "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
+    "buildCSS": "mkdir -p dist/src-web/styles && sass src/src-web/styles/index.scss dist/src-web/styles/index.css && npm run copyCSS",
+    "copyCSS": "mkdir -p mdist/src-web/styles && cp -a ./dist/src-web/styles ./mdist/src-web/",
+    "commit": "git-cz",
+    "compile": "tsc",
+    "semantic-release": "semantic-release",
+    "setup-dev": "sh build/setup-dev.sh",
+    "start": "cd ../plugin-kubectl-boilerplate && npm run start",
     "test:coverage": "jest --coverage --no-cache",
     "test:unit": "jest --colors",
     "test": "npx jest --silent",
@@ -26,10 +34,7 @@
     "test:update-snapshot": "jest --updateSnapshot",
     "test:chrome": "nightwatch ./build-tools/tests/e2e -e chrome",
     "test:firefox": "nightwatch ./build-tools/tests/e2e -e firefox",
-    "test:safari": "nightwatch ./build-tools/tests/e2e -e safari",
-    "semantic-release": "semantic-release",
-    "commit": "git-cz",
-    "buildCSS": "sass src/src-web/styles/index.scss src/src-web/styles/index.css"
+    "test:safari": "nightwatch ./build-tools/tests/e2e -e safari"
   },
   "dependencies": {
     "axios": "^0.19.2",

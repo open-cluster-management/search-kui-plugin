@@ -233,6 +233,7 @@ exports[`Rendering react components for searched query data table should render 
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
                   viewBox="0 0 16 16"
                   width="16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -263,7 +264,7 @@ exports[`Rendering react components for searched query data table should render 
               1.1.1.1
             </td>
             <td>
-              7 months ago
+              8 months ago
             </td>
             <td
               tabindex="0"
@@ -274,30 +275,16 @@ exports[`Rendering react components for searched query data table should render 
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 32 32"
+                style="will-change: transform;"
+                viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <rect
-                  height="12"
-                  width="2"
-                  x="12"
-                  y="12"
-                />
-                <rect
-                  height="12"
-                  width="2"
-                  x="18"
-                  y="12"
+                <path
+                  d="M6 6H7V12H6zM9 6H10V12H9z"
                 />
                 <path
-                  d="M4,6V8H6V28a2,2,0,0,0,2,2H24a2,2,0,0,0,2-2V8h2V6ZM8,28V8H24V28Z"
-                />
-                <rect
-                  height="2"
-                  width="8"
-                  x="12"
-                  y="2"
+                  d="M2 3v1h1v10c0 .6.4 1 1 1h8c.6 0 1-.4 1-1V4h1V3H2zM4 14V4h8v10H4zM6 1H10V2H6z"
                 />
               </svg>
             </td>
@@ -324,6 +311,7 @@ exports[`Rendering react components for searched query data table should render 
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
                   viewBox="0 0 16 16"
                   width="16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -354,7 +342,7 @@ exports[`Rendering react components for searched query data table should render 
               1.1.1.1
             </td>
             <td>
-              7 months ago
+              8 months ago
             </td>
             <td
               tabindex="0"
@@ -365,30 +353,16 @@ exports[`Rendering react components for searched query data table should render 
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 32 32"
+                style="will-change: transform;"
+                viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <rect
-                  height="12"
-                  width="2"
-                  x="12"
-                  y="12"
-                />
-                <rect
-                  height="12"
-                  width="2"
-                  x="18"
-                  y="12"
+                <path
+                  d="M6 6H7V12H6zM9 6H10V12H9z"
                 />
                 <path
-                  d="M4,6V8H6V28a2,2,0,0,0,2,2H24a2,2,0,0,0,2-2V8h2V6ZM8,28V8H24V28Z"
-                />
-                <rect
-                  height="2"
-                  width="8"
-                  x="12"
-                  y="2"
+                  d="M2 3v1h1v10c0 .6.4 1 1 1h8c.6 0 1-.4 1-1V4h1V3H2zM4 14V4h8v10H4zM6 1H10V2H6z"
                 />
               </svg>
             </td>
@@ -415,6 +389,7 @@ exports[`Rendering react components for searched query data table should render 
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
                   viewBox="0 0 16 16"
                   width="16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -445,7 +420,7 @@ exports[`Rendering react components for searched query data table should render 
               1.1.1.1
             </td>
             <td>
-              7 months ago
+              8 months ago
             </td>
             <td
               tabindex="0"
@@ -456,30 +431,16 @@ exports[`Rendering react components for searched query data table should render 
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 32 32"
+                style="will-change: transform;"
+                viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <rect
-                  height="12"
-                  width="2"
-                  x="12"
-                  y="12"
-                />
-                <rect
-                  height="12"
-                  width="2"
-                  x="18"
-                  y="12"
+                <path
+                  d="M6 6H7V12H6zM9 6H10V12H9z"
                 />
                 <path
-                  d="M4,6V8H6V28a2,2,0,0,0,2,2H24a2,2,0,0,0,2-2V8h2V6ZM8,28V8H24V28Z"
-                />
-                <rect
-                  height="2"
-                  width="8"
-                  x="12"
-                  y="2"
+                  d="M2 3v1h1v10c0 .6.4 1 1 1h8c.6 0 1-.4 1-1V4h1V3H2zM4 14V4h8v10H4zM6 1H10V2H6z"
                 />
               </svg>
             </td>
@@ -506,6 +467,7 @@ exports[`Rendering react components for searched query data table should render 
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
                   viewBox="0 0 16 16"
                   width="16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -536,7 +498,7 @@ exports[`Rendering react components for searched query data table should render 
               1.1.1.1
             </td>
             <td>
-              7 months ago
+              8 months ago
             </td>
             <td
               tabindex="0"
@@ -547,30 +509,16 @@ exports[`Rendering react components for searched query data table should render 
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 32 32"
+                style="will-change: transform;"
+                viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <rect
-                  height="12"
-                  width="2"
-                  x="12"
-                  y="12"
-                />
-                <rect
-                  height="12"
-                  width="2"
-                  x="18"
-                  y="12"
+                <path
+                  d="M6 6H7V12H6zM9 6H10V12H9z"
                 />
                 <path
-                  d="M4,6V8H6V28a2,2,0,0,0,2,2H24a2,2,0,0,0,2-2V8h2V6ZM8,28V8H24V28Z"
-                />
-                <rect
-                  height="2"
-                  width="8"
-                  x="12"
-                  y="2"
+                  d="M2 3v1h1v10c0 .6.4 1 1 1h8c.6 0 1-.4 1-1V4h1V3H2zM4 14V4h8v10H4zM6 1H10V2H6z"
                 />
               </svg>
             </td>
@@ -606,24 +554,25 @@ exports[`Rendering react components for searched query data table should render 
               id="bx--modal-header__heading--modal-2"
             />
             <button
-              aria-label="Close"
+              aria-label="close the modal"
               class="bx--modal-close"
-              title="Close"
+              title="close the modal"
               type="button"
             >
               <svg
-                aria-label="Close"
+                aria-label="close the modal"
                 class="bx--modal-close__icon"
                 focusable="false"
                 height="20"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
+                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <polygon
-                  points="24 9.4 22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4"
+                <path
+                  d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                 />
               </svg>
             </button>
@@ -644,6 +593,7 @@ exports[`Rendering react components for searched query data table should render 
             </button>
             <button
               class="bx--btn bx--btn--primary"
+              inputref="[object Object]"
               tabindex="0"
               type="button"
             >
