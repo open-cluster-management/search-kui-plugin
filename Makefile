@@ -46,6 +46,11 @@ ifeq ($(UNIT_TESTS), TRUE)
 	npm run test
 endif
 
+run-unit-tests:
+	npm run compile
+	npm run buildCSS
+	npm run test
+
 # ifeq ($(SELENIUM_TESTS), TRUE)
 # 	if [ ! -d "build-tools/test-output" ]; then	\
 # 		mkdir build-tools/test-output;	\
