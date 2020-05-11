@@ -34,9 +34,10 @@ const jestConfig = {
     "js", "json"
   ],
   testMatch: [
-    '<rootDir>/tests/jest/**/*.test.js?(x)',
-    '<rootDir>/tests/jest/**/**/*.test.js?(x)',
-    '<rootDir>/tests/jest/**/**/**/*.test.js?(x)'
+    '<rootDir>/tests/jest/controller/sidecar.test.js?(x)',
+    '<rootDir>/tests/jest/**/*x.test.js?(x)',
+    '<rootDir>/tests/jest/**/**/*x.test.js?(x)',
+    '<rootDir>/tests/jest/**/**/**/*x.test.js?(x)'
   ],
   testPathIgnorePatterns: [
     '<rootDir>/tests/jest/views/modes/related.test.js'
