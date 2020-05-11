@@ -42,6 +42,7 @@
     "carbon-components-react": "^7.9.2",
     "carbon-icons": "^7.0.7",
     "graphql": "^14.5.8",
+    "jest-sonar-reporter": "^2.0.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "nconf": "^0.10.0",
