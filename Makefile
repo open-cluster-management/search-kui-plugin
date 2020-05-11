@@ -32,9 +32,9 @@ integrate-plugin:
 	@cd build; \
 		./build-kui-web-terminal.sh
 
-# .PHONY: copyright-check
-# copyright-check:
-# 	./build-tools/copyright-check.sh
+.PHONY: copyright-check
+copyright-check:
+	./build-tools/copyright-check.sh
 
 .PHONY: run-plugin-tests
 run-plugin-tests:
