@@ -49,6 +49,7 @@ endif
 run-unit-tests:
 	npm run compile
 	npm run buildCSS
+	mkdir -p test-output
 	npm run test
 
 # ifeq ($(SELENIUM_TESTS), TRUE)
