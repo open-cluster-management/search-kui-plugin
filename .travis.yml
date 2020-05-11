@@ -34,7 +34,7 @@ env:
     - COMPONENT_E2E_TEST_COMMAND=${TRAVIS_BUILD_DIR}/build/run-e2e-tests.sh
 
 stages:
-  - build
+  # - build
   - unit-test
   - test-e2e
   - publish
@@ -45,14 +45,15 @@ before_script:
 
 jobs:
   include:
-    - stage: build
-      name: "Build and push search-kui-plugin test image"
-      script:
-        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
-        - make
-        - make copyright-check
-        - make component/build
-        - make component/push
+    # - stage: build
+    #   name: "Build and push search-kui-plugin test image"
+    #   script:
+    #     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export COMPONENT_TAG_EXTENSION="-PR${TRAVIS_PULL_REQUEST}-${TRAVIS_COMMIT}"; fi;
+    #     - make
+    #     - make copyright-check
+    #     - make component/build
+    #     - make component/push
+
     - stage: unit-test
       name: "Run unit tests"
       if: type = pull_request
