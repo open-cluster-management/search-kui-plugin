@@ -16,18 +16,14 @@ DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 # # search-plugin build/test
 
-.PHONY: install
-install:
-	# npm install -g typescript sass carbon-components
-	# npm install
+.PHONY: compile-plugin
+compile-plugin:
+	npm run compile
 	npm run buildCSS
+	cp -a ./dist/ ./mdist
 
 .PHONY: package
 package:
-	tsc
-	mkdir ./dist/src-web/styles && cp ./src/src-web/styles/index.css ./dist/src-web/styles
-	cp -r ./dist ./mdist
-	ls -a
 	npm pack
 	mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 
@@ -36,9 +32,9 @@ integrate-plugin:
 	@cd build; \
 		./build-kui-web-terminal.sh
 
-# .PHONY: copyright-check
-# copyright-check:
-# 	./build-tools/copyright-check.sh
+.PHONY: copyright-check
+copyright-check:
+	./build/copyright-check.sh
 
 .PHONY: run-plugin-tests
 run-plugin-tests:

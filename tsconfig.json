@@ -1,5 +1,9 @@
 {
-  "include": ["./src"],
+  "include": [
+    "./src",
+    "./src/i18n/*.json",
+    "./src/lib/shared/*.json"
+  ],
   "compilerOptions": {
     "downlevelIteration": true,
     "jsx": "react",

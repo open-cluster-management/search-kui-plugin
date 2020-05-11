@@ -9,9 +9,20 @@
 
 import { injectCSS } from '@kui-shell/core'
 
-export const injectOurCSS = () => {
-  injectCSS({
-    css: require('@kui-shell/plugin-search/mdist/src-web/styles/index.css'),
-    key: 'search'
-  })
+export const injectOurCSS = (env?) => {
+  try {
+    if (env === 'test') { // TODO: Find a way to import/require css file for jest testing.
+      return {
+        css: '../styles/index.css',
+        key: 'search'
+      }
+    } else {
+      injectCSS({
+        css: require('../styles/index.css'),
+        key: 'search'
+      })
+    }
+  } catch (err) {
+    return err
+  }
 }

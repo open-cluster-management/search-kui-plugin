@@ -2,9 +2,7 @@
 
 exports[`Search definitions should an return an object of columns and actions for application resources 1`] = `
 Object {
-  "actions": Array [
-    "table.actions.applications.remove",
-  ],
+  "actions": Array [],
   "columns": Array [
     Object {
       "key": "name",
@@ -49,9 +47,7 @@ Object {
 
 exports[`Search definitions should an return an object of columns and actions for cluster resources 1`] = `
 Object {
-  "actions": Array [
-    "table.actions.cluster.edit.labels",
-  ],
+  "actions": Array [],
   "columns": Array [
     Object {
       "key": "name",
@@ -454,10 +450,7 @@ Object {
 
 exports[`Search definitions should an return an object of columns and actions for pod resources 1`] = `
 Object {
-  "actions": Array [
-    "table.actions.pod.logs",
-    "table.actions.remove",
-  ],
+  "actions": Array [],
   "columns": Array [
     Object {
       "key": "name",
@@ -513,9 +506,7 @@ Object {
 
 exports[`Search definitions should an return an object of columns and actions for release resources 1`] = `
 Object {
-  "actions": Array [
-    "table.actions.remove",
-  ],
+  "actions": Array [],
   "columns": Array [
     Object {
       "key": "name",
@@ -572,9 +563,7 @@ Object {
 
 exports[`Search definitions should an return an object of columns and actions for savedSearches resources 1`] = `
 Object {
-  "actions": Array [
-    "table.actions.remove",
-  ],
+  "actions": Array [],
   "columns": Array [
     Object {
       "key": "name",

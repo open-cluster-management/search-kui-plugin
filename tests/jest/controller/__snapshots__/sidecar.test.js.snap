@@ -3,7 +3,6 @@
 exports[`Building Sidecar should build a query sidecar with tabs [Related Resources] 1`] = `
 Object {
   "apiVersion": "mcm.ibm.com/v1",
-  "badges": null,
   "kind": "pod",
   "metadata": Object {
     "name": "Related resources for search results: pod",
@@ -14,7 +13,7 @@ Object {
     class="scrollable bx--tile-related"
   >
     <a
-      class="bx--link bx--tile bx--tile--clickable"
+      class="bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -34,7 +33,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--link bx--tile bx--tile--clickable"
+      class="bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -54,7 +53,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--link bx--tile bx--tile--clickable"
+      class="bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -74,7 +73,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--link bx--tile bx--tile--clickable"
+      class="bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -94,7 +93,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--link bx--tile bx--tile--clickable"
+      class="bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -114,7 +113,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--link bx--tile bx--tile--clickable"
+      class="bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -134,7 +133,7 @@ Object {
       </div>
     </a>
     <a
-      class="bx--link bx--tile bx--tile--clickable"
+      class="bx--tile bx--tile--clickable"
       tabindex="0"
     >
       <div
@@ -160,9 +159,6 @@ Object {
 exports[`Building Sidecar should build a resource sidecar with tabs [Summary, YAML, Related Resources] 1`] = `
 Object {
   "apiVersion": "mcm.ibm.com/v1",
-  "badges": Array [
-    "icp-memcached",
-  ],
   "kind": "pod",
   "metadata": Object {
     "name": "icp-memcached-5bd5ddbd86-9ckrj",
