@@ -36,12 +36,10 @@ integrate-plugin:
 copyright-check:
 	./build/copyright-check.sh
 
-
 .PHONY: run-unit-tests
 run-unit-tests:
-	npm run compile
-	npm run buildCSS
-	npm run test
+	npm run test:coverage
+
 
 # ifeq ($(SELENIUM_TESTS), TRUE)
 # 	if [ ! -d "build-tools/test-output" ]; then	\
