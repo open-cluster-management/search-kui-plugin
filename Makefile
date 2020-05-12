@@ -37,9 +37,7 @@ copyright-check:
 	./build/copyright-check.sh
 
 .PHONY: run-unit-tests
-run-plugin-tests:
-	npm run compile
-	npm run buildCSS
+run-unit-tests:
 	npm run test:coverage
 
 
