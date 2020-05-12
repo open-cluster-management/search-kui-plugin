@@ -40,7 +40,7 @@ copyright-check:
 run-plugin-tests:
 	npm run compile
 	npm run buildCSS
-	npm run test
+	npm run test:coverage
 
 
 # ifeq ($(SELENIUM_TESTS), TRUE)
