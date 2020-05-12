@@ -20,7 +20,7 @@
   "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
-    "buildCSS": "sass src/src-web/styles/index.scss src/src-web/styles/index.css",
+    "buildCSS": "mkdir -p dist/src-web/styles && sass src/src-web/styles/index.scss dist/src-web/styles/index.css && npm run copyCSS",
     "copyCSS": "mkdir -p mdist/src-web/styles && cp -a ./dist/src-web/styles ./mdist/src-web/",
     "commit": "git-cz",
     "compile": "tsc",
@@ -62,13 +62,13 @@
     "del": "^5.1.0",
     "jest": "^25.1.0",
     "jest-sonar-reporter": "^2.0.0",
-    "jest-tap-reporter": "^1.9.0",
     "electron": "6.1.5",
     "geckodriver": "^1.19.1",
     "ghooks": "^2.0.4",
     "nightwatch": "^1.3.2",
     "semantic-release": "^16.0.2",
     "xml2json": "^0.12.0",
+    "jest-tap-reporter": "^1.9.0",
     "typescript": "^3.7.4",
     "sass": "^1.25.0"
   },

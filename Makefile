@@ -18,10 +18,9 @@ DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 .PHONY: compile-plugin
 compile-plugin:
-	npm run buildCSS
 	npm run compile
-	mkdir ./dist/src-web/styles && cp ./src/src-web/styles/index.css ./dist/src-web/styles
-	cp -r ./dist ./mdist
+	npm run buildCSS
+	cp -r ./dist/ ./mdist
 
 .PHONY: package
 package:
@@ -37,10 +36,15 @@ integrate-plugin:
 copyright-check:
 	./build/copyright-check.sh
 
-.PHONY: run-unit-tests
-run-unit-tests:
-	npm run test:coverage
-
+.PHONY: run-plugin-tests
+run-plugin-tests:
+	tsc
+ifeq ($(UNIT_TESTS), TRUE)
+	if [ ! -d "test-output" ]; then \
+		mkdir test-output; \
+	fi
+	npm run test
+endif
 
 # ifeq ($(SELENIUM_TESTS), TRUE)
 # 	if [ ! -d "build-tools/test-output" ]; then	\
