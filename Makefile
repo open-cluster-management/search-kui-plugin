@@ -20,7 +20,7 @@ DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 compile-plugin:
 	npm run compile
 	npm run buildCSS
-	cp -r ./dist/ ./mdist
+	rsync -a ./dist/. ./mdist/
 
 .PHONY: package
 package:
