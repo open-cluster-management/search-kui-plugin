@@ -36,16 +36,8 @@ integrate-plugin:
 copyright-check:
 	./build/copyright-check.sh
 
-.PHONY: run-plugin-tests
-run-plugin-tests:
-	tsc
-ifeq ($(UNIT_TESTS), TRUE)
-	if [ ! -d "test-output" ]; then \
-		mkdir test-output; \
-	fi
-	npm run test
-endif
 
+.PHONY: run-unit-tests
 run-unit-tests:
 	npm run compile
 	npm run buildCSS
