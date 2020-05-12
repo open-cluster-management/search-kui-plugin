@@ -20,7 +20,7 @@
   "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
-    "buildCSS": "mkdir -p dist/src-web/styles && sass src/src-web/styles/index.scss dist/src-web/styles/index.css && npm run copyCSS",
+    "buildCSS": "sass src/src-web/styles/index.scss src/src-web/styles/index.css",
     "copyCSS": "mkdir -p mdist/src-web/styles && cp -a ./dist/src-web/styles ./mdist/src-web/",
     "commit": "git-cz",
     "compile": "tsc",
