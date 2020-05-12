@@ -36,15 +36,12 @@ integrate-plugin:
 copyright-check:
 	./build/copyright-check.sh
 
-.PHONY: run-plugin-tests
+.PHONY: run-unit-tests
 run-plugin-tests:
-	tsc
-ifeq ($(UNIT_TESTS), TRUE)
-	if [ ! -d "test-output" ]; then \
-		mkdir test-output; \
-	fi
+	npm run compile
+	npm run buildCSS
 	npm run test
-endif
+
 
 # ifeq ($(SELENIUM_TESTS), TRUE)
 # 	if [ ! -d "build-tools/test-output" ]; then	\
