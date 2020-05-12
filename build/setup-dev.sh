@@ -39,7 +39,6 @@ format_title "Step 2: Configure plugin-kubectl-boilerplate repo."
 # 2a. Update package.json 
 # ADD:    "dependencies": { "@kui-shell/plugin-search": "file:SEARCH_PLUGIN_DIR"} 
 # DELETE: "dependencies": { "@kui-shell/plugin-sample" }
-# 
 jq '.dependencies |= del(.["@kui-shell/plugin-sample"]) | .dependencies |= . +{"@kui-shell/plugin-search": $searchPluginDir}' --arg searchPluginDir "file:${SEARCH_PLUGIN_DIR}" package.json > new.package.json
 mv new.package.json package.json
 
