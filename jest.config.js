@@ -36,8 +36,8 @@ const jestConfig = {
   testMatch: [
     '<rootDir>/tests/jest/controller/savedSearch.test.js?(x)',
     '<rootDir>/tests/jest/**/*x.test.js?(x)',
-    '<rootDir>/tests/jest/**/**/*x.test.js?(x)',
-    '<rootDir>/tests/jest/**/**/**/*x.test.js?(x)'
+    '<rootDir>/tests/jest/**/**/*.test.js?(x)',
+    '<rootDir>/tests/jest/**/**/**/*.test.js?(x)'
   ],
   testPathIgnorePatterns: [
     '<rootDir>/tests/jest/views/modes/related.test.js'
