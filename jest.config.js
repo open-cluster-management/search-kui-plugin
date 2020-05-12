@@ -34,8 +34,7 @@ const jestConfig = {
     "js", "json"
   ],
   testMatch: [
-    '<rootDir>/tests/jest/controller/savedSearch.test.js?(x)',
-    '<rootDir>/tests/jest/**/*x.test.js?(x)',
+    '<rootDir>/tests/jest/**/*.test.js?(x)',
     '<rootDir>/tests/jest/**/**/*.test.js?(x)',
     '<rootDir>/tests/jest/**/**/**/*.test.js?(x)'
   ],
