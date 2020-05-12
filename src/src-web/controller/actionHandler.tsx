@@ -28,11 +28,13 @@ export const notify = (content) => {
   const node = document.createElement('div')
   node.classList.add('bx--toast-notification-content')
 
+  const kind = !content.warning ? !content.message ? 'success' : 'error' : 'warning'
   const toast = () => {
     return(
       <div className={'notification'}>
         <ToastNotification
-          kind={!content.warning ? !content.message ? 'success' : 'error' : 'warning'}
+          statusIconDescription={kind}
+          kind={kind}
           title={!content.warning ? !content.message ? content : content.message : content.warning}
           caption={new Date().toLocaleTimeString()}
           timeout={5000}

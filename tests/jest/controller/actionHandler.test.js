@@ -7,6 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
+import "regenerator-runtime"
 const actionHandler = require('../../../dist/src-web/controller/actionHandler')
 
 describe('Search action handler', () => {

@@ -7,6 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
+import "regenerator-runtime"
 const fn = require('../../../dist/src-web/controller/sidecar')
 const related = require('../../data/related')
 

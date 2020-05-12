@@ -7,6 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
+import "regenerator-runtime"
 const queries = require('../../../dist/src-web/definitions/search-queries')
 const HTTPClient = require('../../../dist/src-web/controller/HTTPClient')
 
