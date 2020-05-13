@@ -31,10 +31,9 @@ default::
 
 .PHONY: compile-plugin
 compile-plugin:
+	npm run compile
 	npm run buildCSS
-	tsc
-	mkdir ./dist/src-web/styles && cp ./src/src-web/styles/index.css ./dist/src-web/styles
-	cp -r ./dist ./mdist
+	rsync -a ./dist/. ./mdist/
 
 .PHONY: package
 package:
@@ -46,23 +45,14 @@ integrate-plugin:
 	@cd build; \
 		./build-kui-web-terminal.sh
 
-# .PHONY: copyright-check
-# copyright-check:
-# 	./build-tools/copyright-check.sh
-
-.PHONY: run
-run:
-	$(MAKE) -C kui-tests run DOCKER_IMAGE_AND_TAG=$(DOCKER_IMAGE_AND_TAG)
+.PHONY: copyright-check
+copyright-check:
+	./build/copyright-check.sh
 
 .PHONY: run-unit-tests
 run-unit-tests:
-	tsc
-ifeq ($(UNIT_TESTS), TRUE)
-	if [ ! -d "test-output" ]; then \
-		mkdir test-output; \
-	fi
-	npm run test
-endif
+	npm run test:coverage
+
 
 .PHONY: run-e2e-tests
 run-e2e-tests:

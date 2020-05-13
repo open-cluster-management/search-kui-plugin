@@ -4,3 +4,6 @@ mdist
 node_modules
 kui-shell-plugin-search-0.0.0-semantically-released.tgz
 test-output
+tsconfig.tsbuildinfo
+tsconfig-es6.tsbuildinfo
+test-report.xml

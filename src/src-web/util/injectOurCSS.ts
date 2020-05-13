@@ -13,12 +13,12 @@ export const injectOurCSS = (env?) => {
   try {
     if (env === 'test') { // TODO: Find a way to import/require css file for jest testing.
       return {
-        css: '@kui-shell/plugin-search/mdist/src-web/styles/index.css',
+        css: '../styles/index.css',
         key: 'search'
       }
     } else {
       injectCSS({
-        css: require('@kui-shell/plugin-search/mdist/src-web/styles/index.css'),
+        css: require('../styles/index.css'),
         key: 'search'
       })
     }

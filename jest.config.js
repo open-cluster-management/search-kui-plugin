@@ -40,7 +40,8 @@ const jestConfig = {
   ],
   testPathIgnorePatterns: [
     '<rootDir>/tests/jest/views/modes/related.test.js'
-  ]
+  ],
+  testResultsProcessor: 'jest-sonar-reporter',
   // globalSetup: '<rootDir>/tests/jest/config/properties-to-json.js',
   // setupFiles: [
   //   '<rootDir>/tests/jest/config/setup.js'
