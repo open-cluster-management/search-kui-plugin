@@ -80,7 +80,7 @@ exports[`Search action handler Notifications should return a error notification 
           opacity="0"
         />
         <title>
-          error icon
+          error
         </title>
       </svg>
       <div
@@ -161,7 +161,7 @@ exports[`Search action handler Notifications should return a success notificatio
           opacity="0"
         />
         <title>
-          success icon
+          success
         </title>
       </svg>
       <div
@@ -241,7 +241,7 @@ exports[`Search action handler Notifications should return a warning notificatio
           opacity="0"
         />
         <title>
-          warning icon
+          warning
         </title>
       </svg>
       <div
