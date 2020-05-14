@@ -7,6 +7,9 @@
 #  IBM Corporation - initial API and implementation
 ###############################################################################
 
+SEARCH_IMAGE ?= quay.io/open-cluster-management/search-api:3.5.0-SNAPSHOT-2020-04-30-22-40-54
+CONSOLE_IMAGE ?= quay.io/open-cluster-management/console-api:1.0.0-SNAPSHOT-2020-04-30-22-40-54
+
 DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 .PHONY: init\:
@@ -51,8 +54,31 @@ copyright-check:
 
 .PHONY: run-unit-tests
 run-unit-tests:
-	npm run test:coverage
+	npm run test
 
+.PHONY: run
+run:
+	$(MAKE) -C kui-tests run DOCKER_IMAGE_AND_TAG=$(DOCKER_IMAGE_AND_TAG)
+
+.PHONY: run-test-containers
+run-test-containers:
+	docker network create --subnet 10.10.0.0/16 console-network
+	docker pull ${CONSOLE_IMAGE}
+	docker pull ${SEARCH_IMAGE}
+	docker run \
+	-e NODE_ENV=test \
+	-e MOCK=true \
+	--network console-network \
+	--name console-api \
+	--ip 10.10.0.5 \
+	-d -p 127.0.0.1:4000:4000 ${CONSOLE_IMAGE}
+	docker run \
+	-e NODE_ENV=test \
+	-e MOCK=true \
+	--network console-network \
+	--name search-api \
+	--ip 10.10.0.6 \
+	-d -p 127.0.0.1:4010:4010 ${SEARCH_IMAGE}
 
 .PHONY: run-e2e-tests
 run-e2e-tests:
