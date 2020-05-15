@@ -11,6 +11,7 @@ set -e
 git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
 cd kui-web-terminal/
 git checkout d0a66536eb239c379a691f6f993b0a939ed278f5
+cp ../app.js ./proxy/app/app.js
 
 echo "TODO: Re-enable building the test image."
 
