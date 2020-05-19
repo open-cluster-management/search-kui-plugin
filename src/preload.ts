@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { CapabilityRegistration, isHeadless, inBrowser } from '@kui-shell/core'
+import { CapabilityRegistration, isHeadless, inBrowser, Registrar } from '@kui-shell/core'
 import getConfig from './lib/shared/config'
 import HTTPClient from './src-web/controller/HTTPClient'
 import { getPluginState, setPluginState } from './pluginState'
@@ -27,9 +27,9 @@ const registerCapability: CapabilityRegistration = async () => {
       })
   }
 
-  HTTPClient('get', 'svc', undefined)
-  .then((res) => {
-    setPluginState('enabled', (res && (res === 'true' || res === true)))
+  // HTTPClient('get', 'svc', undefined)
+  // .then((res) => {
+    setPluginState('enabled',true)
 
     if (getPluginState().enabled) {
       HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
@@ -40,25 +40,27 @@ const registerCapability: CapabilityRegistration = async () => {
         setPluginState('error', err)
       })
     }
-  })
-  .catch((err) => {
-    setPluginState('enabled', false)
-    setPluginState('error', err)
-  })
+  // })
+  // .catch((err) => {
+  //   setPluginState('enabled', false)
+  //   setPluginState('error', err)
+  // })
 
   if (!isHeadless()) {
     // Core by default listens to original input bar
     // We need to override that listen to the hijacked input bar by default
-    const [{ listen }, { InputWrapper }] = await Promise.all([
-      import('@kui-shell/core/mdist/webapp/cli'),
+    const [{ InputWrapper }] = await Promise.all([
       import('./src-web/components/InputWrapper')
     ])
 
     const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
-    await InputWrapper(stripe)
+    await InputWrapper(stripe);
 
-    const prompt: HTMLInputElement = document.querySelector('.repl-block .repl-input input')
-    listen(prompt)
+    (commandTree: Registrar) => {
+      const prompt: any = document.querySelector('.repl-block .repl-input input')
+      commandTree.listen(prompt, null)
+    }
+
   }
 }
 

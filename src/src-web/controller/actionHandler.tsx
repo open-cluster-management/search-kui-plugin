@@ -33,7 +33,7 @@ export const notify = (content) => {
     return(
       <div className={'notification'}>
         <ToastNotification
-          statusIconDescription={kind}
+          iconDescription={kind}
           kind={kind}
           title={!content.warning ? !content.message ? content : content.message : content.warning}
           caption={new Date().toLocaleTimeString()}

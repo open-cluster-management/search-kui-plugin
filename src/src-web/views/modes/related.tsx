@@ -63,7 +63,7 @@ export const buildRelated = (data: any, type?: string) => {
   : () => {
     return(
       data.map((row) => (
-        <ClickableTile tabIndex={0} onKeyPress={(e) => handleEvent(row, cluster, e)} key={row.kind} handleClick={() => handleEvent(row, cluster)}>
+        <ClickableTile tabIndex={0} onKeyPress={(e) => handleEvent(row, cluster, e)} key={row.kind} onClick={() => handleEvent(row, cluster)}>
           <div className='bx--tile-container'>
             <span className='bx--structured-list-td-related-header'>{`${row.items.length}`}</span>
                 <br></br>

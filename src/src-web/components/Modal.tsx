@@ -177,7 +177,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
         modalHeading={heading}
         onRequestClose={() => this.props.action !== 'save' ? this.props.onClose() : this.setState({ open: false })}
         onRequestSubmit={() => this.props.action === 'remove' ? this.handleDelete() : this.props.action === 'edit' ? this.handleEdit() : this.handleSave()}
-        role='region'
+        // role='region'
         aria-label={heading}>
         {this.props.action === 'edit' || this.props.action === 'save'
           ? <div className='bx--action-edit'>
@@ -200,7 +200,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
                 id={'description'}
                 labelText={strings('modal.query.add.desc.label')}
                 maxLength={140}
-                type='text'
+                // type='text'
                 value={this.state.description}
                 onChange={this.handleDescriptionChange}
                 placeholder={strings('modal.query.add.desc')}
@@ -219,7 +219,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
                 <Tooltip
                   direction='top'
                   tabIndex={0}
-                  tooltipBodyId='tooltip-body'
+                  // tooltipBodyId='tooltip-body'
                   renderIcon={Copy16}
                   showIcon
                   onChange={() => navigator.clipboard.writeText(inBrowser()

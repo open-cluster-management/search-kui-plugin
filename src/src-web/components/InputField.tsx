@@ -8,8 +8,8 @@
 *******************************************************************************/
 
 import * as React from 'react'
-import { listen } from '@kui-shell/core/mdist/webapp/cli'
-import { getCurrentTab } from '@kui-shell/core'
+// import { listen } from '@kui-shell/core/mdist/webapp/cli'
+import { getCurrentTab, Registrar } from '@kui-shell/core'
 import SearchInput from './SearchInput'
 import { InputFieldState, InputFieldProps } from '../model/InputField'
 import { injectOurCSS } from '../util/injectOurCSS'
@@ -27,8 +27,10 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
   componentWillUpdate(nextProps, nextState) {
     if (nextState.reverseSearch === '' && this.state.reverseSearch.length > 0 ) {
       // User has canceled/exited reverse-i-search we need to re-listen to the prompt
-      const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
-      listen(prompt)
+      (commandTree: Registrar)=> {
+        const prompt: any = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
+        commandTree.listen(prompt, null)
+      }
     }
   }
 
@@ -75,8 +77,10 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
     } else if (!inputText.startsWith('search') && this.state.searchCheck) {
       this.setState({ searchCheck: false, inputText, reverseSearch: '' }, () => {
         // Need to re-listen to the default searchbar because we removed it from the DOM when overriding with search
-        const prompt: HTMLInputElement = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
-        listen(prompt)
+        (commandTree: Registrar) => {
+          const prompt: any = document.querySelector('.kui--input-stripe .repl-block .repl-input input')
+          commandTree.listen(prompt, null)
+        }
       })
     } else {
       this.setState({ inputText, reverseSearch: '' })

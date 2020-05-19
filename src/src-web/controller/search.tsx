@@ -104,6 +104,7 @@ export const doSearch = (args) => new Promise((resolve, reject) => {
       )
     })
     .catch((err) => {
+      console.log('test')
       setPluginState('error', err)
       resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
     })

@@ -268,7 +268,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
               pageSizes={PAGE_SIZES.VALUES}
               totalItems={totalItems}
               page={page}
-              disabled={pageSize >= totalItems}
+              // disabled={pageSize >= totalItems}
               isLastPage={pageSize >= totalItems}
               itemsPerPageText={strings('pagination.itemsPerPage')}
               pageRangeText={(current, total) => strings('pagination.pageRange', [current, total])}
