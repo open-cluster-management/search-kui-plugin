@@ -17,15 +17,14 @@ import Logger from '../../components/Logger'
  * Render resource's log list
  *
  */
-export const buildLog = (data: any) => new Promise((resolve, reject) => {
+export const buildLog = (data: any) => {
   const node = document.createElement('div')
   node.classList.add('scrollable')
   node.classList.add('bx--structured-list--summary')
 
   const containers = lodash.get(data, 'container', '').replace(/,/g, '').split(' ')
-
   const logger = () => {
-    return(
+    return (
       <Logger
         data={data}
         items={containers}
@@ -34,8 +33,8 @@ export const buildLog = (data: any) => new Promise((resolve, reject) => {
   }
 
   ReactDOM.render(React.createElement(logger), node)
-  resolve(node)
-})
+  return node
+}
 
 /**
  * Render resource's logs tab
