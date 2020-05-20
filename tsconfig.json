@@ -1,5 +1,4 @@
 {
-  "extends": "../../packages/builder/tsconfig-base.json",
   "include": [
     "./src",
     "./src/i18n/*.json",
