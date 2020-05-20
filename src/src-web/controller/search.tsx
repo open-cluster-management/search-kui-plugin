@@ -23,7 +23,6 @@ import Modal from '../components/Modal';
 export const renderSearchAvailable = (available, err?) => {
   const node = document.createElement('div')
   node.classList.add('is-search-available')
-
   const status = () => {
     if (available) {
       return(
@@ -57,7 +56,6 @@ export const isSearchAvailable = () => {
 export const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
   const str = `${strings('validation.error')}:\t${strings('validation.missing.parameters')}.\n\n${strings('validation.usage')}:\tsearch <${strings('validation.definition.value')}>\n\tsearch <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>\n\tsearch summary <${strings('validation.definition.kind')}> <${strings('validation.definition.resource')}>`
-
   if (args.argv.length === 1) {
     resolve(str)
   }
@@ -104,11 +102,12 @@ export const doSearch = (args) => new Promise((resolve, reject) => {
       )
     })
     .catch((err) => {
-      console.log('test')
       setPluginState('error', err)
       resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
     })
-  : resolve(renderSearchAvailable(isSearchAvailable()))
+  : resolve(
+    renderSearchAvailable(isSearchAvailable())
+  )
 });
 
 /**

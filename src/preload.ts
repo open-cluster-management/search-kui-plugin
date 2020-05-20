@@ -27,9 +27,9 @@ const registerCapability: CapabilityRegistration = async () => {
       })
   }
 
-  // HTTPClient('get', 'svc', undefined)
-  // .then((res) => {
-    setPluginState('enabled',true)
+  HTTPClient('get', 'svc', undefined)
+  .then((res) => {
+    setPluginState('enabled', true)
 
     if (getPluginState().enabled) {
       HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
@@ -40,11 +40,11 @@ const registerCapability: CapabilityRegistration = async () => {
         setPluginState('error', err)
       })
     }
-  // })
-  // .catch((err) => {
-  //   setPluginState('enabled', false)
-  //   setPluginState('error', err)
-  // })
+  })
+  .catch((err) => {
+    setPluginState('enabled', false)
+    setPluginState('error', err)
+  })
 
   if (!isHeadless()) {
     // Core by default listens to original input bar
@@ -53,12 +53,18 @@ const registerCapability: CapabilityRegistration = async () => {
       import('./src-web/components/InputWrapper')
     ])
 
-    const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
-    await InputWrapper(stripe);
+    const retry = async () => {
+      if (!document.querySelector('.kui--input-stripe')){
+        window.requestAnimationFrame(retry);
+      } else {
+        await InputWrapper(document.querySelector('.kui--input-stripe'))
+      }
+    }
+    retry()
 
-    (commandTree: Registrar) => {
+    async (commandTree: Registrar) => {
       const prompt: any = document.querySelector('.repl-block .repl-input input')
-      commandTree.listen(prompt, null)
+      await commandTree.listen(prompt, null)
     }
 
   }
