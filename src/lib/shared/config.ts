@@ -12,7 +12,6 @@ let staticConfig
 if (process.env.NODE_ENV === 'development'){
   staticConfig = require('./search.json')
 }
-console.log('endpoints', staticConfig)
 
 const getXsrfToken = () => {
   const token = document.querySelector('#app-access') ? document.querySelector('#app-access')['value'] : ''

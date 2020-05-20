@@ -62,12 +62,9 @@ const registerCapability: CapabilityRegistration = async () => {
     }
     retry()
 
-    // const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
-    await InputWrapper(null);
-
-    (commandTree: Registrar) => {
+    async (commandTree: Registrar) => {
       const prompt: any = document.querySelector('.repl-block .repl-input input')
-      commandTree.listen(prompt, null)
+      await commandTree.listen(prompt, null)
     }
 
   }
