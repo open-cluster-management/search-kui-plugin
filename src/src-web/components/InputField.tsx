@@ -60,7 +60,6 @@ export class InputField extends React.PureComponent<InputFieldProps, InputFieldS
         const unfinishedText = document.querySelector('.kui--input-stripe .repl-block .repl-input input')['value']
         const searchCommand = (inputText.endsWith(':') || inputText.endsWith(' ')) ? inputText + unfinishedText : inputText + ' ' + unfinishedText
         if (searchCommand.trim() === 'search') {
-          console.error('testing REPL.pexec')
           await getCurrentTab().REPL.pexec('search -h')
         } else {
           await getCurrentTab().REPL.pexec(searchCommand)

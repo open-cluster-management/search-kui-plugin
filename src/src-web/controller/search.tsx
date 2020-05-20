@@ -11,14 +11,14 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Registrar } from '@kui-shell/core'
 import HTTPClient from './HTTPClient'
-// import renderReact from '../util/renderReact';
+import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
 import strings from '../../src-web/util/i18n'
 import { getPluginState, setPluginState } from '../../pluginState'
-// import Modal from '../components/Modal';
+import Modal from '../components/Modal';
 
 export const renderSearchAvailable = (available, err?) => {
   const node = document.createElement('div')
@@ -56,61 +56,57 @@ export const isSearchAvailable = () => {
 export const doSearch = (args) => new Promise((resolve, reject) => {
   const userQuery = convertStringToQuery(args.command)
   const str = `${strings('validation.error')}:\t${strings('validation.missing.parameters')}.\n\n${strings('validation.usage')}:\tsearch <${strings('validation.definition.value')}>\n\tsearch <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>\n\tsearch summary <${strings('validation.definition.kind')}> <${strings('validation.definition.resource')}>`
-  console.log('userQuery',userQuery)
   if (args.argv.length === 1) {
     resolve(str)
   }
 
-  // if (args.command.includes('--save') && args.argv.indexOf('--save') === args.argv.length - 1) {
-  //   const node = document.createElement('div')
+  if (args.command.includes('--save') && args.argv.indexOf('--save') === args.argv.length - 1) {
+    const node = document.createElement('div')
 
-  //   const save = () => {
-  //     return (
-  //       <Modal
-  //         item={args}
-  //         modalOpen={true}
-  //         onClose={false}
-  //         action={'save'}
-  //       />
-  //     )
-  //   }
+    const save = () => {
+      return (
+        <Modal
+          item={args}
+          modalOpen={true}
+          onClose={false}
+          action={'save'}
+        />
+      )
+    }
 
-  //   ReactDOM.render(React.createElement(save), node)
-  //   resolve(node)
-  // }
+    ReactDOM.render(React.createElement(save), node)
+    resolve(node)
+  }
 
-  // const renderNoResults = () => {
-  //   const node = document.createElement('pre')
-  //   node.setAttribute('class', 'oops')
-  //   node.innerText = strings('search.no.resources.found')
-  //   return node
-  // }
+  const renderNoResults = () => {
+    const node = document.createElement('pre')
+    node.setAttribute('class', 'oops')
+    node.innerText = strings('search.no.resources.found')
+    return node
+  }
 
-  // const buildTable = (data: any) => {
-  //   const node = document.createElement('div', {is: 'react-entry-point'})
-  //   node.classList.add('search-kui-plugin')
-  //   data.items.length > 0
-  //     ? renderReact(data, node, args.command)
-  //     : node.appendChild(renderNoResults())
-  //   return node
-  // }
+  const buildTable = (data: any) => {
+    const node = document.createElement('div', {is: 'react-entry-point'})
+    node.classList.add('search-kui-plugin')
+    data.items.length > 0
+      ? renderReact(data, node, args.command)
+      : node.appendChild(renderNoResults())
+    return node
+  }
 
   args.command !== 'search -i' && args.command !== 's -i' && isSearchAvailable()
   ? HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
     .then((res) => {
       resolve(
-        console.log('res', res)
-        // buildTable(res.data.searchResult[0]),
+        buildTable(res.data.searchResult[0]),
       )
     })
     .catch((err) => {
-      console.log('test')
       setPluginState('error', err)
       resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
     })
   : resolve(
-    console.log('no go')
-    // renderSearchAvailable(isSearchAvailable())
+    renderSearchAvailable(isSearchAvailable())
   )
 });
 

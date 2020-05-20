@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { CapabilityRegistration, isHeadless, inBrowser, Registrar, isCommandHandlerWithEvents } from '@kui-shell/core'
+import { CapabilityRegistration, isHeadless, inBrowser, Registrar } from '@kui-shell/core'
 import getConfig from './lib/shared/config'
 import HTTPClient from './src-web/controller/HTTPClient'
 import { getPluginState, setPluginState } from './pluginState'
