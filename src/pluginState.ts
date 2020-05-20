@@ -8,7 +8,7 @@
 *******************************************************************************/
 
 const state = {
-  enabled: undefined,
+  enabled: true,
   searchSchema: [],
   default: ['cluster', 'kind', 'label', 'name', 'namespace', 'status'],
   error: undefined

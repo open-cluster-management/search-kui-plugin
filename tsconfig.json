@@ -9,7 +9,7 @@
     "downlevelIteration": true,
     "jsx": "react",
     "composite": true,
-    "outDir": "dist",
+    "outDir": "mdist",
     "rootDir": "src",
     "resolveJsonModule": true,
     "sourceMap": true

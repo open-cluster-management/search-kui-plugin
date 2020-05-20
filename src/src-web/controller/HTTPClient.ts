@@ -53,6 +53,7 @@ export default async function HTTPClient(method, urlType, requestBody) {
 
   // TODO:Rob - figure out same dependency here for http req
   if (process.env.NODE_ENV === 'development') {
+    console.log('running needle httprequest')
     return needle(method, getURL(), requestBody || {}, {
       json: true,
       headers: getHeaders(config),
