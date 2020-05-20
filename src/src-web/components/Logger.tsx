@@ -18,7 +18,7 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 
-import { Dropdown, Loading } from 'carbon-components-react'
+import { Dropdown, /* Loading */ } from 'carbon-components-react'
 import { LoggerProps, LoggerState } from '../model/Logger'
 
 import * as lodash from 'lodash'
@@ -110,13 +110,13 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
           onChange={this.handleOnChange}
         />
 
-        { !this.state.logs
-          ? <div className='loading-container'><Loading withOverlay={false} className='resource-load'/></div>
+        {!this.state.logs
+          ? <div className='loading-container'>{'Loading logs' /* <Loading withOverlay={false} className='resource-load'/> */}</div>
           : <div className='logs-container__content'>
-            <pre>
-              {this.state.logs}
-            </pre>
-          </div>
+              <pre>
+                {this.state.logs}
+              </pre>
+            </div>
         }
       </React.Fragment>
     )

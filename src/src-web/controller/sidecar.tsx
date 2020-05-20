@@ -12,9 +12,9 @@ import { convertStringToQuery } from '../util/search-helper';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
 import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
-import { buildSummary } from '../views/modes/summary';
+import { /* buildSummary, */ summaryTab } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
-import { relatedTab, buildRelated } from '../views/modes/related';
+import { relatedTab, /* buildRelated */ } from '../views/modes/related';
 import { logTab } from '../views/modes/logging';
 import strings from '../../src-web/util/i18n'
 import { isSearchAvailable, renderSearchAvailable } from './search';
@@ -25,6 +25,8 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   const kind = lodash.get(data, 'items[0].kind', '')
 
   if (type !== 'query') {
+    modes.push(summaryTab(data.items[0]))
+
     // If the resource is a pod, add the logging tab.
     if (kind === 'pod') {
       modes.push(logTab(data.items[0]))
@@ -35,9 +37,9 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
       modes.push(yamlTab(resource))
     }
   }
-
-  // If the resource have any related resources, add the related tab. (For now, we're removing this tab from the query's sidecar and using the summary tab to represent this one)
-  if (lodash.get(data, 'related', '').length > 0 && type !== 'query') {
+  
+  // If the resource have any related resources, add the related tab.
+  if (lodash.get(data, 'related', '').length > 0) {
     modes.push(relatedTab(data, type))
   }
 
@@ -45,7 +47,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   return {
     apiVersion: 'mcm.ibm.com/v1',
     kind,
-    summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
+    // summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
     metadata: {
       name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [kind]),
       namespace: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
