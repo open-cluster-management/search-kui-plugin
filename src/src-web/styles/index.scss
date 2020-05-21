@@ -478,6 +478,11 @@ span{
             .bx--text-area {
               &.bx--action-description {
                 background-color: #fff;
+                font-size: medium;
+                height: 7vh;
+                padding: 1%;
+                width: inherit;
+
                 &:focus {
                   border-bottom: 3px solid var(--active-tab-color);
                   outline: none;
@@ -839,8 +844,8 @@ span{
 .scrollable{
   &.bx--structured-list--summary{
     width: 98%;
-    margin-left: 2.5%;
-    padding-right: 20px;
+    // margin-left: 2.5%;
+    // padding-right: 20px;
 
     .bx--structured-list-row{
       &:hover{
@@ -851,6 +856,8 @@ span{
     .bx--dropdown__wrapper{
       &.bx--list-box__wrapper{
         margin-top: 2%;
+        background-color: var(--color-white);
+        color: var(--color-black);
       }
     }
 
@@ -903,22 +910,20 @@ span{
     }
   }
 
-  &.bx--tile-related{
+  &.bx--tile-related {
     width: 100%;
     margin-left: 10%;
 
-    .bx--tile{
-      background-color: transparent;
-      text-decoration: none;
-
-      &.bx--tile--clickable{
+    .bx--btn {
+      &.bx--btn--primary {
         margin-top: 5%;
         float: left;
         width: 25%;
         height: 100px;
         border: none;
+        background-color: transparent;
 
-        .bx--tile-container{
+        .bx--tile-container {
           width: 100%;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -935,25 +940,21 @@ span{
               opacity: 1;
             }
           }
-        }
 
-        &:hover{
-          cursor: none;
-        }
-
-        .bx--structured-list-td-related-header{
-          font-size: 2rem;
-          font-weight: 500;
-          color: var(--color-map-key);
-          text-decoration: none;
-          opacity: 0.8;
-        }
-
-        .bx--structured-list-td-body{
-          font-size: 0.9rem;
-          color: var(--color-base07);
-          text-decoration: none;
-          opacity: 0.8;
+          .bx--structured-list-td-related-header {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--color-map-key);
+            text-decoration: none;
+            opacity: 0.8;
+          }
+  
+          .bx--structured-list-td-body{
+            font-size: 0.9rem;
+            color: var(--color-base07);
+            text-decoration: none;
+            opacity: 0.8;
+          }
         }
       }
     }
