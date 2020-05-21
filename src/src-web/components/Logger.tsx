@@ -102,8 +102,8 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
     return (
       <React.Fragment>
         <Dropdown
-          titleText='resource-container-dropdown'
-          ariaLabel='resource-container-dropdown'
+          titleText=''
+          ariaLabel=''
           id='resource-container-dropdown'
           label={lodash.get(this.props.items, '[0]', '')}
           items={this.props.items}

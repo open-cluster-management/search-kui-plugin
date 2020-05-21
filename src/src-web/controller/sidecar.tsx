@@ -45,9 +45,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
 
   // Returns the sidecar and tab for the selected resource || search query that was entered.
   return {
-    apiVersion: 'mcm.ibm.com/v1',
     kind,
-    // summary: type !== 'query' ? buildSummary(data.items[0]) : buildRelated(data.related, type),
     metadata: {
       name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [kind]),
       namespace: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
