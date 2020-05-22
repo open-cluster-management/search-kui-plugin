@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { CapabilityRegistration, isHeadless, inBrowser, Registrar } from '@kui-shell/core'
+import { CapabilityRegistration, isHeadless, inBrowser } from '@kui-shell/core'
 import getConfig from './lib/shared/config'
 import HTTPClient from './src-web/controller/HTTPClient'
 import { getPluginState, setPluginState } from './pluginState'
@@ -61,11 +61,6 @@ const registerCapability: CapabilityRegistration = async () => {
       }
     }
     retry()
-
-    async (commandTree: Registrar) => {
-      const prompt: any = document.querySelector('.repl-block .repl-input input')
-      await commandTree.listen(prompt, null)
-    }
 
   }
 }
