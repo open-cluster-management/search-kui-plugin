@@ -52,13 +52,12 @@ export default class CustomSearchInput extends InputProvider<SearchState> {
   }
 
   toggleIsSearchState(inputText) {
-    // If in i-search mode - set reverseSearch to the full string
     if (inputText.startsWith('search ') && !this.state.isSearch) {
-      this.setState({ isSearch: true, inputText /*, reverseSearch: '' */})
+      this.setState({ isSearch: true, inputText })
     } else if (!inputText.startsWith('search') && this.state.isSearch) {
-      this.setState({ isSearch: false, inputText /*, reverseSearch: '' */})
+      this.setState({ isSearch: false, inputText })
     } else {
-      this.setState({ inputText /*, reverseSearch: '' */})
+      this.setState({ inputText })
     }
   }
 
@@ -73,7 +72,7 @@ export default class CustomSearchInput extends InputProvider<SearchState> {
     this.toggleIsSearchState(query)
   }
 
-  onKeyDown = async (e) => {
+  onKeyPress = async (e) => {
     const { inputText, isSearch } = this.state
     e.persist()
     if (e.which === 13) {
@@ -127,14 +126,7 @@ export default class CustomSearchInput extends InputProvider<SearchState> {
       <SearchInput
         onChange={this.handleSearchTextChange}
         value={this.state.inputText}
-        ref={prompt => {
-            if (prompt) {
-              // prompt.focus()
-              this.setState({ prompt })
-            }
-          }}
-        onKeyPress={defaultOnKeyPress.bind(this)}
-        // onKeyDown={this.onKeyDown}
+        onKeyPress={this.onKeyPress}
       />
     )
   }
