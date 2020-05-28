@@ -422,7 +422,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
     return (
       <div className='tagInput-filter'>
-          <div className={'tagInput-comboBox'} onKeyDown={this.props.onKeyDown}>
+          <div className={'tagInput-comboBox'} onKeyPress={this.props.onKeyPress}>
             <ReactTags
               placeholder=''
               tags={_.get(fieldOptions, '[0].id', '') === 'loading' || fieldOptions.length > 1 ? tags : undefined}

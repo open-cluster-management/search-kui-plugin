@@ -45,24 +45,6 @@ const registerCapability: CapabilityRegistration = async () => {
     setPluginState('enabled', false)
     setPluginState('error', err)
   })
-
-  if (!isHeadless()) {
-    // Core by default listens to original input bar
-    // We need to override that listen to the hijacked input bar by default
-    const [{ InputWrapper }] = await Promise.all([
-      import('./src-web/components/InputWrapper')
-    ])
-
-    const retry = async () => {
-      if (!document.querySelector('.kui--input-stripe')){
-        window.requestAnimationFrame(retry);
-      } else {
-        await InputWrapper(document.querySelector('.kui--input-stripe'))
-      }
-    }
-    retry()
-
-  }
 }
 
 export default registerCapability

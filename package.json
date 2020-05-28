@@ -20,8 +20,8 @@
   "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
-    "buildCSS": "mkdir -p dist/src-web/styles && sass src/src-web/styles/index.scss dist/src-web/styles/index.css && npm run copyCSS",
-    "copyCSS": "mkdir -p mdist/src-web/styles && cp -a ./dist/src-web/styles ./mdist/src-web/",
+    "buildCSS": "mkdir -p mdist/src-web/styles && sass src/src-web/styles/index.scss mdist/src-web/styles/index.css && npm run copyCSS",
+    "copyCSS": "mkdir -p dist/src-web/styles && cp -a ./mdist/src-web/styles ./dist/src-web/",
     "commit": "git-cz",
     "compile": "tsc",
     "semantic-release": "semantic-release",
@@ -38,8 +38,6 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "carbon-components": "10.10.3",
-    "carbon-components-react": "7.10.3",
     "carbon-icons": "^7.0.7",
     "graphql": "^14.5.8",
     "lodash": "^4.17.15",
@@ -53,7 +51,6 @@
     "@babel/plugin-transform-regenerator": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
-    "@kui-shell/plugin-client-common": "^8.4.3",
     "@kui-shell/core": "^8.4.3",
     "@types/lodash": "^4.14.149",
     "@types/node": "12.12.31",

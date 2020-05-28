@@ -11,7 +11,7 @@ export interface SearchBarProps {
     value: string
     availableFilters: any[]
     onChange: any
-    onKeyDown: any
+    onKeyPress: any
   }
 
 export interface SearchBarState {
