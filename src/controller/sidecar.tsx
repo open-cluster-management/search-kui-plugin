@@ -12,13 +12,13 @@ import { convertStringToQuery } from '../util/search-helper';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
 import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
-import { /* buildSummary, */ summaryTab } from '../views/modes/summary';
+import { summaryTab } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
-import { relatedTab, /* buildRelated */ } from '../views/modes/related';
+import { relatedTab } from '../views/modes/related';
 import { logTab } from '../views/modes/logging';
-import strings from '../../src-web/util/i18n'
+import strings from '../util/i18n'
 import { isSearchAvailable, renderSearchAvailable } from './search';
-import { setPluginState, getPluginState } from '../../pluginState';
+import { setPluginState, getPluginState } from '../pluginState';
 
 export const buildSidecar = (type: string, data: any, resource?: any) => {
   const modes = []
@@ -54,7 +54,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
   }
 }
 
-export const getSidecar = async (args) => new Promise((resolve, reject) => {
+export const getSidecar = async (args) => new Promise((resolve) => {
   const { command } = args
   const userQuery = convertStringToQuery(command)
 

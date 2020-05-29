@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
 /*******************************************************************************
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -71,7 +71,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
 
     if (!this.state.errors) {
       HTTPClient('post', 'search', SAVE_SEARCH(data))
-      .then((res) => {
+      .then(() => {
         getCurrentTab().REPL.pexec(`savedsearches`)
         this.props.onClose()
       })
@@ -97,7 +97,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
     .then((res) => {
       if (res.data.searchResult[0].items) {
         HTTPClient('post', 'search', SAVE_SEARCH(data))
-        .then((resp) => {
+        .then(() => {
           this.setState({ open: false })
           getCurrentTab().REPL.pexec('savedsearches')
         })

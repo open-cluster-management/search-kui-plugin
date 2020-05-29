@@ -13,9 +13,9 @@ import renderReact from '../util/renderReact';
 import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from './helpfiles/savedsearchhelp'
 import { SEARCH_QUERY_COUNT, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
-import strings from '../../src-web/util/i18n'
+import strings from '../util/i18n'
 import { isSearchAvailable, renderSearchAvailable } from './search';
-import { getPluginState, setPluginState } from '../../pluginState';
+import { getPluginState, setPluginState } from '../pluginState';
 
 export function getQueryCount(searches) {
   const input = [...searches.map((query) => convertStringToQuery(query.searchText))]
@@ -27,7 +27,7 @@ export function getQueryCount(searches) {
     })
 }
 
-export const doSavedSearch = (args) => new Promise((resolve, reject) => {
+export const doSavedSearch = (args) => new Promise((resolve) => {
   const str = `${strings('validation.error')}:\t${strings('validation.savedsearches.parameters')}.\n\n${strings('validation.usage')}:\t${strings('validation.definition.savedsearches')}`
 
   if (args.argv.length > 1) {

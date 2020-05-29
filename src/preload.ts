@@ -7,12 +7,12 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { CapabilityRegistration, isHeadless, inBrowser } from '@kui-shell/core'
+import { CapabilityRegistration, inBrowser } from '@kui-shell/core'
 import getConfig from './lib/shared/config'
-import HTTPClient from './src-web/controller/HTTPClient'
+import HTTPClient from './controller/HTTPClient'
 import { getPluginState, setPluginState } from './pluginState'
 import * as lodash from 'lodash'
-import { GET_SEARCH_SCHEMA } from './src-web/definitions/search-queries'
+import { GET_SEARCH_SCHEMA } from './definitions/search-queries'
 
 // Register searchBarWrapper
 const registerCapability: CapabilityRegistration = async () => {
@@ -28,7 +28,7 @@ const registerCapability: CapabilityRegistration = async () => {
   }
 
   HTTPClient('get', 'svc', undefined)
-  .then((res) => {
+  .then(() => {
     setPluginState('enabled', true)
 
     if (getPluginState().enabled) {

@@ -9,7 +9,7 @@
 
 import axios from 'axios'
 import * as needle from 'needle'
-import { Config, getConfig } from '../../lib/shared/config'
+import { Config, getConfig } from '../lib/shared/config'
 
 // Browser requires xsrf token for calls & and electron needs the access token
 function getHeaders(config: Config) {

@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const renderReact = require('../../../dist/src-web/util/renderReact')
+const renderReact = require('../../../dist/util/renderReact')
 const resource = require('../../data/pod')
 
 describe('Rendering react components for searched query data table', () => {

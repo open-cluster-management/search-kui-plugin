@@ -16,8 +16,8 @@ import { convertStringToQuery } from '../util/search-helper'
 import { toplevel as usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar';
-import strings from '../../src-web/util/i18n'
-import { getPluginState, setPluginState } from '../../pluginState'
+import strings from '../util/i18n'
+import { getPluginState, setPluginState } from '../pluginState'
 import Modal from '../components/Modal';
 
 export const renderSearchAvailable = (available, err?) => {
@@ -53,7 +53,7 @@ export const isSearchAvailable = () => {
   return getPluginState().enabled
 }
 
-export const doSearch = (args) => new Promise((resolve, reject) => {
+export const doSearch = (args) => new Promise((resolve) => {
   const userQuery = convertStringToQuery(args.command)
   const str = `${strings('validation.error')}:\t${strings('validation.missing.parameters')}.\n\n${strings('validation.usage')}:\tsearch <${strings('validation.definition.value')}>\n\tsearch <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>\n\tsearch summary <${strings('validation.definition.kind')}> <${strings('validation.definition.resource')}>`
   if (args.argv.length === 1) {

@@ -7,7 +7,8 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-@import '../../../../../node_modules/carbon-components/scss/globals/scss/colors';
+@import '../../../../node_modules/carbon-components/scss/globals/scss/colors';
+
 
 .repl-result {
   white-space: unset;
@@ -411,40 +412,6 @@ span{
   }
 }
 
-.kui--bottom-input {
-  .repl-active {
-    .repl-input {
-      display: flex;
-    }
-  }
-}
-
-.kui--input-stripe {
-  .repl-block {
-    .repl-input {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      padding: 0em 0.375em;
-
-      .repl-input-label {
-        display: none;
-      }
-
-      .repl-input-element {
-        margin-left: 7.5px;
-        // height: 35.7px;
-        width: 100%;
-        font-size: 100%;
-      }
-
-      .tagInput-filter {
-        width: 100%;
-      }
-    }
-  }
-}
 
 .oops {
   &.save-text-error {
@@ -549,7 +516,42 @@ span{
   }
 }
 
-// REACT TAG STYLING
+
+/***********************
+       INPUT BAR
+***********************/
+
+.kui--input-stripe {
+    overflow-x:visible;
+
+  .repl-block {
+    .repl-input {
+      width: 100%;
+      height: 100%;
+
+      .kui--input-and-context {
+        font-size: 100%;
+        padding: 0 1rem;
+
+        input {
+          font-size: 100%;
+          padding-left: 0.5em;
+        }
+      }
+
+      .repl-input-label {
+        display: none;
+      }
+    }
+  }
+}
+
+
+
+/***********************
+    REACT TAG STYLING
+************************/
+
 
 /* Styles for the button */
 .tagInput-searchIcon {
@@ -668,10 +670,8 @@ span{
   }
 }
 
-
 .react-tags__selected {
   display: flex;
-
 }
 
 .react-tags__selected-tag {
@@ -734,7 +734,6 @@ span{
   display: flex;
   z-index: 200;
   max-width: 100%;
-  margin: 0.75rem 0.5rem 0.75rem 0.5rem;
   padding-right: 2rem;
 
   &-input {
@@ -829,7 +828,11 @@ span{
   }
 }
 
-// SIDECAR STYLING
+
+/*********************
+    SIDECAR STYLING
+**********************/
+
 
 .sidecar-header-icon {
   color: var(--color-map-key)

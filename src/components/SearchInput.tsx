@@ -13,7 +13,7 @@ import SearchBar from './SearchBar'
 import { SearchInputProps, SearchInputState } from '../model/SearchInput'
 import strings from '../util/i18n'
 import { isSearchAvailable } from '../controller/search';
-import { getPluginState } from '../../pluginState'
+import { getPluginState } from '../pluginState'
 
 export default class SearchInput extends React.PureComponent<SearchInputProps, SearchInputState> {
   static propTypes = { }

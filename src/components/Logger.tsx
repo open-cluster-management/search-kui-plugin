@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-expressions */
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /*******************************************************************************
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -25,7 +24,7 @@ import * as lodash from 'lodash'
 import HTTPClient from '../controller/HTTPClient';
 import { RESOURCE_LOGS } from '../definitions/search-queries';
 
-import strings from '../../src-web/util/i18n'
+import strings from '../util/i18n'
 
 export default class Logger extends React.PureComponent<LoggerProps, LoggerState> {
   static propTypes = {
