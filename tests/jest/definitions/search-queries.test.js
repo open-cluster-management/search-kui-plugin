@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const searchqueries = require('../../../dist/src-web/definitions/search-queries')
+const searchqueries = require('../../../dist/definitions/search-queries')
 const res = require('../../data/pod')
 const yaml = require('../../data/deployment')
 const savedsearches = require('../../data/savedsearches')

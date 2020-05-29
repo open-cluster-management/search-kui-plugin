@@ -8,8 +8,8 @@
 *******************************************************************************/
 'use strict'
 import "regenerator-runtime"
-const queries = require('../../../dist/src-web/definitions/search-queries')
-const HTTPClient = require('../../../dist/src-web/controller/HTTPClient')
+const queries = require('../../../dist/definitions/search-queries')
+const HTTPClient = require('../../../dist/controller/HTTPClient')
 
 const svc = 'svc'
 const search = 'search'

@@ -8,7 +8,7 @@
 *******************************************************************************/
 'use strict'
 
-const CSS = require('../../../dist/src-web/util/injectOurCSS')
+const CSS = require('../../../dist/util/injectOurCSS')
 const env = 'test'
 
 describe('Injecting our CSS', () => {

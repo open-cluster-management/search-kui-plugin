@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const status = require('../../../dist/src-web/util/status')
+const status = require('../../../dist/util/status')
 
 const spy = jest.spyOn(status, 'getStatusIcon')
 const _ = status.getStatusIcon()

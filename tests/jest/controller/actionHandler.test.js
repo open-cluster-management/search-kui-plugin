@@ -8,7 +8,7 @@
 *******************************************************************************/
 'use strict'
 import "regenerator-runtime"
-const actionHandler = require('../../../dist/src-web/controller/actionHandler')
+const actionHandler = require('../../../dist/controller/actionHandler')
 
 describe('Search action handler', () => {
   const name = 'All Fake Pods'

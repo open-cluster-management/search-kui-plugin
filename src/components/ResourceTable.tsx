@@ -1,3 +1,5 @@
+/* eslint-disable react/no-deprecated */
+/* eslint-disable no-case-declarations */
 /*******************************************************************************
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -17,7 +19,7 @@ import * as React from 'react'
 import * as lodash from 'lodash'
 import * as PropTypes from 'prop-types'
 import tableDefinitions from '../definitions/search-definitions'
-import Modal from '../components/Modal'
+import Modal from './Modal'
 import { Pagination, DataTable } from 'carbon-components-react'
 import { TableProps, TableState } from '../model/ResourceTable'
 import { getCurrentTab } from '@kui-shell/core'

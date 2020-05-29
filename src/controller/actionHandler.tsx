@@ -20,7 +20,7 @@ import { Registrar } from '@kui-shell/core'
 import HTTPClient from './HTTPClient'
 import strings from '../util/i18n'
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
-import { setPluginState, getPluginState } from '../../pluginState'
+import { setPluginState, getPluginState } from '../pluginState'
 import { renderSearchAvailable, isSearchAvailable } from './search'
 import * as usage from './helpfiles/deletehelp'
 
@@ -47,7 +47,7 @@ export const notify = (content) => {
   return node
 }
 
-export const deleteSavedSearch = (args) => new Promise((resolve, reject) => {
+export const deleteSavedSearch = (args) => new Promise((resolve) => {
   if (args.argv.length === 1) {
     resolve('ERROR: Received wrong number of parameters.\nUSAGE: deleteSavedSearch <saved-search-name>')
   }
@@ -88,7 +88,7 @@ export const deleteSavedSearch = (args) => new Promise((resolve, reject) => {
   })
 })
 
-export const deleteResource = (args) => new Promise((resolve, reject) => {
+export const deleteResource = (args) => new Promise((resolve) => {
   if (args.argv.length !== 6) {
     resolve('ERROR: Received wrong number of parameters.\nUSAGE: deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>')
   }

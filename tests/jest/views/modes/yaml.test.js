@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const yaml = require('../../../../dist/src-web/views/modes/yaml')
+const yaml = require('../../../../dist/views/modes/yaml')
 
 const items = [
   {kind: require('../../../data/deployment')},

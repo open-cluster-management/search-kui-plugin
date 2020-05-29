@@ -1,3 +1,4 @@
+/* eslint-disable react/no-deprecated */
 /*******************************************************************************
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
@@ -14,7 +15,7 @@ import HTTPClient from '../controller/HTTPClient'
 import { convertStringToQuery } from '../util/search-helper'
 import { GET_SEARCH_COMPLETE } from '../definitions/search-queries'
 import {SearchBarProps, SearchBarState} from '../model/SearchBar'
-import InputTag from '../components/Tag'
+import InputTag from './Tag'
 // helper function for translations
 import strings from '../util/i18n'
 

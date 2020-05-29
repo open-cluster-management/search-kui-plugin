@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const helper = require('../../../dist/src-web/util/search-helper')
+const helper = require('../../../dist/util/search-helper')
 
 describe('Search helper', () => {
   const commands = [

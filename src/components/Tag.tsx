@@ -21,6 +21,7 @@ class Tag extends React.Component<TagProps, TagState> {
     default: return classNames.selectedTag
     }
   }
+  
   render() {
     const { classNames, onDelete, tag } = this.props
     return (
