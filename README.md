@@ -12,6 +12,7 @@ Setup development environment with automated script.
 3. `npm run setup-dev`
 4. `npm run start`
 
+
 <details><summary>Setup Development environment manually</summary>
 <p>
 
