@@ -9,8 +9,8 @@ format_title () {
 }
 
 # Check plugin-kubectl-boilerplate wasn't cloned before.
-if [ -d "../plugin-kubectl-boilerplate" ]; then
-  echo "ERROR setting up environment: Project plugin-kubectl-boilerplate already exist at: $(cd .. && pwd)/plugin-kubectl-boilerplate"
+if [ -d "/kui" ]; then
+  echo "ERROR setting up environment: Project kui already exist at: $(pwd)/kui"
   echo "Delete this folder and try again.\n"
   exit 0
 fi
@@ -26,47 +26,40 @@ if [ "${ACCEPT}" != "y" ]; then
   exit 0
 fi
 
-SEARCH_PLUGIN_DIR=$(pwd)
-format_title "Step 1: Clone plugin-kubectl-boilerplate."
-cd ..
-git clone git@github.com:kui-shell/plugin-kubectl-boilerplate.git
-cd plugin-kubectl-boilerplate/
-git checkout -b ocm-dev 2374814c0b737d0e84f34c2005a7af5ea5f942d7
+format_title "Step 1: Clone IBM/Kui monorepo and move search-plugin into plugins folder"
+git clone git@github.com:IBM/kui.git
+mv search-kui-plugin kui/plugins/plugin-search
+cd kui/
+npm i
 KUI_REPO_DIR=$(pwd)
+cd plugins/plugin-search
+SEARCH_PLUGIN_DIR=$(pwd)
 
-format_title "Step 2: Configure plugin-kubectl-boilerplate repo."
 
+format_title "Step 2: Configure IBM/Kui repo."
+cd $KUI_REPO_DIR
 # 2a. Update package.json 
 # ADD:    "dependencies": { "@kui-shell/plugin-search": "file:SEARCH_PLUGIN_DIR"} 
-# DELETE: "dependencies": { "@kui-shell/plugin-sample" }
-jq '.dependencies |= del(.["@kui-shell/plugin-sample"]) | .dependencies |= . +{"@kui-shell/plugin-search": $searchPluginDir}' --arg searchPluginDir "file:${SEARCH_PLUGIN_DIR}" package.json > new.package.json
+jq '.dependencies |= . +{"@kui-shell/plugin-search": $searchPluginDir}' --arg searchPluginDir "file:plugins/plugin-search" package.json > new.package.json
 mv new.package.json package.json
 
 # 2b. Update tsconfig.json
 # "references": [{ "path": "SEARCH_PLUGIN_DIR" }]
-jq '.references += [{ "path": $searchPluginDir }]' --arg searchPluginDir $SEARCH_PLUGIN_DIR tsconfig.json > new.tsconfig.json
+jq '.references += [{ "path": $searchPluginDir }]' --arg searchPluginDir 'plugins/plugin-search' tsconfig.json > new.tsconfig.json
 mv new.tsconfig.json tsconfig.json
 
-
-# 2c. Update tsconfig-es6.json
-# "references": [{ "path": "SEARCH_PLUGIN_DIR/tsconfig-es6.json" }]
-jq '.references += [{ "path": $path }]' --arg path "${SEARCH_PLUGIN_DIR}/tsconfig-es6.json" tsconfig-es6.json > new.tsconfig-es6.json
-mv new.tsconfig-es6.json tsconfig-es6.json
-
-
-# 2d. Update style.json in plugin-kubeui-client
-# "bodyCss": ["kui kui--bottom-input"]
-cd plugins/plugin-kubeui-client/config.d
-jq '.bodyCss = ["kui kui--bottom-input"]' style.json > new.style.json
-mv new.style.json style.json
+# 2c. Update index.tsx in plugin-client-alternate
+# import CustomSearchInput
+cd plugins/plugin-client-alternate/src/
+sed -i -e "s/CustomInput/CustomSearchInput/;s/.\/CustomInput/@kui-shell\/plugin-search\/mdist\/components\/CustomSearchInput/" index.tsx
 
 
 format_title "Step 3: Configure search-kui-plugin repo."
 cd $SEARCH_PLUGIN_DIR
 
 # 3a. Update tsconfig.json
-# "extends": "../../node_modules/@kui-shell/builder/tsconfig-base.json",
-jq '. |= . +{"extends": $path}' --arg path "${KUI_REPO_DIR}/node_modules/@kui-shell/builder/tsconfig-base.json" tsconfig.json > new.tsconfig.json
+# "extends": "../../packages/builder/tsconfig-base.json",
+jq '. |= . +{"extends": $path}' --arg path "../../packages/builder/tsconfig-base.json" tsconfig.json > new.tsconfig.json
 mv new.tsconfig.json tsconfig.json
 
 # 3b. Update src/lib/shared/search.json with routes to development cluster
@@ -97,19 +90,23 @@ format_title "Step 4: Running 'npm install' on $SEARCH_PLUGIN_DIR"
 npm i
 sleep 1
 
-cd $KUI_REPO_DIR
-format_title "Step 5: Runing 'npm install' on $KUI_REPO_DIR"
-npm i
 
-
-format_title "Step 6: Running 'npm run compile' and 'npm run buildCSS' on $SEARCH_PLUGIN_DIR"
-cd $SEARCH_PLUGIN_DIR
+format_title "Step 5: Running 'npm run compile' on $SEARCH_PLUGIN_DIR"
 npm run compile
-npm run buildCSS
+rsync -a ./mdist/. ./dist/
 
-# TODO: Need to revisit why this duplication is needed.
-cp -a ./dist/ ./mdist
 
+cd $KUI_REPO_DIR
+format_title "Step 6: rerun npm i and switch context to alternate client"
+npm i
+./bin/switch-client.sh alternate
+
+
+cd $SEARCH_PLUGIN_DIR
+# rm ../setup-dev.sh
 format_title "DONE setting up project for development." 
-echo "To start the project run:"
-echo "  npm run start"
+echo "To start the dev server run:"
+echo "  npm run start:watch"
+echo "In new terminal window run:"
+echo "  npm run open  "
+echo "This will open electron instance"
