@@ -3,6 +3,7 @@
 
 Adds Search capabilities to [KUI Web Terminal](https://github.com/open-cluster-management/kui-web-terminal).
 
+
 ## Development
 Setup development environment with automated script.
 
