@@ -13,9 +13,6 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 }
 
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { ToastNotification } from 'carbon-components-react'
 import { Registrar } from '@kui-shell/core'
 import HTTPClient from './HTTPClient'
 import strings from '../util/i18n'
@@ -23,29 +20,6 @@ import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definition
 import { setPluginState, getPluginState } from '../pluginState'
 import { renderSearchAvailable, isSearchAvailable } from './search'
 import * as usage from './helpfiles/deletehelp'
-
-export const notify = (content) => {
-  const node = document.createElement('div')
-  node.classList.add('bx--toast-notification-content')
-
-  const kind = !content.warning ? !content.message ? 'success' : 'error' : 'warning'
-  const toast = () => {
-    return(
-      <div className={'notification'}>
-        <ToastNotification
-          iconDescription={kind}
-          kind={kind}
-          title={!content.warning ? !content.message ? content : content.message : content.warning}
-          caption={new Date().toLocaleTimeString()}
-          timeout={5000}
-        />
-      </div>
-    )
-  }
-  ReactDOM.render(React.createElement(toast), node)
-
-  return node
-}
 
 export const deleteSavedSearch = (args) => new Promise((resolve) => {
   if (args.argv.length === 1) {
@@ -66,14 +40,14 @@ export const deleteSavedSearch = (args) => new Promise((resolve) => {
 
     if (warningToDelete) { // Record is not available
       res['warning'] = strings('modal.save.warning', [name])
-      resolve(notify(res))
+      resolve(res['warning'])
     } else {
       HTTPClient('post', 'search', DELETE_QUERY(name))
       .then((resp) => {
         if (resp.data.deleteSearch) {
-          resolve(notify(strings('modal.deleted.save.success', [name])))
+          resolve(strings('modal.deleted.save.success', [name]))
         } else {
-          resolve(notify(resp.errors[0]))
+          resolve(resp.errors[0])
         }
       })
       .catch((err) => {
@@ -98,8 +72,8 @@ export const deleteResource = (args) => new Promise((resolve) => {
   .then((res) => {
     resolve(
       res.errors
-        ? notify(res.errors[0])
-        : notify(strings('modal.deleted.resource', [args.argv[1]]))
+        ? res.errors[0]
+        : strings('modal.deleted.resource', [args.argv[1]])
     )
   })
   .catch((err) => {
