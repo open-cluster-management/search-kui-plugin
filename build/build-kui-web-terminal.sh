@@ -8,7 +8,9 @@
 
 set -e
 
-git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git -b rhowingt/search-plugin
+# git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git -b rhowingt/search-plugin
+git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
+
 cd kui-web-terminal/
 
 
