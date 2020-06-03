@@ -8,62 +8,120 @@
 *******************************************************************************/
 
 import strings from '../../util/i18n'
+import { NavResponse } from '@kui-shell/core'
+import { getIntroduction, getTableContent } from './search-sidecar-help'
 
-const sections = [{
-  title:  strings('validation.definition.flag'),
-  rows: [
-    {
-      name: '-i',
-      docs: strings('searchhelp.search.install.docs'),
-    },
-    {
-      name: '--save',
-      docs: strings('searchhelp.search.save.docs'),
-      noclick: true,
-    },
-  ],
-}]
+const contentType = 'text/html'
 
-const detailedExample = [
-  {
-    command: `search <${strings('validation.definition.value')}>`,
-    docs: strings('searchhelp.search.value.example'),
+const sections = {
+  introduction: {
+    headers: [
+      {
+        header: strings('validation.about'),
+        key: strings('validation.about')
+      },
+      {
+        header: strings('validation.usage'),
+        key: strings('validation.usage'),
+        usage: `search [${strings('validation.definition.option')}][${strings('validation.definition.flag')}]`
+      },
+      {
+        header: strings('validation.guide'),
+        key: strings('validation.guide')
+      }
+    ]
   },
-  {
-    command: `search <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>`,
-    docs: strings('searchhelp.search.field.example'),
+  commands: {
+    headers: [
+      {
+        header: strings('validation.commands'),
+        key: strings('validation.commands')
+      },
+      {
+        header: strings('validation.docs'),
+        key: strings('validation.definition.docs')
+      }
+    ],
+    rows: [
+      {
+        name: `search <${strings('validation.definition.value')}>`,
+        docs: strings('searchhelp.search.value.example'),
+      },
+      {
+        name: `search <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>`,
+        docs: strings('searchhelp.search.field.example'),
+      },
+      {
+        name: `search <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}> --save`,
+        docs: strings('searchhelp.search.save.example'),
+      },
+      {
+        name: `search ${strings('validation.definition.summary')} <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>`,
+        docs: strings('searchhelp.search.summary.example'),
+      }
+    ]
   },
-  {
-    command: `search <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}> --save`,
-    docs: strings('searchhelp.search.save.example'),
-  },
-  {
-    command: `search ${strings('validation.definition.summary')} <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>`,
-    docs: strings('searchhelp.search.summary.example'),
-  },
-]
+  flags: {
+    headers: [
+      {
+        header: strings('validation.option'),
+        key: strings('validation.option')
+      },
+      {
+        header: strings('validation.docs'),
+        key: strings('validation.definition.docs')
+      }
+    ],
+    rows: [
+      {
+        command: 'search -i',
+        name: '-i',
+        docs: strings('searchhelp.search.install.docs'),
+      },
+      {
+        command: 'search kind:pod --save',
+        name: '--save',
+        docs: strings('searchhelp.search.save.docs')
+      }
+    ]
+  }
+}
 
 /**
  * Usage model for the search plugin
  *
  */
-export const toplevel = {
-  breadcrumb: 'search',
-  command: 'search',
-  title: strings('searchhelp.title'),
-  header: strings('searchhelp.header'),
-  detailedExample, // Example
-  example: `search [${strings('validation.definition.flag')}][${strings('validation.definition.option')}]`, // Usage
-  nRowsInViewport: 4,
-  available: [
-    {
-      docs: strings('searchhelp.title'),
-      dir: true,
-      commandPrefix: '',
-      commandSuffix: '-h'
-    },
-  ],
-  sections,
-  alias: 's',
-  related: ['savedsearches', 'deleteResource', 'deleteSavedSearch'],
+export function usage(): NavResponse {
+  return {
+    apiVersion: 'kui-shell/v1',
+    kind: 'NavResponse',
+    breadcrumbs: [{ label: 'search' }],
+    menus: [
+      {
+        label: strings('validation.usage'),
+        items: [
+          {
+            mode: strings('validation.introduction'),
+            content: getIntroduction(sections.introduction.headers),
+            contentType
+          },
+          {
+            mode: strings('validation.option'),
+            content: getTableContent(sections.flags),
+            contentType
+          }
+        ]
+      },
+      {
+        label: strings('validation.commands'),
+        items: [
+          {
+            mode: `${strings('validation.basic')} (${strings('validation.beginner')})`,
+            content: getTableContent(sections.commands),
+            contentType
+          },
+        ]
+      },
+    ],
+  }
 }
