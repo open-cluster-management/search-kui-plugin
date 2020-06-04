@@ -9,7 +9,7 @@
 set -e
 
 # git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git -b rhowingt/search-plugin
-git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
+git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git -b fix-search
 
 cd kui-web-terminal/
 
@@ -22,10 +22,10 @@ cp ../../plugin-search.tgz ./plugin-downloads
 
 make -C client client-update-plugins
 
-# echo "Add CustomSearchInput to client index.tsx"
-# cd client/src/
-# sed -i -e "s/bottomInput/bottomInput={<CustomSearchInput/>}/;s/.\/CustomInput/@kui-shell\/plugin-search\/mdist\/components\/CustomSearchInput/" index.tsx
-# sed '35 import CustomSearchInput from "@kui-shell/plugin-search/mdist/components/CustomSearchInput"'
+echo "Add CustomSearchInput to client index.tsx"
+cd client/src/
+sed -i -e "s/bottomInput/bottomInput={<CustomSearchInput/>}/;s/.\/CustomInput/@kui-shell\/plugin-search\/mdist\/components\/CustomSearchInput/" index.tsx
+sed '35 import CustomSearchInput from "@kui-shell/plugin-search/mdist/components/CustomSearchInput"'
 
 echo "Installing proxy and client"
 make install-proxy
