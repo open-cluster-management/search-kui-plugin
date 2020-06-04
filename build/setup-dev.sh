@@ -85,7 +85,12 @@ TOKEN=$(oc whoami -t)
 jq '. +{"authorization": $auth, "cookie": $cookie}' --arg auth "Bearer ${TOKEN}" --arg cookie "cfc-cookie-access-token=${TOKEN}" src/lib/shared/search-auth.json > new.search-auth.json
 mv new.search-auth.json src/lib/shared/search-auth.json
 
+#3d. Update web/scss/index.scss global/scss reference
+cd web/scss/
+sed "s/..\/..\/..\/..\/..\//..\/..\/..\/..\//" index.scss > new-index.scss
+mv new-index.scss index.scss
 
+cd $SEARCH_PLUGIN_DIR
 format_title "Step 4: Running 'npm install' on $SEARCH_PLUGIN_DIR"
 npm i
 sleep 1
