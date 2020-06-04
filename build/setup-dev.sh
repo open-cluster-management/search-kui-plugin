@@ -93,10 +93,10 @@ sleep 1
 
 format_title "Step 5: Running 'npm run compile' on $SEARCH_PLUGIN_DIR"
 npm run compile
-rsync -a ./mdist/. ./dist/
 
 
 cd $KUI_REPO_DIR
+npx kui-compile
 format_title "Step 6: rerun npm i and switch context to alternate client"
 npm i
 ./bin/switch-client.sh alternate
@@ -106,7 +106,7 @@ cd $SEARCH_PLUGIN_DIR
 # rm ../setup-dev.sh
 format_title "DONE setting up project for development." 
 echo "To start the dev server run:"
-echo "  npm run start:watch"
+echo "  npm run start:watch  "
 echo "In new terminal window run:"
 echo "  npm run open  "
-echo "This will open electron instance"
+echo "This will open an electron instance"
