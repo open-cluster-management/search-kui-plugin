@@ -10,23 +10,27 @@
 import strings from '../../util/i18n'
 import { NavResponse } from '@kui-shell/core'
 import { getIntroduction, getTableContent } from './search-sidecar-help'
+import { resources as resourceList } from '../../util/resource-list'
+
 
 const contentType = 'text/html'
-
 const sections = {
   introduction: {
     headers: [
       {
         header: strings('validation.about'),
+        docs: strings('searchhelp.title'),
         key: strings('validation.about')
       },
       {
         header: strings('validation.usage'),
+        docs: strings('searchhelp.header'),
         key: strings('validation.usage'),
         usage: `search [${strings('validation.definition.option')}][${strings('validation.definition.flag')}]`
       },
       {
         header: strings('validation.guide'),
+        docs: 'Use search <command> --help for more information about a given command.',
         key: strings('validation.guide')
       }
     ]
@@ -82,8 +86,29 @@ const sections = {
         command: 'search kind:pod --save',
         name: '--save',
         docs: strings('searchhelp.search.save.docs')
-      }
+      },
+      {
+        command: 'search -delete="',
+        name: '-delete="',
+        docs: strings('delete.resourcehelp.title')
+      },
     ]
+  },
+  aliases: {
+    headers: [
+      {
+        header: strings('table.header.name'),
+        key: strings('table.header.name')
+      },
+      {
+        header: strings('table.header.short.name'),
+        key: strings('table.header.short.name')
+      }
+    ],
+    rows: Object.entries(resourceList).map((resource) => { return {
+      name: resource[0],
+      docs: resource[1]
+    }})
   }
 }
 
@@ -109,6 +134,11 @@ export function usage(): NavResponse {
             mode: strings('validation.option'),
             content: getTableContent(sections.flags),
             contentType
+          },
+          {
+            mode: strings('validation.resource.aliases'),
+            content: getTableContent(sections.aliases),
+            contentType
           }
         ]
       },
@@ -119,9 +149,12 @@ export function usage(): NavResponse {
             mode: `${strings('validation.basic')} (${strings('validation.beginner')})`,
             content: getTableContent(sections.commands),
             contentType
-          },
+          }
         ]
       },
     ],
+    links: [
+      { label: 'More Information', href: 'https://github.com/open-cluster-management/search-kui-plugin' }
+    ]
   }
 }

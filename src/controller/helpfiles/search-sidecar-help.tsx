@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { getCurrentTab } from '@kui-shell/core'
+import strings from '../../util/i18n'
 
 export const getTableContent = (data) => {
   const node = document.createElement('div')
@@ -48,10 +49,10 @@ export const getIntroduction = (data) => {
         {data.map((res) => {
           return (
             <div key={res.header}>
-              <h4 className={`${res.header.toLowerCase()}-header`}><strong>{res.header}</strong></h4>
+              <h3 className={`${res.header.toLowerCase()}-header`}><strong>{res.header}</strong></h3>
               <p>{res.docs}</p>
-              {res.usage ? <code>{res.usage}</code> : null }
               <br></br>
+              {res.usage ? <div className='bx--snippet bx--snippet--single'>{res.usage}</div> : null }
             </div>
             )
           })
