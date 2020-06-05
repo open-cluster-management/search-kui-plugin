@@ -19,14 +19,14 @@ import { getSidecar } from './sidecar'
 import strings from '../util/i18n'
 import { getPluginState, setPluginState } from '../pluginState'
 import Modal from '../components/Modal'
-// import { Accordion, AccordionItem } from 'carbon-components-react'
+import { searchDelete } from './actionHandler'
 
 export const renderSearchAvailable = (available, err?) => {
   const node = document.createElement('div')
   node.classList.add('is-search-available')
   const status = () => {
     if (available) {
-      return(
+          return(
         <div>
           {!err
             ? <p>{strings('search.service.installed')}</p>
@@ -77,6 +77,10 @@ export const doSearch = (args): any | NavResponse => {
     
         ReactDOM.render(React.createElement(save), node)
         resolve(node)
+      }
+
+      if (args.command.includes('search -delete')) {
+        resolve(searchDelete(args))
       }
 
       const renderNoResults = () => {

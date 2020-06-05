@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { getCurrentTab } from '@kui-shell/core'
-import strings from '../../util/i18n'
+import { Copy24 } from '@carbon/icons-react'
 
 export const getTableContent = (data) => {
   const node = document.createElement('div')
@@ -51,8 +51,7 @@ export const getIntroduction = (data) => {
             <div key={res.header}>
               <h3 className={`${res.header.toLowerCase()}-header`}><strong>{res.header}</strong></h3>
               <p>{res.docs}</p>
-              <br></br>
-              {res.usage ? <div className='bx--snippet bx--snippet--single'>{res.usage}</div> : null }
+              {res.usage ? <div className='bx--snippet bx--snippet--single search'>{res.usage}<Copy24 className={'copy-btn'}/></div> : null }
             </div>
             )
           })

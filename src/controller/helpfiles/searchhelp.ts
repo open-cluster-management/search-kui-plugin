@@ -48,21 +48,15 @@ const sections = {
     ],
     rows: [
       {
-        name: `search <${strings('validation.definition.value')}>`,
-        docs: strings('searchhelp.search.value.example'),
+        command: 'search summary',
+        name: 'summary',
+        docs: strings('searchhelp.search.summary.docs'),
       },
       {
-        name: `search <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>`,
-        docs: strings('searchhelp.search.field.example'),
+        command: 'search related:resources',
+        name: 'related:resources',
+        docs: strings('searchhelp.search.related.resources.docs'),
       },
-      {
-        name: `search <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}> --save`,
-        docs: strings('searchhelp.search.save.example'),
-      },
-      {
-        name: `search ${strings('validation.definition.summary')} <${strings('validation.definition.field')}>:<${strings('validation.definition.value')}>`,
-        docs: strings('searchhelp.search.summary.example'),
-      }
     ]
   },
   flags: {
@@ -88,8 +82,13 @@ const sections = {
         docs: strings('searchhelp.search.save.docs')
       },
       {
-        command: 'search -delete="',
-        name: '-delete="',
+        command: 'search -delete="save"',
+        name: '-delete="save"',
+        docs: strings('delete.savedsearchhelp.title')
+      },
+      {
+        command: 'search -delete="resource"',
+        name: '-delete="resource"',
         docs: strings('delete.resourcehelp.title')
       },
     ]
