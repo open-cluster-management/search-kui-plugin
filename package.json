@@ -21,7 +21,7 @@
   "private": true,
   "scripts": {
     "commit": "git-cz",
-    "compile": "tsc && npx --no-install babel mdist --out-dir dist --ignore '**/*.d.ts','**/*.js.map' --no-copy-ignored &",
+    "compile": "tsc",
     "compile:clean": "tsc --build tsconfig.json --clean",
     "semantic-release": "semantic-release",
     "setup-dev": "cp build/setup-dev.sh ../ && cd ../ && sh ./setup-dev.sh",
