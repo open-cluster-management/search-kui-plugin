@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
 /*******************************************************************************
 * Licensed Materials - Property of IBM
@@ -17,8 +18,8 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 import { getCurrentTab, inBrowser } from '@kui-shell/core'
-import { Modal, TextInput, TextArea, Tooltip } from 'carbon-components-react'
-import { Copy16 } from  'carbon-icons'
+import { Modal, TextInput, TextArea } from 'carbon-components-react'
+import { Copy24 } from '@carbon/icons-react'
 import { ModalProps, ModalState } from '../model/Modal'
 import strings from '../util/i18n'
 import HTTPClient from '../controller/HTTPClient'
@@ -50,11 +51,11 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
     switch (item['kind']) {
       case 'savedSearches':
         // Backend doesn't handle error case when deleting a saved query
-        getCurrentTab().REPL.pexec(`deleteSavedSearch ${item['name']}`)
+        getCurrentTab().REPL.pexec(`search -delete="save" ${item['name']}`)
         this.props.onClose()
         break
       default:
-        getCurrentTab().REPL.pexec(`deleteResource ${item['name']} ${item['namespace']} ${item['kind']} ${item['cluster']} ${item['selfLink']}`)
+        getCurrentTab().REPL.pexec(`search -delete-"resource" ${item['name']} ${item['namespace']} ${item['kind']} ${item['cluster']} ${item['selfLink']}`)
         this.props.onClose()
     }
   }
@@ -177,7 +178,6 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
         modalHeading={heading}
         onRequestClose={() => this.props.action !== 'save' ? this.props.onClose() : this.setState({ open: false })}
         onRequestSubmit={() => this.props.action === 'remove' ? this.handleDelete() : this.props.action === 'edit' ? this.handleEdit() : this.handleSave()}
-        // role='region'
         aria-label={heading}>
         {this.props.action === 'edit' || this.props.action === 'save'
           ? <div className='bx--action-edit'>
@@ -200,7 +200,6 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
                 id={'description'}
                 labelText={strings('modal.query.add.desc.label')}
                 maxLength={140}
-                // type='text'
                 value={this.state.description}
                 onChange={this.handleDescriptionChange}
                 placeholder={strings('modal.query.add.desc')}
@@ -216,21 +215,12 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
                   ? `${window && window.location && window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(this.props.item['searchText'])}"}`
                   : `search ${this.props.item['searchText']}`
                 }
-                <Tooltip
-                  direction='top'
-                  tabIndex={0}
-                  // tooltipBodyId='tooltip-body'
-                  renderIcon={Copy16}
-                  showIcon
-                  onChange={() => navigator.clipboard.writeText(inBrowser()
+                <button type="button" className="bx--copy-btn" onClick={() => navigator.clipboard.writeText(inBrowser()
                     ? `${window && window.location && window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(this.props.item['searchText'])}"}`
                     : `search ${this.props.item['searchText']}`,
-                  )}
-                >
-                  <p id='tooltip-body'>
-                    {strings('modal.button.copied.to.clipboard')}
-                  </p>
-                </Tooltip>
+                  )}>
+                  <Copy24 className={'copy-btn'}/>
+                </button>
               </div>
             </div>
           : null
