@@ -85,7 +85,14 @@ TOKEN=$(oc whoami -t)
 jq '. +{"authorization": $auth, "cookie": $cookie}' --arg auth "Bearer ${TOKEN}" --arg cookie "cfc-cookie-access-token=${TOKEN}" src/lib/shared/search-auth.json > new.search-auth.json
 mv new.search-auth.json src/lib/shared/search-auth.json
 
-#3d. Update web/scss/index.scss global/scss reference
+# 3d. Uninstall redundant dependencies that are in kui/client
+npm uninstall \
+@kui-shell/plugin-client-common \
+carbon-components \
+carbon-components-react \
+carbon-icons
+
+# 3e. Update web/scss/index.scss global/scss reference
 cd web/scss/
 sed "s/..\/..\/..\/..\/..\//..\/..\/..\/..\//" index.scss > new-index.scss
 mv new-index.scss index.scss
