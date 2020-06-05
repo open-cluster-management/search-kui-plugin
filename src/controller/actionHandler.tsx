@@ -13,20 +13,18 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 }
 
-import { Registrar } from '@kui-shell/core'
 import HTTPClient from './HTTPClient'
 import strings from '../util/i18n'
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 import { setPluginState, getPluginState } from '../pluginState'
 import { renderSearchAvailable, isSearchAvailable } from './search'
-import * as usage from './helpfiles/deletehelp'
 
 export const deleteSavedSearch = (args) => new Promise((resolve) => {
   if (args.argv.length === 1) {
-    resolve('ERROR: Received wrong number of parameters.\nUSAGE: deleteSavedSearch <saved-search-name>')
+    resolve('ERROR: Received wrong number of parameters.\nUSAGE: search -delete="save" <saved-search-name>')
   }
 
-  const name = args.command.replace('deleteSavedSearch ', '')
+  const name = args.command.replace('search -delete="save" ', '')
   let warningToDelete = true
 
   // Check if the record exist before trying to delete.
@@ -64,7 +62,7 @@ export const deleteSavedSearch = (args) => new Promise((resolve) => {
 
 export const deleteResource = (args) => new Promise((resolve) => {
   if (args.argv.length !== 6) {
-    resolve('ERROR: Received wrong number of parameters.\nUSAGE: deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>')
+    resolve('ERROR: Received wrong number of parameters.\nUSAGE: search -delete="resource" <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>')
   }
 
   // delete resource args = (name, namespace, kind, cluster, selfLink)
@@ -82,12 +80,15 @@ export const deleteResource = (args) => new Promise((resolve) => {
   })
 })
 
-/**
- * Here we register as a listener for commands
- */
-export default async (commandTree: Registrar) => {
-  const deleteSavedSearchOpts = { usage: usage.deleteSavedSearch, noAuthOk: true, inBrowserOk: true }
-  const deleteResourceOpts = { usage: usage.deleteResource, noAuthOk: true, inBrowserOk: true }
-  commandTree.listen(`/deleteSavedSearch`, deleteSavedSearch, deleteSavedSearchOpts)
-  commandTree.listen(`/deleteResource`, deleteResource, deleteResourceOpts)
-}
+export const searchDelete = (args) => new Promise((resolve) => {
+  switch(args.argv[1]) {
+    case '-delete="save"':
+      resolve(deleteSavedSearch(args))
+      break
+    case '-delete="resource"':
+      resolve(deleteResource(args))
+      break
+    default:
+      resolve('Unknown command')
+  }
+})

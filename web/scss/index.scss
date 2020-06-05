@@ -9,7 +9,6 @@
 
 @import '../../../../../node_modules/carbon-components/scss/globals/scss/colors';
 
-
 .repl-result {
   white-space: unset;
 
@@ -487,6 +486,17 @@ span{
         }
 
         .bx--snippet {
+          .bx--copy-btn {
+            width: 18px;
+            margin-right: 13px;
+            top: 5px;
+
+            &:hover {
+              background-color: transparent;
+              transform: scale(1);
+            }
+          }
+
           &.bx--snippet--single {
             border: 1px solid black;
             height: 42px;
@@ -1055,5 +1065,19 @@ body {
         }
       }
     }
+  }
+}
+
+.kui--sidecar-header-and-body .bx--snippet.bx--snippet--single.search{
+  width: 100%;
+  padding: 0;
+  max-width: 100%;
+  line-height: 2.5em;
+
+  .copy-btn {
+    width: 13px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 4px;
   }
 }
