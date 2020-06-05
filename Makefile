@@ -15,11 +15,7 @@ default::
 DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
 
 # # search-plugin build/test
-
-.PHONY: compile-plugin
-compile-plugin:
-	npm run compile
-	rsync -a ./mdist/ ./dist/
+	
 
 .PHONY: package
 package:
@@ -38,15 +34,3 @@ copyright-check:
 .PHONY: run-unit-tests
 run-unit-tests:
 	npm run test:coverage
-
-
-# ifeq ($(SELENIUM_TESTS), TRUE)
-# 	if [ ! -d "build-tools/test-output" ]; then	\
-# 		mkdir build-tools/test-output;	\
-# 	fi
-# 	npm run test:$(BROWSER)
-# endif
-
-# .PHONY: run
-# run:
-# 	$(SELF) docker:run AUTH_TOKEN=$(shell curl -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=password&username="$(K8S_CLUSTER_USER)"&password="$(K8S_CLUSTER_PASSWORD)"&scope=openid" $(ICP_EXTERNAL_URL)/idprovider/v1/auth/identitytoken --insecure | jq '.access_token' | tr -d '"')
