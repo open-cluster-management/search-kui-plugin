@@ -12,7 +12,7 @@ cd ../..
 # git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
 git clone https://github.com/open-cluster-management/kui-web-terminal.git -b rhowingt/search-plugin
 
-cp -r search-kui-plugin kui-web-terminal/client/plugins
+cp -r search-kui-plugin kui-web-terminal/client/plugins/plugin-search
 cd kui-web-terminal/client
 KUI_REPO_DIR=$(pwd)
 cd plugins/plugin-search
