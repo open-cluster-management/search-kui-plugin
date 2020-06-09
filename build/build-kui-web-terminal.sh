@@ -51,8 +51,7 @@ mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 format_title "Step 4: Compile within KWT/client"
 cd $KUI_REPO_DIR
 pwd
-npm ci
-npx kui-compile
+npm i
 
 cd ..
 
