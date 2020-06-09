@@ -49,10 +49,12 @@ npm pack
 mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 
 format_title "Step 3: Configure search-kui-plugin repo."
-cd $KUI_REPO_DIR/..
+cd $KUI_REPO_DIR
 pwd
 npm ci
 npx kui-compile
+
+cd ..
 
 make init
 make download-clis
