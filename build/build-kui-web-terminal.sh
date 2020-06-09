@@ -6,6 +6,12 @@
 # Use, duplication or disclosure restricted by GSA ADP Schedule
 # Contract with IBM Corp.
 
+# Utility to format section title.
+format_title () {
+  printf "\n"
+  echo "$(tput bold)$1$(tput sgr0)"  # Bold text
+}
+
 set -e
 
 cd ../..
