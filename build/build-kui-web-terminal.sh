@@ -44,12 +44,15 @@ cd $SEARCH_PLUGIN_DIR
 jq '. |= . +{"extends": $path}' --arg path "../../tsconfig.json" tsconfig.json > new.tsconfig.json
 mv new.tsconfig.json tsconfig.json
 
+
+npm i
 npm pack
 mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 
 cd $KUI_REPO_DIR/..
 
 npm ci
+
 npx kui-compile
 
 make init
