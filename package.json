@@ -57,7 +57,6 @@
     "babel-plugin-ignore-html-and-css-imports": "0.0.2",
     "@kui-shell/core": "^8.4.3",
     "@kui-shell/plugin-client-common": "^8.8.2",
-    "@kui-shell/builder": "^8.8.2",
     "@types/lodash": "^4.14.149",
     "@types/needle": "2.0.4",
     "@types/node": "12.12.31",
