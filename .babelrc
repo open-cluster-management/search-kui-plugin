@@ -1,7 +1,11 @@
 {
   "presets": [
-    ["@babel/preset-env",
-      { "targets": { "node":"current"}}],
+    "@babel/preset-env",
     "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-modules-commonjs",
+    "babel-plugin-dynamic-import-node-babel-7",
+    "babel-plugin-ignore-html-and-css-imports"
   ]
 }
