@@ -20,6 +20,7 @@
   "types": "mdist/plugin.d.ts",
   "private": true,
   "scripts": {
+    "buildCSS": "mkdir -p web/ && sass web/scss/index.scss web/css/index.css",
     "commit": "git-cz",
     "compile": "tsc",
     "compile:clean": "tsc --build tsconfig.json --clean",

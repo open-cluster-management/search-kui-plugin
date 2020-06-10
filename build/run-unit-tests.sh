@@ -2,7 +2,7 @@
 set -e
 
 echo "> Running build/run-unit-tests.sh"
-npm run compile
+make compile-plugin
 cd web/scss/
 sed "s/..\/..\/..\/..\/..\//..\/..\/..\/..\//" index.scss > new-index.scss
 mv new-index.scss index.scss
