@@ -25,7 +25,9 @@ cd plugins/plugin-search
 SEARCH_PLUGIN_DIR=$(pwd)
 
 format_title "Step 2: Configure IBM/Kui repo."
+
 cd $KUI_CLIENT_DIR
+
 # 2a. Update package.json 
 # ADD:    "dependencies": { "@kui-shell/plugin-search": "file:SEARCH_PLUGIN_DIR"} 
 jq '.dependencies |= . +{"@kui-shell/plugin-search": $searchPluginDir}' --arg searchPluginDir "file:plugins/plugin-search" package.json > new.package.json
@@ -44,17 +46,16 @@ cd $SEARCH_PLUGIN_DIR
 jq '. |= . +{"extends": $path}' --arg path "${KUI_CLIENT_DIR}/tsconfig.json" tsconfig.json > new.tsconfig.json
 mv new.tsconfig.json tsconfig.json
 
-format_title "Step 4: Compile within KWT/client"
+format_title "Step 4: Compile/pack within KWT/client"
 cd $KUI_CLIENT_DIR
 npm i
 
 cd $SEARCH_PLUGIN_DIR
-
 npm pack
 mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 
+format_title "Step 5: Integrate plugin and build image"
 cd $KUI_CLIENT_DIR
-
 make init
 make download-clis
 make download-plugins
