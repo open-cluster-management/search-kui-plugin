@@ -104,7 +104,6 @@ export default class CustomSearchInput extends InputProvider<SearchState> {
       ? this.renderSearchComponents()
       :
         <input
-          value={this.state.inputText}
           autoFocus
           autoCorrect="off"
           autoComplete="off"
