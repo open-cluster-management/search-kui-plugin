@@ -39,18 +39,18 @@ const jestConfig = {
     '<rootDir>/tests/jest/**/**/**/*.test.js?(x)'
   ],
   testPathIgnorePatterns: [
-    '<rootDir>/tests/jest/views/modes/related.test.js'
+    '<rootDir>/tests/jest/views/modes/related.test.js',
+    '<rootDir>/tests/jest/views/modes/logging.test.js',
+    '<rootDir>/tests/jest/controller/search.test.js',
+    '<rootDir>/tests/jest/util/renderReact.test.js',
+    '<rootDir>/tests/jest/util/resource-helper.test.js',
   ],
-  testResultsProcessor: 'jest-sonar-reporter',
+  // testResultsProcessor: 'jest-sonar-reporter',
   // globalSetup: '<rootDir>/tests/jest/config/properties-to-json.js',
-  // setupFiles: [
-  //   '<rootDir>/tests/jest/config/setup.js'
-  // // ],
-  // moduleNameMapper: {
-  //   '\\.(css|scss|svg)$': '<rootDir>/tests/jest/config/styleMock.js'
-  // }
+  setupFiles: [
+    '<rootDir>/tests/jest/config/setupTests.js'
+  ],
 }
 
 jestConfig.reporters = process.env.TRAVIS ? [ 'default', tapReporter ] : [ 'default']
-
 module.exports = jestConfig
