@@ -6,6 +6,7 @@
   ],
   "compilerOptions": {
     "downlevelIteration": true,
+    "composite": true,
     "outDir": "mdist",
     "rootDir": "src"
   }
