@@ -57,17 +57,6 @@ export async function getConfig(): Promise<Config> {
       ? staticConfig.SEARCH_SERVICE
       : `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
     },
-    // {
-    //   SEARCH_API: inBrowser()
-    //     ? `${window && window.location && window.location.origin}/multicloud/search/graphql`
-    //     : staticConfig.SEARCH_API ,
-    //   CONSOLE_API: inBrowser()
-    //     ? `${window && window.location && window.location.origin}/multicloud/graphql`
-    //     : staticConfig.CONSOLE_API,
-    //   SEARCH_SERVICE: inBrowser()
-    //     ? `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
-    //     : staticConfig.SEARCH_SERVICE,
-    // },
     {
       // Browser needs xsrf token for requests
       xsrfToken: inBrowser() ? getXsrfToken() : null,
