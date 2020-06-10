@@ -21,7 +21,7 @@ BABEL_PLUGINS=@babel/plugin-transform-modules-commonjs,dynamic-import-node-babel
 compile-plugin:
 	mkdir -p dist
 	npm run compile
-	npx --no-install babel --plugins ${BABEL_PLUGINS} mdist --out-dir dist --ignore '**/*.d.ts','**/*.js.map' --no-copy-ignored & 
+	npx --no-install babel --plugins ${BABEL_PLUGINS} mdist --out-dir dist --ignore '**/*.d.ts','**/*.js.map' --no-copy-ignored
 
 .PHONY: package
 package:
