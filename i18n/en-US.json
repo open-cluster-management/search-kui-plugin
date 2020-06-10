@@ -296,6 +296,7 @@
 "searchhelp.search.save.docs" : "Save a search command",
 "searchhelp.search.install.docs" : "View if search is installed on the cluster",
 "searchhelp.search.related.resources.docs" : "Display the kubernetes resources that are related to the searched query",
+"searchhelp.guide.docs" : "Use search {0} for more information about a given command.",
 
 "validation.about" : "About",
 "validation.basic" : "Basic",

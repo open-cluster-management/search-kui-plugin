@@ -146,7 +146,7 @@ export function usage(): NavResponse {
       },
     ],
     links: [
-      { label: strings('searchhelp.more.information'), href: 'https://github.com/open-cluster-management/rhacm-docs/blob/doc_stage/console/vwt_search.md#searching-with-visual-web-terminal' }
+      { label: strings('validation.more.information'), href: 'https://github.com/open-cluster-management/rhacm-docs/blob/doc_stage/console/vwt_search.md#searching-with-visual-web-terminal' }
     ]
   }
 }
