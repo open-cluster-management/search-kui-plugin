@@ -37,7 +37,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
       modes.push(yamlTab(resource))
     }
   }
-  
+
   // If the resource have any related resources, add the related tab.
   if (lodash.get(data, 'related', '').length > 0) {
     modes.push(relatedTab(data, type))
