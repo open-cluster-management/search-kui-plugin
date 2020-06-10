@@ -25,13 +25,7 @@ cd plugins/plugin-search
 SEARCH_PLUGIN_DIR=$(pwd)
 
 format_title "Step 2: Configure IBM/Kui repo."
-<<<<<<< HEAD
 cd $KUI_CLIENT_DIR
-=======
-
-cd $KUI_CLIENT_DIR
-
->>>>>>> v8-dev
 # 2a. Update package.json 
 # ADD:    "dependencies": { "@kui-shell/plugin-search": "file:SEARCH_PLUGIN_DIR"} 
 jq '.dependencies |= . +{"@kui-shell/plugin-search": $searchPluginDir}' --arg searchPluginDir "file:plugins/plugin-search" package.json > new.package.json
