@@ -10,7 +10,7 @@ format_title () {
 
 # Check plugin-kubectl-boilerplate wasn't cloned before.
 if [ -d "/kui" ]; then
-  echo "ERROR setting up environment: Project kui already exist at: $(pwd)/kui"
+  echo "ERROR setting up environment: Project IBM/kui already exist at: $(pwd)/kui"
   echo "Delete this folder and try again.\n"
   exit 0
 fi
