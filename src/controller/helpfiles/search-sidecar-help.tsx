@@ -1,3 +1,8 @@
+
+/*
+ * Copyright (c) 2020 Red Hat, Inc.
+ */
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { getCurrentTab } from '@kui-shell/core'

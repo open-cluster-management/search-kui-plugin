@@ -91,6 +91,9 @@
       "path": "node_modules/cz-conventional-changelog"
     }
   },
+  "ghooks": {
+      "pre-commit": "$echo add back npm test"
+  },
   "jest": {
     "setupFiles": [
       "./src/setupTests.js"
