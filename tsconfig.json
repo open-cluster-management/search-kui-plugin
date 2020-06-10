@@ -6,10 +6,10 @@
   ],
   "compilerOptions": {
     "downlevelIteration": true,
-    "jsx": "react",
     "composite": true,
     "outDir": "mdist",
     "rootDir": "src",
+    "jsx": "react",
     "noImplicitThis": true,
     "alwaysStrict": true,
     "module": "esnext",

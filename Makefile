@@ -13,9 +13,15 @@ default::
 	@echo "Build Harness Bootstrapped"
 
 DOCKER_IMAGE ?= $(shell cat COMPONENT_NAME)
-
+BABEL_PLUGINS=@babel/plugin-transform-modules-commonjs,dynamic-import-node-babel-7,babel-plugin-ignore-html-and-css-imports
 # # search-plugin build/test
-	
+
+
+.PHONY: compile-plugin
+compile-plugin:
+	mkdir -p dist
+	npm run compile
+	npx --no-install babel --plugins ${BABEL_PLUGINS} mdist --out-dir dist --ignore '**/*.d.ts','**/*.js.map' --no-copy-ignored & 
 
 .PHONY: package
 package:

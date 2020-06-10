@@ -5,6 +5,11 @@ package-lock.json
 ts*
 nightwatch*
 src
+tests
+plugin-search.tgz
+docs/readme/images/jest-testing.gif
+docs/readme/images/search-command.gif
+build
 build-harness
 build-harness-extensions
 .build-harness-bootstrap
