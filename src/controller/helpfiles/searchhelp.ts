@@ -10,7 +10,6 @@
 import strings from '../../util/i18n'
 import { NavResponse } from '@kui-shell/core'
 import { getIntroduction, getTableContent } from './search-sidecar-help'
-import { resources as resourceList } from '../../util/resource-list'
 
 
 const contentType = 'text/html'
@@ -30,7 +29,7 @@ const sections = {
       },
       {
         header: strings('validation.guide'),
-        docs: 'Use search <command> --help for more information about a given command.',
+        docs: strings('searchhelp.guide.docs', [`search <${'searchhelp.definition.command'}> -h`]),
         key: strings('validation.guide')
       }
     ]
@@ -103,11 +102,7 @@ const sections = {
         header: strings('table.header.short.name'),
         key: strings('table.header.short.name')
       }
-    ],
-    rows: Object.entries(resourceList).map((resource) => { return {
-      name: resource[0],
-      docs: resource[1]
-    }})
+    ]
   }
 }
 
@@ -134,11 +129,6 @@ export function usage(): NavResponse {
             content: getTableContent(sections.flags),
             contentType
           },
-          {
-            mode: strings('validation.resource.aliases'),
-            content: getTableContent(sections.aliases),
-            contentType
-          }
         ]
       },
       {
@@ -153,7 +143,7 @@ export function usage(): NavResponse {
       },
     ],
     links: [
-      { label: 'More Information', href: 'https://github.com/open-cluster-management/search-kui-plugin' }
+      { label: strings('searchhelp.more.information'), href: 'https://github.com/open-cluster-management/rhacm-docs/blob/doc_stage/console/vwt_search.md#searching-with-visual-web-terminal' }
     ]
   }
 }
