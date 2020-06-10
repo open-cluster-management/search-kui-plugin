@@ -53,7 +53,7 @@ npm pack
 mv kui-shell-plugin-search-0.0.0-semantically-released.tgz plugin-search.tgz
 
 format_title "Step 5: Integrate plugin and build image"
-cd $KUI_CLIENT_DIR
+cd $KUI_CLIENT_DIR/..
 make init
 make download-clis
 make download-plugins
