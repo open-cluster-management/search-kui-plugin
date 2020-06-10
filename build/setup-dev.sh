@@ -8,7 +8,7 @@ format_title () {
   echo "$(tput bold)$1$(tput sgr0)"  # Bold text
 }
 
-# Check plugin-kubectl-boilerplate wasn't cloned before.
+# Check kui wasn't cloned before.
 if [ -d "/kui" ]; then
   echo "ERROR setting up environment: Project IBM/kui already exist at: $(pwd)/kui"
   echo "Delete this folder and try again.\n"
