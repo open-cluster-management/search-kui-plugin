@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const i18n = require('../../../dist/src-web/util/i18n')
+const i18n = require('../../../dist/util/i18n')
 
 describe('i18n', () => {
   const strings = {

@@ -8,7 +8,7 @@
 *******************************************************************************/
 'use strict'
 import "regenerator-runtime"
-const fn = require('../../../dist/src-web/controller/sidecar')
+const fn = require('../../../dist/controller/sidecar')
 const related = require('../../data/related')
 
 const data = related.data

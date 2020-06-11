@@ -9,7 +9,7 @@
 'use strict'
 
 import "regenerator-runtime"
-const search = require('../../../dist/src-web/controller/savedSearch')
+const search = require('../../../dist/controller/savedSearch')
 const savedsearches = require('../../data/savedsearches')
 
 const args = {

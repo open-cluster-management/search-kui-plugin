@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const summary = require('../../../../dist/src-web/views/modes/summary')
+const summary = require('../../../../dist/views/modes/summary')
 
 const items = [
   {kind: require('../../../data/pod')},

@@ -1,5 +1,7 @@
 #!/bin/bash
-
+# 
+# Copyright (c) 2020 Red Hat, Inc.
+# 
 # Licensed Materials - Property of IBM
 # (c) Copyright IBM Corporation 2019. All Rights Reserved.
 # Note to U.S. Government Users Restricted Rights:
@@ -8,10 +10,9 @@
 
 set -e
 
-git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
+# git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
+git clone https://github.com/open-cluster-management/kui-web-terminal.git -b rhowingt/search-plugin
 cd kui-web-terminal/
-
-echo "TODO: Re-enable building the test image."
 
 make init
 make download-clis

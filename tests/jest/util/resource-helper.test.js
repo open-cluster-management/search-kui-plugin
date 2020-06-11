@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const helper = require('../../../dist/src-web/util/resource-helper')
+const helper = require('../../../dist/util/resource-helper')
 
 const namespace = 'open-cluster-management'
 const cluster = 'local-cluster'

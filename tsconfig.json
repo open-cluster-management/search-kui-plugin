@@ -6,11 +6,20 @@
   ],
   "compilerOptions": {
     "downlevelIteration": true,
-    "jsx": "react",
     "composite": true,
-    "outDir": "dist",
+    "outDir": "mdist",
     "rootDir": "src",
+    "jsx": "react",
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "ES2016",
+    "sourceMap": true,
+    "removeComments": true,
+    "declaration": true,
+    "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "sourceMap": true
+    "lib": ["dom", "esnext", "es6", "dom.iterable", "scripthost"]
   }
 }

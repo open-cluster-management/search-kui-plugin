@@ -7,12 +7,12 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-import { CapabilityRegistration, isHeadless, inBrowser } from '@kui-shell/core'
+import { CapabilityRegistration, inBrowser } from '@kui-shell/core'
 import getConfig from './lib/shared/config'
-import HTTPClient from './src-web/controller/HTTPClient'
+import HTTPClient from './controller/HTTPClient'
 import { getPluginState, setPluginState } from './pluginState'
 import * as lodash from 'lodash'
-import { GET_SEARCH_SCHEMA } from './src-web/definitions/search-queries'
+import { GET_SEARCH_SCHEMA } from './definitions/search-queries'
 
 // Register searchBarWrapper
 const registerCapability: CapabilityRegistration = async () => {
@@ -28,8 +28,8 @@ const registerCapability: CapabilityRegistration = async () => {
   }
 
   HTTPClient('get', 'svc', undefined)
-  .then((res) => {
-    setPluginState('enabled', (res && (res === 'true' || res === true)))
+  .then(() => {
+    setPluginState('enabled', true)
 
     if (getPluginState().enabled) {
       HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
@@ -45,21 +45,6 @@ const registerCapability: CapabilityRegistration = async () => {
     setPluginState('enabled', false)
     setPluginState('error', err)
   })
-
-  if (!isHeadless()) {
-    // Core by default listens to original input bar
-    // We need to override that listen to the hijacked input bar by default
-    const [{ listen }, { InputWrapper }] = await Promise.all([
-      import('@kui-shell/core/mdist/webapp/cli'),
-      import('./src-web/components/InputWrapper')
-    ])
-
-    const stripe: HTMLElement = document.querySelector('.kui--input-stripe')
-    await InputWrapper(stripe)
-
-    const prompt: HTMLInputElement = document.querySelector('.repl-block .repl-input input')
-    listen(prompt)
-  }
 }
 
 export default registerCapability

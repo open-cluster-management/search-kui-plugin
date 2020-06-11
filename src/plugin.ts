@@ -8,13 +8,11 @@
 *******************************************************************************/
 
 import { Registrar } from '@kui-shell/core'
-import actions from './src-web/controller/actionHandler'
-import savedSearch from './src-web/controller/savedSearch'
-import search from './src-web/controller/search'
+import savedSearch from './controller/savedSearch'
+import search from './controller/search'
 
 export default async (commandTree: Registrar) => {
   return Promise.all([
-    actions(commandTree),
     search(commandTree),
     savedSearch(commandTree),
   ])

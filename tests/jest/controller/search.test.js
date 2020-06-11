@@ -7,7 +7,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 'use strict'
-const search = require('../../../dist/src-web/controller/search')
+const search = require('../../../dist/controller/search')
 const pluginState = require('../../../dist/pluginState')
 
 const args = {
