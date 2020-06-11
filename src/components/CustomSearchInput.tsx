@@ -100,12 +100,11 @@ export default class CustomSearchInput extends InputProvider<SearchState> {
     )
   }
 
-  /** This is the "input" that client provides */
   protected input() {
     return(
       this.state.isSearch
       ? this.renderSearchComponents()
-      :
+      : /** This is the "input" that client provides */
         <input
           autoFocus
           autoCorrect="off"
