@@ -1,10 +1,11 @@
 # search-kui-plugin
+
 [![Build Status](https://travis-ci.com/open-cluster-management/search-kui-plugin.svg?token=jzyyzQmWYBEu33MCMh9p&branch=master)](https://travis-ci.com/open-cluster-management/search-kui-plugin)
 
 Adds Search capabilities to [KUI Web Terminal](https://github.com/open-cluster-management/kui-web-terminal).
 
-
 ## Development
+
 Setup development environment with automated script.
 
 1. Clone this repo.
@@ -15,18 +16,16 @@ Setup development environment with automated script.
 <details><summary>Setup Development environment manually</summary>
 <p>
 
-Clone the [Plugin Kubectl Boilerplate](https://github.com/kui-shell/plugin-kubectl-boilerplate) repository.
-  *IMPORTANT- be sure to checkout commit `-2374814`, which is representative of the KUI client at version 6.0.13.  The search plugin is not yet compatible with any version greater than 6.0.13.
+Clone the [IBM Kui](https://github.com/IBM/kui) repository.
 
-<pre>
-git clone git@github.com:kui-shell/plugin-kubectl-boilerplate.git
-cd plugin-kubectl-boilerplate/
-git checkout -b &lt;dev_branch_name&gt; 2374814c0b737d0e84f34c2005a7af5ea5f942d7
-</pre>
+```bash
+git clone git@github.com:IBM/kui.git
+cd kui/
+```
 
-To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [Plugin Kubectl Boilerplate](https://github.com/kui-shell/plugin-kubectl-boilerplate) repo.  It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
+To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [IBM Kui](https://github.com/IBM/kui) repo. It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
 
-<pre>
+```bash
 .
 ├── ...
 ├── package.json
@@ -37,59 +36,38 @@ To activate this plugin, copy this repository into the `plugins/` directory in t
 │      └── tsconfig.json
 ├── tsconfig-es6.json
 └── tsconfig.json
-</pre>
+```
 
 1. To use the plugin within the dev environment, add then `plugin-search` path to the `dependencies` list in the `package.json` at the root level.
 
 ##### package.json
 
 ```bash
- "dependencies": {
-    "@kui-shell/plugin-sample": "file:plugins/plugin-sample",
-    "@kui-shell/plugin-search": "file:plugins/plugin-search",
+"dependencies": {
+  "@kui-shell/plugin-sample": "file:plugins/plugin-sample",
+  "@kui-shell/plugin-search": "file:plugins/plugin-search"
 ```
 
-2. Add plugin's reference path to the root level `tsconfig.json` & `tsconfig-es6.json` file.
+2. Add plugin's reference path to the root level `tsconfig.json` file.
 
 ##### tsconfig.json
+
 ```bash
-  "references": [
-    { "path": "./plugins/plugin-sample" },
-    { "path": "./plugins/plugin-search" }
-  ]
+"references": [
+  { "path": "./plugins/plugin-sample" },
+  { "path": "./plugins/plugin-search" }
 ```
 
-##### tsconfig-es6.json
-```bash
-  "references": [
-    { "path": "./plugins/plugin-sample/tsconfig-es6.json" },
-    { "path": "./plugins/plugin-search/tsconfig-es6.json" }
-  ]
-```
-
-3. Add extends path to the `tsconfig.json` file in the `plugin-search` repo.
+3. Add extends path to the `tsconfig.json` file in the `plugin-search` repo. (Only if the extends path is not present)
 
 ```bash
-"extends": "../../node_modules/@kui-shell/builder/tsconfig-base.json",
+"extends": "../../packages/builder/tsconfig-base.json",
 ```
 
 If the extended path is missing, the user will be met with this error when compiling the code.
 
 ```bash
 error TS5070: Option '--resolveJsonModule' cannot be specified without 'node' module resolution strategy.
-```
-
-4. Update `style.json` file within `plugins/plugin-kubeui-client/config.d/` to include "kui--bottom-input" value for "bodyCss" key:
-```bash
-{
-  "defaultTheme": "Dark",
-  "bodyCss": ["kui kui--bottom-input"],
-  "tableStyle": "Light",
-  "promptPlaceholder": "",
-  "topTabs": {
-    "names": "command"
-    }
-}
 ```
 
 4. The following routes need to be created within the cluster, in order for the API request calls to be executed successfully.
@@ -114,6 +92,7 @@ staticConfig = require('path/to/file/search.json')
 authConfig: AuthConfig = require('path/to/file/search-auth.json')
 ```
 ##### search.json
+
 ```bash
 {
   "env": "development",
@@ -127,6 +106,7 @@ authConfig: AuthConfig = require('path/to/file/search-auth.json')
 ```
 
 ##### search-auth.json
+
 ```bash
 {
   "authorization": "Bearer <oc token>",
@@ -147,7 +127,7 @@ npm install
 make compile-plugin
 ```
 
-7. At root-level of KUI repo, install client dependencies, and start dev server.  This will initially compile code and subsequently recompile upon any file changes.
+7. At root-level of KUI repo, install client dependencies, and start dev server. This will initially compile code and subsequently recompile upon any file changes.
 
 ```bash
 npm install
@@ -191,6 +171,14 @@ npm run test:firefox
 
 | Command                                | Description                                                                |
 |----------------------------------------|----------------------------------------------------------------------------|
+| `npm run buildCSS`                     | Compile SCSS into readable CSS                                             |
+| `npm run commit`                       | CLI tool that helps format commit messages with a series of prompts        |
+| `npm run compile`                      | Compile project directory based off of the project's tsconfig.json file    |
+| `npm run compile:clean`                | Compile project directory and deletes all built javascript files           |
+| `npm run open`                         | Open the KUI dev environment                                               |
+| `npm run semantic-release`             | Uses the commit messages to determine the type of changes in the codebase  |
+| `npm run setup-dev`                    | Runs an automatic setup for the search-kui dev environment for the user    |
+| `npm run start:watch`                  | Watches SCSS style changes and updates the current CSS files               |
 | `npm run test`                         | Run Jest tests                                                             |
 | `npm run test:coverage`                | Run Jest tests and creates code coverage test-output files                 |
 | `npm run test:chrome`                  | Run Nightwatch E2E testing in chrome                                       |
@@ -199,12 +187,9 @@ npm run test:firefox
 | `npm run test:unit`                    | Run Jest unit tests                                                        |
 | `npm run test:update-snapshot`         | Run and update Jest tests snapshots                                        |
 | `npm run test:watch`                   | Watches Jest tests                                                         |
-| `npm run semantic-release`             | Uses the commit messages to determine the type of changes in the codebase  |
-| `npm run commit`                       | CLI tool that helps format commit messages with a series of prompts        |
-| `npm run buildCSS`                     | Compile SCSS into readable CSS                                             |
-| `npm run scss`                         | Watches SCSS style changes and updates the current CSS files               |
 
 ## Trigger a release
+
 To trigger a new release you must push a commit of type `fix` or `release`
 ```bash
 npm run commit
