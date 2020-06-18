@@ -33,7 +33,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
     }
 
     // If the sidecar was able to return a yaml object, add the YAML tab.
-    if (!lodash.get(resource, 'errors', '') && lodash.get(data, 'getResource', '') === '') {
+    if (!lodash.get(resource, 'errors', '') && lodash.get(data, 'getResource', '') === '' && kind !== 'cluster') {
       modes.push(yamlTab(resource))
     }
   }
@@ -79,7 +79,14 @@ export const getSidecar = async (args) => new Promise((resolve) => {
       } else {
         HTTPClient('post', 'console', kind !== 'cluster' ? SEARCH_ACM_QUERY(data.items[0]) : GET_CLUSTER())
         .then((resp) => {
-          const resource = !resp.errors ? resp.data.getResource : resp
+          let resource
+
+          if (kind === 'cliuster') {
+            resource = resp.data.items.filter((cluster) => cluster.metadata.name === data.items[0].name)
+          } else {
+            resource = !resp.errors ? resp.data.getResource : resp
+          }
+
           resolve(buildSidecar('resource', data, resource))
         })
         .catch((err) => {
