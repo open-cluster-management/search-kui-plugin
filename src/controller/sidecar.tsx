@@ -11,7 +11,7 @@
 import { convertStringToQuery } from '../util/search-helper';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
-import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
+import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY, GET_CLUSTER } from '../definitions/search-queries';
 import { summaryTab } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
 import { relatedTab } from '../views/modes/related';
@@ -70,13 +70,14 @@ export const getSidecar = async (args) => new Promise((resolve) => {
     HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
     .then((res) => {
       const data = lodash.get(res, 'data.searchResult[0]', '')
+      const kind = lodash.get(data, 'items[0].kind', '')
 
       if (!data || data.items.length === 0) {
         resolve(node)
       } else if (args.command.includes('related:resources')) {
         resolve(buildSidecar('query', data))
       } else {
-        HTTPClient('post', 'console', SEARCH_ACM_QUERY(data.items[0]))
+        HTTPClient('post', 'console', kind !== 'cluster' ? SEARCH_ACM_QUERY(data.items[0]) : GET_CLUSTER())
         .then((resp) => {
           const resource = !resp.errors ? resp.data.getResource : resp
           resolve(buildSidecar('resource', data, resource))
