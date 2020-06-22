@@ -35,7 +35,8 @@ export const doSavedSearch = (args) => new Promise((resolve) => {
   if (flags.includes(argv[1])) { // Help menu for savedsearches command
     resolve(usage())
   } else if (argv.length > 1) {
-    resolve(`${strings('validation.error')}:\t${strings('validation.savedsearches.parameters')}.\n${strings('validation.usage')}:\t${strings('validation.definition.savedsearches')}`)
+    const str = `${strings('validation.error')}:\t${strings('validation.savedsearches.parameters')}.\n${strings('validation.usage')}:\t${strings('validation.definition.savedsearches')}`
+    resolve(resourceNotFound(str))
   }
 
   const buildTable = async (data: any) => {

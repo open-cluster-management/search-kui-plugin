@@ -20,104 +20,82 @@ import { usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar'
 import strings from '../util/i18n'
-import { getPluginState, setPluginState } from '../pluginState'
+import { getPluginState, setPluginState, resourceNotFound } from '../pluginState'
 import Modal from '../components/Modal'
 import { searchDelete } from './actionHandler'
 
-export const renderSearchAvailable = (available, err?) => {
+export const renderSearchAvailable = () => {
   const node = document.createElement('div')
   node.classList.add('is-search-available')
   const status = () => {
-    if (available) {
-          return(
-        <div>
-          {!err
-            ? <p>{strings('search.service.installed')}</p>
-            : <p><span className='oops'>{strings('search.service.installed.error')}</span></p>
-          }
-        </div>
-      )
-    } else {
-      return(
-        <div>
-          {!err
-            ? <p>{strings('search.service.not.installed')}</p>
-            : <p><span className='oops'>{strings('search.service.unavailable.error')}</span></p>
-          }
-        </div>
-      )
-    }
+    return(
+      <div>
+        <p><span className='oops'>{strings('search.service.installed.error')}</span></p>
+      </div>
+    )
   }
 
   ReactDOM.render(React.createElement(status), node)
   return node
 }
 
-export const isSearchAvailable = () => {
-  return getPluginState().enabled
-}
-
 export const doSearch = (args): any | NavResponse => {
-  const userQuery = convertStringToQuery(args.command)
+  const { argv, command } = args
+  const flags = getPluginState().flags
 
-  if (args.argv.length === 1 || args.command === 'search -h') {
-    return usage()
-  } else {
-    return new Promise((resolve, reject) => {
-      if (args.command.includes('--save') && args.argv.indexOf('--save') === args.argv.length - 1) {
-        const node = document.createElement('div')
-    
-        const save = () => {
-          return (
-            <Modal
-              item={args}
-              modalOpen={true}
-              onClose={false}
-              action={'save'}
-            />
-          )
-        }
-    
-        ReactDOM.render(React.createElement(save), node)
-        resolve(node)
+  if (argv.length === 1 || flags.includes(argv[1])) { // Help menu for search command
+    return usage(argv)
+  }
+
+  return new Promise((resolve) => {
+    if (command.includes('--related')) { // Get sidecar for related resources.
+      resolve(getSidecar(args))
+    }
+
+    const userQuery = convertStringToQuery(command)
+
+    if (command.includes('--save') && argv.indexOf('--save') === argv.length - 1) {
+      const node = document.createElement('div')
+
+      const save = () => {
+        return (
+          <Modal
+            item={args}
+            modalOpen={true}
+            onClose={false}
+            action={'save'}
+          />
+        )
       }
 
-      if (args.command.includes('search -delete')) {
-        resolve(searchDelete(args))
-      }
+      ReactDOM.render(React.createElement(save), node)
+      resolve(node)
+    }
 
-      const renderNoResults = () => {
-        const node = document.createElement('pre')
-        node.setAttribute('class', 'oops')
-        node.innerText = strings('search.no.resources.found')
-        return node
-      }
-    
-      const buildTable = (data: any) => {
-        const node = document.createElement('div', {is: 'react-entry-point'})
-        node.classList.add('search-kui-plugin')
-        data.items.length > 0
-          ? renderReact(data, node, args.command)
-          : node.appendChild(renderNoResults())
-        return node
-      }
+    if (command.includes('search -delete')) {
+      resolve(searchDelete(args))
+    }
 
-      args.command !== 'search -i' && args.command !== 's -i' && isSearchAvailable()
-      ? HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-        .then((res) => {
-          resolve(
-            buildTable(res.data.searchResult[0]),
-          )
-        })
-        .catch((err) => {
-          setPluginState('error', err)
-          resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
-        })
-      : resolve(
-        renderSearchAvailable(isSearchAvailable())
+    const buildTable = (data: any) => {
+      const node = document.createElement('div', {is: 'react-entry-point'})
+      node.classList.add('search-kui-plugin')
+      data.items.length > 0
+        ? renderReact(data, node, command)
+        : node.appendChild(resourceNotFound())
+      return node
+    }
+
+    HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
+    .then((res) => {
+      resolve(
+        buildTable(res.data.searchResult[0]),
       )
     })
-  }
+    .catch((err) => {
+      setPluginState('error', err)
+      resolve(renderSearchAvailable())
+    })
+  })
 }
 
 /**
@@ -130,7 +108,4 @@ export default async (commandTree: Registrar) => {
 
   const summaryCmd = await commandTree.listen('/search/summary', getSidecar)
   commandTree.synonym('/s/summary', getSidecar, summaryCmd)
-
-  const relatedCmd = await commandTree.listen('/search/related:resources', getSidecar)
-  commandTree.synonym('/s/related:resources', getSidecar, relatedCmd)
 }

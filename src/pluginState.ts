@@ -11,7 +11,6 @@ import strings from './util/i18n'
 
 const state = {
   default: ['cluster', 'kind', 'label', 'name', 'namespace', 'status'],
-  enabled: undefined,
   error: undefined,
   flags: ['-h', '-help', '--help'],
   searchSchema: [],
@@ -36,10 +35,10 @@ const setPluginState = (key, value) => {
 /**
  * Return node element if resources is not found
  */
-export const resourceNotFound = () => {
+export const resourceNotFound = (text?) => {
   const node = document.createElement('pre')
   node.setAttribute('class', 'oops')
-  node.innerText = strings('search.no.resources.found')
+  node.innerText = !text ? strings('search.no.resources.found') : text
   return node
 }
 

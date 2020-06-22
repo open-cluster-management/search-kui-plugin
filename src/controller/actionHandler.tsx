@@ -16,8 +16,8 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
 import HTTPClient from './HTTPClient'
 import strings from '../util/i18n'
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
-import { setPluginState, getPluginState } from '../pluginState'
-import { renderSearchAvailable, isSearchAvailable } from './search'
+import { setPluginState } from '../pluginState'
+import { renderSearchAvailable } from './search'
 
 export const deleteSavedSearch = (args) => new Promise((resolve) => {
   if (args.argv.length === 1) {
@@ -50,13 +50,13 @@ export const deleteSavedSearch = (args) => new Promise((resolve) => {
       })
       .catch((err) => {
         setPluginState('error', err)
-        resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
+        resolve(renderSearchAvailable())
       })
     }
   })
   .catch((err) => {
     setPluginState('error', err)
-    resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
+    resolve(renderSearchAvailable())
   })
 })
 
@@ -76,7 +76,7 @@ export const deleteResource = (args) => new Promise((resolve) => {
   })
   .catch((err) => {
     setPluginState('error', err)
-    resolve(renderSearchAvailable(isSearchAvailable(), getPluginState().error))
+    resolve(renderSearchAvailable())
   })
 })
 

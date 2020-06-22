@@ -75,7 +75,6 @@ export const getSidecar = async (args) => new Promise((resolve) => {
 
   if (argv.length === 2 || getPluginState().flags.includes(argv[2])) { // Help menu will execute if command is (search summary || search summary -[flag])
     resolve(usage(argv))
-
   }
 
   HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
