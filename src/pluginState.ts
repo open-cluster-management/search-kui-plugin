@@ -7,20 +7,40 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
+import strings from './util/i18n'
+
 const state = {
-  enabled: undefined,
-  searchSchema: [],
   default: ['cluster', 'kind', 'label', 'name', 'namespace', 'status'],
-  error: undefined
+  enabled: undefined,
+  error: undefined,
+  flags: ['-h', '-help', '--help'],
+  searchSchema: [],
 }
 
+/**
+ * Get plugin's state values
+ */
 const getPluginState = () => {
   return state
 }
 
+/**
+ * Set plugin's state value
+ * @param key
+ * @param value
+ */
 const setPluginState = (key, value) => {
   state[key] = value
 }
 
-export { getPluginState, setPluginState }
+/**
+ * Return node element if resources is not found
+ */
+export const resourceNotFound = () => {
+  const node = document.createElement('pre')
+  node.setAttribute('class', 'oops')
+  node.innerText = strings('search.no.resources.found')
+  return node
+}
 
+export { getPluginState, setPluginState }

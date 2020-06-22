@@ -74,9 +74,8 @@ CONSOLE=$(oc get routes -n open-cluster-management | grep multicloud-console | a
 
 CONSOLE_API="https://${CONSOLE_ROUTE}/hcmuiapi/graphql"
 SEARCH_API="https://${SEARCH_ROUTE}/searchapi/graphql"
-SEARCH_SVC="https://${CONSOLE}/multicloud/servicediscovery/search"
 
-jq '. +{"CONSOLE_API": $consoleApi, "SEARCH_API": $searchApi, "SEARCH_SERVICE": $searchSvc}' --arg consoleApi $CONSOLE_API --arg searchApi $SEARCH_API --arg searchSvc $SEARCH_SVC src/lib/shared/search.json > new.search.json
+jq '. +{"CONSOLE_API": $consoleApi, "SEARCH_API": $searchApi}' --arg consoleApi $CONSOLE_API --arg searchApi $SEARCH_API src/lib/shared/search.json > new.search.json
 mv new.search.json src/lib/shared/search.json
 
 

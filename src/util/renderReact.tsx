@@ -23,7 +23,7 @@ export default function renderReact(data: any, node: HTMLDivElement, command: st
           ? <div className={'related--resource-table-header'}>
               <button
                 onClick={() => {
-                  getCurrentTab().REPL.pexec(command.replace('search ', 'search related:resources '))
+                  getCurrentTab().REPL.pexec(command.concat(' --related'))
                 }}
                 className={'related--resource-table-header-button'}>
                 {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}

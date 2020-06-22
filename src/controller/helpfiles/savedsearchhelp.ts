@@ -1,4 +1,7 @@
 /*******************************************************************************
+*
+* Copyright (c) 2020 Red Hat, Inc.
+*
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
 *
@@ -8,26 +11,55 @@
 *******************************************************************************/
 
 import strings from '../../util/i18n'
+import { NavResponse } from '@kui-shell/core'
+import { getIntroduction } from './search-sidecar-help'
+
+const contentType = 'text/html'
+const apiVersion = 'kui-shell/v1'
+const kind = 'NavResponse'
+
+const sections = {
+  introduction: {
+    headers: [
+      {
+        header: strings('validation.about'),
+        docs: strings('savedsearchhelp.title'),
+        key: strings('validation.about')
+      },
+      {
+        header: strings('validation.usage'),
+        docs: strings('savedsearchhelp.header'),
+        key: strings('validation.usage'),
+        usage: `savedsearches (alias: ss)`
+      },
+      {
+        header: strings('validation.guide'),
+        docs: strings('validation.savedsearches.parameters'),
+        key: strings('validation.guide')
+      }
+    ]
+  }
+}
 
 /**
  * Usage model for the savedsearches plugin
  *
  */
-export const toplevel = {
-  breadcrumb: 'savedsearches',
-  command: 'savedsearches',
-  title: strings('savedsearchhelp.title'),
-  header: strings('savedsearchhelp.header'),
-  example: strings('savedsearchhelp.example'),
-  nRowsInViewport: 1,
-  available: [
-    {
-      command: 'savedsearches',
-      docs: strings('savedsearchhelp.title'),
-      dir: true,
-      commandPrefix: null,
-    },
-  ],
-  alias: 'ss',
-  related: ['search'],
+export function usage(): NavResponse {
+  return {
+    apiVersion,
+    kind,
+    breadcrumbs: [{ label: 'savedsearches' }],
+    menus: [{
+      label: strings('validation.usage'),
+      items: [{
+        mode: strings('validation.introduction'),
+        content: getIntroduction(sections.introduction.headers),
+        contentType
+      }]
+    }],
+    links: [
+      { label: strings('validation.more.information'), href: 'https://github.com/open-cluster-management/rhacm-docs/blob/doc_stage/console/vwt_search.md#searching-with-visual-web-terminal' }
+    ]
+  }
 }
