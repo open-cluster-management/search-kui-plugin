@@ -15,7 +15,7 @@ import strings from './util/i18n'
 const state = {
   default: ['cluster', 'kind', 'label', 'name', 'namespace', 'status'],
   error: undefined,
-  flags: ['-h', '-help', '--help'],
+  flags: ['-h', '--h', '-help', '--help'],
   searchSchema: [],
 }
 

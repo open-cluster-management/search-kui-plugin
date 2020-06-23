@@ -64,7 +64,7 @@ export const deleteSavedSearch = (args) => new Promise((resolve) => {
 })
 
 export const deleteResource = (args) => new Promise((resolve) => {
-  if (args.argv.length !== 6) {
+  if (args.argv.length !== 7) {
     resolve('ERROR: Received wrong number of parameters.\nUSAGE: search -delete="resource" <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>')
   }
 

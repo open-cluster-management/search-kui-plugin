@@ -176,7 +176,7 @@ npm run test:firefox
 | `npm run open`                         | Open the KUI dev environment                                               |
 | `npm run semantic-release`             | Uses the commit messages to determine the type of changes in the codebase  |
 | `npm run setup-dev`                    | Runs an automatic setup for the search-kui dev environment for the user    |
-| `npm run start:watch`                  | Watches for all file updates. If any files are changed, it will rebuild the current dev enviroment with the most recent updates       |
+| `npm run start:watch`                  | Watches for all file updates. If any files are changed, it will rebuild the current dev environment with the most recent updates       |
 | `npm run test`                         | Run Jest tests                                                             |
 | `npm run test:coverage`                | Run Jest tests and creates code coverage test-output files                 |
 | `npm run test:chrome`                  | Run Nightwatch E2E testing in chrome                                       |
