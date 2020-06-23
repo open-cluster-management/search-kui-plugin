@@ -82,7 +82,6 @@ error TS5070: Option '--resolveJsonModule' cannot be specified without 'node' mo
 <pre>
 SEARCH_API - Endpoint of the search API.
 CONSOLE_API - Endpoint of the console API.
-SEARCH_SERVICE - Endpoint of management-ingress. (The value retrieved from this endpoint, is to ensure that the Search service is installed on the cluster)
 </pre>
 
 The user can set the `staticConfig` path to their own `search.json` file, and the `authConfig` path to their own `search-auth.json` file. This will set the cluster configurations for the local dev environment. A template of each file can be found in the `src/lib/shared/` directory.
@@ -98,7 +97,6 @@ authConfig: AuthConfig = require('path/to/file/search-auth.json')
   "env": "development",
   "SEARCH_API": "https://<cluster search-api route host>/searchapi/graphql",
   "CONSOLE_API": "https://<cluster console-api route host>/hcmuiapi/graphql",
-  "SEARCH_SERVICE": "https://<cluster multicloud-console route host>/multicloud/servicediscovery/search",
   "serverSideConfig": {
     "inBrowserOk": false
   }
@@ -178,7 +176,7 @@ npm run test:firefox
 | `npm run open`                         | Open the KUI dev environment                                               |
 | `npm run semantic-release`             | Uses the commit messages to determine the type of changes in the codebase  |
 | `npm run setup-dev`                    | Runs an automatic setup for the search-kui dev environment for the user    |
-| `npm run start:watch`                  | Watches SCSS style changes and updates the current CSS files               |
+| `npm run start:watch`                  | Watches for all file updates. If any files are changed, it will rebuild the current dev enviroment with the most recent updates       |
 | `npm run test`                         | Run Jest tests                                                             |
 | `npm run test:coverage`                | Run Jest tests and creates code coverage test-output files                 |
 | `npm run test:chrome`                  | Run Nightwatch E2E testing in chrome                                       |
