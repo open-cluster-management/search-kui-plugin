@@ -115,16 +115,23 @@
     }
 
       &__left {
-        .bx--select .bx--select-input {
-          height: 1.5rem;
-          width: auto;
-          padding:0 1.2rem 0 0.4rem;
-          margin: 0;
-          font-weight: 600;
-          text-align-last: center;
-          box-shadow: none;
+        .bx--select {
+          
+          .bx--select-input {
+            right: 0;
+            height: 1.5rem;
+            width: auto;
+            padding:0 1.2rem 0 0.4rem;
+            margin: 0;
+            font-weight: 600;
+            text-align-last: center;
+            box-shadow: none;
+          }
+          
+          .bx--select__arrow {
+            right: 0;
+          }
         }
-
       }
 
       &__right {
@@ -857,8 +864,6 @@ span{
 .scrollable{
   &.bx--structured-list--summary{
     width: 98%;
-    // margin-left: 2.5%;
-    // padding-right: 20px;
 
     .bx--structured-list-row{
       &:hover{
@@ -922,6 +927,8 @@ span{
       font-size: 0.8rem;
     }
   }
+
+
 
   &.bx--tile-related {
     width: 100%;
