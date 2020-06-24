@@ -29,6 +29,7 @@ function getHeaders(config: Config) {
 
 export default async function HTTPClient(method, urlType, requestBody) {
   const config = await getConfig()
+  const url = urlType === 'search' ? config.SEARCH_API : config.CONSOLE_API
 
   let agent = null
   if (config.env === 'development') {
@@ -38,25 +39,13 @@ export default async function HTTPClient(method, urlType, requestBody) {
 
   }
 
-  const getURL = () => {
-    switch (urlType) {
-      case 'search':
-        return config.SEARCH_API
-      case 'console':
-        return config.CONSOLE_API
-      case 'svc':
-        return config.SEARCH_SERVICE
-      default:
-        return undefined
-    }
-  }
-
   // TODO:Rob - figure out same dependency here for http req
   if (process.env.NODE_ENV === 'development') {
-    return needle(method, getURL(), requestBody || {}, {
+    return needle(method, url, requestBody || {}, {
       json: true,
       headers: getHeaders(config),
       agent,
+      timeout: 5000, // Timeout after 5 seconds
     }).then((res) => {
       return res.body
     }).catch((err) => {
@@ -66,7 +55,7 @@ export default async function HTTPClient(method, urlType, requestBody) {
   return (
     axios({
       method,
-      url: getURL(),
+      url,
       headers: getHeaders(config),
       data: requestBody,
       withCredentials: true,

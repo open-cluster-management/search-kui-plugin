@@ -1,4 +1,7 @@
 /*******************************************************************************
+* 
+* Copyright (c) 2020 Red Hat, Inc.
+* 
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
 *
@@ -139,6 +142,18 @@ export const DELETE_RESOURCE = (name, namespace, kind, cluster, selfLink) => {
         kind,
         cluster,
         selfLink,
+      },
+  }
+}
+
+export const GET_CLUSTER = () => {
+  return {
+    operationName: 'getClusters',
+      query: 'query getClusters {\n  items: clusters {\n    metadata {\n      labels\n      name\n      namespace\n      uid\n      selfLink\n      __typename\n    }\n    availableVersions\n    nodes\n    status\n    clusterip\n    consoleURL\n    desiredVersion\n    distributionVersion\n    isHive\n    isManaged\n    serverAddress\n    totalMemory\n    totalStorage\n    totalCPU\n    klusterletVersion\n    k8sVersion\n    upgradeFailed\n    __typename\n  }\n}\n',
+      variables: {
+        filter: {
+          resourceFilter: []
+        }
       },
   }
 }

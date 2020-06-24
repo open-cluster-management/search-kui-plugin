@@ -1,4 +1,7 @@
 /*******************************************************************************
+* 
+* Copyright (c) 2020 Red Hat, Inc.
+* 
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
 *
@@ -8,11 +11,9 @@
 *******************************************************************************/
 
 import * as React from 'react'
-import { getCurrentTab } from '@kui-shell/core'
 import SearchBar from './SearchBar'
 import { SearchInputProps, SearchInputState } from '../model/SearchInput'
 import strings from '../util/i18n'
-import { isSearchAvailable } from '../controller/search';
 import { getPluginState } from '../pluginState'
 
 export default class SearchInput extends React.PureComponent<SearchInputProps, SearchInputState> {
@@ -25,15 +26,10 @@ export default class SearchInput extends React.PureComponent<SearchInputProps, S
   }
 
   componentDidMount() {
-    if (isSearchAvailable()) {
-      getPluginState().searchSchema.length > 0
-      ? this.setState({ searchSchema: getPluginState().searchSchema })
-      : this.setState({ searchSchema: getPluginState().default })
-    }
-    else{
-      getCurrentTab().REPL.pexec('search -i').then(() => this.setState({
-        searchSchema: [{id: 'failed', name: strings('search.loading.fail'), disabled: true}]
-      }))
+    if (getPluginState().searchSchema.length > 0) {
+      this.setState({ searchSchema: getPluginState().searchSchema })
+    } else {
+      this.setState({ searchSchema: getPluginState().default })
     }
   }
 

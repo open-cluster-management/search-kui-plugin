@@ -13,9 +13,25 @@
 import strings from '../../util/i18n'
 import { NavResponse } from '@kui-shell/core'
 import { getIntroduction, getTableContent } from './search-sidecar-help'
+import { getPluginState } from '../../pluginState'
 
+const breadcrumb = (argv?: any) => {
+  const flags = getPluginState().flags
+  if (flags.includes(argv[argv.length - 1])) {
+    argv.pop() // Remove help flag to prevent it from showing in the breadcrumb trail
+  }
+
+  const crumbs = argv.map((cmd) => ({
+    label: cmd,
+    command: `${cmd === 'search' ? ` ${cmd} -h` : undefined }`
+  }))
+  return crumbs
+}
 
 const contentType = 'text/html'
+const apiVersion = 'kui-shell/v1'
+const kind = 'NavResponse'
+
 const sections = {
   introduction: {
     headers: [
@@ -61,7 +77,7 @@ const sections = {
       },
     ]
   },
-  flags: {
+  options: {
     headers: [
       {
         header: strings('validation.option'),
@@ -73,11 +89,6 @@ const sections = {
       }
     ],
     rows: [
-      {
-        command: 'search -i',
-        name: '-i',
-        docs: strings('searchhelp.search.install.docs'),
-      },
       {
         command: 'search kind:pod --save',
         name: '--save',
@@ -95,17 +106,14 @@ const sections = {
       },
     ]
   },
-  aliases: {
+  summary: {
     headers: [
       {
-        header: strings('table.header.name'),
-        key: strings('table.header.name')
-      },
-      {
-        header: strings('table.header.short.name'),
-        key: strings('table.header.short.name')
+        header: strings('validation.about'),
+        docs: strings('searchhelp.title'),
+        key: strings('validation.about')
       }
-    ]
+    ],
   }
 }
 
@@ -113,11 +121,11 @@ const sections = {
  * Usage model for the search plugin
  *
  */
-export function usage(): NavResponse {
+export function usage(args?): NavResponse {
   return {
-    apiVersion: 'kui-shell/v1',
-    kind: 'NavResponse',
-    breadcrumbs: [{ label: 'search' }],
+    apiVersion,
+    kind,
+    breadcrumbs: breadcrumb(args),
     menus: [
       {
         label: strings('validation.usage'),
@@ -129,7 +137,7 @@ export function usage(): NavResponse {
           },
           {
             mode: strings('validation.option'),
-            content: getTableContent(sections.flags),
+            content: getTableContent(sections.options),
             contentType
           },
         ]

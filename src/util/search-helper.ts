@@ -1,4 +1,7 @@
 /*******************************************************************************
+ * 
+ * Copyright (c) 2020 Red Hat, Inc.
+ * 
  * Licensed Materials - Property of IBM
  * (c) Copyright IBM Corporation 2019. All Rights Reserved.
  *
@@ -8,14 +11,14 @@
  *******************************************************************************/
 
 export const convertStringToQuery = (searchText) => {
-  let searchTokens
+  let searchTokens = searchText.replace('search', '').trim(' ') // Remove search first
 
-  if (searchText.indexOf('search summary ') !== -1) { // This will allow the alias for search to access the searchTokens for the command.
-    searchTokens = searchText.replace('search summary ', '').split(' ')
-  } else if (searchText.indexOf('search related:resources ') !== -1) {
-    searchTokens = searchText.replace('search related:resources ', '').split(' ')
+  if (searchTokens.includes('summary')) { // This will allow the alias for search to access the searchTokens for the command.
+    searchTokens = searchTokens.replace('summary', '').split(' ')
+  } else if (searchTokens.includes('--related')) {
+    searchTokens = searchTokens.replace('--related', '').trim(' ').split(' ')
   } else {
-    searchTokens = searchText.replace('search ', '').split(' ')
+    searchTokens = searchTokens.split(' ')
   }
 
   const keywords = searchTokens.filter((token) => token !== '' && token.indexOf(':') < 0)

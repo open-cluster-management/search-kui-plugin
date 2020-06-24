@@ -1,4 +1,7 @@
 /*******************************************************************************
+* 
+* Copyright (c) 2020 Red Hat, Inc.
+* 
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
 *
@@ -22,7 +25,6 @@ interface StaticConfig {
   env: string
   SEARCH_API: string
   CONSOLE_API: string
-  SEARCH_SERVICE: string
 }
 
 interface AuthConfig {
@@ -38,14 +40,12 @@ export type Config = StaticConfig &
 export async function getConfig(): Promise<Config> {
 
   const nconf = require('nconf')
-
   const WHITELIST = ['contextPath']
 
   let config: Config = Object.assign(
     {
       env: '',
       // Electron needs to grab backend urls somehow  Ex: https://<cluster-ip>:<backend-port>/(searchapi || hcmuiapi)/graphql
-      // To ensure that the search-api is installed, Electron needs to grab the url Ex: https://<cluster-ip>:8443/multicloud/servicediscovery/search
       // Browser can grab backend urls from the window.location.origin
       SEARCH_API: staticConfig 
       ? staticConfig.SEARCH_API
@@ -53,9 +53,6 @@ export async function getConfig(): Promise<Config> {
       CONSOLE_API: staticConfig
       ? staticConfig.CONSOLE_API
       : `${window && window.location && window.location.origin}/multicloud/graphql`,
-      SEARCH_SERVICE: staticConfig
-      ? staticConfig.SEARCH_SERVICE
-      : `${window && window.location && window.location.origin}/multicloud/servicediscovery/search`
     },
     {
       // Browser needs xsrf token for requests
