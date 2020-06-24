@@ -16,7 +16,10 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(document, 'getElementById', { value: (val: string) => document.querySelector('#' + val), writable: true })
 }
 
+const deletedResources = []
+
 import HTTPClient from './HTTPClient'
+import * as lodash from 'lodash'
 import strings from '../util/i18n'
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
 import { setPluginState } from '../pluginState'
@@ -69,13 +72,19 @@ export const deleteResource = (args) => new Promise((resolve) => {
   }
 
   // delete resource args = (name, namespace, kind, cluster, selfLink)
-  HTTPClient('post', 'console', DELETE_RESOURCE(args.argv[1], args.argv[2], args.argv[3], args.argv[4], args.argv[5]))
+  HTTPClient('post', 'console', DELETE_RESOURCE(args.argv[2], args.argv[3], args.argv[4], args.argv[5], args.argv[6]))
   .then((res) => {
-    resolve(
-      res.errors
-        ? res.errors[0]
-        : strings('modal.deleted.resource', [args.argv[1]])
-    )
+    const data = lodash.get(res, 'data', '')
+    if (data.deleteResource && !deletedResources.includes(args.argv[2])) {
+      deletedResources.push(args.argv[2]) // Keep track of resources that have been deleted. KUI allows a resource to be deleted multiple times, which is not possible.
+      resolve(
+        res.errors
+          ? res.errors[0]
+          : strings('modal.deleted.resource', [args.argv[2]])
+      )
+    } else {
+      resolve(strings('modal.delete.warning', [args.argv[2], args.argv[4]]))
+    }
   })
   .catch((err) => {
     setPluginState('error', err)
@@ -92,6 +101,6 @@ export const searchDelete = (args) => new Promise((resolve) => {
       resolve(deleteResource(args))
       break
     default:
-      resolve('Unknown command')
+      resolve(strings('delete.command.unknown.value'))
   }
 })
