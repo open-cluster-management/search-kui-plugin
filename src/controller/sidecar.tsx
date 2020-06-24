@@ -72,7 +72,6 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
  */
 export const getSidecar = async (args) => new Promise((resolve) => {
   const { command, argv } = args
-
   const userQuery = convertStringToQuery(command)
 
   if (argv.length === 2 || getPluginState().flags.includes(argv[2])) { // Help menu will execute if command is (search summary || search summary -[flag])
@@ -84,7 +83,7 @@ export const getSidecar = async (args) => new Promise((resolve) => {
     const data = lodash.get(res, 'data.searchResult[0]', '')
     const kind = lodash.get(data, 'items[0].kind',  '')
 
-    if (!data || data.items.length === 0) {
+    if (!data || data.items.length === 0 && data.related.length === 0) {
       resolve(resourceNotFound())
     }
 
