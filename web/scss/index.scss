@@ -1,4 +1,7 @@
 /*******************************************************************************
+*
+*  Copyright (c) 2020 Red Hat, Inc.
+*
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
 *
@@ -7,7 +10,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-@import '../../../../node_modules/carbon-components/scss/globals/scss/colors';
+@import '../../../../../node_modules/carbon-components/scss/globals/scss/colors';
 
 .repl-result {
   white-space: unset;
@@ -844,157 +847,6 @@ span{
     background: white;
   }
 }
-
-
-/*********************
-    SIDECAR STYLING
-**********************/
-
-.kui--sidecar {
-
-  .sidecar-header-icon {
-    color: var(--color-map-key)
-  }
-
-  .bx--tab-content {
-
-    .custom-content{
-
-      .related--resource{
-        width: 100%;
-      }
-  
-      .page-content {
-
-        &> div {
-          width: 100%;
-        }
-
-        .scrollable{
-          &.bx--structured-list--summary{
-            min-width: 100%;
-        
-            .bx--structured-list-row{
-              &:hover{
-                background-color: var(--color-sidecar-header)
-              }
-            }
-        
-            .bx--dropdown__wrapper{
-              &.bx--list-box__wrapper{
-                margin-top: 2%;
-                background-color: var(--color-white);
-                color: var(--color-black);
-              }
-            }
-        
-            .bx--list-box__menu-item__option{
-              &:hover{
-                text-decoration: underline solid var(--active-tab-color);
-              }
-            }
-        
-            .loading-container{
-              margin-top: 13vw;
-              margin-left: 45.5%;
-            }
-        
-            .bx--structured-list-td-header{
-              font-size: 0.75rem;
-              text-transform: uppercase;
-              font-weight: 500;
-              color: var(--color-map-key);
-            }
-        
-            .bx--structured-list-td-related-header{
-              font-size: 0.98rem;
-              text-transform: uppercase;
-              font-weight: 500;
-              color: var(--color-map-key);
-            }
-        
-            .bx--structured-list-td{
-              &-body{
-                font-size: 1.2rem;
-                color: var(--color-base07);
-        
-                &-logs{
-                  font-size: 0.85rem;
-                }
-              }
-            }
-            .bx--structured-list-rowclick{
-              &:hover{
-                cursor: pointer;
-              }
-            }
-        
-            .logs-container__content{
-              margin-top: 1%;
-              margin-bottom: 2%;
-              font-size: 0.8rem;
-              overflow: auto;
-            }
-          }
-        
-          &.bx--tile-related {
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(9rem,1fr));
-            grid-auto-rows: 6rem;
-            grid-gap: 3rem 2rem;
-            margin: 3rem 0 0 10%;
-        
-            .bx--btn {
-              &.bx--btn--primary {
-                border: none;
-                background-color: transparent;
-                padding: 0 3rem 0 0;
-                align-self: start;
-        
-                .bx--tile-container {
-                  width: 100%;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  padding:  0.3rem;
-        
-                  &:hover{
-                    cursor: pointer;
-        
-                    .bx--structured-list-td-related-header{
-                      opacity: 1;
-                    }
-        
-                    .bx--structured-list-td-body{
-                      opacity: 1;
-                    }
-                  }
-        
-                  .bx--structured-list-td-related-header {
-                    font-size: 2rem;
-                    font-weight: 500;
-                    color: var(--color-map-key);
-                    text-decoration: none;
-                    opacity: 0.8;
-                  }
-          
-                  .bx--structured-list-td-body{
-                    font-size: 0.9rem;
-                    color: var(--color-base07);
-                    text-decoration: none;
-                    opacity: 0.8;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      }
-    }
-  }
-
 
 /**
   * Dark theme styling
