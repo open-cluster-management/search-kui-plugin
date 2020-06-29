@@ -149,6 +149,12 @@ Try `search` commands. Ex: `search kind:pod`
 
 ## Testing
 
+The following will run all nightwatch e2e tests. (Nightwatch configurations can be specified within the `nightwatch.json` file.)
+
+```bash
+npm run test:firefox
+```
+
 The following will run all jest based unit tests. (Jest configurations can be specified within the `package.json` file or the `jest.config.js` file.)
 
 ```bash
@@ -159,11 +165,12 @@ npm run test:unit
     <img alt="" src="docs/readme/images/jest-testing.gif" width=890 height=400></img>
 </a>
 
-The following will run all nightwatch e2e tests. (Nightwatch configurations can be specified within the `nightwatch.json` file.)
+### Accessing Local SonarScan Report
 
-```bash
-npm run test:firefox
-```
+#### Prerequisites
+1. Install JVM on your machine
+2. Download <a href="https://docs.sonarqube.org/latest/setup/get-started-2-minutes/">SonarQube</a>
+3. Download <a href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/">SonarQube-Scanner</a>
 
 ## NPM Commands
 
@@ -203,8 +210,5 @@ These are a few useful links that will help provide technical reference and best
 - [Jest Unit Testing](https://jestjs.io/docs/en/getting-started)
 - [Nightwatch E2E Testing](https://nightwatchjs.org/guide)
 - [Release Versioning](https://semver.org)
-
-### SonarQube Local Setup Links
-
-- [SonarQube Guide](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
+- [SonarQube Guide](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
 - [SonarScanner Guide](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
