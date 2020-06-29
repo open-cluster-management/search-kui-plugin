@@ -203,3 +203,8 @@ These are a few useful links that will help provide technical reference and best
 - [Jest Unit Testing](https://jestjs.io/docs/en/getting-started)
 - [Nightwatch E2E Testing](https://nightwatchjs.org/guide)
 - [Release Versioning](https://semver.org)
+
+### SonarQube Local Setup Links
+
+- [SonarQube Guide](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
+- [SonarScanner Guide](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
