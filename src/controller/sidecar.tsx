@@ -23,6 +23,8 @@ import { renderSearchAvailable } from './search';
 import { setPluginState, getPluginState, resourceNotFound } from '../pluginState';
 import { usage } from './helpfiles/searchhelp';
 
+import '../../web/scss/sidecar.scss'
+
 /**
  * Build sidecar view tabs for resources.
  * @param type
