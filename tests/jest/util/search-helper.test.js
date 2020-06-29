@@ -13,7 +13,7 @@ describe('Search helper', () => {
   const commands = [
     'search kind:pod,deployment namespace:kube-system',
     'search summary kind:pod name:nvidia-device-plugin-r2674 namespace:kube-system',
-    'search related:resources kind:pod',
+    'search kind:pod --related',
     'search pod,deployment',
     'search -h',
     'search completions:=1'

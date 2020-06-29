@@ -8,8 +8,8 @@
 *******************************************************************************/
 'use strict'
 
-import * as moment from 'moment'
 import * as lodash from 'lodash'
+const moment = require('moment')
 
 /*
 * UI helpers to help with data transformations
@@ -18,5 +18,6 @@ import * as lodash from 'lodash'
 export const getAge = (item, timestampKey?) => {
   const key = timestampKey || 'created'
   const createdTime = lodash.get(item, key)
+
   return moment(createdTime, 'YYYY-MM-DDTHH:mm:ssZ').fromNow()
 }
