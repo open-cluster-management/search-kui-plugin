@@ -26,6 +26,7 @@
     "compile:clean": "tsc --build tsconfig.json --clean",
     "semantic-release": "semantic-release",
     "setup-dev": "cp build/setup-dev.sh ../ && cd ../ && sh ./setup-dev.sh",
+    "setup-sonar": "sh build/setup-sonar.sh",
     "start:watch": "cd ../.. && npm run watch",
     "open": "cd ../.. && electron . shell",
     "test:coverage": "mkdir -p test-output && jest --coverage --no-cache",
