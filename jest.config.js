@@ -22,14 +22,6 @@ const jestConfig = {
     'text',
     'text-summary'
   ],
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 80,
-  //     functions: 80,
-  //     lines: 80,
-  //     statements: -10,
-  //   },
-  // },
   moduleFileExtensions: [
     "js", "json"
   ],
@@ -40,12 +32,19 @@ const jestConfig = {
   ],
   testPathIgnorePatterns: [
     '<rootDir>/tests/jest/views/modes/related.test.js',
+    '<rootDir>/tests/jest/components/InputField.test.js',
+    '<rootDir>/tests/jest/components/InputWrapper.test.js',
+    '<rootDir>/tests/jest/components/Logger.test.js',
+    '<rootDir>/tests/jest/components/Modal.test.js',
+    '<rootDir>/tests/jest/components/SearchBar.test.js',
+    '<rootDir>/tests/jest/components/SearchInput.test.js',
+    '<rootDir>/tests/jest/components/Tag.test.js',
     '<rootDir>/tests/jest/views/modes/logging.test.js',
     '<rootDir>/tests/jest/controller/search.test.js',
     '<rootDir>/tests/jest/util/renderReact.test.js',
     '<rootDir>/tests/jest/util/resource-helper.test.js',
   ],
-  // testResultsProcessor: 'jest-sonar-reporter',
+  testResultsProcessor: 'jest-sonar-reporter',
   // globalSetup: '<rootDir>/tests/jest/config/properties-to-json.js',
   setupFiles: [
     '<rootDir>/tests/jest/config/setupTests.js'

@@ -23,6 +23,20 @@ Object {
 }
 `;
 
+exports[`Search helper should convert search kind:pod --related to a query 1`] = `
+Object {
+  "filters": Array [
+    Object {
+      "property": "kind",
+      "values": Array [
+        "pod",
+      ],
+    },
+  ],
+  "keywords": Array [],
+}
+`;
+
 exports[`Search helper should convert search kind:pod,deployment namespace:kube-system to a query 1`] = `
 Object {
   "filters": Array [
@@ -50,20 +64,6 @@ Object {
   "keywords": Array [
     "pod,deployment",
   ],
-}
-`;
-
-exports[`Search helper should convert search related:resources kind:pod to a query 1`] = `
-Object {
-  "filters": Array [
-    Object {
-      "property": "kind",
-      "values": Array [
-        "pod",
-      ],
-    },
-  ],
-  "keywords": Array [],
 }
 `;
 

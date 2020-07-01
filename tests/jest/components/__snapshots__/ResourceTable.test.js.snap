@@ -1,0 +1,973 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceTable component header button onClick event should collapse (cluster) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          cluster(2)
+        </span>
+        <span
+          className="arrow-down"
+        >
+          ▼
+        </span>
+      </button>
+    </div>
+  </div>
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should collapse (deployment) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          deployment(2)
+        </span>
+        <span
+          className="arrow-down"
+        >
+          ▼
+        </span>
+      </button>
+    </div>
+  </div>
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should collapse (node) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          node(2)
+        </span>
+        <span
+          className="arrow-down"
+        >
+          ▼
+        </span>
+      </button>
+    </div>
+  </div>
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should collapse (release) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          release(2)
+        </span>
+        <span
+          className="arrow-down"
+        >
+          ▼
+        </span>
+      </button>
+    </div>
+  </div>
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should collapse (replicaset) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          replicaset(2)
+        </span>
+        <span
+          className="arrow-down"
+        >
+          ▼
+        </span>
+      </button>
+    </div>
+  </div>
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should collapse (secret) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          secret(2)
+        </span>
+        <span
+          className="arrow-down"
+        >
+          ▼
+        </span>
+      </button>
+    </div>
+  </div>
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should collapse (service) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          service(2)
+        </span>
+        <span
+          className="arrow-down"
+        >
+          ▼
+        </span>
+      </button>
+    </div>
+  </div>
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should display (cluster) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          cluster(2)
+        </span>
+        <span
+          className="arrow-up"
+        >
+          ▲
+        </span>
+      </button>
+    </div>
+  </div>
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "header": "Name",
+          "key": "name",
+        },
+        Object {
+          "header": "Namespace",
+          "key": "namespace",
+        },
+        Object {
+          "header": "Nodes",
+          "key": "nodes",
+        },
+        Object {
+          "header": "Klusterlet Version",
+          "key": "klusterletVersion",
+        },
+        Object {
+          "header": "Kubernetes Version",
+          "key": "kubernetesVersion",
+        },
+        Object {
+          "header": "CPU",
+          "key": "cpu",
+        },
+        Object {
+          "header": "Storage",
+          "key": "storage",
+        },
+        Object {
+          "header": "Memory",
+          "key": "memory",
+        },
+        Object {
+          "header": "",
+          "key": "action",
+        },
+      ]
+    }
+    key="cluster-resource-table"
+    locale="en"
+    render={[Function]}
+    rows={
+      Array [
+        Object {
+          "action": null,
+          "id": "0",
+          "kind": "cluster",
+          "name": "mock-cluster-1",
+        },
+        Object {
+          "action": null,
+          "id": "1",
+          "kind": "cluster",
+          "name": "mock-cluster=2",
+        },
+      ]
+    }
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should display (deployment) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          deployment(2)
+        </span>
+        <span
+          className="arrow-up"
+        >
+          ▲
+        </span>
+      </button>
+    </div>
+  </div>
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "header": "Name",
+          "key": "name",
+        },
+        Object {
+          "header": "Namespace",
+          "key": "namespace",
+        },
+        Object {
+          "header": "Cluster",
+          "key": "cluster",
+        },
+        Object {
+          "header": "Desired",
+          "key": "desired",
+        },
+        Object {
+          "header": "Current",
+          "key": "current",
+        },
+        Object {
+          "header": "Ready",
+          "key": "ready",
+        },
+        Object {
+          "header": "Available",
+          "key": "available",
+        },
+        Object {
+          "header": "Created",
+          "key": "created",
+        },
+        Object {
+          "header": "",
+          "key": "action",
+        },
+      ]
+    }
+    key="deployment-resource-table"
+    locale="en"
+    render={[Function]}
+    rows={
+      Array [
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "apigroup": "apps",
+          "available": 1,
+          "cluster": "mock-cluster-1",
+          "created": "9 months ago",
+          "current": 1,
+          "desired": 1,
+          "id": "0",
+          "kind": "deployment",
+          "label": "app=mock-deployment-1; chart=mock-release--99.99.99; heritage=Tiller; release=mock-release-1",
+          "name": "mock-deployment-1",
+          "namespace": "kube-system",
+          "ready": 1,
+          "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/deployments/mock-deployment-1",
+        },
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "apigroup": "apps",
+          "available": 1,
+          "cluster": "mock-cluster-2",
+          "created": "9 months ago",
+          "current": 1,
+          "desired": 1,
+          "id": "1",
+          "kind": "deployment",
+          "label": "app=mock-deployment-2; chart=mock-release--99.99.99; heritage=Tiller; release=mock-release-2",
+          "name": "mock-deployment-2",
+          "namespace": "kube-system",
+          "ready": 1,
+          "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/deployments/mock-deployment-2",
+        },
+      ]
+    }
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should display (node) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          node(2)
+        </span>
+        <span
+          className="arrow-up"
+        >
+          ▲
+        </span>
+      </button>
+    </div>
+  </div>
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "header": "Name",
+          "key": "name",
+        },
+        Object {
+          "header": "Cluster",
+          "key": "cluster",
+        },
+        Object {
+          "header": "Role",
+          "key": "role",
+        },
+        Object {
+          "header": "Architecture",
+          "key": "architecture",
+        },
+        Object {
+          "header": "OS Image",
+          "key": "osImage",
+        },
+        Object {
+          "header": "CPU",
+          "key": "cpu",
+        },
+        Object {
+          "header": "Created",
+          "key": "created",
+        },
+        Object {
+          "header": "",
+          "key": "action",
+        },
+      ]
+    }
+    key="node-resource-table"
+    locale="en"
+    render={[Function]}
+    rows={
+      Array [
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "architecture": "amd64",
+          "cluster": "mock-cluster-1",
+          "cpu": 8,
+          "created": "9 months ago",
+          "id": "0",
+          "kind": "node",
+          "label": "beta.kubernetes.io/arch=amd64; beta.kubernetes.io/os=linux; etcd=true; kubernetes.io/hostname=mock-node-1; management=true; master=true; node-role.kubernetes.io/etcd=true; node-role.kubernetes.io/management=true; node-role.kubernetes.io/master=true; node-role.kubernetes.io/proxy=true; node-role.kubernetes.io/va=true; proxy=true; role=master; va=true",
+          "name": "mock-node-1",
+          "osImage": "Ubuntu 18.04.3 LTS",
+          "role": "etcd, management, master, proxy, va",
+          "selfLink": "/api/v1/nodes/mock-node-1",
+        },
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "architecture": "amd64",
+          "cluster": "mock-cluster-2",
+          "cpu": 8,
+          "created": "9 months ago",
+          "id": "1",
+          "kind": "node",
+          "label": "beta.kubernetes.io/arch=amd64; beta.kubernetes.io/os=linux; etcd=true; kubernetes.io/hostname=mock-node-2; management=true; master=true; node-role.kubernetes.io/etcd=true; node-role.kubernetes.io/management=true; node-role.kubernetes.io/master=true; node-role.kubernetes.io/proxy=true; node-role.kubernetes.io/va=true; proxy=true; role=master; va=true",
+          "name": "mock-node-2",
+          "osImage": "Ubuntu 18.04.3 LTS",
+          "role": "etcd, management, master, proxy, va",
+          "selfLink": "/api/v1/nodes/mock-node-2",
+        },
+      ]
+    }
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should display (release) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          release(2)
+        </span>
+        <span
+          className="arrow-up"
+        >
+          ▲
+        </span>
+      </button>
+    </div>
+  </div>
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "header": "Name",
+          "key": "name",
+        },
+        Object {
+          "header": "Namespace",
+          "key": "namespace",
+        },
+        Object {
+          "header": "Cluster",
+          "key": "cluster",
+        },
+        Object {
+          "header": "Status",
+          "key": "status",
+        },
+        Object {
+          "header": "Chart Name",
+          "key": "chartName",
+        },
+        Object {
+          "header": "Chart Version",
+          "key": "chartVersion",
+        },
+        Object {
+          "header": "Updated",
+          "key": "updated",
+        },
+        Object {
+          "header": "",
+          "key": "action",
+        },
+      ]
+    }
+    key="release-resource-table"
+    locale="en"
+    render={[Function]}
+    rows={
+      Array [
+        Object {
+          "action": null,
+          "chartName": "mock-release-1",
+          "chartVersion": "99.99.99",
+          "cluster": "mock-cluster-1",
+          "id": "0",
+          "kind": "release",
+          "name": "mock-release-1",
+          "namespace": "kube-system",
+          "revision": 1,
+          "status": "DEPLOYED",
+          "updated": "Invalid date",
+        },
+        Object {
+          "action": null,
+          "chartName": "mock-release-2",
+          "chartVersion": "99.99.99",
+          "cluster": "mock-cluster-2",
+          "id": "1",
+          "kind": "release",
+          "name": "mock-release-2",
+          "namespace": "kube-system",
+          "revision": 1,
+          "status": "DEPLOYED",
+          "updated": "Invalid date",
+        },
+      ]
+    }
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should display (replicaset) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          replicaset(2)
+        </span>
+        <span
+          className="arrow-up"
+        >
+          ▲
+        </span>
+      </button>
+    </div>
+  </div>
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "header": "Name",
+          "key": "name",
+        },
+        Object {
+          "header": "Namespace",
+          "key": "namespace",
+        },
+        Object {
+          "header": "Cluster",
+          "key": "cluster",
+        },
+        Object {
+          "header": "Desired",
+          "key": "desired",
+        },
+        Object {
+          "header": "Current",
+          "key": "current",
+        },
+        Object {
+          "header": "Created",
+          "key": "created",
+        },
+        Object {
+          "header": "",
+          "key": "action",
+        },
+      ]
+    }
+    key="replicaset-resource-table"
+    locale="en"
+    render={[Function]}
+    rows={
+      Array [
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "apigroup": "apps",
+          "cluster": "mock-cluster-1",
+          "created": "9 months ago",
+          "current": 1,
+          "desired": 1,
+          "id": "0",
+          "kind": "replicaset",
+          "label": "app=mock-replicaset; chart=mock-release--99.99.99; pod-template-hash=1; release=mock-release-1",
+          "name": "mock-replicaset-1",
+          "namespace": "kube-system",
+          "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/replicasets/mock-replicaset-1",
+        },
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "apigroup": "apps",
+          "cluster": "mock-cluster-2",
+          "created": "9 months ago",
+          "current": 1,
+          "desired": 1,
+          "id": "1",
+          "kind": "replicaset",
+          "label": "app=mock-replicaset; chart=mock-release--99.99.99; pod-template-hash=1; release=mock-release-2",
+          "name": "mock-replicaset-2",
+          "namespace": "kube-system",
+          "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/replicasets/mock-replicaset-2",
+        },
+      ]
+    }
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should display (secret) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          secret(2)
+        </span>
+        <span
+          className="arrow-up"
+        >
+          ▲
+        </span>
+      </button>
+    </div>
+  </div>
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "header": "Name",
+          "key": "name",
+        },
+        Object {
+          "header": "Namespace",
+          "key": "namespace",
+        },
+        Object {
+          "header": "Cluster",
+          "key": "cluster",
+        },
+        Object {
+          "header": "Type",
+          "key": "type",
+        },
+        Object {
+          "header": "Created",
+          "key": "created",
+        },
+        Object {
+          "header": "",
+          "key": "action",
+        },
+      ]
+    }
+    key="secret-resource-table"
+    locale="en"
+    render={[Function]}
+    rows={
+      Array [
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "cluster": "mock-cluster-1",
+          "created": "9 months ago",
+          "id": "0",
+          "kind": "secret",
+          "name": "mock-secret-1",
+          "namespace": "kube-system",
+          "selfLink": "/api/v1/namespaces/kube-system/secrets/mock-secret-1",
+        },
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "cluster": "mock-cluster-2",
+          "created": "9 months ago",
+          "id": "1",
+          "kind": "secret",
+          "name": "mock-secret-2",
+          "namespace": "kube-system",
+          "selfLink": "/api/v1/namespaces/kube-system/secrets/mock-secret-2",
+        },
+      ]
+    }
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`ResourceTable component header button onClick event should display (service) resource table 1`] = `
+<Fragment>
+  <div
+    className="search--resource-table-header"
+  >
+    <div>
+      <button
+        className="search--resource-table-header-button"
+        onClick={[Function]}
+      >
+        <span
+          className="linked-resources"
+        >
+          service(2)
+        </span>
+        <span
+          className="arrow-up"
+        >
+          ▲
+        </span>
+      </button>
+    </div>
+  </div>
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "header": "Name",
+          "key": "name",
+        },
+        Object {
+          "header": "Namespace",
+          "key": "namespace",
+        },
+        Object {
+          "header": "Cluster",
+          "key": "cluster",
+        },
+        Object {
+          "header": "Created",
+          "key": "created",
+        },
+        Object {
+          "header": "",
+          "key": "action",
+        },
+      ]
+    }
+    key="service-resource-table"
+    locale="en"
+    render={[Function]}
+    rows={
+      Array [
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "cluster": "mock-cluster-1",
+          "clusterIP": "None",
+          "created": "9 months ago",
+          "id": "0",
+          "kind": "service",
+          "label": "app=mock-service; chart=mock-release--99.99.99; heritage=Tiller; release=mock-release-1",
+          "name": "mock-memcached-1",
+          "namespace": "kube-system",
+          "port": "11211/TCP",
+          "selfLink": "/api/v1/namespaces/kube-system/services/mock-memcached-1",
+          "type": "ClusterIP",
+        },
+        Object {
+          "action": <ForwardRef(Delete16)
+            className="table-action"
+            onClick={[Function]}
+          />,
+          "cluster": "mock-cluster-2",
+          "clusterIP": "None",
+          "created": "9 months ago",
+          "id": "1",
+          "kind": "service",
+          "label": "app=mock-service; chart=mock-release--99.99.99; heritage=Tiller; release=mock-release-1",
+          "name": "mock-memcached-2",
+          "namespace": "kube-system",
+          "port": "11211/TCP",
+          "selfLink": "/api/v1/namespaces/kube-system/services/mock-memcached-2",
+          "type": "ClusterIP",
+        },
+      ]
+    }
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+  <ResourceModal
+    action=""
+    item={Object {}}
+    modalOpen={false}
+    onClose={[Function]}
+  />
+</Fragment>
+`;
