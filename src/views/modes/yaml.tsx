@@ -8,17 +8,53 @@
 *******************************************************************************/
 
 import * as jsYaml from 'js-yaml'
+import { EditableSpec, getCurrentTab } from '@kui-shell/core'
+import strings from '../../util/i18n'
+import HTTPClient from '../../controller/HTTPClient'
+import { UPDATE_RESOURCE } from '../../definitions/search-queries'
+
+export function editSpec(cmd: string, resource?: any, data?: any): EditableSpec {
+  return {
+    readOnly: false,
+    clearable: false,
+    save: {
+      label: strings('sidecar.yaml.edit.apply'),
+      onSave: async () => {
+        HTTPClient('post', 'console', UPDATE_RESOURCE(resource, data))
+        .then((res) => {
+          getCurrentTab().REPL.pexec(cmd)
+        })
+        .catch((err) => {
+          console.debug(err)
+        })
+
+        return {
+          // disable editor's auto toolbar update,
+          // since this command will handle the toolbarText by itself
+          noToolbarUpdate: true
+        }
+      }
+    },
+    revert: {
+      label: 'Revert back to normal changes',
+      onRevert: () => jsYaml.safeDump(resource)
+    }
+  }
+}
 
 /**
  * Render resources yaml tab
  *
  */
-export const yamlTab = (resource: any) => {
-  return{
+export const yamlTab = (resource: any, data?: any, cmd?: any) => {
+  const spec = editSpec(cmd, resource, data.items[0])
+
+  return {
     mode: 'yaml',
     label: 'YAML',
     order: 2,
     content: jsYaml.safeDump(resource),
     contentType: 'yaml',
+    spec
   }
 }

@@ -300,6 +300,8 @@
 "searchhelp.search.related.resources.docs" : "Display the kubernetes resources that are related to the searched query",
 "searchhelp.guide.docs" : "Use search {0} for more information about a given command.",
 
+"sidecar.yaml.edit.apply": "Apply Changes",
+
 "validation.about" : "About",
 "validation.basic" : "Basic",
 "validation.beginner" : "Beginner",

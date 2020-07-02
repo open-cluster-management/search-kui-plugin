@@ -52,7 +52,7 @@ export const buildSummary = (items: any) => {
  *
  */
 export const summaryTab = (items: any) => {
-  return{
+  return {
     mode: 'summaryTab',
     defaultMode: true,
     label: strings('search.label.summary'),

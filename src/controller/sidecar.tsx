@@ -23,6 +23,7 @@ import { renderSearchAvailable } from './search';
 import { setPluginState, getPluginState, resourceNotFound } from '../pluginState';
 import { usage } from './helpfiles/searchhelp';
 
+import  { MultiModalResponse } from '@kui-shell/core'
 import '../../web/scss/sidecar.scss'
 
 /**
@@ -31,7 +32,7 @@ import '../../web/scss/sidecar.scss'
  * @param data
  * @param resource
  */
-export const buildSidecar = (type: string, data: any, resource?: any) => {
+export const buildSidecar = (type: string, data: any, resource?: any, cmd?: any) => {
   const modes = []
   const kind = lodash.get(data, 'items[0].kind', '')
 
@@ -48,7 +49,7 @@ export const buildSidecar = (type: string, data: any, resource?: any) => {
     if (kind === 'cluster' && lodash.get(resource, '[0].metadata', '')) {
       modes.push(yamlTab(resource))
     } else if (!lodash.get(resource, 'errors', '') && lodash.get(data, 'getResource', '') === '') {
-      modes.push(yamlTab(resource))
+      modes.push(yamlTab(resource, data, cmd))
     }
   }
 
@@ -104,7 +105,7 @@ export const getSidecar = async (args) => new Promise((resolve) => {
           resource = !resp.errors ? resp.data.getResource : resp
         }
 
-        resolve(buildSidecar('resource', data, resource))
+        resolve(buildSidecar('resource', data, resource, command))
       })
       .catch((err) => {
         setPluginState('error', err)
