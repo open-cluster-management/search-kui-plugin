@@ -19,8 +19,8 @@ export function editSpec(cmd: string, resource?: any, data?: any): EditableSpec 
     clearable: false,
     save: {
       label: strings('sidecar.yaml.edit.apply'),
-      onSave: async () => {
-        HTTPClient('post', 'console', UPDATE_RESOURCE(resource, data))
+      onSave: async (updated) => {
+        HTTPClient('post', 'console', UPDATE_RESOURCE(updated, data))
         .then((res) => {
           getCurrentTab().REPL.pexec(cmd)
         })
@@ -36,7 +36,7 @@ export function editSpec(cmd: string, resource?: any, data?: any): EditableSpec 
       }
     },
     revert: {
-      label: 'Revert back to normal changes',
+      label: strings('validation.revert'),
       onRevert: () => jsYaml.safeDump(resource)
     }
   }
