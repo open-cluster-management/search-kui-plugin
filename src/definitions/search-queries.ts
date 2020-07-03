@@ -92,16 +92,16 @@ export const SAVE_SEARCH = (search) => {
   }
 }
 
-export const UPDATE_RESOURCE = (resource) => {
-  return {
+export const UPDATE_RESOURCE = (body, data) => {
+ return {
     operationName: 'updateResource',
     variables: {
-      body: resource,
-      cluster: resource.cluster,
-      kind: resource.kind,
-      name: resource.name,
-      namespace: resource.namespace,
-      selfLink: resource.selfLink,
+      body,
+      cluster: data.cluster,
+      kind: `${data.kind}s`,
+      name: data.name,
+      namespace: data.namespace,
+      selfLink: data.selfLink,
     },
     query: 'query updateResource($selfLink: String, $namespace: String, $kind: String, $name: String, $body: JSON, $cluster: String) {\n  updateResource(selfLink: $selfLink, namespace: $namespace, kind: $kind, name: $name, body: $body, cluster: $cluster)\n}\n',
   }

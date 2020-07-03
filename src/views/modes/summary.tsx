@@ -1,4 +1,7 @@
 /*******************************************************************************
+* 
+* Copyright (c) 2020 Red Hat, Inc.
+* 
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
 *
@@ -52,7 +55,7 @@ export const buildSummary = (items: any) => {
  *
  */
 export const summaryTab = (items: any) => {
-  return{
+  return {
     mode: 'summaryTab',
     defaultMode: true,
     label: strings('search.label.summary'),
