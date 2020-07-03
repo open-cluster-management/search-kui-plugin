@@ -23,7 +23,6 @@ import { renderSearchAvailable } from './search';
 import { setPluginState, getPluginState, resourceNotFound } from '../pluginState';
 import { usage } from './helpfiles/searchhelp';
 
-import  { MultiModalResponse } from '@kui-shell/core'
 import '../../web/scss/sidecar.scss'
 
 /**

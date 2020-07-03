@@ -21,7 +21,7 @@ export function editSpec(cmd: string, resource?: any, data?: any): EditableSpec 
       label: strings('sidecar.yaml.edit.apply'),
       onSave: async (updated: string) => {
         HTTPClient('post', 'console', UPDATE_RESOURCE(jsYaml.load(updated), data))
-        .then((res) => {
+        .then(() => {
           getCurrentTab().REPL.pexec(cmd)
         })
         .catch((err) => {
