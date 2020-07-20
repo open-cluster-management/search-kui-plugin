@@ -525,7 +525,7 @@ span{
             height: 6vh;
             font-family: var(--font-monospace);
             padding: 0.5%;
-            color: black;
+            color: var(--color-sidecar-background-01);
 
             .bx--snippet-container {
               outline: none;
@@ -968,7 +968,7 @@ body {
       .bx--action-share {
         .bx--snippet {
           &.bx--snippet--single {
-            color: black;
+            color: var(--color-sidecar-background-01);
           }
         }
       }
