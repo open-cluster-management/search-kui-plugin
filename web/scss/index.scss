@@ -522,9 +522,10 @@ span{
 
           &.bx--snippet--single {
             border: 1px solid black;
-            height: 42px;
+            height: 6vh;
             font-family: var(--font-monospace);
-            padding: 1.5%;
+            padding: 0.5%;
+            color: black;
 
             .bx--snippet-container {
               outline: none;
@@ -967,7 +968,7 @@ body {
       .bx--action-share {
         .bx--snippet {
           &.bx--snippet--single {
-            color: var(--color-ui-02);
+            color: black;
           }
         }
       }
