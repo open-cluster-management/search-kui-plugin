@@ -512,7 +512,7 @@ span{
           .bx--copy-btn {
             width: 18px;
             margin-right: 13px;
-            top: 5px;
+            height: auto;
 
             &:hover {
               background-color: transparent;
@@ -522,7 +522,7 @@ span{
 
           &.bx--snippet--single {
             border: 1px solid black;
-            height: 6vh;
+            height: auto;
             font-family: var(--font-monospace);
             padding: 0.5%;
             color: var(--color-sidecar-background-01);
