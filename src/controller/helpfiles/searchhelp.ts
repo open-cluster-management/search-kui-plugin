@@ -71,8 +71,8 @@ const sections = {
         docs: strings('searchhelp.search.summary.docs'),
       },
       {
-        command: 'search related:resources',
-        name: 'related:resources',
+        command: 'search --related',
+        name: '--related',
         docs: strings('searchhelp.search.related.resources.docs'),
       },
     ]
