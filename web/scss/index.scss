@@ -524,8 +524,12 @@ span{
             border: 1px solid black;
             height: auto;
             font-family: var(--font-monospace);
-            padding: 0.5%;
+            padding: 0.5% 2.2rem 0.5% 0.5%;
             color: var(--color-sidecar-background-01);
+
+            &:after {
+              background-image: none;
+            }
 
             .bx--snippet-container {
               outline: none;
