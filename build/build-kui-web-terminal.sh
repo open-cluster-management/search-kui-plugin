@@ -10,7 +10,7 @@
 
 set -e
 
-git clone --depth=50 -b rhowingt/webpack-update https://github.com/open-cluster-management/kui-web-terminal.git
+git clone -b rhowingt/webpack-update --single-branch https://github.com/open-cluster-management/kui-web-terminal.git
 cd kui-web-terminal/
 
 make init
