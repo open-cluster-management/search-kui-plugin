@@ -18,10 +18,10 @@ if (process.env.NODE_ENV === 'development') {
 
 const getXsrfToken = () => {
 	const token = document.body.querySelector('meta')
-		? document.body.querySelector('meta[content]')
+		? document.body.querySelector('meta[content]').textContent
 		: ''
 	console.error('getxsrftoken from config.ts', token)
-	return token.toString()
+	return token
 }
 
 interface StaticConfig {
