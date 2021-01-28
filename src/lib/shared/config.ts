@@ -17,7 +17,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const getXsrfToken = () => {
-	const token = document.querySelector('meta') ? document.querySelector('meta').content : ''
+	console.error('document from getxsrftoken', document.querySelector('meta'))
+	const token = document.querySelector('meta') ? document.querySelector('meta') : ''
 	console.error('getxsrftoken from config.ts', token)
 	return token.toString()
 }
