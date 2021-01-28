@@ -26,16 +26,12 @@ const registerCapability: CapabilityRegistration = async () => {
 			.then((data) => {
 				const dom = new DOMParser().parseFromString(data, 'text/html')
 				const token = dom.body.querySelector('meta').content
-				console.error('token', token)
 				let meta = document.createElement('meta')
 				meta.setAttribute('name', 'csrf-token')
 				meta.setAttribute('content', token)
-				console.error('meta', meta)
 				document.querySelector('body').appendChild(meta)
 			})
 	}
-
-	console.error('config', getConfig())
 
 	HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
 		.then((resp) => {

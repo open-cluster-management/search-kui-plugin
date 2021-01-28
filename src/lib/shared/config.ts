@@ -16,8 +16,10 @@ if (process.env.NODE_ENV === 'development') {
 	staticConfig = require('./search.json')
 }
 
-const getXsrfToken = async () => {
-	const token = (await document.body.querySelector('meta'))
+const getXsrfToken = () => {
+	let meta = document.body.querySelector('meta').content
+	console.error('meta from getxsrftoken', meta)
+	const token = document.body.querySelector('meta')
 		? document.body.querySelector('meta').content
 		: ''
 	console.error('getxsrftoken from config.ts', token)
