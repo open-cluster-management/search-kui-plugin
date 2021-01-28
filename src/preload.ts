@@ -26,8 +26,8 @@ const registerCapability: CapabilityRegistration = async () => {
 			.then((data) => {
 				console.error('data', data)
 				const dom = new DOMParser().parseFromString(data, 'text/html')
-				const token = dom.querySelector('meta')
-				console.log('token', token)
+				const token = dom.body.querySelector('meta')
+				console.error('token', token)
 				document.querySelector('body').appendChild(token)
 			})
 	}
