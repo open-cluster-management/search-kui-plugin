@@ -24,11 +24,15 @@ const registerCapability: CapabilityRegistration = async () => {
 		fetch('/search')
 			.then((page) => page.text())
 			.then((data) => {
-				console.error('data', data)
 				const dom = new DOMParser().parseFromString(data, 'text/html')
-				const token = dom.body.querySelector('meta')
+				const token = dom.body.querySelector('meta').content
 				console.error('token', token)
-				document.querySelector('body').appendChild(token)
+				let meta = document.createElement('meta')
+				meta.setAttribute('name', 'csrf_token')
+				meta.setAttribute('content', token)
+				// document
+				// 	.querySelector('body')
+				// 	.appendChild(`<meta name="csrf_token" content=${token}>`)
 			})
 	}
 
