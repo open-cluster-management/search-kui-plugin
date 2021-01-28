@@ -24,8 +24,10 @@ const registerCapability: CapabilityRegistration = async () => {
 		fetch('/search')
 			.then((page) => page.text())
 			.then((data) => {
+				console.error('data', data)
 				const dom = new DOMParser().parseFromString(data, 'text/html')
 				const token = dom.querySelector('meta')
+				console.log('token', token)
 				document.querySelector('body').appendChild(token)
 			})
 	}

@@ -53,7 +53,9 @@ export async function getConfig(): Promise<Config> {
 				  }/multicloud/search/graphql`,
 			CONSOLE_API: staticConfig
 				? staticConfig.CONSOLE_API
-				: `${window && window.location && window.location.origin}/multicloud/graphql`,
+				: `${
+						window && window.location && window.location.origin
+				  }/search/console-api/graphql`,
 		},
 		{
 			// Browser needs xsrf token for requests
