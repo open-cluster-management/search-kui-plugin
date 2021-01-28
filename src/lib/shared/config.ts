@@ -17,11 +17,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const getXsrfToken = () => {
-	const meta = document.body.querySelector('meta')
-	console.error('meta from getxsrftoken', meta)
 	const token = document.body.querySelector('meta')
 		? document.body.querySelector('meta').content
 		: ''
+	console.error('token from getxsrftoken', token)
 	return token.toString()
 }
 
@@ -61,7 +60,7 @@ export async function getConfig(): Promise<Config> {
 		},
 		{
 			// Browser needs xsrf token for requests
-			xsrfToken: inBrowser() ? getXsrfToken() : null,
+			xsrfToken: inBrowser() ? await getXsrfToken() : null,
 
 			// Electron needs the user access token
 			authorization: 'Bearer ',
