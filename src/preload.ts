@@ -35,6 +35,8 @@ const registerCapability: CapabilityRegistration = async () => {
 			})
 	}
 
+	console.error('config', getConfig())
+
 	HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
 		.then((resp) => {
 			setPluginState('searchSchema', lodash.get(resp, 'data.searchSchema.allProperties', ''))
