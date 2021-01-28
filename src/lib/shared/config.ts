@@ -17,8 +17,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const getXsrfToken = () => {
-	console.error('document from getxsrftoken', document.querySelector('meta'))
-	const token = document.querySelector('meta') ? document.querySelector('meta') : ''
+	const token = document.body.querySelector('meta')
+		? document.body.querySelector('meta[content]')
+		: ''
 	console.error('getxsrftoken from config.ts', token)
 	return token.toString()
 }
@@ -50,9 +51,7 @@ export async function getConfig(): Promise<Config> {
 			// Browser can grab backend urls from the window.location.origin
 			SEARCH_API: staticConfig
 				? staticConfig.SEARCH_API
-				: `${
-						window && window.location && window.location.origin
-				  }/multicloud/search/graphql`,
+				: `${window && window.location && window.location.origin}/search/graphql`,
 			CONSOLE_API: staticConfig
 				? staticConfig.CONSOLE_API
 				: `${
