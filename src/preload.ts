@@ -28,7 +28,7 @@ const registerCapability: CapabilityRegistration = async () => {
 				const token = dom.body.querySelector('meta').content
 				console.error('token', token)
 				let meta = document.createElement('meta')
-				meta.setAttribute('name', 'csrf_token')
+				meta.setAttribute('name', 'csrf-token')
 				meta.setAttribute('content', token)
 				console.error('meta', meta)
 				document.querySelector('body').appendChild(meta)
