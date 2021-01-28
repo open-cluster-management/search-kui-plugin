@@ -30,6 +30,7 @@ const registerCapability: CapabilityRegistration = async () => {
 				meta.setAttribute('name', 'csrf-token')
 				meta.setAttribute('content', token)
 				document.querySelector('body').appendChild(meta)
+				console.error('meta from preload', meta)
 			})
 	}
 
