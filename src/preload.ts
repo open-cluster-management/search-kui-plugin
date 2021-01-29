@@ -19,32 +19,32 @@ import { GET_SEARCH_SCHEMA } from './definitions/search-queries'
 
 // Register searchBarWrapper
 const registerCapability: CapabilityRegistration = async () => {
-	if (inBrowser() && (await getConfig()).env !== 'development') {
-		// Get user token from browser
-		fetch('/search')
-			.then((page) => page.text())
-			.then((data) => {
-				const dom = new DOMParser().parseFromString(data, 'text/html')
-				// const token = dom.body.querySelector('meta').content
-				// console.error('token: ', token)
-				const metaTag = dom!.body!.querySelector('meta[name=csrf-token]')! as HTMLMetaElement
-				const token = metaTag?.content || ''
-				let meta = document.createElement('meta')
-				meta.setAttribute('name', 'csrf-token')
-				meta.setAttribute('content', token)
-				document.body.appendChild(meta)
-				console.error('document.body: ', JSON.stringify(document.body))
-				console.error('meta from preload', meta)
-			})
-	}
+  if (inBrowser() && (await getConfig()).env !== 'development') {
+    // Get user token from browser
+    fetch('/search')
+    .then((page) => page.text())
+    .then((data) => {
+      const dom = new DOMParser().parseFromString(data, 'text/html')
+      // const token = dom.body.querySelector('meta').content
+      // console.error('token: ', token)
+      const metaTag = dom!.body!.querySelector('meta[name=csrf-token]')! as HTMLMetaElement
+      const token = metaTag?.content || ''
+      let meta = document.createElement('meta')
+      meta.setAttribute('name', 'csrf-token')
+      meta.setAttribute('content', token)
+      document.body.appendChild(meta)
+      console.error('document.body: ', JSON.stringify(document.body))
+      console.error('meta from preload', meta)
+    })
+  }
 
-	HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
-		.then((resp) => {
-			setPluginState('searchSchema', lodash.get(resp, 'data.searchSchema.allProperties', ''))
-		})
-		.catch((err) => {
-			setPluginState('error', err)
-		})
+  HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
+  .then((resp) => {
+    setPluginState('searchSchema', lodash.get(resp, 'data.searchSchema.allProperties', ''))
+  })
+  .catch((err) => {
+    setPluginState('error', err)
+  })
 }
 
 export default registerCapability
