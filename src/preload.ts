@@ -25,11 +25,13 @@ const registerCapability: CapabilityRegistration = async () => {
 			.then((page) => page.text())
 			.then((data) => {
 				const dom = new DOMParser().parseFromString(data, 'text/html')
-				const token = dom.body.querySelector('meta').content
+				const token = dom.body.querySelector('meta[name=csrf-token]').content
+				console.error('token: ", token)
 				let meta = document.createElement('meta')
 				meta.setAttribute('name', 'csrf-token')
 				meta.setAttribute('content', token)
-				document.querySelector('body').appendChild(meta)
+				document.body.appendChild(meta)
+				console.error('document.body: ', JSON.stringify(document.body))
 				console.error('meta from preload', meta)
 			})
 	}
