@@ -17,9 +17,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const getXsrfToken = () => {
-	const token = document.body.querySelector('meta')
-		? document.body.querySelector('meta').content
-		: ''
+	const metaTag = document!.body!.querySelector('meta[name=csrf-token]')! as HTMLMetaElement
+	const token = metaTag?.content || ''
 	console.error('token from getxsrftoken', token)
 	return token.toString()
 }
