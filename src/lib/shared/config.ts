@@ -50,7 +50,7 @@ export async function getConfig(): Promise<Config> {
       // Browser can grab backend urls from the window.location.origin
       SEARCH_API: staticConfig
       ? staticConfig.SEARCH_API
-      : `${window && window.location && window.location.origin}/search/graphql`,
+      : `${window && window.location && window.location.origin}/searchapi/graphql`,
       CONSOLE_API: staticConfig
       ? staticConfig.CONSOLE_API
       : `${window && window.location && window.location.origin}/search/console-api/graphql`,
