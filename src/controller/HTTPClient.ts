@@ -13,7 +13,6 @@ import { Config, getConfig } from '../lib/shared/config'
 
 // Browser requires xsrf token for calls & and electron needs the access token
 function getHeaders(config: Config) {
-  console.error('getHeaders config', config)
   if (process.env.NODE_ENV === 'development') {
     return {
       'content-type': 'application/json',
