@@ -46,29 +46,25 @@ export default async function HTTPClient(method, urlType, requestBody) {
       headers: getHeaders(config),
       agent,
       timeout: 5000, // Timeout after 5 seconds
+    }).then((res) => {
+      return res.body
+    }).catch((err) => {
+      throw new Error(err)
     })
-      .then((res) => {
-        return res.body
-      })
-      .catch((err) => {
-        throw new Error(err)
-      })
   }
   return (
     axios({
-    method,
-    url,
-    headers: getHeaders(config),
-    data: requestBody,
-    withCredentials: true,
-    httpsAgent: agent,
-    timeout: 10000, // Timeout after 10 seconds
-  })
-    .then((res) => {
+      method,
+      url,
+      headers: getHeaders(config),
+      data: requestBody,
+      withCredentials: true,
+      httpsAgent: agent,
+      timeout: 10000, // Timeout after 10 seconds
+    }).then((res) => {
       return res.data
-    })
-    .catch((err) => {
+    }).catch((err) => {
       throw new Error(err)
     })
-    )
+  )
 }

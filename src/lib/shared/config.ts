@@ -18,9 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const getXsrfToken = () => {
   const metaTag = document!.body!.querySelector('meta[name=csrf-token]')! as HTMLMetaElement
-  const token = metaTag?.content || ''
-  console.error('token from getxsrftoken', token)
-  return token.toString()
+  return metaTag?.content || ''
 }
 
 interface StaticConfig {
@@ -62,7 +60,7 @@ export async function getConfig(): Promise<Config> {
       // Electron needs the user access token
       authorization: 'Bearer ',
       cookie: 'cfc-cookie-access-token=',
-    }
+    },
   )
 
   if (process.env.NODE_ENV === 'development') {

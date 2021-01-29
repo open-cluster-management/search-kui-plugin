@@ -21,23 +21,21 @@ import { GET_SEARCH_SCHEMA } from './definitions/search-queries'
 const registerCapability: CapabilityRegistration = async () => {
   if (inBrowser() && (await getConfig()).env !== 'development') {
     // Get user token from browser
-    fetch('/search')
+    await fetch('/search')
     .then((page) => page.text())
     .then((data) => {
       const dom = new DOMParser().parseFromString(data, 'text/html')
-      // const token = dom.body.querySelector('meta').content
-      // console.error('token: ', token)
       const metaTag = dom!.body!.querySelector('meta[name=csrf-token]')! as HTMLMetaElement
       const token = metaTag?.content || ''
       let meta = document.createElement('meta')
       meta.setAttribute('name', 'csrf-token')
       meta.setAttribute('content', token)
       document.body.appendChild(meta)
-      console.error('document.body: ', JSON.stringify(document.body))
-      console.error('meta from preload', meta)
+      console.error('Done inserting meta in DOM.')
     })
   }
 
+  console.error('Starting search request.')
   HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
   .then((resp) => {
     setPluginState('searchSchema', lodash.get(resp, 'data.searchSchema.allProperties', ''))
