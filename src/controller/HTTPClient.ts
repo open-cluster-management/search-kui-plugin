@@ -1,11 +1,11 @@
 /*******************************************************************************
- * Licensed Materials - Property of IBM
- * (c) Copyright IBM Corporation 2019. All Rights Reserved.
- *
- * Note to U.S. Government Users Restricted Rights:
- * Use, duplication or disclosure restricted by GSA ADP Schedule
- * Contract with IBM Corp.
- *******************************************************************************/
+* Licensed Materials - Property of IBM
+* (c) Copyright IBM Corporation 2019. All Rights Reserved.
+*
+* Note to U.S. Government Users Restricted Rights:
+* Use, duplication or disclosure restricted by GSA ADP Schedule
+* Contract with IBM Corp.
+*******************************************************************************/
 
 import axios from 'axios'
 import * as needle from 'needle'
@@ -29,7 +29,7 @@ function getHeaders(config: Config) {
 }
 
 export default async function HTTPClient(method, urlType, requestBody) {
-	const config = await getConfig()
+  const config = await getConfig()
 	const url = urlType === 'search' ? config.SEARCH_API : config.CONSOLE_API
 
 	let agent = null
@@ -54,7 +54,8 @@ export default async function HTTPClient(method, urlType, requestBody) {
 				throw new Error(err)
 			})
 	}
-	return axios({
+	return (
+    axios({
 		method,
 		url,
 		headers: getHeaders(config),
@@ -68,5 +69,6 @@ export default async function HTTPClient(method, urlType, requestBody) {
 		})
 		.catch((err) => {
 			throw new Error(err)
-		})
+    })
+  )
 }

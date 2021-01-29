@@ -1,14 +1,14 @@
 /*******************************************************************************
- *
- * Copyright (c) 2020 Red Hat, Inc.
- *
- * Licensed Materials - Property of IBM
- * (c) Copyright IBM Corporation 2019. All Rights Reserved.
- *
- * Note to U.S. Government Users Restricted Rights:
- * Use, duplication or disclosure restricted by GSA ADP Schedule
- * Contract with IBM Corp.
- *******************************************************************************/
+*
+* Copyright (c) 2020 Red Hat, Inc.
+*
+* Licensed Materials - Property of IBM
+* (c) Copyright IBM Corporation 2019. All Rights Reserved.
+*
+* Note to U.S. Government Users Restricted Rights:
+* Use, duplication or disclosure restricted by GSA ADP Schedule
+* Contract with IBM Corp.
+*******************************************************************************/
 
 import { CapabilityRegistration, inBrowser } from '@kui-shell/core'
 import getConfig from './lib/shared/config'
@@ -25,8 +25,8 @@ const registerCapability: CapabilityRegistration = async () => {
 			.then((page) => page.text())
 			.then((data) => {
 				const dom = new DOMParser().parseFromString(data, 'text/html')
-				const token = dom.body.querySelector('meta[name=csrf-token]').content
-				console.error('token: ", token)
+				const token = dom.body.querySelector('meta').content
+				console.error('token: ', token)
 				let meta = document.createElement('meta')
 				meta.setAttribute('name', 'csrf-token')
 				meta.setAttribute('content', token)
