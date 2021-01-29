@@ -25,8 +25,10 @@ const registerCapability: CapabilityRegistration = async () => {
 			.then((page) => page.text())
 			.then((data) => {
 				const dom = new DOMParser().parseFromString(data, 'text/html')
-				const token = dom.body.querySelector('meta').content
-				console.error('token: ', token)
+				// const token = dom.body.querySelector('meta').content
+				// console.error('token: ', token)
+				const metaTag = dom!.body!.querySelector('meta[name=csrf-token]')! as HTMLMetaElement
+				const token = metaTag?.content || ''
 				let meta = document.createElement('meta')
 				meta.setAttribute('name', 'csrf-token')
 				meta.setAttribute('content', token)
