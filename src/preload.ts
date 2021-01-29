@@ -31,11 +31,9 @@ const registerCapability: CapabilityRegistration = async () => {
       meta.setAttribute('name', 'csrf-token')
       meta.setAttribute('content', token)
       document.body.appendChild(meta)
-      console.error('Done inserting meta in DOM.')
     })
   }
 
-  console.error('Starting search request.')
   HTTPClient('post', 'search', GET_SEARCH_SCHEMA)
   .then((resp) => {
     setPluginState('searchSchema', lodash.get(resp, 'data.searchSchema.allProperties', ''))
