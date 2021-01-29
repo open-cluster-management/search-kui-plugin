@@ -49,13 +49,11 @@ export async function getConfig(): Promise<Config> {
       // Electron needs to grab backend urls somehow  Ex: https://<cluster-ip>:<backend-port>/(searchapi || hcmuiapi)/graphql
       // Browser can grab backend urls from the window.location.origin
       SEARCH_API: staticConfig
-        ? staticConfig.SEARCH_API
-        : `${window && window.location && window.location.origin}/search/graphql`,
+      ? staticConfig.SEARCH_API
+      : `${window && window.location && window.location.origin}/search/graphql`,
       CONSOLE_API: staticConfig
-        ? staticConfig.CONSOLE_API
-        : `${
-            window && window.location && window.location.origin
-          }/search/console-api/graphql`,
+      ? staticConfig.CONSOLE_API
+      : `${window && window.location && window.location.origin}/search/console-api/graphql`,
     },
     {
       // Browser needs xsrf token for requests
