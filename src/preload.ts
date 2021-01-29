@@ -1,4 +1,4 @@
-/*******************************************************************************
+/******************************************************************************
 *
 * Copyright (c) 2020 Red Hat, Inc.
 *
@@ -8,7 +8,7 @@
 * Note to U.S. Government Users Restricted Rights:
 * Use, duplication or disclosure restricted by GSA ADP Schedule
 * Contract with IBM Corp.
-*******************************************************************************/
+******************************************************************************/
 
 import { CapabilityRegistration, inBrowser } from '@kui-shell/core'
 import getConfig from './lib/shared/config'
