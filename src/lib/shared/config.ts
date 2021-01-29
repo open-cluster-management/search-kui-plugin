@@ -1,7 +1,7 @@
 /*******************************************************************************
-* 
+*
 * Copyright (c) 2020 Red Hat, Inc.
-* 
+*
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
 *
@@ -12,13 +12,13 @@
 import { inBrowser } from '@kui-shell/core'
 
 let staticConfig
-if (process.env.NODE_ENV === 'development'){
+if (process.env.NODE_ENV === 'development') {
   staticConfig = require('./search.json')
 }
 
 const getXsrfToken = () => {
-  const token = document.querySelector('#app-access') ? document.querySelector('#app-access')['value'] : ''
-  return token.toString('ascii')
+  const metaTag = document!.body!.querySelector('meta[name=csrf-token]')! as HTMLMetaElement
+  return metaTag?.content || ''
 }
 
 interface StaticConfig {
@@ -38,7 +38,6 @@ export type Config = StaticConfig &
   }
 
 export async function getConfig(): Promise<Config> {
-
   const nconf = require('nconf')
   const WHITELIST = ['contextPath']
 
@@ -47,18 +46,18 @@ export async function getConfig(): Promise<Config> {
       env: '',
       // Electron needs to grab backend urls somehow  Ex: https://<cluster-ip>:<backend-port>/(searchapi || hcmuiapi)/graphql
       // Browser can grab backend urls from the window.location.origin
-      SEARCH_API: staticConfig 
+      SEARCH_API: staticConfig
       ? staticConfig.SEARCH_API
-      : `${window && window.location && window.location.origin}/multicloud/search/graphql`,
+      : `${window && window.location && window.location.origin}/searchapi/graphql`,
       CONSOLE_API: staticConfig
       ? staticConfig.CONSOLE_API
-      : `${window && window.location && window.location.origin}/multicloud/graphql`,
+      : `${window && window.location && window.location.origin}/search/console-api/graphql`,
     },
     {
       // Browser needs xsrf token for requests
       xsrfToken: inBrowser() ? getXsrfToken() : null,
 
-        // Electron needs the user access token
+      // Electron needs the user access token
       authorization: 'Bearer ',
       cookie: 'cfc-cookie-access-token=',
     },
@@ -77,10 +76,10 @@ export async function getConfig(): Promise<Config> {
   }
 
   if (nconf) {
-    WHITELIST.forEach( i => {
+    WHITELIST.forEach((i) => {
       config[i] = nconf.get(i)
     })
-    if (process.env.NODE_ENV){
+    if (process.env.NODE_ENV) {
       config.env = process.env.NODE_ENV
     }
   } else {

@@ -23,7 +23,7 @@ function getHeaders(config: Config) {
   }
   return {
     'content-type': 'application/json',
-    'XSRF-Token': config.xsrfToken,
+    'csrf-token': config.xsrfToken,
   }
 }
 
@@ -36,7 +36,6 @@ export default async function HTTPClient(method, urlType, requestBody) {
     // Need the agent to get around ssl cert issues
     const { Agent } = await import('https')
     agent = new Agent({ rejectUnauthorized: false })
-
   }
 
   // TODO:Rob - figure out same dependency here for http req

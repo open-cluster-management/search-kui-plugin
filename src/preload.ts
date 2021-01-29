@@ -1,7 +1,7 @@
 /*******************************************************************************
-* 
+*
 * Copyright (c) 2020 Red Hat, Inc.
-* 
+*
 * Licensed Materials - Property of IBM
 * (c) Copyright IBM Corporation 2019. All Rights Reserved.
 *
@@ -21,12 +21,16 @@ import { GET_SEARCH_SCHEMA } from './definitions/search-queries'
 const registerCapability: CapabilityRegistration = async () => {
   if (inBrowser() && (await getConfig()).env !== 'development') {
     // Get user token from browser
-    fetch('/multicloud/search')
+    await fetch('/search')
     .then((page) => page.text())
     .then((data) => {
       const dom = new DOMParser().parseFromString(data, 'text/html')
-      const access = dom.querySelector('#app-access')
-      document.querySelector('body').appendChild(access)
+      const metaTag = dom!.body!.querySelector('meta[name=csrf-token]')! as HTMLMetaElement
+      const token = metaTag?.content || ''
+      let meta = document.createElement('meta')
+      meta.setAttribute('name', 'csrf-token')
+      meta.setAttribute('content', token)
+      document.body.appendChild(meta)
     })
   }
 
