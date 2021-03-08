@@ -105,7 +105,7 @@
 		"url": "git@github.com:open-cluster-management/search-kui-plugin.git"
 	},
 	"release": {
-		"branch": "master",
+		"branch": "main",
 		"plugins": [
 			[
 				"@semantic-release/github",
