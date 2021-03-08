@@ -1,6 +1,6 @@
 # search-kui-plugin
 
-[![Build Status](https://travis-ci.com/open-cluster-management/search-kui-plugin.svg?token=jzyyzQmWYBEu33MCMh9p&branch=master)](https://travis-ci.com/open-cluster-management/search-kui-plugin)
+[![Build Status](https://travis-ci.com/open-cluster-management/search-kui-plugin.svg?token=jzyyzQmWYBEu33MCMh9p&branch=main)](https://travis-ci.com/open-cluster-management/search-kui-plugin)
 
 Adds Search capabilities to [KUI Web Terminal](https://github.com/open-cluster-management/kui-web-terminal).
 
