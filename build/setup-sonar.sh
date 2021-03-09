@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright (c) 2021 Red Hat, Inc.
+# Copyright Contributors to the Open Cluster Management project
+
 echo "This script sets up the search-kui-plugin Sonar environment.\n"
 
 if [ -d "build/sonar-env" ]; then

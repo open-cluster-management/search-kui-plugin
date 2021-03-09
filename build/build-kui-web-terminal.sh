@@ -8,6 +8,9 @@
 # Use, duplication or disclosure restricted by GSA ADP Schedule
 # Contract with IBM Corp.
 
+# Copyright (c) 2021 Red Hat, Inc.
+# Copyright Contributors to the Open Cluster Management project
+
 set -e
 
 git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git

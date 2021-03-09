@@ -1,7 +1,10 @@
 #!/bin/bash
+
+
+# Copyright (c) 2021 Red Hat, Inc.
+# Copyright Contributors to the Open Cluster Management project
+
 # This script sets up the search-kui-plugin development environment.
-
-
 # Utility to format section title.
 format_title () {
   printf "\n"

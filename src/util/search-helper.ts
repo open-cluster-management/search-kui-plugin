@@ -9,6 +9,7 @@
  * Use, duplication or disclosure restricted by GSA ADP Schedule
  * Contract with IBM Corp.
  *******************************************************************************/
+// Copyright Contributors to the Open Cluster Management project
 
 export const convertStringToQuery = (searchText) => {
   let searchTokens = searchText.replace('search', '').trim(' ') // Remove search first

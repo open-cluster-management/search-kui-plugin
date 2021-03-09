@@ -16,6 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// Copyright Contributors to the Open Cluster Management project
 
 import * as React from 'react'
 import {
