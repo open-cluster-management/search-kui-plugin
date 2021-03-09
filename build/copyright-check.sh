@@ -8,6 +8,10 @@
 # Copyright (c) 2020 Red Hat, Inc.
 ###############################################################################
 
+
+# Copyright (c) 2021 Red Hat, Inc.
+# Copyright Contributors to the Open Cluster Management project
+
 #Project start year
 origin_year=2016
 #Back up year if system time is null or incorrect
