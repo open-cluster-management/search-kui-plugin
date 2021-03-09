@@ -36,10 +36,6 @@ integrate-plugin:
 	@cd build; \
 		./build-kui-web-terminal.sh
 
-.PHONY: copyright-check
-copyright-check:
-	./build/copyright-check.sh
-
 .PHONY: run-unit-tests
 run-unit-tests:
 	npm run test:coverage
