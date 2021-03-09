@@ -6,6 +6,8 @@
 * Use, duplication or disclosure restricted by GSA ADP Schedule
 * Contract with IBM Corp.
 *******************************************************************************/
+// Copyright (c) 2021 Red Hat, Inc.
+// Copyright Contributors to the Open Cluster Management project
 
 export default (key: string, args?: Array<any>) => {
   const defaultStrings: Record<string, string> = require(`../../i18n/en-US.json`)

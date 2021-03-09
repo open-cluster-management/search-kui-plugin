@@ -9,6 +9,7 @@
 * Use, duplication or disclosure restricted by GSA ADP Schedule
 * Contract with IBM Corp.
 *******************************************************************************/
+// Copyright Contributors to the Open Cluster Management project
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'

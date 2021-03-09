@@ -9,6 +9,7 @@
 * Use, duplication or disclosure restricted by GSA ADP Schedule
 * Contract with IBM Corp.
 *******************************************************************************/
+// Copyright Contributors to the Open Cluster Management project
 
 import { Registrar } from '@kui-shell/core'
 import * as lodash from 'lodash'
