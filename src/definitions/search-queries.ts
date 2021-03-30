@@ -66,9 +66,9 @@ export const SEARCH_ACM_QUERY = (record) => {
         name: record.name,
         namespace: record.namespace,
         cluster: record.cluster,
-        selfLink: record.selfLink,
+        apiVersion: record.apiVersion,
       },
-    query: 'query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $selfLink: String) {\n  getResource(kind: $kind, name: $name, namespace: $namespace, cluster: $cluster, selfLink: $selfLink)\n}\n',
+    query: 'query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $apiVersion: String) {\n  getResource(kind: $kind, name: $name, namespace: $namespace, cluster: $cluster, apiVersion: $apiVersion)\n}\n',
   }
 }
 
@@ -102,9 +102,9 @@ export const UPDATE_RESOURCE = (body, data) => {
       kind: `${data.kind}s`,
       name: data.name,
       namespace: data.namespace,
-      selfLink: data.selfLink,
+      apiVersion: data.apiVersion,
     },
-    query: 'query updateResource($selfLink: String, $namespace: String, $kind: String, $name: String, $body: JSON, $cluster: String) {\n  updateResource(selfLink: $selfLink, namespace: $namespace, kind: $kind, name: $name, body: $body, cluster: $cluster)\n}\n',
+    query: 'query updateResource($apiVersion: String, $namespace: String, $kind: String, $name: String, $body: JSON, $cluster: String) {\n  updateResource(apiVersion: $apiVersion, namespace: $namespace, kind: $kind, name: $name, body: $body, cluster: $cluster)\n}\n',
   }
 }
 
@@ -133,16 +133,16 @@ export const DELETE_QUERY = (name) => {
   }
 }
 
-export const DELETE_RESOURCE = (name, namespace, kind, cluster, selfLink) => {
+export const DELETE_RESOURCE = (name, namespace, kind, cluster, apiVersion) => {
   return {
     operationName: 'deleteResource',
-      query: 'mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {\n  deleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)\n}\n',
+      query: 'mutation deleteResource($apiVersion: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {\n  deleteResource(apiVersion: $apiVersion, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)\n}\n',
       variables: {
         name,
         namespace,
         kind,
         cluster,
-        selfLink,
+        apiVersion,
       },
   }
 }
@@ -150,7 +150,7 @@ export const DELETE_RESOURCE = (name, namespace, kind, cluster, selfLink) => {
 export const GET_CLUSTER = () => {
   return {
     operationName: 'getClusters',
-      query: 'query getClusters {\n  items: clusters {\n    metadata {\n      labels\n      name\n      namespace\n      uid\n      selfLink\n      __typename\n    }\n    availableVersions\n    nodes\n    status\n    clusterip\n    consoleURL\n    desiredVersion\n    distributionVersion\n    isHive\n    isManaged\n    serverAddress\n    totalMemory\n    totalStorage\n    totalCPU\n    klusterletVersion\n    k8sVersion\n    upgradeFailed\n    __typename\n  }\n}\n',
+      query: 'query getClusters {\n  items: clusters {\n    metadata {\n      labels\n      name\n      namespace\n      uid\n      apiVersion\n      __typename\n    }\n    availableVersions\n    nodes\n    status\n    clusterip\n    consoleURL\n    desiredVersion\n    distributionVersion\n    isHive\n    isManaged\n    serverAddress\n    totalMemory\n    totalStorage\n    totalCPU\n    klusterletVersion\n    k8sVersion\n    upgradeFailed\n    __typename\n  }\n}\n',
       variables: {
         filter: {
           resourceFilter: []

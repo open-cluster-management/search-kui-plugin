@@ -30,7 +30,7 @@ export const deleteResource = {
   command: 'deleteResource',
   title: strings('delete.resourcehelp.title'),
   header: strings('delete.resourcehelp.header'),
-  example: 'deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>',
+  example: 'deleteResource <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-apiVersion>',
   available: [{
     docs: strings('delete.resourcehelp.title'),
     dir: true,
