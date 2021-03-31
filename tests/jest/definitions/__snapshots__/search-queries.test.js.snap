@@ -18,8 +18,8 @@ Object {
 exports[`Search Queries should DELETE_RESOURCE 1`] = `
 Object {
   "operationName": "deleteResource",
-  "query": "mutation deleteResource($selfLink: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {
-  deleteResource(selfLink: $selfLink, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)
+  "query": "mutation deleteResource($apiVersion: String, $name: String, $namespace: String, $cluster: String, $kind: String, $childResources: JSON) {
+  deleteResource(apiVersion: $apiVersion, name: $name, namespace: $namespace, cluster: $cluster, kind: $kind, childResources: $childResources)
 }
 ",
   "variables": Object {
@@ -27,7 +27,7 @@ Object {
     "kind": "Pod",
     "name": "nginx",
     "namespace": "kube-system",
-    "selfLink": "/api/v1/namespaces/kube-system/pods/nginx",
+    "apiVersion": "v1",
   },
 }
 `;
@@ -137,8 +137,8 @@ Object {
 exports[`Search Queries should SEARCH_ACM_QUERY 1`] = `
 Object {
   "operationName": "getResource",
-  "query": "query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $selfLink: String) {
-  getResource(kind: $kind, name: $name, namespace: $namespace, cluster: $cluster, selfLink: $selfLink)
+  "query": "query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $apiVersion: String) {
+  getResource(kind: $kind, name: $name, namespace: $namespace, cluster: $cluster, apiVersion: $apiVersion)
 }
 ",
   "variables": Object {
@@ -146,7 +146,7 @@ Object {
     "kind": "Pod",
     "name": "nginx",
     "namespace": "kube-system",
-    "selfLink": "/api/v1/namespaces/kube-system/pods/nginx",
+    "apiVersion": "v1",
   },
 }
 `;
@@ -235,8 +235,8 @@ Object {
 exports[`Search Queries should UPDATE_RESOURCE 1`] = `
 Object {
   "operationName": "updateResource",
-  "query": "query updateResource($selfLink: String, $namespace: String, $kind: String, $name: String, $body: JSON, $cluster: String) {
-  updateResource(selfLink: $selfLink, namespace: $namespace, kind: $kind, name: $name, body: $body, cluster: $cluster)
+  "query": "query updateResource($apiVersion: String, $namespace: String, $kind: String, $name: String, $body: JSON, $cluster: String) {
+  updateResource(apiVersion: $apiVersion, namespace: $namespace, kind: $kind, name: $name, body: $body, cluster: $cluster)
 }
 ",
   "variables": Object {
@@ -253,7 +253,6 @@ Object {
       },
       "name": "myapp",
       "namespace": "kube-system",
-      "selfLink": "/api/v1/namespaces/kube-system/deployment/myapp",
       "spec": Object {
         "replicas": 1,
         "selector": Object {
@@ -318,7 +317,6 @@ Object {
     "kind": "Deployment",
     "name": "myapp",
     "namespace": "kube-system",
-    "selfLink": "/api/v1/namespaces/kube-system/deployment/myapp",
   },
 }
 `;

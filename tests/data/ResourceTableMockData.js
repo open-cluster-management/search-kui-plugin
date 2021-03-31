@@ -21,7 +21,6 @@ const data = {
       namespace: 'kube-system',
       podIP: 'mock-node-1',
       restarts: 0,
-      selfLink: '/api/v1/namespaces/kube-system/pods/mock-pod-1',
       startedAt: '2019-09-17T18:17:13Z',
       status: 'Running'
     },
@@ -37,7 +36,6 @@ const data = {
       namespace: 'kube-system',
       podIP: 'mock-node-2',
       restarts: 0,
-      selfLink: '/api/v1/namespaces/kube-system/pods/mock-pod-2',
       startedAt: '2019-09-17T18:17:19Z',
       status: 'Running'
     }
@@ -53,7 +51,6 @@ const data = {
           kind: 'secret',
           name: 'mock-secret-1',
           namespace: 'kube-system',
-          selfLink: '/api/v1/namespaces/kube-system/secrets/mock-secret-1'
         },
         {
           cluster: 'mock-cluster-2',
@@ -61,7 +58,6 @@ const data = {
           kind: 'secret',
           name: 'mock-secret-2',
           namespace: 'kube-system',
-          selfLink: '/api/v1/namespaces/kube-system/secrets/mock-secret-2'
         }
       ],
       kind: 'secret'
@@ -79,7 +75,6 @@ const data = {
           name: 'mock-node-1',
           osImage: 'Ubuntu 18.04.3 LTS',
           role: 'etcd, management, master, proxy, va',
-          selfLink: '/api/v1/nodes/mock-node-1'
         },
         {
           architecture: 'amd64',
@@ -91,7 +86,6 @@ const data = {
           name: 'mock-node-2',
           osImage: 'Ubuntu 18.04.3 LTS',
           role: 'etcd, management, master, proxy, va',
-          selfLink: '/api/v1/nodes/mock-node-2'
         }
       ],
       kind: 'node'
@@ -150,7 +144,6 @@ const data = {
           name: 'mock-memcached-1',
           namespace: 'kube-system',
           port: '11211/TCP',
-          selfLink: '/api/v1/namespaces/kube-system/services/mock-memcached-1',
           type: 'ClusterIP'
         },
         {
@@ -162,7 +155,6 @@ const data = {
           name: 'mock-memcached-2',
           namespace: 'kube-system',
           port: '11211/TCP',
-          selfLink: '/api/v1/namespaces/kube-system/services/mock-memcached-2',
           type: 'ClusterIP'
         }
       ],
@@ -183,7 +175,6 @@ const data = {
           name: 'mock-deployment-1',
           namespace: 'kube-system',
           ready: 1,
-          selfLink: '/apis/extensions/v1beta1/namespaces/kube-system/deployments/mock-deployment-1'
         },
         {
           apigroup: 'apps',
@@ -197,7 +188,6 @@ const data = {
           name: 'mock-deployment-2',
           namespace: 'kube-system',
           ready: 1,
-          selfLink: '/apis/extensions/v1beta1/namespaces/kube-system/deployments/mock-deployment-2'
         }
       ],
       kind: 'deployment'
@@ -215,7 +205,6 @@ const data = {
           label: 'app=mock-replicaset; chart=mock-release--99.99.99; pod-template-hash=1; release=mock-release-1',
           name: 'mock-replicaset-1',
           namespace: 'kube-system',
-          selfLink: '/apis/extensions/v1beta1/namespaces/kube-system/replicasets/mock-replicaset-1'
         },
         {
           apigroup: 'apps',
@@ -227,7 +216,6 @@ const data = {
           label: 'app=mock-replicaset; chart=mock-release--99.99.99; pod-template-hash=1; release=mock-release-2',
           name: 'mock-replicaset-2',
           namespace: 'kube-system',
-            selfLink: '/apis/extensions/v1beta1/namespaces/kube-system/replicasets/mock-replicaset-2'
         }
       ],
       kind: 'replicaset'
