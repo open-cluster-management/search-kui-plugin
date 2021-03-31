@@ -32,8 +32,8 @@ describe('Search action handler', () => {
 
   describe('Delete resources', () => {
     const args =  {
-      command: 'deleteResource fake-name fake-namespace fake-kind fake-cluster fake-selfLink',
-      argv: ['deleteResource', 'fake-name', 'fake-namespace', 'fake-kind', 'fake-cluster', 'fake-selfLink']
+      command: 'deleteResource fake-name fake-namespace fake-kind fake-cluster fake-apiVersion',
+      argv: ['deleteResource', 'fake-name', 'fake-namespace', 'fake-kind', 'fake-cluster', 'fake-apiVersion']
     }
 
     const spy = jest.spyOn(actionHandler, 'deleteResource')
