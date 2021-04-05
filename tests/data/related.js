@@ -25,7 +25,6 @@ const data = {
       namespace: "kube-system",
       podIP: "1.1.1.1",
       restarts: 0,
-      selfLink: "/api/v1/namespaces/kube-system/pods/icp-memcached-5bd5ddbd86-9ckrj",
       startedAt: "2019-09-17T18:17:13Z",
       status: "Running"
     }
@@ -40,7 +39,6 @@ const data = {
           kind: "secret",
           name: "default-token-f92vd",
           namespace: "kube-system",
-          selfLink: "/api/v1/namespaces/kube-system/secrets/default-token-f92vd"
         }
       ],
       kind: "secret"
@@ -58,7 +56,6 @@ const data = {
           name: "1.1.1.1",
           osImage: "Ubuntu 18.04.3 LTS",
           role: "etcd, management, master, proxy, va",
-          selfLink: "/api/v1/nodes/1.1.1.1"
         }
       ],
       kind: "node"
@@ -102,7 +99,6 @@ const data = {
           name: "memcached",
           namespace: "kube-system",
           port: "11211/TCP",
-          selfLink: "/api/v1/namespaces/kube-system/services/memcached",
           type: "ClusterIP"
         }
       ],
@@ -123,7 +119,6 @@ const data = {
           name: "icp-memcached",
           namespace: "kube-system",
           ready: 1,
-          selfLink: "/apis/extensions/v1beta1/namespaces/kube-system/deployments/icp-memcached"
         }
       ],
       kind: "deployment"
@@ -141,7 +136,6 @@ const data = {
           label: "app=icp-memcached; chart=system-healthcheck-service-99.99.99; pod-template-hash=5bd5ddbd86; release=system-healthcheck-service",
           name: "icp-memcached-5bd5ddbd86",
           namespace: "kube-system",
-          selfLink: "/apis/extensions/v1beta1/namespaces/kube-system/replicasets/icp-memcached-5bd5ddbd86"
         }
       ],
       kind: "replicaset"
@@ -178,7 +172,6 @@ const yaml = {
       }
     ],
     resourceVersion: "6741",
-    selfLink: "/api/v1/namespaces/kube-system/pods/icp-memcached-5bd5ddbd86-9ckrj",
     uid: "5f148b11-d977-11e9-b79c-0016ac102c33"
   },
 }

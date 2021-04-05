@@ -16,7 +16,6 @@ const deployment = {
   name: 'myapp',
   namespace: 'kube-system',
   cluster: 'local-cluster',
-  selfLink: '/api/v1/namespaces/kube-system/deployment/myapp',
   metadata: {
     name: 'myapp',
     namespace: 'kube-system',
