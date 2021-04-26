@@ -89,9 +89,9 @@ describe('Search Queries', () => {
   })
 
   it('should UPDATE_RESOURCE', () => {
-    expect(searchqueries.UPDATE_RESOURCE(yaml.deployment)).toBeDefined()
-    expect(Object.keys(searchqueries.UPDATE_RESOURCE(yaml.deployment))).toEqual(expect.arrayContaining(keys))
-    expect(searchqueries.UPDATE_RESOURCE(yaml.deployment)).toMatchSnapshot()
+    expect(searchqueries.UPDATE_RESOURCE(yaml.deployment, yaml.deployment)).toBeDefined()
+    expect(Object.keys(searchqueries.UPDATE_RESOURCE(yaml.deployment, yaml.deployment))).toEqual(expect.arrayContaining(keys))
+    expect(searchqueries.UPDATE_RESOURCE(yaml.deployment, yaml.deployment)).toMatchSnapshot()
   })
 
   savedsearches.data.forEach(search => {

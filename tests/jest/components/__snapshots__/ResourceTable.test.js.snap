@@ -291,6 +291,7 @@ exports[`ResourceTable component header button onClick event should display (clu
     }
     key="cluster-resource-table"
     locale="en"
+    overflowMenuOnHover={true}
     render={[Function]}
     rows={
       Array [
@@ -308,6 +309,7 @@ exports[`ResourceTable component header button onClick event should display (clu
         },
       ]
     }
+    size="normal"
     sortRow={[Function]}
     translateWithId={[Function]}
   />
@@ -387,6 +389,7 @@ exports[`ResourceTable component header button onClick event should display (dep
     }
     key="deployment-resource-table"
     locale="en"
+    overflowMenuOnHover={true}
     render={[Function]}
     rows={
       Array [
@@ -398,7 +401,7 @@ exports[`ResourceTable component header button onClick event should display (dep
           "apigroup": "apps",
           "available": 1,
           "cluster": "mock-cluster-1",
-          "created": "9 months ago",
+          "created": "2 years ago",
           "current": 1,
           "desired": 1,
           "id": "0",
@@ -407,7 +410,6 @@ exports[`ResourceTable component header button onClick event should display (dep
           "name": "mock-deployment-1",
           "namespace": "kube-system",
           "ready": 1,
-          "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/deployments/mock-deployment-1",
         },
         Object {
           "action": <ForwardRef(Delete16)
@@ -417,7 +419,7 @@ exports[`ResourceTable component header button onClick event should display (dep
           "apigroup": "apps",
           "available": 1,
           "cluster": "mock-cluster-2",
-          "created": "9 months ago",
+          "created": "2 years ago",
           "current": 1,
           "desired": 1,
           "id": "1",
@@ -426,10 +428,10 @@ exports[`ResourceTable component header button onClick event should display (dep
           "name": "mock-deployment-2",
           "namespace": "kube-system",
           "ready": 1,
-          "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/deployments/mock-deployment-2",
         },
       ]
     }
+    size="normal"
     sortRow={[Function]}
     translateWithId={[Function]}
   />
@@ -505,6 +507,7 @@ exports[`ResourceTable component header button onClick event should display (nod
     }
     key="node-resource-table"
     locale="en"
+    overflowMenuOnHover={true}
     render={[Function]}
     rows={
       Array [
@@ -516,14 +519,13 @@ exports[`ResourceTable component header button onClick event should display (nod
           "architecture": "amd64",
           "cluster": "mock-cluster-1",
           "cpu": 8,
-          "created": "9 months ago",
+          "created": "2 years ago",
           "id": "0",
           "kind": "node",
           "label": "beta.kubernetes.io/arch=amd64; beta.kubernetes.io/os=linux; etcd=true; kubernetes.io/hostname=mock-node-1; management=true; master=true; node-role.kubernetes.io/etcd=true; node-role.kubernetes.io/management=true; node-role.kubernetes.io/master=true; node-role.kubernetes.io/proxy=true; node-role.kubernetes.io/va=true; proxy=true; role=master; va=true",
           "name": "mock-node-1",
           "osImage": "Ubuntu 18.04.3 LTS",
           "role": "etcd, management, master, proxy, va",
-          "selfLink": "/api/v1/nodes/mock-node-1",
         },
         Object {
           "action": <ForwardRef(Delete16)
@@ -533,17 +535,17 @@ exports[`ResourceTable component header button onClick event should display (nod
           "architecture": "amd64",
           "cluster": "mock-cluster-2",
           "cpu": 8,
-          "created": "9 months ago",
+          "created": "2 years ago",
           "id": "1",
           "kind": "node",
           "label": "beta.kubernetes.io/arch=amd64; beta.kubernetes.io/os=linux; etcd=true; kubernetes.io/hostname=mock-node-2; management=true; master=true; node-role.kubernetes.io/etcd=true; node-role.kubernetes.io/management=true; node-role.kubernetes.io/master=true; node-role.kubernetes.io/proxy=true; node-role.kubernetes.io/va=true; proxy=true; role=master; va=true",
           "name": "mock-node-2",
           "osImage": "Ubuntu 18.04.3 LTS",
           "role": "etcd, management, master, proxy, va",
-          "selfLink": "/api/v1/nodes/mock-node-2",
         },
       ]
     }
+    size="normal"
     sortRow={[Function]}
     translateWithId={[Function]}
   />
@@ -619,6 +621,7 @@ exports[`ResourceTable component header button onClick event should display (rel
     }
     key="release-resource-table"
     locale="en"
+    overflowMenuOnHover={true}
     render={[Function]}
     rows={
       Array [
@@ -650,6 +653,7 @@ exports[`ResourceTable component header button onClick event should display (rel
         },
       ]
     }
+    size="normal"
     sortRow={[Function]}
     translateWithId={[Function]}
   />
@@ -721,6 +725,7 @@ exports[`ResourceTable component header button onClick event should display (rep
     }
     key="replicaset-resource-table"
     locale="en"
+    overflowMenuOnHover={true}
     render={[Function]}
     rows={
       Array [
@@ -731,7 +736,7 @@ exports[`ResourceTable component header button onClick event should display (rep
           />,
           "apigroup": "apps",
           "cluster": "mock-cluster-1",
-          "created": "9 months ago",
+          "created": "2 years ago",
           "current": 1,
           "desired": 1,
           "id": "0",
@@ -739,7 +744,6 @@ exports[`ResourceTable component header button onClick event should display (rep
           "label": "app=mock-replicaset; chart=mock-release--99.99.99; pod-template-hash=1; release=mock-release-1",
           "name": "mock-replicaset-1",
           "namespace": "kube-system",
-          "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/replicasets/mock-replicaset-1",
         },
         Object {
           "action": <ForwardRef(Delete16)
@@ -748,7 +752,7 @@ exports[`ResourceTable component header button onClick event should display (rep
           />,
           "apigroup": "apps",
           "cluster": "mock-cluster-2",
-          "created": "9 months ago",
+          "created": "2 years ago",
           "current": 1,
           "desired": 1,
           "id": "1",
@@ -756,10 +760,10 @@ exports[`ResourceTable component header button onClick event should display (rep
           "label": "app=mock-replicaset; chart=mock-release--99.99.99; pod-template-hash=1; release=mock-release-2",
           "name": "mock-replicaset-2",
           "namespace": "kube-system",
-          "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/replicasets/mock-replicaset-2",
         },
       ]
     }
+    size="normal"
     sortRow={[Function]}
     translateWithId={[Function]}
   />
@@ -827,6 +831,7 @@ exports[`ResourceTable component header button onClick event should display (sec
     }
     key="secret-resource-table"
     locale="en"
+    overflowMenuOnHover={true}
     render={[Function]}
     rows={
       Array [
@@ -836,12 +841,11 @@ exports[`ResourceTable component header button onClick event should display (sec
             onClick={[Function]}
           />,
           "cluster": "mock-cluster-1",
-          "created": "9 months ago",
+          "created": "2 years ago",
           "id": "0",
           "kind": "secret",
           "name": "mock-secret-1",
           "namespace": "kube-system",
-          "selfLink": "/api/v1/namespaces/kube-system/secrets/mock-secret-1",
         },
         Object {
           "action": <ForwardRef(Delete16)
@@ -849,15 +853,15 @@ exports[`ResourceTable component header button onClick event should display (sec
             onClick={[Function]}
           />,
           "cluster": "mock-cluster-2",
-          "created": "9 months ago",
+          "created": "2 years ago",
           "id": "1",
           "kind": "secret",
           "name": "mock-secret-2",
           "namespace": "kube-system",
-          "selfLink": "/api/v1/namespaces/kube-system/secrets/mock-secret-2",
         },
       ]
     }
+    size="normal"
     sortRow={[Function]}
     translateWithId={[Function]}
   />
@@ -921,6 +925,7 @@ exports[`ResourceTable component header button onClick event should display (ser
     }
     key="service-resource-table"
     locale="en"
+    overflowMenuOnHover={true}
     render={[Function]}
     rows={
       Array [
@@ -931,14 +936,13 @@ exports[`ResourceTable component header button onClick event should display (ser
           />,
           "cluster": "mock-cluster-1",
           "clusterIP": "None",
-          "created": "9 months ago",
+          "created": "2 years ago",
           "id": "0",
           "kind": "service",
           "label": "app=mock-service; chart=mock-release--99.99.99; heritage=Tiller; release=mock-release-1",
           "name": "mock-memcached-1",
           "namespace": "kube-system",
           "port": "11211/TCP",
-          "selfLink": "/api/v1/namespaces/kube-system/services/mock-memcached-1",
           "type": "ClusterIP",
         },
         Object {
@@ -948,18 +952,18 @@ exports[`ResourceTable component header button onClick event should display (ser
           />,
           "cluster": "mock-cluster-2",
           "clusterIP": "None",
-          "created": "9 months ago",
+          "created": "2 years ago",
           "id": "1",
           "kind": "service",
           "label": "app=mock-service; chart=mock-release--99.99.99; heritage=Tiller; release=mock-release-1",
           "name": "mock-memcached-2",
           "namespace": "kube-system",
           "port": "11211/TCP",
-          "selfLink": "/api/v1/namespaces/kube-system/services/mock-memcached-2",
           "type": "ClusterIP",
         },
       ]
     }
+    size="normal"
     sortRow={[Function]}
     translateWithId={[Function]}
   />

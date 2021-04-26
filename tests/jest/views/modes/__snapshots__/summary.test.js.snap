@@ -4,7 +4,7 @@ exports[`summary mode should build a resource summary node element 1`] = `
 <div
   class="scrollable bx--structured-list--summary"
 >
-  <section
+  <div
     aria-label="Structured list section"
     class="bx--structured-list"
   >
@@ -115,25 +115,6 @@ exports[`summary mode should build a resource summary node element 1`] = `
           <span
             class="bx--structured-list-td-header"
           >
-            selfLink
-          </span>
-          <br />
-          <span
-            class="bx--structured-list-td-body"
-          >
-            /api/v1/namespaces/kube-system/pods/nginx
-          </span>
-        </div>
-      </div>
-      <div
-        class="bx--structured-list-row"
-      >
-        <div
-          class="bx--structured-list-td"
-        >
-          <span
-            class="bx--structured-list-td-header"
-          >
             container
           </span>
           <br />
@@ -183,7 +164,7 @@ exports[`summary mode should build a resource summary node element 1`] = `
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 `;
 
@@ -192,7 +173,7 @@ Object {
   "content": <div
     class="scrollable bx--structured-list--summary"
   >
-    <section
+    <div
       aria-label="Structured list section"
       class="bx--structured-list"
     >
@@ -303,25 +284,6 @@ Object {
             <span
               class="bx--structured-list-td-header"
             >
-              selfLink
-            </span>
-            <br />
-            <span
-              class="bx--structured-list-td-body"
-            >
-              /api/v1/namespaces/kube-system/pods/nginx
-            </span>
-          </div>
-        </div>
-        <div
-          class="bx--structured-list-row"
-        >
-          <div
-            class="bx--structured-list-td"
-          >
-            <span
-              class="bx--structured-list-td-header"
-            >
               container
             </span>
             <br />
@@ -371,7 +333,7 @@ Object {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </div>,
   "defaultMode": true,
   "label": "Summary",
