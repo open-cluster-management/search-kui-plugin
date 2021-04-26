@@ -67,7 +67,6 @@ jobs:
         - make sonar/js/jest-init
         - make component/test/unit
         - make sonar/js
-        # - echo "!!!! FIXME- Sonar integration temporarily disabled!!!!!"
 
     - stage: test-e2e
       name: "Deploy the image to a cluster and run e2e tests"
