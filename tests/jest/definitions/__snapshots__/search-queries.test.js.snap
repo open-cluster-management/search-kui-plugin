@@ -23,11 +23,11 @@ Object {
 }
 ",
   "variables": Object {
+    "apiVersion": "v1",
     "cluster": "local-cluster",
     "kind": "Pod",
     "name": "nginx",
     "namespace": "kube-system",
-    "apiVersion": "v1",
   },
 }
 `;
@@ -142,11 +142,11 @@ Object {
 }
 ",
   "variables": Object {
+    "apiVersion": "v1",
     "cluster": "local-cluster",
     "kind": "Pod",
     "name": "nginx",
     "namespace": "kube-system",
-    "apiVersion": "v1",
   },
 }
 `;
@@ -240,6 +240,7 @@ Object {
 }
 ",
   "variables": Object {
+    "apiVersion": "apps/v1",
     "body": Object {
       "apiVersion": "apps/v1",
       "cluster": "local-cluster",
@@ -314,7 +315,7 @@ Object {
       },
     },
     "cluster": "local-cluster",
-    "kind": "Deployment",
+    "kind": "Deployments",
     "name": "myapp",
     "namespace": "kube-system",
   },

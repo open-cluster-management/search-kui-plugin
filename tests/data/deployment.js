@@ -84,4 +84,20 @@ const deployment = {
   }
 }
 
+const data = {
+  items: [
+    {
+        "kind": "deployment",
+        "name": "myapp",
+        "namespace": "kube-system",
+        "label": "app=drone-app",
+        "cluster": "local-cluster",
+        "created": "2019-09-17T18:13:28Z",
+        "status": "Running",
+        "startedAt": "2019-09-17T18:13:28Z",
+    }
+  ]
+}
+
+exports.data = data
 exports.deployment = deployment

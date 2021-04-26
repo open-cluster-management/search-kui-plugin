@@ -15,14 +15,16 @@ const items = [
   {kind: require('../../../data/deployment')},
 ]
 const deployment = items[0].kind.deployment
+const data = items[0].kind.data
+
 
 // Resource's YAML tab
 describe('YAML mode', () => {
   const spy = jest.spyOn(yaml, 'yamlTab')
-  const _ = yaml.yamlTab(deployment)
+  const _ = yaml.yamlTab(deployment, data)
 
   it('should display an editor object with a detailed yaml', () => {
     expect(spy).toBeCalled()
-    expect(yaml.yamlTab(deployment)).toMatchSnapshot()
+    expect(yaml.yamlTab(deployment, data)).toMatchSnapshot()
   })
 })

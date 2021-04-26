@@ -180,7 +180,7 @@ Object {
       "content": <div
         class="scrollable bx--structured-list--summary"
       >
-        <section
+        <div
           aria-label="Structured list section"
           class="bx--structured-list"
         >
@@ -405,25 +405,6 @@ Object {
                 <span
                   class="bx--structured-list-td-header"
                 >
-                  selfLink
-                </span>
-                <br />
-                <span
-                  class="bx--structured-list-td-body"
-                >
-                  /api/v1/namespaces/kube-system/pods/icp-memcached-5bd5ddbd86-9ckrj
-                </span>
-              </div>
-            </div>
-            <div
-              class="bx--structured-list-row"
-            >
-              <div
-                class="bx--structured-list-td"
-              >
-                <span
-                  class="bx--structured-list-td-header"
-                >
                   startedAt
                 </span>
                 <br />
@@ -454,7 +435,7 @@ Object {
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>,
       "defaultMode": true,
       "label": "Summary",
@@ -468,26 +449,23 @@ Object {
         <div
           class="bx--dropdown__wrapper bx--list-box__wrapper"
         >
+          
           <div
             aria-label=""
             class="bx--dropdown bx--list-box"
             id="resource-container-dropdown"
           >
-            <div
+            <button
               aria-disabled="false"
               aria-expanded="false"
-              aria-haspopup="true"
-              aria-labelledby="dropdown-label-resource-container-dropdown dropdown-field-label-resource-container-dropdown"
+              aria-haspopup="listbox"
+              aria-labelledby="downshift-0-label downshift-0-toggle-button"
               class="bx--list-box__field"
-              data-toggle="true"
-              role="button"
-              tabindex="0"
+              id="downshift-0-toggle-button"
               type="button"
             >
               <span
                 class="bx--list-box__label"
-                for="downshift-0-input"
-                id="dropdown-field-label-resource-container-dropdown"
               >
                 icp-memcached
               </span>
@@ -496,12 +474,12 @@ Object {
               >
                 <svg
                   aria-label="Open menu"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   name="chevron--down"
                   preserveAspectRatio="xMidYMid meet"
                   role="img"
-                  style="will-change: transform;"
                   viewBox="0 0 16 16"
                   width="16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -514,7 +492,14 @@ Object {
                   </title>
                 </svg>
               </div>
-            </div>
+            </button>
+            <div
+              aria-labelledby="downshift-0-label"
+              class="bx--list-box__menu"
+              id="downshift-0-menu"
+              role="listbox"
+              tabindex="-1"
+            />
           </div>
         </div>
         <div
@@ -552,19 +537,30 @@ metadata:
       name: icp-memcached-5bd5ddbd86
       uid: 5f09922d-d977-11e9-b79c-0016ac102c33
   resourceVersion: '6741'
-  selfLink: /api/v1/namespaces/kube-system/pods/icp-memcached-5bd5ddbd86-9ckrj
   uid: 5f148b11-d977-11e9-b79c-0016ac102c33
 ",
       "contentType": "yaml",
       "label": "YAML",
       "mode": "yaml",
       "order": 2,
+      "spec": Object {
+        "clearable": false,
+        "readOnly": false,
+        "revert": Object {
+          "label": "Revert",
+          "onRevert": [Function],
+        },
+        "save": Object {
+          "label": "Apply Changes",
+          "onSave": [Function],
+        },
+      },
     },
     Object {
       "content": <div
         class="scrollable bx--structured-list--summary"
       >
-        <section
+        <div
           aria-label="Structured list section"
           class="bx--structured-list"
         >
@@ -712,7 +708,7 @@ metadata:
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>,
       "label": "Related Resources",
       "mode": "related",

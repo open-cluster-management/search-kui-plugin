@@ -7,7 +7,6 @@ kind: Deployment
 name: myapp
 namespace: kube-system
 cluster: local-cluster
-selfLink: /api/v1/namespaces/kube-system/deployment/myapp
 metadata:
   name: myapp
   namespace: kube-system
@@ -51,5 +50,17 @@ spec:
   "label": "YAML",
   "mode": "yaml",
   "order": 2,
+  "spec": Object {
+    "clearable": false,
+    "readOnly": false,
+    "revert": Object {
+      "label": "Revert",
+      "onRevert": [Function],
+    },
+    "save": Object {
+      "label": "Apply Changes",
+      "onSave": [Function],
+    },
+  },
 }
 `;

@@ -64,10 +64,9 @@ jobs:
         # Bootstrap the build harness, pull test image, and run unit tests.
         - make
         - make compile-plugin
-        # - make sonar/js/jest-init
+        - make sonar/js/jest-init
         - make component/test/unit
-        # - make sonar/js
-        - echo "!!!! FIXME- Sonar integration temporarily disabled!!!!!"
+        - make sonar/js
 
     - stage: test-e2e
       name: "Deploy the image to a cluster and run e2e tests"
