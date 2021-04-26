@@ -20,7 +20,6 @@ const configmap = {
       label: "app=audit-logging-fluentd; chart=audit-logging-99.99.99; component=fluentd; heritage=Tiller; release=audit-logging",
       name: "audit-logging-fluentd-ds-elk-config",
       namespace: "kube-system",
-      selfLink: "/api/v1/namespaces/kube-system/configmaps/audit-logging-fluentd-ds-elk-config",
     }
   ],
   related:[

@@ -69,10 +69,10 @@ export const deleteSavedSearch = (args) => new Promise((resolve) => {
 
 export const deleteResource = (args) => new Promise((resolve) => {
   if (args.argv.length !== 7) {
-    resolve('ERROR: Received wrong number of parameters.\nUSAGE: search -delete="resource" <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-selfLink>')
+    resolve('ERROR: Received wrong number of parameters.\nUSAGE: search -delete="resource" <resource-name> <resource-namespace> <resource-kind> <resource-cluster> <resource-apiVersion>')
   }
 
-  // delete resource args = (name, namespace, kind, cluster, selfLink)
+  // delete resource args = (name, namespace, kind, cluster, apiVersion)
   HTTPClient('post', 'console', DELETE_RESOURCE(args.argv[2], args.argv[3], args.argv[4], args.argv[5], args.argv[6]))
   .then((res) => {
     const data = lodash.get(res, 'data', '')

@@ -57,7 +57,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
         this.props.onClose()
         break
       default:
-        getCurrentTab().REPL.pexec(`search -delete="resource" ${item['name']} ${item['namespace']} ${item['kind']} ${item['cluster']} ${item['selfLink']}`)
+        getCurrentTab().REPL.pexec(`search -delete="resource" ${item['name']} ${item['namespace']} ${item['kind']} ${item['cluster']} ${item['apiVersion']}`)
         this.props.onClose()
     }
   }

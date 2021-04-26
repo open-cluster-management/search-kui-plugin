@@ -35,9 +35,9 @@ describe('Search Queries', () => {
   })
 
   it('should DELETE_RESOURCE', () => {
-    expect(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.selfLink)).toBeDefined()
-    expect(Object.keys(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.selfLink))).toEqual(expect.arrayContaining(keys))
-    expect(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.selfLink)).toMatchSnapshot()
+    expect(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.apiVersion)).toBeDefined()
+    expect(Object.keys(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.apiVersion))).toEqual(expect.arrayContaining(keys))
+    expect(searchqueries.DELETE_RESOURCE(res.pod.name, res.pod.namespace, res.pod.kind, res.pod.cluster, res.pod.apiVersion)).toMatchSnapshot()
   })
 
   it('should GET_SEARCH_COMPLETE', () => {
