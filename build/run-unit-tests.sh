@@ -5,7 +5,6 @@
 set -e
 
 echo "> Running build/run-unit-tests.sh"
-#echo "!!!!! Unit tests are currently disabled. Re-enable in ./build/run-unit-tests.sh !!!!"
 
 make compile-plugin
 
