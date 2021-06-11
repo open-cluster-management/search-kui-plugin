@@ -56,6 +56,8 @@
     "@babel/preset-react": "^7.10.4",
     "@carbon/icons-react": "^10.33.0",
     "@types/carbon-components": "^10.27.0",
+    "@kui-shell/core": "~10.3.19",
+    "@kui-shell/plugin-client-common": "~10.3.19",
     "@types/lodash": "^4.14.161",
     "@types/needle": "2.0.4",
     "@types/node": "12.12.31",
