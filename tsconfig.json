@@ -1,9 +1,5 @@
 {
-  "include": [
-    "./src",
-    "./src/i18n/*.json",
-    "./src/lib/shared/*.json"
-  ],
+  "include": ["./src", "./src/i18n/*.json", "./src/lib/shared/*.json"],
   "compilerOptions": {
     "downlevelIteration": true,
     "composite": true,
@@ -20,6 +16,7 @@
     "declaration": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "lib": ["dom", "esnext", "es6", "dom.iterable", "scripthost"]
+    "lib": ["dom", "esnext", "es6", "dom.iterable", "scripthost"],
+    "esModuleInterop": true
   }
 }

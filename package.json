@@ -1,125 +1,125 @@
 {
-	"name": "@kui-shell/plugin-search",
-	"version": "0.0.0-semantically-released",
-	"description": "KUI plugin for Open Cluster Management Search.",
-	"author": "Open Cluster Management",
-	"license": "ISC",
-	"engines": {
-		"npm": ">=6.9.0"
-	},
-	"keywords": [
-		"open cluster management",
-		"kui",
-		"plugin",
-		"search",
-		"icp",
-		"mcm"
-	],
-	"main": "dist/plugin.js",
-	"module": "mdist/plugin.js",
-	"types": "mdist/plugin.d.ts",
-	"private": true,
-	"scripts": {
-		"buildCSS": "mkdir -p web/ && sass web/scss/index.scss web/css/index.css",
-		"commit": "git-cz",
-		"compile": "tsc",
-		"compile:clean": "tsc --build tsconfig.json --clean",
-		"semantic-release": "semantic-release",
-		"setup-dev": "cp build/setup-dev.sh ../ && cd ../ && sh ./setup-dev.sh",
-		"setup-sonar": "sh build/setup-sonar.sh",
-		"start:watch": "cd ../.. && npm run watch",
-		"open": "cd ../.. && electron . shell",
-		"test:coverage": "mkdir -p test-output && jest --coverage --no-cache",
-		"test:unit": "jest --colors",
-		"test": "mkdir -p test-output && npx jest --silent",
-		"test:watch": "jest --watch",
-		"test:update-snapshot": "jest --updateSnapshot",
-		"test:chrome": "nightwatch ./build-tools/tests/e2e -e chrome",
-		"test:firefox": "nightwatch ./build-tools/tests/e2e -e firefox",
-		"test:safari": "nightwatch ./build-tools/tests/e2e -e safari"
-	},
-	"dependencies": {
-		"axios": "^0.21.1",
-		"graphql": "^14.7.0",
-		"lodash": "^4.17.20",
-		"moment": "^2.28.0",
-		"nconf": "^0.11.1",
-		"react": "^16.12.0",
-		"react-dom": "^16.12.0",
-		"react-tag-autocomplete": "^5.11.2"
-	},
-	"devDependencies": {
-		"@babel/cli": "7.8.4",
-		"@babel/core": "7.9.0",
-		"@babel/plugin-transform-modules-commonjs": "7.9.0",
-		"@babel/preset-env": "^7.11.5",
-		"@babel/preset-react": "^7.10.4",
-		"@kui-shell/core": "8.10.17",
-		"@kui-shell/plugin-client-common": "8.10.17",
-		"@types/lodash": "^4.14.161",
-		"@types/needle": "2.0.4",
-		"@types/node": "12.12.31",
-		"@types/react": "16.9.38",
-		"@types/react-dom": "^16.9.8",
-		"babel-plugin-dynamic-import-node-babel-7": "2.0.7",
-		"babel-plugin-ignore-html-and-css-imports": "0.0.2",
-		"carbon-components": "^10.19.0",
-		"carbon-components-react": "^7.19.0",
-		"carbon-icons": "^7.0.7",
-		"chalk": "^3.0.0",
-		"chromedriver": "^79.0.0",
-		"commitizen": "^4.2.1",
-		"del": "^5.1.0",
-		"electron": "^9.3.0",
-		"enzyme": "^3.11.0",
-		"enzyme-adapter-react-16": "^1.15.4",
-		"enzyme-to-json": "^3.4.4",
-		"geckodriver": "^1.20.0",
-		"ghooks": "^2.0.4",
-		"jest": "^25.5.4",
-		"jest-enzyme": "^7.1.2",
-		"jest-sonar-reporter": "^2.0.0",
-		"jest-tap-reporter": "^1.9.0",
-		"nightwatch": "^1.4.2",
-		"regenerator-runtime": "^0.13.7",
-		"sass": "^1.26.10",
-		"semantic-release": "^17.4.2",
-		"typescript": "^3.9.7",
-		"xml2json": "^0.12.0"
-	},
-	"config": {
-		"commitizen": {
-			"path": "node_modules/cz-conventional-changelog"
-		}
-	},
-	"ghooks": {
-		"pre-commit": "$echo add back npm test"
-	},
-	"jest": {
-		"setupFiles": [
-			"./src/setupTests.js"
-		]
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:open-cluster-management/search-kui-plugin.git"
-	},
-	"release": {
-		"branches": [
-			"main"
-		],
-		"plugins": [
-			[
-				"@semantic-release/github",
-				{
-					"assets": [
-						{
-							"path": "./plugin-search.tgz",
-							"label": "KUI plugin-search package"
-						}
-					]
-				}
-			]
-		]
-	}
+  "name": "@kui-shell/plugin-search",
+  "version": "0.0.0-semantically-released",
+  "description": "KUI plugin for Open Cluster Management Search.",
+  "author": "Open Cluster Management",
+  "license": "ISC",
+  "engines": {
+    "npm": ">=6.9.0"
+  },
+  "keywords": [
+    "open cluster management",
+    "kui",
+    "plugin",
+    "search",
+    "icp",
+    "mcm"
+  ],
+  "main": "dist/plugin.js",
+  "module": "mdist/plugin.js",
+  "types": "mdist/plugin.d.ts",
+  "private": true,
+  "scripts": {
+    "buildCSS": "mkdir -p web/ && sass web/scss/index.scss web/css/index.css",
+    "commit": "git-cz",
+    "compile": "tsc",
+    "compile:clean": "tsc --build tsconfig.json --clean",
+    "semantic-release": "semantic-release",
+    "setup-dev": "cp build/setup-dev.sh ../ && cd ../ && sh ./setup-dev.sh",
+    "setup-sonar": "sh build/setup-sonar.sh",
+    "start:watch": "cd ../.. && npm run watch",
+    "open": "cd ../.. && electron . shell",
+    "test:coverage": "mkdir -p test-output && jest --coverage --no-cache",
+    "test:unit": "jest --colors",
+    "test": "mkdir -p test-output && npx jest --silent",
+    "test:watch": "jest --watch",
+    "test:update-snapshot": "jest --updateSnapshot",
+    "test:chrome": "nightwatch ./build-tools/tests/e2e -e chrome",
+    "test:firefox": "nightwatch ./build-tools/tests/e2e -e firefox",
+    "test:safari": "nightwatch ./build-tools/tests/e2e -e safari"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "graphql": "^14.7.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.28.0",
+    "nconf": "^0.11.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-tag-autocomplete": "^5.11.2",
+    "carbon-components": "^10.36.0",
+    "carbon-components-react": "^7.36.0",
+    "carbon-icons": "^7.0.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "7.9.0",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@carbon/icons-react": "^10.33.0",
+    "@types/carbon-components": "^10.27.0",
+    "@types/lodash": "^4.14.161",
+    "@types/needle": "2.0.4",
+    "@types/node": "12.12.31",
+    "@types/react": "16.9.38",
+    "@types/react-dom": "^16.9.8",
+    "babel-plugin-dynamic-import-node-babel-7": "2.0.7",
+    "babel-plugin-ignore-html-and-css-imports": "0.0.2",
+    "chalk": "^3.0.0",
+    "chromedriver": "^79.0.0",
+    "commitizen": "^4.2.1",
+    "del": "^5.1.0",
+    "electron": "^9.3.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.4",
+    "enzyme-to-json": "^3.4.4",
+    "geckodriver": "^1.20.0",
+    "ghooks": "^2.0.4",
+    "jest": "^25.5.4",
+    "jest-enzyme": "^7.1.2",
+    "jest-sonar-reporter": "^2.0.0",
+    "jest-tap-reporter": "^1.9.0",
+    "nightwatch": "^1.4.2",
+    "regenerator-runtime": "^0.13.7",
+    "sass": "^1.26.10",
+    "semantic-release": "^17.4.2",
+    "typescript": "^3.9.7",
+    "xml2json": "^0.12.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "ghooks": {
+    "pre-commit": "$echo add back npm test"
+  },
+  "jest": {
+    "setupFiles": [
+      "./src/setupTests.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:open-cluster-management/search-kui-plugin.git"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "./plugin-search.tgz",
+              "label": "KUI plugin-search package"
+            }
+          ]
+        }
+      ]
+    ]
+  }
 }

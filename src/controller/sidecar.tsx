@@ -1,28 +1,28 @@
 /*******************************************************************************
-* 
-* Copyright (c) 2020 Red Hat, Inc.
-* 
-* Licensed Materials - Property of IBM
-* (c) Copyright IBM Corporation 2019. All Rights Reserved.
-*
-* Note to U.S. Government Users Restricted Rights:
-* Use, duplication or disclosure restricted by GSA ADP Schedule
-* Contract with IBM Corp.
-*******************************************************************************/
+ *
+ * Copyright (c) 2020 Red Hat, Inc.
+ *
+ * Licensed Materials - Property of IBM
+ * (c) Copyright IBM Corporation 2019. All Rights Reserved.
+ *
+ * Note to U.S. Government Users Restricted Rights:
+ * Use, duplication or disclosure restricted by GSA ADP Schedule
+ * Contract with IBM Corp.
+ *******************************************************************************/
 // Copyright Contributors to the Open Cluster Management project
 
-import { convertStringToQuery } from '../util/search-helper';
-import * as lodash from 'lodash';
-import HTTPClient from './HTTPClient';
-import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY, GET_CLUSTER } from '../definitions/search-queries';
-import { summaryTab } from '../views/modes/summary';
-import { yamlTab } from '../views/modes/yaml';
-import { relatedTab } from '../views/modes/related';
-import { logTab } from '../views/modes/logging';
+import { convertStringToQuery } from '../util/search-helper'
+import lodash from 'lodash'
+import HTTPClient from './HTTPClient'
+import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY, GET_CLUSTER } from '../definitions/search-queries'
+import { summaryTab } from '../views/modes/summary'
+import { yamlTab } from '../views/modes/yaml'
+import { relatedTab } from '../views/modes/related'
+import { logTab } from '../views/modes/logging'
 import strings from '../util/i18n'
-import { renderSearchAvailable } from './search';
-import { setPluginState, getPluginState, resourceNotFound } from '../pluginState';
-import { usage } from './helpfiles/searchhelp';
+import { renderSearchAvailable } from './search'
+import { setPluginState, getPluginState, resourceNotFound } from '../pluginState'
+import { usage } from './helpfiles/searchhelp'
 
 import '../../web/scss/sidecar.scss'
 
@@ -35,7 +35,6 @@ import '../../web/scss/sidecar.scss'
 export const buildSidecar = (type: string, data: any, resource?: any, cmd?: any) => {
   const modes = []
   const kind = lodash.get(data, 'items[0].kind', '')
-
   if (type !== 'query') {
     // Add summary tab
     modes.push(summaryTab(data.items[0]))
@@ -63,9 +62,9 @@ export const buildSidecar = (type: string, data: any, resource?: any, cmd?: any)
     kind,
     metadata: {
       name: type !== 'query' ? lodash.get(data, 'items[0].name', '') : strings('search.label.query', [kind]),
-      namespace: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null,
+      namespace: type !== 'query' ? lodash.get(data, 'items[0].namespace', '') : null
     },
-    modes,
+    modes
   }
 }
 
@@ -73,48 +72,50 @@ export const buildSidecar = (type: string, data: any, resource?: any, cmd?: any)
  * Get sidecar view for targeted resource
  * @param args
  */
-export const getSidecar = async (args) => new Promise((resolve) => {
-  const { command, argv } = args
-  const userQuery = convertStringToQuery(command)
+export const getSidecar = async args =>
+  new Promise(resolve => {
+    const { command, argv } = args
+    const userQuery = convertStringToQuery(command)
 
-  if (argv.length === 2 || getPluginState().flags.includes(argv[2])) { // Help menu will execute if command is (search summary || search summary -[flag])
-    resolve(usage(argv))
-  }
-
-  HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-  .then((res) => {
-    const data = lodash.get(res, 'data.searchResult[0]', '')
-    const kind = lodash.get(data, 'items[0].kind',  '')
-
-    if (!data || data.items.length === 0 && data.related.length === 0) {
-      resolve(resourceNotFound())
+    if (argv.length === 2 || getPluginState().flags.includes(argv[2])) {
+      // Help menu will execute if command is (search summary || search summary -[flag])
+      resolve(usage(argv))
     }
 
-    const query = { default: SEARCH_ACM_QUERY(data.items[0]), cluster: GET_CLUSTER() }
+    HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
+      .then(res => {
+        const data = lodash.get(res, 'data.searchResult[0]', '')
+        const kind = lodash.get(data, 'items[0].kind', '')
 
-    if (args.command.includes('--related')) {
-      resolve(buildSidecar('query', data))
-    } else {
-      HTTPClient('post', 'console', kind !== 'cluster' ? query['default'] : query['cluster'])
-      .then((resp) => {
-        let resource
-
-        if (kind === 'cluster') {
-          resource = resp.data.items.filter((cluster) => cluster.metadata.name === data.items[0].name)
-        } else {
-          resource = !resp.errors ? resp.data.getResource : resp
+        if (!data || (data.items.length === 0 && data.related.length === 0)) {
+          resolve(resourceNotFound())
         }
 
-        resolve(buildSidecar('resource', data, resource, command))
+        const query = { default: SEARCH_ACM_QUERY(data.items[0]), cluster: GET_CLUSTER() }
+
+        if (args.command.includes('--related')) {
+          resolve(buildSidecar('query', data))
+        } else {
+          HTTPClient('post', 'console', kind !== 'cluster' ? query['default'] : query['cluster'])
+            .then(resp => {
+              let resource
+
+              if (kind === 'cluster') {
+                resource = resp.data.items.filter(cluster => cluster.metadata.name === data.items[0].name)
+              } else {
+                resource = !resp.errors ? resp.data.getResource : resp
+              }
+
+              resolve(buildSidecar('resource', data, resource, command))
+            })
+            .catch(err => {
+              setPluginState('error', err)
+              resolve(renderSearchAvailable())
+            })
+        }
       })
-      .catch((err) => {
+      .catch(err => {
         setPluginState('error', err)
         resolve(renderSearchAvailable())
       })
-    }
   })
-  .catch((err) => {
-    setPluginState('error', err)
-    resolve(renderSearchAvailable())
-  })
-})

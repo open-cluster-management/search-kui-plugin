@@ -1,21 +1,21 @@
 /*******************************************************************************
-*
-* Copyright (c) 2020 Red Hat, Inc.
-* 
-* Licensed Materials - Property of IBM
-* (c) Copyright IBM Corporation 2019. All Rights Reserved.
-*
-* Note to U.S. Government Users Restricted Rights:
-* Use, duplication or disclosure restricted by GSA ADP Schedule
-* Contract with IBM Corp.
-*******************************************************************************/
+ *
+ * Copyright (c) 2020 Red Hat, Inc.
+ *
+ * Licensed Materials - Property of IBM
+ * (c) Copyright IBM Corporation 2019. All Rights Reserved.
+ *
+ * Note to U.S. Government Users Restricted Rights:
+ * Use, duplication or disclosure restricted by GSA ADP Schedule
+ * Contract with IBM Corp.
+ *******************************************************************************/
 // Copyright Contributors to the Open Cluster Management project
 
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { Registrar, NavResponse } from '@kui-shell/core'
 import HTTPClient from './HTTPClient'
-import renderReact from '../util/renderReact';
+import renderReact from '../util/renderReact'
 import { convertStringToQuery } from '../util/search-helper'
 import { usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
@@ -29,9 +29,11 @@ export const renderSearchAvailable = () => {
   const node = document.createElement('div')
   node.classList.add('is-search-available')
   const status = () => {
-    return(
+    return (
       <div>
-        <p><span className='oops'>{strings('search.service.installed.error')}</span></p>
+        <p>
+          <span className="oops">{strings('search.service.installed.error')}</span>
+        </p>
       </div>
     )
   }
@@ -44,12 +46,14 @@ export const doSearch = (args): any | NavResponse => {
   const { argv, command } = args
   const flags = getPluginState().flags
 
-  if (argv.length === 1 || flags.includes(argv[1])) { // Help menu for search command
+  if (argv.length === 1 || flags.includes(argv[1])) {
+    // Help menu for search command
     return usage(argv)
   }
 
-  return new Promise((resolve) => {
-    if (command.includes('--related')) { // Get sidecar for related resources.
+  return new Promise(resolve => {
+    if (command.includes('--related')) {
+      // Get sidecar for related resources.
       resolve(getSidecar(args))
     }
 
@@ -59,14 +63,7 @@ export const doSearch = (args): any | NavResponse => {
       const node = document.createElement('div')
 
       const save = () => {
-        return (
-          <Modal
-            item={args}
-            modalOpen={true}
-            onClose={false}
-            action={'save'}
-          />
-        )
+        return <Modal item={args} modalOpen={true} onClose={false} action={'save'} />
       }
 
       ReactDOM.render(React.createElement(save), node)
@@ -78,24 +75,20 @@ export const doSearch = (args): any | NavResponse => {
     }
 
     const buildTable = (data: any) => {
-      const node = document.createElement('div', {is: 'react-entry-point'})
+      const node = document.createElement('div', { is: 'react-entry-point' })
       node.classList.add('search-kui-plugin')
-      data.items.length > 0
-        ? renderReact(data, node, command)
-        : node.appendChild(resourceNotFound())
-      return node
+      data.items.length > 0 ? renderReact(data, node, command) : node.appendChild(resourceNotFound())
+      return renderReact(data, node, command)
     }
 
     HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-    .then((res) => {
-      resolve(
-        buildTable(res.data.searchResult[0]),
-      )
-    })
-    .catch((err) => {
-      setPluginState('error', err)
-      resolve(renderSearchAvailable())
-    })
+      .then(res => {
+        resolve(buildTable(res.data.searchResult[0]))
+      })
+      .catch(err => {
+        setPluginState('error', err)
+        resolve(renderSearchAvailable())
+      })
   })
 }
 

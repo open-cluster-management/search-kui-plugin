@@ -1,7 +1,7 @@
 /*******************************************************************************
- * 
+ *
  * Copyright (c) 2020 Red Hat, Inc.
- * 
+ *
  * Licensed Materials - Property of IBM
  * (c) Copyright IBM Corporation 2019. All Rights Reserved.
  *
@@ -11,44 +11,49 @@
  *******************************************************************************/
 // Copyright Contributors to the Open Cluster Management project
 
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React from 'react'
 import ResourceTable from '../components/ResourceTable'
-import { getCurrentTab } from '@kui-shell/core'
+import { doEval, getCurrentTab, pexecInCurrentTab } from '@kui-shell/core'
 import strings from './i18n'
 
 export default function renderReact(data: any, node: HTMLDivElement, command: string) {
-  const uniqueKinds = [...new Set(data.items ? data.items.map((item) => item.kind) : data.map((item) => item.kind))]
+  const uniqueKinds = [...new Set(data.items ? data.items.map(item => item.kind) : data.map(item => item.kind))]
 
   const searchResource = () => {
     return (
       <div className={'search--resource'}>
-        {data.related && data.related.length > 0 && command.includes(':')
-          ? <div className={'related--resource-table-header'}>
-              <button
-                onClick={() => {
-                  getCurrentTab().REPL.pexec(command.concat(' --related'))
-                }}
-                className={'related--resource-table-header-button'}>
-                {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}
-                {<span className={'arrow-right'}>&rarr;</span>}
-              </button>
-            </div>
-          : null
-        }
-        {uniqueKinds.map((kind) => (
+        {data.related && data.related.length > 0 && command.includes(':') ? (
+          <div className={'related--resource-table-header'}>
+            <button
+              onClick={() => {
+                console.log('button', command)
+                pexecInCurrentTab(
+                  `split --ifnot is-split --cmdline "${command.concat(' --related')}"`,
+                  undefined,
+                  false,
+                  true
+                )
+              }}
+              className={'related--resource-table-header-button'}
+            >
+              {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}
+              {<span className={'arrow-right'}>&rarr;</span>}
+            </button>
+          </div>
+        ) : null}
+        {uniqueKinds.map(kind => (
           <div className={'search--resource-table'} key={kind.toString()}>
             <ResourceTable
-              items={data.items
-                ? data.items.filter((item) => item.kind === kind)
-                : data.filter((item) => item.kind === kind)}
-              kind={ kind.toString() }
+              items={
+                data.items ? data.items.filter(item => item.kind === kind) : data.filter(item => item.kind === kind)
+              }
+              kind={kind.toString()}
             />
           </div>
         ))}
       </div>
-    )}
+    )
+  }
 
-  ReactDOM.render(React.createElement(searchResource), node)
-  return node
+  return { react: React.createElement(searchResource) }
 }

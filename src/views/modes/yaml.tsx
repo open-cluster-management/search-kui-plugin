@@ -1,18 +1,18 @@
 /*******************************************************************************
-* 
-* Copyright (c) 2020 Red Hat, Inc.
-* 
-* Licensed Materials - Property of IBM
-* (c) Copyright IBM Corporation 2019. All Rights Reserved.
-*
-* Note to U.S. Government Users Restricted Rights:
-* Use, duplication or disclosure restricted by GSA ADP Schedule
-* Contract with IBM Corp.
-*******************************************************************************/
+ *
+ * Copyright (c) 2020 Red Hat, Inc.
+ *
+ * Licensed Materials - Property of IBM
+ * (c) Copyright IBM Corporation 2019. All Rights Reserved.
+ *
+ * Note to U.S. Government Users Restricted Rights:
+ * Use, duplication or disclosure restricted by GSA ADP Schedule
+ * Contract with IBM Corp.
+ *******************************************************************************/
 // Copyright Contributors to the Open Cluster Management project
 
-import * as jsYaml from 'js-yaml'
-import { EditableSpec, getCurrentTab } from '@kui-shell/core'
+import jsYaml from 'js-yaml'
+import { EditableSpec, doEval, getCurrentTab } from '@kui-shell/core'
 import strings from '../../util/i18n'
 import HTTPClient from '../../controller/HTTPClient'
 import { UPDATE_RESOURCE } from '../../definitions/search-queries'
@@ -25,12 +25,13 @@ export function editSpec(cmd: string, resource?: any, data?: any): EditableSpec 
       label: strings('sidecar.yaml.edit.apply'),
       onSave: async (updated: string) => {
         HTTPClient('post', 'console', UPDATE_RESOURCE(jsYaml.load(updated), data))
-        .then(() => {
-          getCurrentTab().REPL.pexec(cmd)
-        })
-        .catch((err) => {
-          console.debug(err)
-        })
+          .then(() => {
+            doEval(getCurrentTab(), undefined, cmd)
+            // getCurrentTab().REPL.pexec(cmd)
+          })
+          .catch(err => {
+            console.debug(err)
+          })
 
         return {
           // disable editor's auto toolbar update,
@@ -41,7 +42,7 @@ export function editSpec(cmd: string, resource?: any, data?: any): EditableSpec 
     },
     revert: {
       label: strings('validation.revert'),
-      onRevert: () => jsYaml.safeDump(resource)
+      onRevert: () => jsYaml.dump(resource)
     }
   }
 }
@@ -57,7 +58,7 @@ export const yamlTab = (resource: any, data?: any, cmd?: any) => {
     mode: 'yaml',
     label: 'YAML',
     order: 2,
-    content: jsYaml.safeDump(resource),
+    content: jsYaml.dump(resource),
     contentType: 'yaml',
     spec
   }

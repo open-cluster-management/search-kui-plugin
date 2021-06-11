@@ -18,7 +18,7 @@
  */
 // Copyright Contributors to the Open Cluster Management project
 
-import * as React from 'react'
+import React from 'react'
 import {
   InputProvider,
   InputProviderProps,
@@ -27,14 +27,13 @@ import {
   defaultOnKeyPress,
   defaultOnKeyUp
 } from '@kui-shell/plugin-client-common'
-import { getCurrentTab } from '@kui-shell/core'
 import SearchInput from './SearchInput'
 
 import '../../web/scss/index.scss'
 
 /** subclass State */
 interface SearchState extends InputProviderState {
-  inputText: string,
+  inputText: string
   isSearch: boolean
 }
 
@@ -43,6 +42,7 @@ export default class CustomSearchInput extends InputProvider<SearchState> {
     super(props)
 
     this.state = Object.assign(this.state || {}, {
+      model: props.model,
       inputText: '',
       isSearch: false
     })
@@ -58,34 +58,38 @@ export default class CustomSearchInput extends InputProvider<SearchState> {
     }
   }
 
-  handleInputTextChange = (e) => {
-    if (e.target.value === 'search '){
-    this.setState({inputText:e.target.value, isSearch:true})
+  handleInputTextChange = e => {
+    if (e.target.value === 'search ') {
+      this.setState({ inputText: e.target.value, isSearch: true })
     }
   }
 
-  handleSearchTextChange = (currentQuery) => {
+  handleSearchTextChange = currentQuery => {
     const query = currentQuery.replace(/:\s*/, ':')
     this.toggleIsSearchState(query)
   }
 
-  onKeyPress = async (e) => {
+  onKeyPress = async e => {
     const { inputText, isSearch } = this.state
     e.persist()
     if (e.which === 13) {
-      this.setState({ isSearch: false, inputText: e.target.value})
+      this.setState({ isSearch: false, inputText: e.target.value })
       // If user tries to run a i-search we need to set inputText to the reverse search
       if (isSearch) {
-
         // grab any 'keyword/loose' text that has not been added to the official search string as a tag - we still need to run the command with this
         const unfinishedText = document.querySelector('.kui--input-stripe .repl-block input')['value']
-        const searchCommand = (inputText.endsWith(':') || inputText.endsWith(' ')) ? inputText + unfinishedText : inputText + ' ' + unfinishedText
-        
+        const searchCommand =
+          inputText.endsWith(':') || inputText.endsWith(' ')
+            ? inputText + unfinishedText
+            : inputText + ' ' + unfinishedText
         if (searchCommand.trim() === 'search') {
-            await getCurrentTab().REPL.pexec('search -h')
+          await require('@kui-shell/core').doEval(this.props.tab, undefined, 'search -h')
         } else {
-            console.log('searchCommand',searchCommand)
-            await getCurrentTab().REPL.pexec(searchCommand)
+          try {
+            await require('@kui-shell/core').doEval(this.props.tab, undefined, searchCommand)
+          } catch (error) {
+            console.error(error)
+          }
         }
       }
     }
@@ -93,38 +97,34 @@ export default class CustomSearchInput extends InputProvider<SearchState> {
 
   renderSearchComponents() {
     return (
-      <SearchInput
-        onChange={this.handleSearchTextChange}
-        value={this.state.inputText}
-        onKeyPress={this.onKeyPress}
-      />
+      <SearchInput onChange={this.handleSearchTextChange} value={this.state.inputText} onKeyPress={this.onKeyPress} />
     )
   }
 
   protected input() {
-    return(
-      this.state.isSearch
-      ? this.renderSearchComponents()
-      : /** This is the "input" that client provides */
-        <input
-          autoFocus
-          autoCorrect="off"
-          autoComplete="off"
-          spellCheck="false"
-          autoCapitalize="off"
-          key={this.props.idx}
-          className="repl-input-element"
-          onChange={this.handleInputTextChange}
-          onKeyPress={defaultOnKeyPress.bind(this)}
-          onKeyDown={defaultOnKeyDown.bind(this)}
-          onKeyUp={defaultOnKeyUp.bind(this)}
-          ref={prompt => {
-            if (prompt) {
-              prompt.focus()
-              this.setState({ prompt })
-            }
-          }}
-        />
+    return this.state.isSearch ? (
+      this.renderSearchComponents()
+    ) : (
+      /** This is the "input" that client provides */
+      <input
+        autoFocus
+        autoCorrect="off"
+        autoComplete="off"
+        spellCheck="false"
+        autoCapitalize="off"
+        key={this.props.idx}
+        className="repl-input-element"
+        onChange={this.handleInputTextChange}
+        onKeyPress={defaultOnKeyPress.bind(this)}
+        onKeyDown={defaultOnKeyDown.bind(this)}
+        onKeyUp={defaultOnKeyUp.bind(this)}
+        ref={prompt => {
+          if (prompt) {
+            prompt.focus()
+            this.setState({ prompt })
+          }
+        }}
+      />
     )
   }
 }
