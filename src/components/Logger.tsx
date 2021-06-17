@@ -15,7 +15,7 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(window, 'navigator', { value: { userAgent: 'node' }, writable: true })
   Object.defineProperty(document, 'getElementById', {
     value: (val: string) => document.querySelector('#' + val),
-    writable: true
+    writable: true,
   })
 }
 
@@ -34,7 +34,7 @@ import strings from '../util/i18n'
 export default class Logger extends React.PureComponent<LoggerProps, LoggerState> {
   static propTypes = {
     data: PropTypes.any,
-    items: PropTypes.any
+    items: PropTypes.any,
   }
 
   refresh: any
@@ -44,7 +44,7 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
     super(props)
     this.state = {
       selectedItem: lodash.get(this.props.items, '[0]', ''),
-      logs: ''
+      logs: '',
     }
     this.handleOnChange = this.handleOnChange.bind(this)
     this.getLogs = this.getLogs.bind(this)
@@ -74,9 +74,10 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
     const focus = document.getElementsByClassName(
       'kui--tab-navigatable kui--notab-when-sidecar-hidden bx--tabs__nav-link'
     )
-    document.querySelector('.logs-container__content') && focus[0]['tabIndex'] >= 0
+    return document.querySelector('.logs-container__content') && focus[0]['tabIndex'] >= 0
       ? fn()
-      : document.querySelector('.visible.sidecar-is-minimized') && document.querySelector('.logs-container__content')
+      : document.querySelector('.visible.sidecar-is-minimized') &&
+        document.querySelector('.logs-container__content')
       ? null
       : this.componentWillUnmount()
   }
@@ -91,13 +92,14 @@ export default class Logger extends React.PureComponent<LoggerProps, LoggerState
         cluster: this.props.data.cluster,
         container: this.container,
         name: this.props.data.name,
-        namespace: this.props.data.namespace
+        namespace: this.props.data.namespace,
       }
 
       HTTPClient('post', 'console', RESOURCE_LOGS(record)).then(res => {
         this.setState({
           selectedItem: this.container,
-          logs: lodash.get(res, 'data.logs', '') !== null ? res.data.logs : strings('search.notfound')
+          logs:
+            lodash.get(res, 'data.logs', '') !== null ? res.data.logs : strings('search.notfound'),
         })
       })
     }
