@@ -46,7 +46,7 @@
     "nconf": "^0.11.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-tag-autocomplete": "^5.11.2"
+    "react-tag-autocomplete": "^6.1.0"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",
@@ -55,9 +55,10 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@carbon/icons-react": "^10.33.0",
-    "@types/carbon-components": "^10.27.0",
     "@kui-shell/core": "~10.3.19",
     "@kui-shell/plugin-client-common": "~10.3.19",
+    "@types/carbon-components": "^10.27.0",
+    "@types/carbon-components-react": "^7.34.0",
     "@types/lodash": "^4.14.161",
     "@types/needle": "2.0.4",
     "@types/node": "12.12.31",
@@ -70,7 +71,7 @@
     "carbon-icons": "^7.0.7",
     "chalk": "^3.0.0",
     "chromedriver": "^79.0.0",
-    "commitizen": "^4.2.1",
+    "commitizen": "^4.2.4",
     "del": "^5.1.0",
     "electron": "^9.3.0",
     "enzyme": "^3.11.0",

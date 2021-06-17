@@ -40,9 +40,9 @@ export const doSavedSearch = args =>
       // Help menu for savedsearches command
       resolve(usage())
     } else if (argv.length > 1) {
-      const str = `${strings('validation.error')}:\t${strings('validation.savedsearches.parameters')}.\n${strings(
-        'validation.usage'
-      )}:\t${strings('validation.definition.savedsearches')}`
+      const str = `${strings('validation.error')}:\t${strings(
+        'validation.savedsearches.parameters'
+      )}.\n${strings('validation.usage')}:\t${strings('validation.definition.savedsearches')}`
       resolve(resourceNotFound(str))
     }
 
@@ -51,8 +51,7 @@ export const doSavedSearch = args =>
       const results = await getQueryCount(data.items)
       const node = document.createElement('div', { is: 'react-entry-point' })
       node.classList.add('search-kui-plugin')
-      renderReact(results, node, args.command)
-      return node
+      return renderReact(results, node, args.command)
     }
 
     HTTPClient('post', 'search', SAVED_SEARCH_QUERY)
