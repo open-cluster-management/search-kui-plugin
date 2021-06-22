@@ -240,7 +240,7 @@ Object {
 }
 ",
   "variables": Object {
-    "apiVersion": "apps/v1",
+    "apiVersion": undefined,
     "body": Object {
       "apiVersion": "apps/v1",
       "cluster": "local-cluster",
