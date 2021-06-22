@@ -66,7 +66,7 @@ export const SEARCH_ACM_QUERY = (record) => {
         name: record.name,
         namespace: record.namespace,
         cluster: record.cluster,
-        apiVersion: record.apiVersion,
+        apiVersion: record.apiversion,
       },
     query: 'query getResource($kind: String, $name: String, $namespace: String, $cluster: String, $apiVersion: String) {\n  getResource(kind: $kind, name: $name, namespace: $namespace, cluster: $cluster, apiVersion: $apiVersion)\n}\n',
   }
@@ -143,18 +143,6 @@ export const DELETE_RESOURCE = (name, namespace, kind, cluster, apiVersion) => {
         kind,
         cluster,
         apiVersion,
-      },
-  }
-}
-
-export const GET_CLUSTER = () => {
-  return {
-    operationName: 'getClusters',
-      query: 'query getClusters {\n  items: clusters {\n    metadata {\n      labels\n      name\n      namespace\n      uid\n      apiVersion\n      __typename\n    }\n    availableVersions\n    nodes\n    status\n    clusterip\n    consoleURL\n    desiredVersion\n    distributionVersion\n    isHive\n    isManaged\n    serverAddress\n    totalMemory\n    totalStorage\n    totalCPU\n    klusterletVersion\n    k8sVersion\n    upgradeFailed\n    __typename\n  }\n}\n',
-      variables: {
-        filter: {
-          resourceFilter: []
-        }
       },
   }
 }
