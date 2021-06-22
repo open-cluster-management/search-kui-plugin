@@ -142,7 +142,7 @@ Object {
 }
 ",
   "variables": Object {
-    "apiVersion": "v1",
+    "apiVersion": undefined,
     "cluster": "local-cluster",
     "kind": "Pod",
     "name": "nginx",

@@ -102,7 +102,7 @@ export const UPDATE_RESOURCE = (body, data) => {
       kind: `${data.kind}s`,
       name: data.name,
       namespace: data.namespace,
-      apiVersion: data.apiVersion,
+      apiVersion: data.apiversion,
     },
     query: 'query updateResource($apiVersion: String, $namespace: String, $kind: String, $name: String, $body: JSON, $cluster: String) {\n  updateResource(apiVersion: $apiVersion, namespace: $namespace, kind: $kind, name: $name, body: $body, cluster: $cluster)\n}\n',
   }
