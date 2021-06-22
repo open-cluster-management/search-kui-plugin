@@ -23,13 +23,15 @@ import {
 import { getCurrentTab, doEval } from '@kui-shell/core'
 import strings from '../../util/i18n'
 
-const handleEvent = (resource: any, cluster?: string, event?: any) => {
+const handleEvent = (resource: any, event?: any) => {
+  const clusters = lodash.get(resource, 'items', '').map((res) => res.cluster)
+
   if ((event && event.which === 13) || !event) {
     let command = `search kind:${lodash.get(resource, 'kind', '')} `
 
-    if (cluster && lodash.get(resource, 'kind', '') !== 'cluster') {
+    if (clusters && lodash.get(resource, 'kind', '') !== 'cluster') {
       // Include cluster name when returning the related data.
-      command += `cluster:${cluster} name:`
+      command += `cluster:${clusters.toString()} name:`
     } else {
       command += 'name:'
     }
@@ -62,8 +64,8 @@ export const buildRelated = (data: any, type?: string) => {
                   <StructuredListRow key={`${row.kind}`} className="bx--structured-list-rowclick">
                     <StructuredListCell
                       tabIndex={0}
-                      onKeyPress={e => handleEvent(row, cluster, e)}
-                      onClick={() => handleEvent(row, cluster)}
+                      onKeyPress={e => handleEvent(row, e)}
+                      onClick={() => handleEvent(row)}
                     >
                       <span className="bx--structured-list-td-related-header">{`${row.items.length}`}</span>
                       <br></br>
@@ -82,7 +84,7 @@ export const buildRelated = (data: any, type?: string) => {
               tabIndex={0}
               key={row.kind}
               onClick={() => handleEvent(row, cluster)}
-              onKeyPress={(e: any) => handleEvent(row, cluster, e)}
+              onKeyPress={(e: any) => handleEvent(row, e)}
               type="button"
             >
               <div className="bx--tile-container">
