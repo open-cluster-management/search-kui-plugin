@@ -10,7 +10,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-@import 'carbon-components/scss/globals/scss/colors';
+@import '../../../../../node_modules/carbon-components/scss/globals/scss/colors';
 
 .repl-result {
   white-space: unset;
@@ -29,7 +29,7 @@
   }
 
   .search-kui-plugin {
-    font-family: 'ibm-plex-sans', Helvetica Neue, Arial, sans-serif;
+    font-family: 'RedHatText';
     display: flex;
     width: 90vw;
 
