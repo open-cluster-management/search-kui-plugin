@@ -10,7 +10,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-@import '../../../../../node_modules/carbon-components/scss/globals/scss/colors';
+@import 'carbon-components/scss/globals/scss/colors';
 
 .repl-result {
   white-space: unset;
@@ -49,8 +49,7 @@
           background-color: transparent;
           color: var(--color-text-01);
           cursor: pointer;
-          font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’,
-            Courier, monospace;
+          font-family: 'RedHatText';
           font-weight: 600;
           font-size: 1.125rem;
           padding: 0rem;
@@ -864,12 +863,18 @@ span {
 
 .kui--sidecar {
   .kui--sidecar-tabs-container {
-    .sidecar-content-container {
-      .bx--tile-related {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-gap: 0.2rem;
+    // summary tab
+    #pf-tab-section-0-summaryTab {
+      .bx--structured-list-td-header {
+        color: var(--pf-global--primary-color--100);
+        font-size: 1.2rem;
       }
+    }
+
+    .bx--tile-related {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-gap: 0.2rem;
     }
   }
 }

@@ -184,6 +184,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
         primaryButtonText={
           this.props.action === 'remove' ? strings('modal.remove-kuberesource.heading') : strings('actions.save')
         }
+        // selectorPrimaryFocus={'data-modal-primary-focus'}
         primaryButtonDisabled={
           (this.props.action === 'edit' && this.state.name === '') ||
           (this.props.action === 'edit' &&
@@ -209,6 +210,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
             {this.props.action === 'save' ? <p className="save-text">{strings('modal.save.text')}</p> : null}
             {this.state.errors ? <p className="oops save-text-error">{strings(this.state.errors)}</p> : null}
             <TextInput
+              data-modal-primary-focus
               className={'bx--action-name'}
               disabled={false}
               id={'name'}
@@ -236,7 +238,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
             <p className="copy-description">{strings('modal.query.share.name.label')}</p>
             <div className="bx--snippet bx--snippet--single">
               {inBrowser()
-                ? `${window &&
+                ? `${window && 
                     window.location &&
                     window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(
                     this.props.item['searchText']
@@ -249,8 +251,8 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
                   navigator.clipboard.writeText(
                     inBrowser()
                       ? `${window &&
-                          window.location &&
-                          window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(
+                        window.location && 
+                        window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(
                           this.props.item['searchText']
                         )}"}`
                       : `search ${this.props.item['searchText']}`

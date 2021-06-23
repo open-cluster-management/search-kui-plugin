@@ -13,44 +13,46 @@
 
 import React from 'react'
 import ResourceTable from '../components/ResourceTable'
-import { doEval, getCurrentTab, pexecInCurrentTab } from '@kui-shell/core'
+import { pexecInCurrentTab } from '@kui-shell/core'
 import strings from './i18n'
 
-export default function renderReact(data: any, node: HTMLDivElement, command: string) {
-  const uniqueKinds = [...new Set(data.items ? data.items.map(item => item.kind) : data.map(item => item.kind))]
+export default function renderReact( data: any, node: HTMLDivElement, command: string, wrapperClassName?: string) {
+  const uniqueKinds = [...new Set(data.items ? data.items.map(item => item.kind) : data.map(item => item.kind)),]
 
   const searchResource = () => {
     return (
-      <div className={'search--resource'}>
-        {data.related && data.related.length > 0 && command.includes(':') ? (
-          <div className={'related--resource-table-header'}>
-            <button
-              onClick={() => {
-                console.log('button', command)
-                pexecInCurrentTab(
-                  `split --ifnot is-split --cmdline "${command.concat(' --related')}"`,
-                  undefined,
-                  false,
-                  true
-                )
-              }}
-              className={'related--resource-table-header-button'}
-            >
-              {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}
-              {<span className={'arrow-right'}>&rarr;</span>}
-            </button>
-          </div>
-        ) : null}
-        {uniqueKinds.map(kind => (
-          <div className={'search--resource-table'} key={kind.toString()}>
-            <ResourceTable
-              items={
-                data.items ? data.items.filter(item => item.kind === kind) : data.filter(item => item.kind === kind)
-              }
-              kind={kind.toString()}
-            />
-          </div>
-        ))}
+      <div className={wrapperClassName}>
+        <div className={'search--resource'}>
+          {data.related && data.related.length > 0 && command.includes(':') ? (
+            <div className={'related--resource-table-header'}>
+              <button
+                onClick={() => {
+                  console.log('button', command)
+                  pexecInCurrentTab(
+                    `split --ifnot is-split --cmdline "${command.concat(' --related')}"`,
+                    undefined,
+                    false,
+                    true
+                  )
+                }}
+                className={'related--resource-table-header-button'}
+              >
+                {<div className={'linked-resources'}>{strings('search.label.view.related')}</div>}
+                {<span className={'arrow-right'}>&rarr;</span>}
+              </button>
+            </div>
+          ) : null}
+          {uniqueKinds.map(kind => (
+            <div className={'search--resource-table'} key={kind.toString()}>
+              <ResourceTable
+                items={
+                  data.items ? data.items.filter(item => item.kind === kind) : data.filter(item => item.kind === kind)
+                }
+                kind={kind.toString()}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
