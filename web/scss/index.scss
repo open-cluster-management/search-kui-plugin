@@ -49,7 +49,8 @@
           background-color: transparent;
           color: var(--color-text-01);
           cursor: pointer;
-          font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+          font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’,
+            Courier, monospace;
           font-weight: 600;
           font-size: 1.125rem;
           padding: 0rem;
@@ -83,7 +84,7 @@
 
     .related--resource-table-header-button {
       margin-top: 1%;
-      font-family: ‘IBM Plex Mono’, ‘Menlo’, ‘DejaVu Sans Mono’, ‘Bitstream Vera Sans Mono’, Courier, monospace;
+      font-family: ‘Liberation Mono’, Courier, monospace;
       align-items: center;
       background-color: transparent;
       border: none;
@@ -565,7 +566,7 @@ span {
 
       .kui--input-and-context {
         font-size: 100%;
-        padding: 0 1rem;
+        padding: 0;
 
         input {
           font-size: 100%;
@@ -686,10 +687,9 @@ span {
   /* clicking anywhere will focus the input */
   cursor: text;
   max-height: 2.25rem;
-  // overflow: hidden;
   z-index: 10;
   &.is-focused {
-    // box-shadow: 0 0 0 1px $ibm-color__cool-gray-50;
+    box-shadow: unset;
     transition: max-height 0.6s ease-out;
     height: auto;
     overflow: visible;
@@ -714,7 +714,7 @@ span {
   border-radius: 1.5rem;
   border-color: transparent;
   transition: all 0.6s ease-out;
-  margin: 0.5rem 0.5rem 0.5rem 0rem;
+  // margin: 0.5rem 0.5rem 0.5rem 0rem;
   height: 1.25rem;
   width: max-content;
 
@@ -750,7 +750,7 @@ span {
   border-radius: 1.5rem;
   border-color: transparent;
   transition: all 0.6s ease-out;
-  margin: 0.5rem 0.5rem 0.5rem 0rem;
+  // margin: 0.5rem 0.5rem 0.5rem 0rem;
   height: 1.25rem;
   width: max-content;
   /* match the font styles */
@@ -855,6 +855,22 @@ span {
 
   &:hover {
     background: white;
+  }
+}
+
+/***********************
+    SIDECAR STYLING
+************************/
+
+.kui--sidecar {
+  .kui--sidecar-tabs-container {
+    .sidecar-content-container {
+      .bx--tile-related {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-gap: 0.2rem;
+      }
+    }
   }
 }
 
