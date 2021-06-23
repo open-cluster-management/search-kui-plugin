@@ -76,9 +76,8 @@ export const doSearch = (args): any | NavResponse => {
 
     const buildTable = (data: any) => {
       const node = document.createElement('div', { is: 'react-entry-point' })
-      node.classList.add('search-kui-plugin')
       data.items.length > 0 ? renderReact(data, node, command) : node.appendChild(resourceNotFound())
-      return renderReact(data, node, command)
+      return renderReact(data, node, command, 'search-kui-plugin')
     }
 
     HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
