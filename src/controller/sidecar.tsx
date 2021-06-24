@@ -13,7 +13,7 @@
 import { convertStringToQuery } from '../util/search-helper';
 import * as lodash from 'lodash';
 import HTTPClient from './HTTPClient';
-import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY, GET_CLUSTER } from '../definitions/search-queries';
+import { SEARCH_ACM_QUERY, SEARCH_RELATED_QUERY } from '../definitions/search-queries';
 import { summaryTab } from '../views/modes/summary';
 import { yamlTab } from '../views/modes/yaml';
 import { relatedTab } from '../views/modes/related';
@@ -44,10 +44,8 @@ export const buildSidecar = (type: string, data: any, resource?: any, cmd?: any)
       modes.push(logTab(data.items[0]))
     }
 
-    // If the sidecar was able to return a yaml object, add the YAML tab. (For cluster resource, use metadata for YAML)
-    if (kind === 'cluster' && lodash.get(resource, '[0].metadata', '')) {
-      modes.push(yamlTab(resource))
-    } else if (!lodash.get(resource, 'errors', '') && lodash.get(data, 'getResource', '') === '') {
+    // If the sidecar was able to return a yaml object, add the YAML tab.
+    if (!lodash.get(resource, 'errors', '') && lodash.get(data, 'getResource', '') === '' && kind !== 'cluster') {
       modes.push(yamlTab(resource, data, cmd))
     }
   }
@@ -89,12 +87,12 @@ export const getSidecar = async (args) => new Promise((resolve) => {
       resolve(resourceNotFound())
     }
 
-    const query = { default: SEARCH_ACM_QUERY(data.items[0]), cluster: GET_CLUSTER() }
-
     if (args.command.includes('--related')) {
       resolve(buildSidecar('query', data))
+    } else if (kind === 'cluster') {
+      resolve(buildSidecar('resource', data))
     } else {
-      HTTPClient('post', 'console', kind !== 'cluster' ? query['default'] : query['cluster'])
+      HTTPClient('post', 'console', SEARCH_ACM_QUERY(data.items[0]))
       .then((resp) => {
         let resource
 

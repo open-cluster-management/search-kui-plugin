@@ -15,12 +15,14 @@ import { StructuredListWrapper, StructuredListBody, StructuredListRow, Structure
 import { getCurrentTab } from '@kui-shell/core'
 import strings from '../../util/i18n'
 
-const handleEvent = (resource: any, cluster?:string, event?: any) => {
+const handleEvent = (resource: any, event?: any) => {
+  const clusters = lodash.get(resource, 'items', '').map((res) => res.cluster)
+
   if ((event && event.which === 13) || !event) {
     let command = `search kind:${lodash.get(resource, 'kind', '')} `
 
-    if (cluster && lodash.get(resource, 'kind', '') !== 'cluster') { // Include cluster name when returning the related data.
-      command += `cluster:${cluster} name:`
+    if (clusters && lodash.get(resource, 'kind', '') !== 'cluster') { // Include cluster name when returning the related data.
+      command += `cluster:${clusters.toString()} name:`
     } else {
       command += 'name:'
     }
@@ -41,7 +43,6 @@ export const buildRelated = (data: any, type?: string) => {
   node.classList.add('scrollable')
   node.classList.add(type !== 'query' ? 'bx--structured-list--summary' : 'bx--tile-related')
 
-  const cluster = lodash.get(data, 'items[0].cluster', '')
   const relatedResource = type !== 'query'
   ? () => {
     return(
@@ -49,7 +50,7 @@ export const buildRelated = (data: any, type?: string) => {
         <StructuredListBody>
           {data.map((row: any) => (
             <StructuredListRow key={`${row.kind}`} className='bx--structured-list-rowclick'>
-              <StructuredListCell tabIndex={0} onKeyPress={(e) => handleEvent(row, cluster, e)} onClick={() => handleEvent(row, cluster)}>
+              <StructuredListCell tabIndex={0} onKeyPress={(e) => handleEvent(row, e)} onClick={() => handleEvent(row)}>
               <span className='bx--structured-list-td-related-header'>{`${row.items.length}`}</span>
                   <br></br>
               <span className='bx--structured-list-td-body'>{`Related ${row.kind}`}</span>
@@ -66,8 +67,8 @@ export const buildRelated = (data: any, type?: string) => {
         <Button className={`${row.kind}-related-button`}
           tabIndex={0}
           key={row.kind}
-          onClick={() => handleEvent(row, cluster)}
-          onKeyPress={(e: any) => handleEvent(row, cluster, e)}
+          onClick={() => handleEvent(row)}
+          onKeyPress={(e: any) => handleEvent(row, e)}
           type="button"
         >
           <div className='bx--tile-container'>
