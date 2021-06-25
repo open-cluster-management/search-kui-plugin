@@ -60,7 +60,6 @@ export const doSavedSearch = args =>
         resolve(data.items.length > 0 ? buildTable(data) : resourceNotFound())
       })
       .catch(err => {
-        setPluginState('error', err)
         resolve(renderSearchAvailable())
       })
   })

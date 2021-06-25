@@ -50,11 +50,6 @@ describe('Search plugin state', () => {
     expect(pluginState.getPluginState().searchSchema).toMatchSnapshot()
   })
 
-  it('should set the error value', () => {
-    pluginState.setPluginState('error', 'Error: Connection timeout')
-    expect(pluginState.getPluginState().error).toMatchSnapshot()
-  })
-
   it('should get an updated plugin state', () => {
     expect(pluginState.getPluginState()).toMatchSnapshot()
   })
@@ -76,30 +71,6 @@ describe('Rendering search available', () => {
   const _  = search.renderSearchAvailable(true, undefined)
 
   expect(spy).toBeCalled()
-
-  it('should render that search is installed', () => {
-    pluginState.setPluginState('enabled', true)
-    pluginState.setPluginState('error', undefined)
-    expect(search.renderSearchAvailable(pluginState.getPluginState().enabled, pluginState.getPluginState().error)).toMatchSnapshot()
-  })
-
-  it('should render that search is installed, but is not available', () => {
-    pluginState.setPluginState('enabled', true)
-    pluginState.setPluginState('error', 'Error: Connection timeout')
-    expect(search.renderSearchAvailable(pluginState.getPluginState().enabled, pluginState.getPluginState().error)).toMatchSnapshot()
-  })
-
-  it('should render that search is not installed', () => {
-    pluginState.setPluginState('enabled', false)
-    pluginState.setPluginState('error', undefined)
-    expect(search.renderSearchAvailable(pluginState.getPluginState().enabled, pluginState.getPluginState().error)).toMatchSnapshot()
-  })
-
-  it('should render that there was an issue checking if search was installed', () => {
-    pluginState.setPluginState('enabled', false)
-    pluginState.setPluginState('error', 'Error: Connection timeout')
-    expect(search.renderSearchAvailable(pluginState.getPluginState().enabled, pluginState.getPluginState().error)).toMatchSnapshot()
-  })
 })
 
 describe('Search command', () => {
