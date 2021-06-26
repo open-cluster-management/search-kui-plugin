@@ -10,7 +10,7 @@
 * Contract with IBM Corp.
 *******************************************************************************/
 
-@import '../../../../../node_modules/carbon-components/scss/globals/scss/colors';
+@import 'carbon-components/scss/globals/scss/colors';
 
 .repl-result {
   white-space: unset;
@@ -31,7 +31,7 @@
   .search-kui-plugin {
     font-family: 'RedHatText';
 
-    .search-resource {
+    .search--resource {
       display: flex;
       flex-direction: column;
 
@@ -510,6 +510,7 @@ span {
         }
 
         .bx--snippet {
+          color: var(--pf-global--Color--300);
           .bx--copy-btn {
             width: 18px;
             margin-right: 13px;
@@ -1001,10 +1002,31 @@ body {
   .bx--modal-container {
     background-color: var(--color-base02);
 
+    .bx--modal-header {
+      h2,
+      h3 {
+        color: var(--pf-global--palette--black-300);
+      }
+      .bx--modal-close {
+        svg {
+          fill: var(--pf-global--palette--black-300);
+        }
+      }
+    }
+
     .bx--action-share {
+      .copy-description {
+        color: var(--pf-global--palette--black-300);
+      }
       .bx--snippet {
         &.bx--snippet--single {
           color: var(--color-sidecar-background-01);
+
+          svg {
+            &.copy-btn {
+              fill: var((--color-sidecar-background-01));
+            }
+          }
         }
       }
     }
