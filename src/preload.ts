@@ -39,9 +39,6 @@ const registerCapability: CapabilityRegistration = async () => {
     .then(resp => {
       setPluginState('searchSchema', lodash.get(resp, 'data.searchSchema.allProperties', ''))
     })
-    .catch(err => {
-      setPluginState('error', err)
-    })
 }
 
 export default registerCapability

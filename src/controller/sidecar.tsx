@@ -81,7 +81,13 @@ export const getSidecar = async args =>
     }
 
     HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
-      .then(res => {
+      .then((res) => {
+        const err =  lodash.get(res, 'errors[0].message', '')
+
+        if (err) {
+          resolve(renderSearchAvailable(err))
+        }
+
         const data = lodash.get(res, 'data.searchResult[0]', '')
         const kind = lodash.get(data, 'items[0].kind', '')
 
@@ -106,14 +112,12 @@ export const getSidecar = async args =>
 
               resolve(buildSidecar('resource', data, resource, command))
             })
-            .catch(err => {
-              setPluginState('error', err)
+            .catch(() => {
               resolve(renderSearchAvailable())
             })
         }
       })
-      .catch(err => {
-        setPluginState('error', err)
+      .catch(() => {
         resolve(renderSearchAvailable())
       })
   })

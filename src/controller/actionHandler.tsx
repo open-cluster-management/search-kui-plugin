@@ -26,7 +26,6 @@ import HTTPClient from './HTTPClient'
 import lodash from 'lodash'
 import strings from '../util/i18n'
 import { DELETE_RESOURCE, DELETE_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
-import { setPluginState } from '../pluginState'
 import { renderSearchAvailable } from './search'
 
 export const deleteSavedSearch = args =>
@@ -60,14 +59,12 @@ export const deleteSavedSearch = args =>
                 resolve(resp.errors[0])
               }
             })
-            .catch(err => {
-              setPluginState('error', err)
+            .catch(() => {
               resolve(renderSearchAvailable())
             })
         }
       })
-      .catch(err => {
-        setPluginState('error', err)
+      .catch(() => {
         resolve(renderSearchAvailable())
       })
   })
@@ -92,7 +89,6 @@ export const deleteResource = args =>
         }
       })
       .catch(err => {
-        setPluginState('error', err)
         resolve(renderSearchAvailable())
       })
   })

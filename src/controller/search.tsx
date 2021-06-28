@@ -21,18 +21,20 @@ import { usage } from './helpfiles/searchhelp'
 import { SEARCH_RELATED_QUERY } from '../definitions/search-queries'
 import { getSidecar } from './sidecar'
 import strings from '../util/i18n'
-import { getPluginState, setPluginState, resourceNotFound } from '../pluginState'
+import { getPluginState, resourceNotFound } from '../pluginState'
 import Modal from '../components/Modal'
 import { searchDelete } from './actionHandler'
+import * as lodash from 'lodash'
 
-export const renderSearchAvailable = () => {
+export const renderSearchAvailable = (err?) => {
   const node = document.createElement('div')
   node.classList.add('is-search-available')
+
   const status = () => {
     return (
       <div>
         <p>
-          <span className="oops">{strings('search.service.installed.error')}</span>
+          <span className="oops">{err ? err : strings('search.service.installed.error')}</span>
         </p>
       </div>
     )
@@ -82,10 +84,13 @@ export const doSearch = (args): any | NavResponse => {
 
     HTTPClient('post', 'search', SEARCH_RELATED_QUERY(userQuery.keywords, userQuery.filters))
       .then(res => {
+        const err = lodash.get(res, 'errors[0].message')
+        if (err) {
+          resolve(renderSearchAvailable(err))
+        }
         resolve(buildTable(res.data.searchResult[0]))
       })
-      .catch(err => {
-        setPluginState('error', err)
+      .catch((err) => {
         resolve(renderSearchAvailable())
       })
   })
