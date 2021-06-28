@@ -79,7 +79,7 @@ jobs:
 
     - stage: publish
       name: "Publish the plugin"
-      if: (branch = master) AND (type = push)
+      if: (branch = release-2.2) AND (type = push)
       os: linux
       language: node_js
       node_js:
@@ -98,4 +98,4 @@ jobs:
         script: "npx semantic-release"
         skip_cleanup: true
         on:
-          branch: master
+          branch: release-2.2
