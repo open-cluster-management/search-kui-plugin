@@ -196,6 +196,7 @@ npm run test:unit
 ## Trigger a release
 
 To trigger a new release you must push a commit of type `fix` or `release`
+
 ```bash
 npm run commit
 ```
