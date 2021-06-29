@@ -106,9 +106,12 @@
 	},
 	"release": {
 		"branches": [
-      "main",
-      "release-2.2"
-    ],
+			"main",
+			{
+				"name": "release-2.2",
+				"range": "2.2.x"
+			}
+		],
 		"plugins": [
 			[
 				"@semantic-release/github",
