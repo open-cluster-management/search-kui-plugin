@@ -16,7 +16,8 @@ import { getCurrentTab } from '@kui-shell/core'
 import strings from '../../util/i18n'
 
 const handleEvent = (resource: any, event?: any) => {
-  const clusters = lodash.get(resource, 'items', '').map((res) => res.cluster)
+  var clusters = lodash.get(resource, 'items', '').map((res) => res.cluster)
+  clusters = clusters.filter((c, index) => clusters.indexOf(c) === index)
 
   if ((event && event.which === 13) || !event) {
     let command = `search kind:${lodash.get(resource, 'kind', '')} `
