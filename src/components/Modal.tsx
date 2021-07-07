@@ -16,7 +16,7 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(window, 'navigator', { value: { userAgent: 'node' }, writable: true })
   Object.defineProperty(document, 'getElementById', {
     value: (val: string) => document.querySelector('#' + val),
-    writable: true
+    writable: true,
   })
 }
 
@@ -28,13 +28,17 @@ import { Copy24 } from '@carbon/icons-react'
 import { ModalProps, ModalState } from '../model/Modal'
 import strings from '../util/i18n'
 import HTTPClient from '../controller/HTTPClient'
-import { SAVE_SEARCH, SEARCH_RELATED_QUERY, SAVED_SEARCH_QUERY } from '../definitions/search-queries'
+import {
+  SAVE_SEARCH,
+  SEARCH_RELATED_QUERY,
+  SAVED_SEARCH_QUERY,
+} from '../definitions/search-queries'
 import { convertStringToQuery } from '../util/search-helper'
 
 export default class ResourceModal extends React.PureComponent<ModalProps, ModalState> {
   static propTypes = {
     item: PropTypes.object,
-    modalOpen: PropTypes.bool
+    modalOpen: PropTypes.bool,
   }
 
   originalInput = false
@@ -45,7 +49,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
       description: '',
       name: '',
       errors: null,
-      open: true // This open state will be used to open and close the modal for saving search queries.
+      open: true, // This open state will be used to open and close the modal for saving search queries.
     }
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
@@ -76,7 +80,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
       name: this.state.name,
       description: this.state.description,
       searchText: item['searchText'],
-      id: item['id']
+      id: item['id'],
     }
 
     if (!this.state.errors) {
@@ -98,7 +102,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
       name: this.state.name,
       description: this.state.description,
       searchText: this.props.item['command'].replace(/search|--save/g, '').trim(),
-      id
+      id,
     }
     console.log('data', data)
 
@@ -153,6 +157,10 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
     this.setState({ description: event.target.value })
   }
 
+  handleMouseDown(event) {
+    event.stopPropagation()
+  }
+
   render() {
     const { item, modalOpen } = this.props
     const bodyLabel = item['kind']
@@ -182,7 +190,9 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
         id="remove-resource-modal"
         open={this.props.action !== 'save' ? modalOpen : this.state.open}
         primaryButtonText={
-          this.props.action === 'remove' ? strings('modal.remove-kuberesource.heading') : strings('actions.save')
+          this.props.action === 'remove'
+            ? strings('modal.remove-kuberesource.heading')
+            : strings('actions.save')
         }
         // selectorPrimaryFocus={'data-modal-primary-focus'}
         primaryButtonDisabled={
@@ -195,7 +205,9 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
         secondaryButtonText={strings('modal.button.cancel')}
         modalLabel={bodyLabel ? bodyLabel.toUpperCase() : undefined}
         modalHeading={heading}
-        onRequestClose={() => (this.props.action !== 'save' ? this.props.onClose() : this.setState({ open: false }))}
+        onRequestClose={() =>
+          this.props.action !== 'save' ? this.props.onClose() : this.setState({ open: false })
+        }
         onRequestSubmit={() =>
           this.props.action === 'remove'
             ? this.handleDelete()
@@ -207,9 +219,14 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
       >
         {this.props.action === 'edit' || this.props.action === 'save' ? (
           <div className="bx--action-edit">
-            {this.props.action === 'save' ? <p className="save-text">{strings('modal.save.text')}</p> : null}
-            {this.state.errors ? <p className="oops save-text-error">{strings(this.state.errors)}</p> : null}
+            {this.props.action === 'save' ? (
+              <p className="save-text">{strings('modal.save.text')}</p>
+            ) : null}
+            {this.state.errors ? (
+              <p className="oops save-text-error">{strings(this.state.errors)}</p>
+            ) : null}
             <TextInput
+              onMouseDown={this.handleMouseDown}
               data-modal-primary-focus
               className={'bx--action-name'}
               disabled={false}
@@ -222,6 +239,7 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
               placeholder={strings('modal.query.add.name')}
             />
             <TextArea
+              onMouseDown={this.handleMouseDown}
               className={'bx--action-description'}
               disabled={false}
               id={'description'}
@@ -238,9 +256,9 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
             <p className="copy-description">{strings('modal.query.share.name.label')}</p>
             <div className="bx--snippet bx--snippet--single">
               {inBrowser()
-                ? `${window && 
-                    window.location &&
-                    window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(
+                ? `${
+                    window && window.location && window.location.origin
+                  }/multicloud/search?filters={"textsearch":"${encodeURIComponent(
                     this.props.item['searchText']
                   )}"}`
                 : `search ${this.props.item['searchText']}`}
@@ -250,9 +268,9 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
                 onClick={() =>
                   navigator.clipboard.writeText(
                     inBrowser()
-                      ? `${window &&
-                        window.location && 
-                        window.location.origin}/multicloud/search?filters={"textsearch":"${encodeURIComponent(
+                      ? `${
+                          window && window.location && window.location.origin
+                        }/multicloud/search?filters={"textsearch":"${encodeURIComponent(
                           this.props.item['searchText']
                         )}"}`
                       : `search ${this.props.item['searchText']}`
@@ -264,7 +282,9 @@ export default class ResourceModal extends React.PureComponent<ModalProps, Modal
             </div>
           </div>
         ) : null}
-        {this.props.action === 'remove' ? <p>{strings('modal.remove.confirm', [item['name']])}</p> : null}
+        {this.props.action === 'remove' ? (
+          <p>{strings('modal.remove.confirm', [item['name']])}</p>
+        ) : null}
       </Modal>
     )
   }
