@@ -134,14 +134,14 @@ export function usage(args?): NavResponse {
           {
             mode: strings('validation.introduction'),
             content: getIntroduction(sections.introduction.headers),
-            contentType
+            contentType,
           },
           {
             mode: strings('validation.option'),
             content: getTableContent(sections.options),
-            contentType
+            contentType,
           },
-        ]
+        ],
       },
       {
         label: strings('validation.commands'),
@@ -149,13 +149,16 @@ export function usage(args?): NavResponse {
           {
             mode: `${strings('validation.basic')} (${strings('validation.beginner')})`,
             content: getTableContent(sections.commands),
-            contentType
-          }
-        ]
+            contentType,
+          },
+        ],
       },
     ],
     links: [
-      { label: strings('validation.more.information'), href: 'https://github.com/open-cluster-management/rhacm-docs/blob/doc_stage/console/vwt_search.md#searching-with-visual-web-terminal' }
-    ]
+      {
+        label: strings('validation.more.information'),
+        href: 'https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.3/html-single/web_console/index?lb_target=production#searching-with-visual-web-terminal',
+      },
+    ],
   }
 }
