@@ -16,7 +16,7 @@ if (!window || !window.navigator || !window.navigator.userAgent) {
   Object.defineProperty(window, 'navigator', { value: { userAgent: 'node' }, writable: true })
   Object.defineProperty(document, 'getElementById', {
     value: (val: string) => document.querySelector('#' + val),
-    writable: true
+    writable: true,
   })
 }
 
@@ -40,7 +40,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
     collapseTable: PropTypes.bool,
     expandFullPage: PropTypes.bool,
     items: PropTypes.array,
-    kind: PropTypes.string
+    kind: PropTypes.string,
   }
 
   tabHeaders = ['name', 'action', 'share', 'edit']
@@ -55,7 +55,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
       sortDirection: 'asc',
       selectedKey: '',
       modalOpen: false,
-      collapse: false
+      collapse: false,
     }
 
     this.getHeaders = this.getHeaders.bind(this)
@@ -65,7 +65,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      collapse: nextProps.collapseTable
+      collapse: nextProps.collapseTable,
     })
   }
 
@@ -80,7 +80,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
     const resource = tableDefinitions[kind] || tableDefinitions['genericresource']
     const headers = resource.columns.map(col => ({
       key: col.key,
-      header: strings(`table.header.${col.msgKey || col.key}`)
+      header: strings(`table.header.${col.msgKey || col.key}`),
     }))
     headers.push({ key: 'action', header: '' })
 
@@ -121,7 +121,9 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
         row.action = (
           <Delete16
             className="table-action"
-            onClick={() => this.setState({ itemForAction: item, modalOpen: true, action: 'remove' })}
+            onClick={() =>
+              this.setState({ itemForAction: item, modalOpen: true, action: 'remove' })
+            }
           />
         )
 
@@ -129,14 +131,18 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
           row['share'] = (
             <Share16
               className="table-action"
-              onClick={() => this.setState({ itemForAction: item, modalOpen: true, action: 'share' })}
+              onClick={() =>
+                this.setState({ itemForAction: item, modalOpen: true, action: 'share' })
+              }
             />
           )
 
           row['edit'] = (
             <Edit16
               className="table-action"
-              onClick={() => this.setState({ itemForAction: item, modalOpen: true, action: 'edit' })}
+              onClick={() =>
+                this.setState({ itemForAction: item, modalOpen: true, action: 'edit' })
+              }
             />
           )
         }
@@ -155,28 +161,30 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
 
   handleEvent = (row, cell, e?) => {
     if ((e && e.which === 13) || !e) {
-      const item = this.props.items.filter(data => data['name'] === lodash.get(row, '[0].value', ''))
+      const item = this.props.items.filter(
+        data => data['name'] === lodash.get(row, '[0].value', '')
+      )
 
       switch (cell.info['header']) {
         case 'action':
           this.setState({
             itemForAction: lodash.get(item, '[0]', ''),
             modalOpen: true,
-            action: 'remove'
+            action: 'remove',
           })
           break
         case 'edit':
           this.setState({
             itemForAction: lodash.get(item, '[0]', ''),
             modalOpen: true,
-            action: 'edit'
+            action: 'edit',
           })
           break
         case 'share':
           this.setState({
             itemForAction: lodash.get(item, '[0]', ''),
             modalOpen: true,
-            action: 'share'
+            action: 'share',
           })
           break
         default:
@@ -212,6 +220,10 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
     }
   }
 
+  handleMouseDown(event) {
+    event.stopPropagation()
+  }
+
   render() {
     const { page, pageSize, sortDirection, selectedKey, modalOpen, collapse } = this.state
     const totalItems = this.props.items.length
@@ -221,9 +233,20 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
       <React.Fragment>
         <div className={'search--resource-table-header'}>
           <div>
-            <button onClick={this.toggleCollapseTable} className={'search--resource-table-header-button'}>
-              {<span className={'linked-resources'}>{`${this.props.kind}(${this.props.items.length})`}</span>}
-              {!collapse ? <span className={'arrow-up'}>&#9650;</span> : <span className={'arrow-down'}>&#9660;</span>}
+            <button
+              onClick={this.toggleCollapseTable}
+              className={'search--resource-table-header-button'}
+            >
+              {
+                <span
+                  className={'linked-resources'}
+                >{`${this.props.kind}(${this.props.items.length})`}</span>
+              }
+              {!collapse ? (
+                <span className={'arrow-up'}>&#9650;</span>
+              ) : (
+                <span className={'arrow-down'}>&#9660;</span>
+              )}
             </button>
           </div>
         </div>
@@ -251,7 +274,11 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
                                 <span className="bx--table-header-label">
                                   {header.header}
                                   <span className={'arrow-header-label'}>
-                                    {this.state.sortDirection === 'asc' ? <span>&#9650;</span> : <span>&#9660;</span>}
+                                    {this.state.sortDirection === 'asc' ? (
+                                      <span>&#9650;</span>
+                                    ) : (
+                                      <span>&#9660;</span>
+                                    )}
                                   </span>
                                 </span>
                               </div>
@@ -274,8 +301,10 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
                                 cell.value
                               ) : (
                                 <div>
-                                  {// If the resource contains a status, add a status icon to that column in the table.
-                                  getStatusIcon(cell.value)}
+                                  {
+                                    // If the resource contains a status, add a status icon to that column in the table.
+                                    getStatusIcon(cell.value)
+                                  }
                                   <span className={`status-name`}>{`${cell.value}`}</span>
                                 </div>
                               )}
@@ -291,6 +320,7 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
 
             {this.props.items.length > PAGE_SIZES.DEFAULT ? (
               <Pagination
+                onMouseDown={this.handleMouseDown}
                 key="resource-table-pagination"
                 id="resource-table-pagination"
                 onChange={pagination => this.setState(pagination)}
@@ -301,11 +331,14 @@ export default class ResourceTable extends React.PureComponent<TableProps, Table
                 // disabled={pageSize >= totalItems}
                 isLastPage={pageSize >= totalItems}
                 itemsPerPageText={strings('pagination.itemsPerPage')}
-                pageRangeText={(current, total) => strings('pagination.pageRange', [current, total])}
+                pageRangeText={(current, total) =>
+                  strings('pagination.pageRange', [current, total])
+                }
                 itemRangeText={(min, max, total) =>
-                  `${strings('pagination.itemRange', [min, max])} ${strings('pagination.itemRangeDescription', [
-                    total
-                  ])}`
+                  `${strings('pagination.itemRange', [min, max])} ${strings(
+                    'pagination.itemRangeDescription',
+                    [total]
+                  )}`
                 }
                 pageInputDisabled={pageSize >= totalItems}
               />
