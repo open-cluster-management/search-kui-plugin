@@ -29,8 +29,8 @@ if [ "${ACCEPT}" != "y" ]; then
   exit 0
 fi
 
-format_title "Step 1: Clone IBM/Kui monorepo and move search-plugin into plugins folder"
-git clone git@github.com:IBM/kui.git
+format_title "Step 1: Clone Kui monorepo and move search-plugin into plugins folder"
+git clone git@github.com:kubernetes-sigs/kui.git
 mv search-kui-plugin kui/plugins/plugin-search
 cd kui/
 npm i

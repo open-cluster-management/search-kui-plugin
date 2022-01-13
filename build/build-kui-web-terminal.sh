@@ -13,7 +13,7 @@
 
 set -e
 
-git clone --depth=50 https://github.com/open-cluster-management/kui-web-terminal.git
+git clone --depth=50 https://github.com/stolostron/kui-web-terminal.git
 cd kui-web-terminal/
 
 make init
