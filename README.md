@@ -1,8 +1,8 @@
 # search-kui-plugin
 
-[![Build Status](https://travis-ci.com/open-cluster-management/search-kui-plugin.svg?token=jzyyzQmWYBEu33MCMh9p&branch=master)](https://travis-ci.com/open-cluster-management/search-kui-plugin)
+[![Build Status](https://travis-ci.com/stolostron/search-kui-plugin.svg?token=jzyyzQmWYBEu33MCMh9p&branch=master)](https://travis-ci.com/stolostron/search-kui-plugin)
 
-Adds Search capabilities to [KUI Web Terminal](https://github.com/open-cluster-management/kui-web-terminal).
+Adds Search capabilities to [KUI Web Terminal](https://github.com/stolostron/kui-web-terminal).
 
 ## Development
 
@@ -16,14 +16,14 @@ Setup development environment with automated script.
 <details><summary>Setup Development environment manually</summary>
 <p>
 
-Clone the [IBM Kui](https://github.com/IBM/kui) repository.
+Clone the [Kui](https://github.com/kubernetes-sigs/kui) repository.
 
 ```bash
 git clone git@github.com:IBM/kui.git
 cd kui/
 ```
 
-To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [IBM Kui](https://github.com/IBM/kui) repo. It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
+To activate this plugin, copy this repository into the `plugins/` directory in the top-level of the [Kui](https://github.com/kubernetes-sigs/kui) repo. It's a KUI requirement that individual plugin directories be named with the `plugin-` prefix (in this case:  `plugin-search`).
 
 ```bash
 .
