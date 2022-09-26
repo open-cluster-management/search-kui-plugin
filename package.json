@@ -83,7 +83,7 @@
     "jest-enzyme": "^7.1.2",
     "jest-sonar-reporter": "^2.0.0",
     "jest-tap-reporter": "^1.9.0",
-    "nightwatch": "^1.4.2",
+    "nightwatch": "^1.7.13",
     "regenerator-runtime": "^0.13.7",
     "sass": "^1.26.10",
     "semantic-release": "^17.4.2",
