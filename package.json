@@ -39,7 +39,7 @@
     "test:safari": "nightwatch ./build-tools/tests/e2e -e safari"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^1.6.8",
     "graphql": "^14.7.0",
     "lodash": "^4.17.20",
     "moment": "^2.28.0",
